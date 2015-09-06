@@ -85,6 +85,12 @@
       <DependentUpon>BS_Vertices.cs</DependentUpon>
     </Compile>
     <Compile Include="GF_enviro.cs" />
+    <Compile Include="Parser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Parser.Designer.cs">
+      <DependentUpon>Parser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Rail.cs" />
     <Compile Include="RosettaStone\CharTable_provider.cs" />
     <Compile Include="RosettaStone\RosettaStone.cs">
@@ -113,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Parser.resx">
+      <DependentUpon>Parser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

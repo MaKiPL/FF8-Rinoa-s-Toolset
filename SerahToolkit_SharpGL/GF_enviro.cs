@@ -7,6 +7,10 @@ namespace SerahToolkit_SharpGL
     class GF_enviro
     {
         //MODELS ARE UPSIDE DOWN XZY ?
+        //Mag005_01 uses other format... 
+        //mag201 ??
+        //mag205 To research 
+
 
 
         private string _path;
@@ -54,7 +58,7 @@ namespace SerahToolkit_SharpGL
                 return true;
         }
 
-        public uint[] PopulateOffsets()
+        public int[] PopulateOffsets()
         {
             pointer = BitConverter.ToUInt32(_file, EnviroOffset);
             UInt32 Count = BitConverter.ToUInt32(_file, (int)pointer);
@@ -63,11 +67,22 @@ namespace SerahToolkit_SharpGL
             {
                 uint temp = BitConverter.ToUInt32(_file,  4 + (i*4) + (int)pointer);
                 if (temp == 0)
-                    subOffsets[i] = subOffsets[i - 1];
+                    subOffsets[i] = 0;
                 else
                     subOffsets[i] = temp;
             }
-            return subOffsets;
+
+            List<int> safeList = new List<int>();
+            foreach (int a in subOffsets)
+            {
+                if (a != 0) 
+                    safeList.Add(a);
+            }
+            
+
+            return safeList.ToArray();
+
+
         }
 
         public void ProcessGF(int offset)

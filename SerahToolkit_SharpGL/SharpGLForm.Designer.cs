@@ -54,11 +54,14 @@
             this.ultiMemHackBuildYourOwnTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ultimateHackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedAnalyzeToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smartSearcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cFF8SearcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wireframeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,9 +87,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -212,6 +212,7 @@
             this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
             this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.oBJToFF8ParserToolStripMenuItem.Text = "OBJ to FF8 parser (beta)";
+            this.oBJToFF8ParserToolStripMenuItem.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem_Click);
             // 
             // worldMapToolStripMenuItem
             // 
@@ -322,6 +323,21 @@
             this.ultimateHackerToolStripMenuItem.Size = new System.Drawing.Size(154, 20);
             this.ultimateHackerToolStripMenuItem.Text = "Ultimate FF8 mem hacker";
             // 
+            // gFToolStripMenuItem
+            // 
+            this.gFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.environmentToolStripMenuItem});
+            this.gFToolStripMenuItem.Name = "gFToolStripMenuItem";
+            this.gFToolStripMenuItem.Size = new System.Drawing.Size(33, 20);
+            this.gFToolStripMenuItem.Text = "GF";
+            // 
+            // environmentToolStripMenuItem
+            // 
+            this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.environmentToolStripMenuItem.Text = "Environment";
+            this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
+            // 
             // sceneoutToolStripMenuItem
             // 
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -359,6 +375,12 @@
             this.cFF8SearcherToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.cFF8SearcherToolStripMenuItem.Text = "C:\\\\FF8 searcher";
             this.cFF8SearcherToolStripMenuItem.Click += new System.EventHandler(this.cFF8SearcherToolStripMenuItem_Click);
+            // 
+            // rosettaStonetextDecypherToolStripMenuItem
+            // 
+            this.rosettaStonetextDecypherToolStripMenuItem.Name = "rosettaStonetextDecypherToolStripMenuItem";
+            this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.rosettaStonetextDecypherToolStripMenuItem.Text = "Rosetta stone (text decypher)";
             // 
             // aboutToolStripMenuItem
             // 
@@ -590,27 +612,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(236, 261);
             this.panel2.TabIndex = 21;
-            // 
-            // rosettaStonetextDecypherToolStripMenuItem
-            // 
-            this.rosettaStonetextDecypherToolStripMenuItem.Name = "rosettaStonetextDecypherToolStripMenuItem";
-            this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.rosettaStonetextDecypherToolStripMenuItem.Text = "Rosetta stone (text decypher)";
-            // 
-            // gFToolStripMenuItem
-            // 
-            this.gFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.environmentToolStripMenuItem});
-            this.gFToolStripMenuItem.Name = "gFToolStripMenuItem";
-            this.gFToolStripMenuItem.Size = new System.Drawing.Size(33, 20);
-            this.gFToolStripMenuItem.Text = "GF";
-            // 
-            // environmentToolStripMenuItem
-            // 
-            this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.environmentToolStripMenuItem.Text = "Environment";
-            this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
             // 
             // SharpGLForm
             // 
