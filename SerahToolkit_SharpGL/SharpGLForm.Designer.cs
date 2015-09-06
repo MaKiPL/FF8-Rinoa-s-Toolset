@@ -54,7 +54,6 @@
             this.ultiMemHackBuildYourOwnTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ultimateHackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedAnalyzeToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,6 +84,9 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -121,7 +123,7 @@
             this.worldMapObjectToolStripMenuItem,
             this.railobjToolStripMenuItem,
             this.ultimateHackerToolStripMenuItem,
-            this.rosettaStonetextDecypherToolStripMenuItem,
+            this.gFToolStripMenuItem,
             this.sceneoutToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.displayToolStripMenuItem});
@@ -144,7 +146,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -155,7 +157,7 @@
             this.convertToOBJToolStripMenuItem});
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -180,7 +182,7 @@
             this.oBJToFF8ParserToolStripMenuItem});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -207,7 +209,6 @@
             // 
             // oBJToFF8ParserToolStripMenuItem
             // 
-            this.oBJToFF8ParserToolStripMenuItem.Enabled = false;
             this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
             this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.oBJToFF8ParserToolStripMenuItem.Text = "OBJ to FF8 parser (beta)";
@@ -321,18 +322,12 @@
             this.ultimateHackerToolStripMenuItem.Size = new System.Drawing.Size(154, 20);
             this.ultimateHackerToolStripMenuItem.Text = "Ultimate FF8 mem hacker";
             // 
-            // rosettaStonetextDecypherToolStripMenuItem
-            // 
-            this.rosettaStonetextDecypherToolStripMenuItem.Name = "rosettaStonetextDecypherToolStripMenuItem";
-            this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(172, 20);
-            this.rosettaStonetextDecypherToolStripMenuItem.Text = "Rosetta stone (text decypher)";
-            this.rosettaStonetextDecypherToolStripMenuItem.Click += new System.EventHandler(this.rosettaStonetextDecypherToolStripMenuItem_Click);
-            // 
             // sceneoutToolStripMenuItem
             // 
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sceneoutEditorToolStripMenuItem,
-            this.advancedAnalyzeToolsToolStripMenuItem});
+            this.advancedAnalyzeToolsToolStripMenuItem,
+            this.rosettaStonetextDecypherToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
             this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
@@ -340,7 +335,7 @@
             // sceneoutEditorToolStripMenuItem
             // 
             this.sceneoutEditorToolStripMenuItem.Name = "sceneoutEditorToolStripMenuItem";
-            this.sceneoutEditorToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.sceneoutEditorToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.sceneoutEditorToolStripMenuItem.Text = "Scene.out editor";
             // 
             // advancedAnalyzeToolsToolStripMenuItem
@@ -349,7 +344,7 @@
             this.smartSearcherToolStripMenuItem,
             this.cFF8SearcherToolStripMenuItem});
             this.advancedAnalyzeToolsToolStripMenuItem.Name = "advancedAnalyzeToolsToolStripMenuItem";
-            this.advancedAnalyzeToolsToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.advancedAnalyzeToolsToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.advancedAnalyzeToolsToolStripMenuItem.Text = "Advanced analyze tools";
             // 
             // smartSearcherToolStripMenuItem
@@ -596,6 +591,27 @@
             this.panel2.Size = new System.Drawing.Size(236, 261);
             this.panel2.TabIndex = 21;
             // 
+            // rosettaStonetextDecypherToolStripMenuItem
+            // 
+            this.rosettaStonetextDecypherToolStripMenuItem.Name = "rosettaStonetextDecypherToolStripMenuItem";
+            this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.rosettaStonetextDecypherToolStripMenuItem.Text = "Rosetta stone (text decypher)";
+            // 
+            // gFToolStripMenuItem
+            // 
+            this.gFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.environmentToolStripMenuItem});
+            this.gFToolStripMenuItem.Name = "gFToolStripMenuItem";
+            this.gFToolStripMenuItem.Size = new System.Drawing.Size(33, 20);
+            this.gFToolStripMenuItem.Text = "GF";
+            // 
+            // environmentToolStripMenuItem
+            // 
+            this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.environmentToolStripMenuItem.Text = "Environment";
+            this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
+            // 
             // SharpGLForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -682,7 +698,6 @@
         private System.Windows.Forms.ToolStripMenuItem ultiMemHackBuildYourOwnTrackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sceneoutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rosettaStonetextDecypherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unpackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openUnpackedOffsetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sectionXToolStripMenuItem;
@@ -693,6 +708,9 @@
         private System.Windows.Forms.ToolStripMenuItem cFF8SearcherToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ToolStripMenuItem gFToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem environmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rosettaStonetextDecypherToolStripMenuItem;
     }
 }
 

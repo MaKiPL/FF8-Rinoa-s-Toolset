@@ -29,10 +29,13 @@ namespace SerahToolkit_SharpGL
         private Bitmap bmp2;
         private int State;
 
+        private GF_enviro gf;
+
         private const int State_BattleStageUV = 0;
         private const int State_RailDraw = 1;
         private const int State_wmset = 2;
         private const int State_wmsetModel = 3;
+        private const int State_GFenviro = 4;
 
 
         OpenGL gl;
@@ -299,31 +302,26 @@ namespace SerahToolkit_SharpGL
             switch (State)
             {
                 case State_BattleStageUV:
-                    {
-                        BattleStage_listbox(false);
-                        break;
-                    }
+                    BattleStage_listbox(false);
+                    break;
                 case State_RailDraw:
-                    {
-                        Rail_listbox();
-                        break;
-                    }
+                    Rail_listbox();
+                    break;
                 case State_wmset:
-                    {
-                        WMSET_Listbox();
-                        break;
-                    }
+                    WMSET_Listbox();
+                    break;
                 case State_wmsetModel:
                     WMSETmod_listbox();
+                    break;
+                case State_GFenviro:
+                    GFLogic();
                     break;
                 default:
                     goto endofcode;
             }
 
 
-
-
-        endofcode:
+            endofcode:
             ;
         }
 
@@ -656,7 +654,7 @@ namespace SerahToolkit_SharpGL
             toolStripStatusLabel2.Text = status;
         }
 
-        private void State_Menu(int State)
+        private void State_Menu(int State) //?
         {
             switch (State)
             {
@@ -719,6 +717,33 @@ namespace SerahToolkit_SharpGL
         {
             toSingleOBJ tso = new toSingleOBJ(LastKnownPath, listBox1.Items.Count);
             tso.JustDoIt();
+        }
+
+        private void environmentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "GF Mag files mag*|mag*";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                gf = new GF_enviro(ofd.FileName);
+                LastKnownPath = ofd.FileName;
+                if (!gf.bValidHeader())
+                    MessageBox.Show("Bad file!");
+                else
+                {
+                    State = State_GFenviro;
+                    listBox1.Items.Clear();
+                    foreach (int a in gf.PopulateOffsets())
+                    {
+                        listBox1.Items.Add(a);
+                    }
+                }
+            }
+        }
+
+        private void GFLogic()
+        {
+            gf.ProcessGF((int)listBox1.Items[listBox1.SelectedIndex]);
         }
     }
 }

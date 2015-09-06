@@ -84,6 +84,7 @@
     <Compile Include="BS_Vertices.Designer.cs">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
     </Compile>
+    <Compile Include="GF_enviro.cs" />
     <Compile Include="Rail.cs" />
     <Compile Include="RosettaStone\CharTable_provider.cs" />
     <Compile Include="RosettaStone\RosettaStone.cs">
