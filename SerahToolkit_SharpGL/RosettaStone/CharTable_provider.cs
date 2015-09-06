@@ -6,7 +6,7 @@ using System.Text;
 namespace SerahToolkit_SharpGL.RosettaStone
 {
 
-
+    string[] charstable;
 
     class CharTable_provider
     {
@@ -15,7 +15,7 @@ namespace SerahToolkit_SharpGL.RosettaStone
 
         public CharTable_provider()
         {
-
+            charstable = chartable.Split(',');
         }
 
         public string[] Decipher(byte[] _in)
@@ -25,7 +25,6 @@ namespace SerahToolkit_SharpGL.RosettaStone
 
             String[] Process = new string[_in.Length];
             int index = 0;
-            string[] charstable = chartable.Split(',');
             foreach(var a in _in)
             {
                 //UInt16 _P = BitConverter.ToUInt16(_in, index);
