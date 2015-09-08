@@ -680,11 +680,11 @@ namespace SerahToolkit_SharpGL
 
         private void section1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            State = State_wmsetModel;
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "wmsetxx.obj/Sector16|wmset**.Section16";
             if(ofd.ShowDialog() == DialogResult.OK)
             {
+                State = State_wmsetModel;
                 wmset wmset = new wmset(ofd.FileName);
                 LastKnownPath = ofd.FileName;
                 UpdateSTATUS(LastKnownPath);
