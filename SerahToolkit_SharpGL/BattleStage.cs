@@ -162,7 +162,7 @@ namespace SerahToolkit_SharpGL
                 triangles = BitConverter.ToUInt16(Stage, AbsolutePolygon + 4 + (AbsolutePolygon % 4));
                 quads = BitConverter.ToUInt16(Stage, AbsolutePolygon + 6 + (AbsolutePolygon % 4));
 
-                if (triangles != 0 && quads != 0)
+                if (triangles != 0 && quads != 0)  //HEY!
                 {
                     Process_Step(true, off);
                     Process_Step(false, off);

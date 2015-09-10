@@ -261,7 +261,7 @@ namespace SerahToolkit_SharpGL
                 Buffer.BlockCopy(CLUT[numericUpDown1.Value],0,triangle,10,2); //CLUTid
                 Buffer.BlockCopy(BitConverter.GetBytes(U[Ct[i]-1]), 0, triangle, 12, 1); //U3
                 Buffer.BlockCopy(BitConverter.GetBytes(V[Ct[i]-1]), 0, triangle, 13, 1); //V3
-                Buffer.BlockCopy(BitConverter.GetBytes(TPage[A[i]-1]), 0, triangle, 14, 1); //TPAGE !!!!
+                Buffer.BlockCopy(BitConverter.GetBytes(TPage[At[i]-1]), 0, triangle, 14, 1); //TPAGE !!!!
                 //PASS bHide = 0, and triangle[15] is NULL (00);
                 triangle[16] = 0x80; triangle[17] = 0x80; triangle[18] = 0x80; // R G B
                 triangle[19] = 0x2c; //PSOne GPU
