@@ -756,5 +756,13 @@ namespace SerahToolkit_SharpGL
             Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]),pictureBox1.Image.Height,pictureBox1.Image.Width);
             parser.ShowDialog();
         }
+
+        private void aDMINMODEToolStripMenuItem_Click(object sender, EventArgs e)
+        {/*
+            foreach (var a in SharpGLForm.ActiveForm.Controls)
+            {
+                a.Enabled = true;
+            }*/
+        }
     }
 }

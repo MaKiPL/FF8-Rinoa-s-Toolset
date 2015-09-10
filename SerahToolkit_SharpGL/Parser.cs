@@ -23,6 +23,12 @@ namespace SerahToolkit_SharpGL
         private List<double> U_pixel; 
         private List<double> V;
         private List<double> V_pixel;
+        private List<UInt16> A;
+        private List<int> At;
+        private List<int> Bt;
+        private List<int> Ct; 
+        private List<UInt16> B;
+        private List<UInt16> C;   
 
         private int height; //Texture height for PAGE id calculation
         private int width; //As above
@@ -31,11 +37,10 @@ namespace SerahToolkit_SharpGL
         private byte[] verticesCount; //Count of vertices
         private byte[] TrianglesCount; //Count of triangles (polygons)
         private List<byte[]> Vertices; //All vertices byte
-        private List<byte[]> VT; //All VertexCoords bytes.
         private List<byte[]> Polygon; //All ready polygons FACE+VT  bytes
         private int[] TPage; 
 
-        private Dictionary<int, byte[]> CLUT = new Dictionary<int, byte[]>
+        private Dictionary<decimal, byte[]> CLUT = new Dictionary<decimal, byte[]>
         {
             { 0,new byte[] {0x00, 0x3C} },
             { 1,new byte[] {0x40, 0x3C} },
@@ -70,19 +75,23 @@ namespace SerahToolkit_SharpGL
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _file = File.ReadAllLines(ofd.FileName);
+                richTextBox1.Clear();
+                richTextBox1.AppendText("Opened: " + ofd.FileName);
                 Process();
             }
         }
 
         private void Process()
         {
-
+            
 
             //VERTICES
 
             X = new List<float>(); Y = new List<float>(); Z = new List<float>();
             U = new List<double>(); V = new List<double>();
             U_pixel = new List<double>(); V_pixel = new List<double>();
+            A = new List<ushort>(); B = new List<ushort>(); C = new List<ushort>();
+            At = new List<int>(); Bt = new List<int>(); Ct = new List<int>();
 
             foreach (var s in _file)
             {
@@ -103,9 +112,15 @@ namespace SerahToolkit_SharpGL
                 else if (s.StartsWith("f "))
                 {
                     string[] temp = s.Split(' '); // F[0] 1/1[1] 2/2[2] 3/3[3] 4/4[UNUSED]
-                    string[] A = temp[1].Split('/'); // A/T
-                    string[] B = temp[2].Split('/'); // B/T
-                    string[] C = temp[3].Split('/'); // C/T
+                    string[] Aa = temp[1].Split('/'); // A/T
+                    A.Add(UInt16.Parse(Aa[0]));
+                    At.Add(int.Parse(Aa[1]));
+                    string[] Bb = temp[2].Split('/'); // B/T
+                    B.Add(UInt16.Parse(Bb[0]));
+                    Bt.Add(int.Parse(Bb[1]));
+                    string[] Cc = temp[3].Split('/'); // C/T
+                    C.Add(UInt16.Parse(Cc[0]));
+                    Ct.Add(int.Parse(Cc[1]));
                 }
             }
             Vertices = new List<byte[]>();
@@ -113,6 +128,9 @@ namespace SerahToolkit_SharpGL
             UInt16 VertCount = Convert.ToUInt16(X.Count);
             verticesCount = new byte[2];
             verticesCount = BitConverter.GetBytes(VertCount);
+            richTextBox1.AppendText(Environment.NewLine + "Vertices: " + VertCount);
+            richTextBox1.AppendText(Environment.NewLine + "VT: " + U.Count);
+            richTextBox1.AppendText(Environment.NewLine + "Triangles: " + C.Count);
 
             for (int i = 0; i != X.Count; i++)
             {
@@ -163,6 +181,8 @@ namespace SerahToolkit_SharpGL
                 Vertices.Add(vertex);
 
             }
+
+            richTextBox1.AppendText(Environment.NewLine + "Vertices calculated and converted to FF8 format");
             /*
             FileStream fs = new FileStream(@"D:\testsegment.bin", FileMode.Append);
             foreach (byte[] b in Vertices)
@@ -199,7 +219,7 @@ namespace SerahToolkit_SharpGL
                     Parse 33 as V to byte and apply TPage=5
                     
     */
-                TPage= new int[U.Count];
+            TPage = new int[U.Count];
             for (int i = 0; i != U.Count; i++)
             {
                 U_pixel.Add(Math.Round(((U[i]*100.0d)*height)/100.0d));  //  ( (0.501953*100) * 256 ) / 100.0
@@ -216,16 +236,67 @@ namespace SerahToolkit_SharpGL
                 }
             }
 
-            
+            richTextBox1.AppendText(Environment.NewLine + "TPaging calculated and parsed");
+            richTextBox1.AppendText(Environment.NewLine + "Mapping was calculated and parsed");
 
             //Face Indices
 
-                //  Wing order:     U1/T2 U2/T3 U3/T1 
+            //  Wing order:     U1/T2 U2/T3 U3/T1 
+            // FACE - 1 REMEMBER
+            Polygon = new List<byte[]>();
+
+            UInt16 tempTrianglesCount = Convert.ToUInt16(A.Count);
+            TrianglesCount = BitConverter.GetBytes(tempTrianglesCount);
+
+            for (int i = 0; i != tempTrianglesCount; i++)
+            {
+                byte[] triangle = new byte[20];
+                Buffer.BlockCopy(BitConverter.GetBytes(A[i]-1),0,triangle,0,2); //A
+                Buffer.BlockCopy(BitConverter.GetBytes(B[i]-1), 0, triangle, 2, 2); //B
+                Buffer.BlockCopy(BitConverter.GetBytes(C[i]-1), 0, triangle, 4, 2); //C
+                Buffer.BlockCopy(BitConverter.GetBytes(U[At[i]-1]),0,triangle,6,1); //U1
+                Buffer.BlockCopy(BitConverter.GetBytes(V[At[i]-1]), 0, triangle, 7, 1); //V1
+                Buffer.BlockCopy(BitConverter.GetBytes(U[Bt[i]-1]), 0, triangle, 8, 1); //U2
+                Buffer.BlockCopy(BitConverter.GetBytes(V[Bt[i]-1]), 0, triangle, 9, 1); //V2
+                Buffer.BlockCopy(CLUT[numericUpDown1.Value],0,triangle,10,2); //CLUTid
+                Buffer.BlockCopy(BitConverter.GetBytes(U[Ct[i]-1]), 0, triangle, 12, 1); //U3
+                Buffer.BlockCopy(BitConverter.GetBytes(V[Ct[i]-1]), 0, triangle, 13, 1); //V3
+                Buffer.BlockCopy(BitConverter.GetBytes(TPage[A[i]-1]), 0, triangle, 14, 1); //TPAGE !!!!
+                //PASS bHide = 0, and triangle[15] is NULL (00);
+                triangle[16] = 0x80; triangle[17] = 0x80; triangle[18] = 0x80; // R G B
+                triangle[19] = 0x2c; //PSOne GPU
 
 
+                Polygon.Add(triangle);
+            }
+            richTextBox1.AppendText(Environment.NewLine + "Triangle data forged succesfully");
+            richTextBox1.AppendText(Environment.NewLine + "Preparing to save segment...");
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Segment file used to replace *.xBIN|*.xBIN";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                FileStream fs = new FileStream(sfd.FileName, FileMode.Append);
+                fs.Write(start, 0, start.Length);
+                fs.Write(verticesCount, 0, verticesCount.Length);
+                foreach (byte[] b in Vertices)
+                {
+                    fs.Write(b, 0, b.Length);
+                }
+                fs.Write(CalculatePadding(4), 0, CalculatePadding(4).Length); // <---- EDIT ME
+                fs.Write(TrianglesCount, 0, 2);
+                fs.Write(new byte[6], 0, 2); // NULL + padding
+                foreach (var variable in Polygon)
+                {
+                    fs.Write(variable, 0, 20);
+                }
+                richTextBox1.AppendText("Succesfully saved " + fs.Length.ToString() + " bytes.");
+                fs.Close();
+            }
+            else
+                richTextBox1.AppendText("Save segment failed");
         }
 
-        private byte[] CalculatePadding(int globalOffset)
+        public byte[] CalculatePadding(int globalOffset)
         {
             //Plus two
             //return new byte[] = {0x00} ??

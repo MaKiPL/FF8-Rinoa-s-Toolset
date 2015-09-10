@@ -39,6 +39,9 @@
             this.verticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textureEditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paletteEditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oBJToFF8ParserToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.oBJToFF8ParserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.parseVerticesForSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,9 +89,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.oBJToFF8ParserToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.parseVerticesForSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oBJToFF8ParserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aDMINMODEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -128,7 +129,8 @@
             this.gFToolStripMenuItem,
             this.sceneoutToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.displayToolStripMenuItem});
+            this.displayToolStripMenuItem,
+            this.aDMINMODEToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1046, 24);
@@ -148,7 +150,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -159,7 +161,7 @@
             this.convertToOBJToolStripMenuItem});
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -184,7 +186,7 @@
             this.oBJToFF8ParserToolStripMenuItem1});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -208,6 +210,29 @@
             this.paletteEditToolStripMenuItem.Name = "paletteEditToolStripMenuItem";
             this.paletteEditToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.paletteEditToolStripMenuItem.Text = "Palette edit";
+            // 
+            // oBJToFF8ParserToolStripMenuItem1
+            // 
+            this.oBJToFF8ParserToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.oBJToFF8ParserToolStripMenuItem,
+            this.parseVerticesForSegmentToolStripMenuItem});
+            this.oBJToFF8ParserToolStripMenuItem1.Name = "oBJToFF8ParserToolStripMenuItem1";
+            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
+            this.oBJToFF8ParserToolStripMenuItem1.Text = "OBJ to FF8 parser";
+            // 
+            // oBJToFF8ParserToolStripMenuItem
+            // 
+            this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
+            this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.oBJToFF8ParserToolStripMenuItem.Text = "Complete segment replacer (Beta)";
+            this.oBJToFF8ParserToolStripMenuItem.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem_Click_1);
+            // 
+            // parseVerticesForSegmentToolStripMenuItem
+            // 
+            this.parseVerticesForSegmentToolStripMenuItem.Name = "parseVerticesForSegmentToolStripMenuItem";
+            this.parseVerticesForSegmentToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.parseVerticesForSegmentToolStripMenuItem.Text = "Parse vertices for segment";
+            this.parseVerticesForSegmentToolStripMenuItem.Click += new System.EventHandler(this.parseVerticesForSegmentToolStripMenuItem_Click);
             // 
             // worldMapToolStripMenuItem
             // 
@@ -608,28 +633,12 @@
             this.panel2.Size = new System.Drawing.Size(236, 261);
             this.panel2.TabIndex = 21;
             // 
-            // oBJToFF8ParserToolStripMenuItem1
+            // aDMINMODEToolStripMenuItem
             // 
-            this.oBJToFF8ParserToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.oBJToFF8ParserToolStripMenuItem,
-            this.parseVerticesForSegmentToolStripMenuItem});
-            this.oBJToFF8ParserToolStripMenuItem1.Name = "oBJToFF8ParserToolStripMenuItem1";
-            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
-            this.oBJToFF8ParserToolStripMenuItem1.Text = "OBJ to FF8 parser";
-            // 
-            // parseVerticesForSegmentToolStripMenuItem
-            // 
-            this.parseVerticesForSegmentToolStripMenuItem.Name = "parseVerticesForSegmentToolStripMenuItem";
-            this.parseVerticesForSegmentToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.parseVerticesForSegmentToolStripMenuItem.Text = "Parse vertices for segment";
-            this.parseVerticesForSegmentToolStripMenuItem.Click += new System.EventHandler(this.parseVerticesForSegmentToolStripMenuItem_Click);
-            // 
-            // oBJToFF8ParserToolStripMenuItem
-            // 
-            this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
-            this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.oBJToFF8ParserToolStripMenuItem.Text = "Complete segment replacer (Beta)";
-            this.oBJToFF8ParserToolStripMenuItem.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem_Click_1);
+            this.aDMINMODEToolStripMenuItem.Name = "aDMINMODEToolStripMenuItem";
+            this.aDMINMODEToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.aDMINMODEToolStripMenuItem.Text = "ADMIN MODE";
+            this.aDMINMODEToolStripMenuItem.Click += new System.EventHandler(this.aDMINMODEToolStripMenuItem_Click);
             // 
             // SharpGLForm
             // 
@@ -732,6 +741,7 @@
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parseVerticesForSegmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aDMINMODEToolStripMenuItem;
     }
 }
 
