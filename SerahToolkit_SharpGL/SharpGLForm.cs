@@ -753,7 +753,7 @@ namespace SerahToolkit_SharpGL
 
         private void oBJToFF8ParserToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]));
+            Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]),pictureBox1.Image.Height,pictureBox1.Image.Width);
             parser.ShowDialog();
         }
     }
