@@ -102,7 +102,7 @@ namespace SerahToolkit_SharpGL
                     : short.Parse(Z[i].ToString().Substring(0, Z[i].ToString().Length - Deleteindex));
                     */
 
-
+                //Works now
                 double d = Math.Round(X[i]); short xs = short.Parse(d.ToString());
                 d = Math.Round(Y[i]); short ys = short.Parse(d.ToString());
                 d = Math.Round(Z[i]); short zs = short.Parse(d.ToString());
@@ -113,7 +113,7 @@ namespace SerahToolkit_SharpGL
                 Buffer.BlockCopy(BitConverter.GetBytes(ys), 0, vertex, 2, 2);
                 Buffer.BlockCopy(BitConverter.GetBytes(zs), 0, vertex, 4, 2);
                 Vertices.Add(vertex);
-                //Update Git
+
             }
 
             FileStream fs = new FileStream(@"D:\testsegment.bin", FileMode.Append);
@@ -124,6 +124,37 @@ namespace SerahToolkit_SharpGL
             //Vertex Texture
 
             //Face Indices
+        }
+
+        private byte[] CalculatePadding(int globalOffset)
+        {
+            byte[] four = {0x00, 0x00, 0x00, 0x00};
+            byte[] three = { 0x00, 0x00, 0x00};
+            byte[] two = { 0x00, 0x00};
+            byte[] one = { 0x00};
+            //return new byte[] = {0x00} ??
+            switch (globalOffset%4)
+            {
+                case 0:
+                    return null;
+                    
+                case 1:
+                    return one;
+                    
+                case 2:
+                    return two;
+                    
+                case 3:
+                    return three;
+                    
+                case 4:
+                    return four;
+                    
+                default:
+                    return null;
+                    
+            }
+
         }
     }
 }
