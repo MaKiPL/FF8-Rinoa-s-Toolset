@@ -33,6 +33,7 @@ namespace SerahToolkit_SharpGL
         private List<byte[]> Vertices; //All vertices byte
         private List<byte[]> VT; //All VertexCoords bytes.
         private List<byte[]> Polygon; //All ready polygons FACE+VT  bytes
+        private int[] TPage; 
 
         private Dictionary<int, byte[]> CLUT = new Dictionary<int, byte[]>
         {
@@ -80,6 +81,9 @@ namespace SerahToolkit_SharpGL
             //VERTICES
 
             X = new List<float>(); Y = new List<float>(); Z = new List<float>();
+            U = new List<double>(); V = new List<double>();
+            U_pixel = new List<double>(); V_pixel = new List<double>();
+
             foreach (var s in _file)
             {
 
@@ -159,12 +163,12 @@ namespace SerahToolkit_SharpGL
                 Vertices.Add(vertex);
 
             }
-
+            /*
             FileStream fs = new FileStream(@"D:\testsegment.bin", FileMode.Append);
             foreach (byte[] b in Vertices)
             {
                 fs.Write(b, 0, b.Length);
-            }
+            }*/
 
 
             //Vertex Texture
@@ -195,13 +199,30 @@ namespace SerahToolkit_SharpGL
                     Parse 33 as V to byte and apply TPage=5
                     
     */
+                TPage= new int[U.Count];
             for (int i = 0; i != U.Count; i++)
             {
                 U_pixel.Add(Math.Round(((U[i]*100.0d)*height)/100.0d));  //  ( (0.501953*100) * 256 ) / 100.0
                 V_pixel.Add(Math.Round(((V[i]*100.0d)*width)/100.0d));
+                
+                while (true)
+                {
+                    if (U_pixel[i] <= 128.0d)
+                        break;
+
+                    U_pixel[i] -= 128.0d;
+                    TPage[i]++; 
+
+                }
             }
 
+            
+
             //Face Indices
+
+                //  Wing order:     U1/T2 U2/T3 U3/T1 
+
+
         }
 
         private byte[] CalculatePadding(int globalOffset)
