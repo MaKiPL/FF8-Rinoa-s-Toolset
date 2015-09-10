@@ -80,7 +80,7 @@ namespace SerahToolkit_SharpGL
                 Buffer.BlockCopy(BitConverter.GetBytes(ys), 0, vertex, 2, 2);
                 Buffer.BlockCopy(BitConverter.GetBytes(zs), 0, vertex, 4, 2);
                 Vertices.Add(vertex);
-
+                //Update Git
             }
 
             //Vertex Texture
