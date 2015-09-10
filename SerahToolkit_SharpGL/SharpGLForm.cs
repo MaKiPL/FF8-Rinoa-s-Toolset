@@ -746,12 +746,7 @@ namespace SerahToolkit_SharpGL
             gf.ProcessGF((int)listBox1.Items[listBox1.SelectedIndex]);
         }
 
-        private void parseVerticesForSegmentToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //TODO
-        }
-
-        private void oBJToFF8ParserToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void oBJToFF8ParserToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]));
             parser.ShowDialog();

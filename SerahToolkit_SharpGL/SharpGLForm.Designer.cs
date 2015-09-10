@@ -39,6 +39,7 @@
             this.verticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textureEditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.paletteEditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oBJToFF8ParserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,9 +87,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.oBJToFF8ParserToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.parseVerticesForSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.oBJToFF8ParserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -181,7 +179,7 @@
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verticesToolStripMenuItem,
             this.textureEditToolStripMenuItem,
-            this.oBJToFF8ParserToolStripMenuItem1});
+            this.oBJToFF8ParserToolStripMenuItem});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
@@ -190,7 +188,7 @@
             // verticesToolStripMenuItem
             // 
             this.verticesToolStripMenuItem.Name = "verticesToolStripMenuItem";
-            this.verticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.verticesToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.verticesToolStripMenuItem.Text = "Single vertex edit";
             this.verticesToolStripMenuItem.Click += new System.EventHandler(this.verticesToolStripMenuItem_Click);
             // 
@@ -199,7 +197,7 @@
             this.textureEditToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.paletteEditToolStripMenuItem});
             this.textureEditToolStripMenuItem.Name = "textureEditToolStripMenuItem";
-            this.textureEditToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.textureEditToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
             this.textureEditToolStripMenuItem.Text = "Texture edit";
             // 
             // paletteEditToolStripMenuItem
@@ -208,6 +206,13 @@
             this.paletteEditToolStripMenuItem.Name = "paletteEditToolStripMenuItem";
             this.paletteEditToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.paletteEditToolStripMenuItem.Text = "Palette edit";
+            // 
+            // oBJToFF8ParserToolStripMenuItem
+            // 
+            this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
+            this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.oBJToFF8ParserToolStripMenuItem.Text = "OBJ to FF8 parser (beta)";
+            this.oBJToFF8ParserToolStripMenuItem.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem_Click);
             // 
             // worldMapToolStripMenuItem
             // 
@@ -608,29 +613,6 @@
             this.panel2.Size = new System.Drawing.Size(236, 261);
             this.panel2.TabIndex = 21;
             // 
-            // oBJToFF8ParserToolStripMenuItem1
-            // 
-            this.oBJToFF8ParserToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.oBJToFF8ParserToolStripMenuItem,
-            this.parseVerticesForSegmentToolStripMenuItem});
-            this.oBJToFF8ParserToolStripMenuItem1.Name = "oBJToFF8ParserToolStripMenuItem1";
-            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
-            this.oBJToFF8ParserToolStripMenuItem1.Text = "OBJ to FF8 parser";
-            // 
-            // parseVerticesForSegmentToolStripMenuItem
-            // 
-            this.parseVerticesForSegmentToolStripMenuItem.Name = "parseVerticesForSegmentToolStripMenuItem";
-            this.parseVerticesForSegmentToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.parseVerticesForSegmentToolStripMenuItem.Text = "Parse vertices for segment";
-            this.parseVerticesForSegmentToolStripMenuItem.Click += new System.EventHandler(this.parseVerticesForSegmentToolStripMenuItem_Click);
-            // 
-            // oBJToFF8ParserToolStripMenuItem
-            // 
-            this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
-            this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.oBJToFF8ParserToolStripMenuItem.Text = "Complete segment replacer (Beta)";
-            this.oBJToFF8ParserToolStripMenuItem.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem_Click_1);
-            // 
             // SharpGLForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -713,6 +695,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ultiMemHackBuildYourOwnTrackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sceneoutToolStripMenuItem;
@@ -729,9 +712,6 @@
         private System.Windows.Forms.ToolStripMenuItem gFToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem environmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rosettaStonetextDecypherToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parseVerticesForSegmentToolStripMenuItem;
     }
 }
 
