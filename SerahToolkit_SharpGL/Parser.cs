@@ -24,25 +24,6 @@ namespace SerahToolkit_SharpGL
         private List<double> V;
         private List<double> V_pixel;
 
-        private byte[] _1 = {0x00, 0x3C};
-        private byte[] _2 = {0x40, 0x3C};
-        private byte[] _3 = { 0x80, 0x3C };
-        private byte[] _4 = { 0xC0, 0x3C };
-        private byte[] _5 = { 0x00, 0x3D };
-        private byte[] _6 = { 0x40, 0x3D };
-        private byte[] _7 = { 0x80, 0x3D };
-        private byte[] _8 = { 0xC0, 0x3D };
-        private byte[] _9 = { 0x00, 0x3E };
-        private byte[] _10 = { 0x40, 0x3E };
-        private byte[] _11 = { 0x80, 0x3E };
-        private byte[] _12 = { 0xC0, 0x3E };
-        private byte[] _13 = { 0x00, 0x3F };
-        private byte[] _14 = { 0x40, 0x3F };
-        private byte[] _15 = { 0x80, 0x3F };
-        private byte[] _16 = { 0xC0, 0x3F };
-
-
-
         private int height; //Texture height for PAGE id calculation
         private int width; //As above
 
@@ -53,7 +34,25 @@ namespace SerahToolkit_SharpGL
         private List<byte[]> VT; //All VertexCoords bytes.
         private List<byte[]> Polygon; //All ready polygons FACE+VT  bytes
 
-        private Dictionary<decimal, byte[]> CLUT;
+        private Dictionary<int, byte[]> CLUT = new Dictionary<int, byte[]>
+        {
+            { 0,new byte[] {0x00, 0x3C} },
+            { 1,new byte[] {0x40, 0x3C} },
+            { 2,new byte[] {0x80, 0x3C} },
+            { 3,new byte[] {0xC0, 0x3C} },
+            { 4,new byte[] {0x00, 0x3D} },
+            { 5,new byte[] {0x40, 0x3D} },
+            { 6,new byte[] {0x80, 0x3D} },
+            { 7,new byte[] {0xC0, 0x3D} },
+            { 8,new byte[] {0x00, 0x3E} },
+            { 9,new byte[] {0x40, 0x3E} },
+            { 10,new byte[] {0x80, 0x3E} },
+            { 11,new byte[] {0xC0, 0x3E} },
+            { 12,new byte[] {0x00, 0x3F} },
+            { 13,new byte[] {0x40, 0x3F} },
+            { 14,new byte[] {0x80, 0x3F} },
+            { 15,new byte[] {0xC0, 0x3F} },
+        };
 
         public Parser(int segment, int height, int width)
         {
@@ -61,15 +60,6 @@ namespace SerahToolkit_SharpGL
             this.Text = segment.ToString();
             this.height = height;
             this.width = width;
-
-            //INIT dictionary
-            CLUT.Add(0,_1); CLUT.Add(1, _2); CLUT.Add(2, _3);
-            CLUT.Add(3, _4); CLUT.Add(4, _5); CLUT.Add(5, _6);
-            CLUT.Add(6, _7); CLUT.Add(7, _8); CLUT.Add(8, _9);
-            CLUT.Add(9, _10); CLUT.Add(10, _11); CLUT.Add(11, _12);
-            CLUT.Add(12, _13); CLUT.Add(13, _14); CLUT.Add(14, _15);
-            CLUT.Add(15, _16);
-
         }
 
         private void button1_Click(object sender, EventArgs e)
