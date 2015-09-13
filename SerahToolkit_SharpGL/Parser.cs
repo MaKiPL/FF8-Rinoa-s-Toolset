@@ -248,6 +248,8 @@ namespace SerahToolkit_SharpGL
             UInt16 tempTrianglesCount = Convert.ToUInt16(A.Count);
             TrianglesCount = BitConverter.GetBytes(tempTrianglesCount);
 
+            byte TPagePreOperand = 0xB0;
+
             for (int i = 0; i != tempTrianglesCount; i++)
             {
                 byte[] triangle = new byte[20];
@@ -261,7 +263,11 @@ namespace SerahToolkit_SharpGL
                 Buffer.BlockCopy(CLUT[numericUpDown1.Value],0,triangle,10,2); //CLUTid
                 Buffer.BlockCopy(BitConverter.GetBytes(U[Ct[i]-1]), 0, triangle, 12, 1); //U3
                 Buffer.BlockCopy(BitConverter.GetBytes(V[Ct[i]-1]), 0, triangle, 13, 1); //V3
-                Buffer.BlockCopy(BitConverter.GetBytes(TPage[At[i]-1]), 0, triangle, 14, 1); //TPAGE !!!!
+                byte[] tempTP = BitConverter.GetBytes(TPage[At[i] - 1]);
+                var a = tempTP[0] | TPagePreOperand; //BITwise 0xB0 OR 0x0? = 0xB?
+                triangle[14] = Convert.ToByte(a); // TPage Bitwised with 0xB0 (UNKNOWN)
+                //Buffer.BlockCopy(ARRAY[here], 0, triangle, 14, 1); //TPAGE !!!!
+
                 //PASS bHide = 0, and triangle[15] is NULL (00);
                 triangle[16] = 0x80; triangle[17] = 0x80; triangle[18] = 0x80; // R G B
                 triangle[19] = 0x2c; //PSOne GPU
