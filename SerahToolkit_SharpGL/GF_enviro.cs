@@ -26,6 +26,7 @@ namespace SerahToolkit_SharpGL
         private int relativeJump;
         private const int _passFromStart = 24;
         private int VertexCount;
+        private int VerticesOffset;
         private string v;
         private string vt;
         private string f;
@@ -34,10 +35,13 @@ namespace SerahToolkit_SharpGL
 
         private Dictionary<UInt16,int> PolygonType = new Dictionary<ushort, int>
         {
-            { 0x8, 20},
-            { 0x9, 28},
-            {0x12, 24},
-            {0x13, 36}
+            { 0x7, 20},     //BAD?
+            { 0x8, 20}, //OK 
+            { 0x9, 28}, //OK
+            {0x10, 20},     //BAD?
+            {0x12, 24}, //OK
+            {0x13, 36}, //OK
+            {0x18, 0x18}    //24 BAD?
         };
          
         
@@ -71,6 +75,9 @@ namespace SerahToolkit_SharpGL
                     subOffsets[i] = 0;
                 else
                     subOffsets[i] = temp;
+
+                if (i > 0x24)
+                    break; //CRASH handler
             }
 
             List<int> safeList = new List<int>();
@@ -90,8 +97,11 @@ namespace SerahToolkit_SharpGL
         {
             offset += (int)pointer;
             ObjCount = BitConverter.ToInt32(_file, offset);
+            if(ObjCount > 0x12)
+                goto NOPE;
             relativeJump = BitConverter.ToInt32(_file, offset + 8);
             VertexCount = BitConverter.ToUInt16(_file, offset + _passFromStart) * 8;
+            VerticesOffset = BitConverter.ToUInt16(_file, offset + _passFromStart - 4);
             int updateOffset = offset + relativeJump;
             //Examine polygon type
             v = null;
@@ -101,7 +111,7 @@ namespace SerahToolkit_SharpGL
             
             
 
-            while (true)
+           /* while (true)
             {
                 int passB = PolygonType[BitConverter.ToUInt16(_file, updateOffset)];
                 UInt16 polyLenght = BitConverter.ToUInt16(_file, updateOffset + 2);
@@ -113,11 +123,12 @@ namespace SerahToolkit_SharpGL
                 }
                 else
                     updateOffset += 4 + polyLenght*passB;
-            }
-            ProcessVertices(updateOffset+4, VertexCount);
+            }*/
+            ProcessVertices(VerticesOffset + offset, VertexCount);
             Console.WriteLine(v);
 
-
+        NOPE:
+            ;
 
         }
 
