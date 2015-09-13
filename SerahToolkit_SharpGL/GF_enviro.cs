@@ -15,10 +15,10 @@ namespace SerahToolkit_SharpGL
 
         private string _path;
         private byte[] _file;
-        private byte[] BadHeader = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+        private byte[] BadHeader = new byte[8];
         private uint[] subOffsets;
 
-        private const int EnviroOffset = 0xC;
+        private const int EnviroOffset = 0xC; //12th byte
 
 
         //process vars
@@ -32,7 +32,13 @@ namespace SerahToolkit_SharpGL
         private uint pointer;
 
 
-        Dictionary<UInt16,int> PolygonType;
+        private Dictionary<UInt16,int> PolygonType = new Dictionary<ushort, int>
+        {
+            { 0x8, 20},
+            { 0x9, 28},
+            {0x12, 24},
+            {0x13, 36}
+        };
          
         
 
@@ -41,11 +47,6 @@ namespace SerahToolkit_SharpGL
         {
             this._path = path;
             _file = File.ReadAllBytes(_path);
-            PolygonType = new Dictionary<ushort, int>();
-            PolygonType.Add(0x8, 20);
-            PolygonType.Add(0x9, 28);
-            PolygonType.Add(0x12, 24);
-            PolygonType.Add(0x13,36);
         }
 
         public bool bValidHeader()
