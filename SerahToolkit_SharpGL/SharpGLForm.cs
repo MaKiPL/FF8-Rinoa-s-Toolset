@@ -36,6 +36,7 @@ namespace SerahToolkit_SharpGL
         private const int State_wmset = 2;
         private const int State_wmsetModel = 3;
         private const int State_GFenviro = 4;
+        private const int State_WMX = 5;
 
 
         OpenGL gl;
@@ -315,6 +316,9 @@ namespace SerahToolkit_SharpGL
                     break;
                 case State_GFenviro:
                     GFLogic();
+                    break;
+                case State_WMX:
+                    WMX_list();
                     break;
                 default:
                     goto endofcode;
@@ -654,30 +658,6 @@ namespace SerahToolkit_SharpGL
             toolStripStatusLabel2.Text = status;
         }
 
-        private void State_Menu(int State) //?
-        {
-            switch (State)
-            {
-                case State_BattleStageUV:
-                    {
-                        //DO LOGIC
-                        break;
-                    }
-                case State_RailDraw:
-                    {
-                        //DO LOGIC
-                        break;
-                    }
-                case State_wmset:
-                    {
-                        //DO LOGIC
-                        break;
-                    }
-                default:
-                    break;
-            }
-        }
-
         private void section1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -744,6 +724,12 @@ namespace SerahToolkit_SharpGL
         private void GFLogic()
         {
             gf.ProcessGF((int)listBox1.Items[listBox1.SelectedIndex]);
+        }
+
+        private void WMX_list()
+        {
+            //Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]);
+            //TODO
         }
 
         private void parseVerticesForSegmentToolStripMenuItem_Click(object sender, EventArgs e)

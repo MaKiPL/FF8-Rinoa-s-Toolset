@@ -111,6 +111,7 @@
     <Compile Include="StageTexture.cs" />
     <Compile Include="toSingleOBJ.cs" />
     <Compile Include="wmset.cs" />
+    <Compile Include="wmx.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
