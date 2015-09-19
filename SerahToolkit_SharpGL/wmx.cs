@@ -69,10 +69,12 @@ namespace SerahToolkit_SharpGL
             {
                 int vt = (i * 3)+1; // VT index
 
-                TriangleAdd(0,0,0,vt);
-                TriangleAdd(0,0,0,vt);
+                TriangleAdd(segBuffer[currIndex], segBuffer[currIndex+1], segBuffer[currIndex+2], vt);
+                TriangleAdd(segBuffer[currIndex+3], segBuffer[currIndex+4], segBuffer[currIndex+5], vt);
 
                 //CALCULATE vt here
+
+                currIndex += 16;
             }
 
 
