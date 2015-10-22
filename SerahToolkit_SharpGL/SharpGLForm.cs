@@ -728,8 +728,7 @@ namespace SerahToolkit_SharpGL
 
         private void WMX_list()
         {
-            //Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]);
-            //TODO
+            wmx wmx = new wmx(listBox1.SelectedIndex, LastKnownPath);
         }
 
         private void parseVerticesForSegmentToolStripMenuItem_Click(object sender, EventArgs e)
@@ -749,6 +748,34 @@ namespace SerahToolkit_SharpGL
             {
                 a.Enabled = true;
             }*/
+        }
+
+        private void editCurrentRailToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "wmx.obj|wmx.obj";
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                State = State_WMX;
+                LastKnownPath = ofd.FileName;
+                PopulateWMX(LastKnownPath);
+            }
+        }
+
+        private void PopulateWMX(string ofd)
+        {
+            int count = 835;
+            int size = 0x9000;
+            listBox1.Items.Clear();
+            for (int i = 0; i != count; i++)
+            {
+                listBox1.Items.Add(i*size);
+            }
         }
     }
 }

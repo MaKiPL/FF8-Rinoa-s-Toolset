@@ -43,6 +43,7 @@ namespace SerahToolkit_SharpGL
             {
                 Process(_blockOffsets[i]);
             }
+            Console.WriteLine(f);
         }
 
         private void ProduceOffsets(byte[] buffer)
@@ -76,8 +77,6 @@ namespace SerahToolkit_SharpGL
 
                 currIndex += 16;
             }
-
-
 
         }
 

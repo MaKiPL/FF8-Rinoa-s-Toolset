@@ -37,8 +37,6 @@
             this.convertToOBJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textureEditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.paletteEditToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oBJToFF8ParserToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.oBJToFF8ParserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseVerticesForSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,16 +50,10 @@
             this.unpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.railobjToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.editCurrentRailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ultiMemHackBuildYourOwnTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ultimateHackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sceneoutEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedAnalyzeToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.smartSearcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cFF8SearcherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,10 +78,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.aDMINMODEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -98,9 +89,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // openGLControl
@@ -125,12 +116,10 @@
             this.worldMapToolStripMenuItem,
             this.worldMapObjectToolStripMenuItem,
             this.railobjToolStripMenuItem,
-            this.ultimateHackerToolStripMenuItem,
             this.gFToolStripMenuItem,
             this.sceneoutToolStripMenuItem,
             this.aboutToolStripMenuItem,
-            this.displayToolStripMenuItem,
-            this.aDMINMODEToolStripMenuItem});
+            this.displayToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1046, 24);
@@ -150,7 +139,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -161,7 +150,7 @@
             this.convertToOBJToolStripMenuItem});
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -182,11 +171,10 @@
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verticesToolStripMenuItem,
-            this.textureEditToolStripMenuItem,
             this.oBJToFF8ParserToolStripMenuItem1});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -195,21 +183,6 @@
             this.verticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.verticesToolStripMenuItem.Text = "Single vertex edit";
             this.verticesToolStripMenuItem.Click += new System.EventHandler(this.verticesToolStripMenuItem_Click);
-            // 
-            // textureEditToolStripMenuItem
-            // 
-            this.textureEditToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.paletteEditToolStripMenuItem});
-            this.textureEditToolStripMenuItem.Name = "textureEditToolStripMenuItem";
-            this.textureEditToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.textureEditToolStripMenuItem.Text = "Texture edit";
-            // 
-            // paletteEditToolStripMenuItem
-            // 
-            this.paletteEditToolStripMenuItem.Enabled = false;
-            this.paletteEditToolStripMenuItem.Name = "paletteEditToolStripMenuItem";
-            this.paletteEditToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
-            this.paletteEditToolStripMenuItem.Text = "Palette edit";
             // 
             // oBJToFF8ParserToolStripMenuItem1
             // 
@@ -238,7 +211,6 @@
             // 
             this.worldMapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem3});
-            this.worldMapToolStripMenuItem.Enabled = false;
             this.worldMapToolStripMenuItem.Name = "worldMapToolStripMenuItem";
             this.worldMapToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.worldMapToolStripMenuItem.Text = "World map";
@@ -246,8 +218,9 @@
             // openToolStripMenuItem3
             // 
             this.openToolStripMenuItem3.Name = "openToolStripMenuItem3";
-            this.openToolStripMenuItem3.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem3.Text = "Open";
+            this.openToolStripMenuItem3.Click += new System.EventHandler(this.openToolStripMenuItem3_Click);
             // 
             // worldMapObjectToolStripMenuItem
             // 
@@ -300,8 +273,7 @@
             // railobjToolStripMenuItem
             // 
             this.railobjToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem2,
-            this.editCurrentRailToolStripMenuItem});
+            this.openToolStripMenuItem2});
             this.railobjToolStripMenuItem.Name = "railobjToolStripMenuItem";
             this.railobjToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.railobjToolStripMenuItem.Text = "rail.obj";
@@ -309,39 +281,9 @@
             // openToolStripMenuItem2
             // 
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(154, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
-            // 
-            // editCurrentRailToolStripMenuItem
-            // 
-            this.editCurrentRailToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ultiMemHackBuildYourOwnTrackToolStripMenuItem,
-            this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem});
-            this.editCurrentRailToolStripMenuItem.Name = "editCurrentRailToolStripMenuItem";
-            this.editCurrentRailToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.editCurrentRailToolStripMenuItem.Text = "Edit current rail";
-            // 
-            // ultiMemHackBuildYourOwnTrackToolStripMenuItem
-            // 
-            this.ultiMemHackBuildYourOwnTrackToolStripMenuItem.Enabled = false;
-            this.ultiMemHackBuildYourOwnTrackToolStripMenuItem.Name = "ultiMemHackBuildYourOwnTrackToolStripMenuItem";
-            this.ultiMemHackBuildYourOwnTrackToolStripMenuItem.Size = new System.Drawing.Size(392, 22);
-            this.ultiMemHackBuildYourOwnTrackToolStripMenuItem.Text = "Manual edit (parser from float)";
-            // 
-            // railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem
-            // 
-            this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem.Enabled = false;
-            this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem.Name = "railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem";
-            this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem.Size = new System.Drawing.Size(392, 22);
-            this.railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem.Text = "Smart Rail builder (Squall + FF8 + memory hacking + parser)";
-            // 
-            // ultimateHackerToolStripMenuItem
-            // 
-            this.ultimateHackerToolStripMenuItem.Enabled = false;
-            this.ultimateHackerToolStripMenuItem.Name = "ultimateHackerToolStripMenuItem";
-            this.ultimateHackerToolStripMenuItem.Size = new System.Drawing.Size(154, 20);
-            this.ultimateHackerToolStripMenuItem.Text = "Ultimate FF8 mem hacker";
             // 
             // gFToolStripMenuItem
             // 
@@ -361,33 +303,19 @@
             // sceneoutToolStripMenuItem
             // 
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sceneoutEditorToolStripMenuItem,
             this.advancedAnalyzeToolsToolStripMenuItem,
             this.rosettaStonetextDecypherToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
             this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
             // 
-            // sceneoutEditorToolStripMenuItem
-            // 
-            this.sceneoutEditorToolStripMenuItem.Name = "sceneoutEditorToolStripMenuItem";
-            this.sceneoutEditorToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.sceneoutEditorToolStripMenuItem.Text = "Scene.out editor";
-            // 
             // advancedAnalyzeToolsToolStripMenuItem
             // 
             this.advancedAnalyzeToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smartSearcherToolStripMenuItem,
             this.cFF8SearcherToolStripMenuItem});
             this.advancedAnalyzeToolsToolStripMenuItem.Name = "advancedAnalyzeToolsToolStripMenuItem";
             this.advancedAnalyzeToolsToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.advancedAnalyzeToolsToolStripMenuItem.Text = "Advanced analyze tools";
-            // 
-            // smartSearcherToolStripMenuItem
-            // 
-            this.smartSearcherToolStripMenuItem.Name = "smartSearcherToolStripMenuItem";
-            this.smartSearcherToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.smartSearcherToolStripMenuItem.Text = "Smart searcher";
             // 
             // cFF8SearcherToolStripMenuItem
             // 
@@ -600,16 +528,6 @@
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(49, 17);
             this.toolStripStatusLabel2.Text = "NO FILE";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SerahToolkit_SharpGL.Properties.Resources.tex;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 597);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(768, 256);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.listBox1);
@@ -633,12 +551,15 @@
             this.panel2.Size = new System.Drawing.Size(236, 261);
             this.panel2.TabIndex = 21;
             // 
-            // aDMINMODEToolStripMenuItem
+            // pictureBox1
             // 
-            this.aDMINMODEToolStripMenuItem.Name = "aDMINMODEToolStripMenuItem";
-            this.aDMINMODEToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
-            this.aDMINMODEToolStripMenuItem.Text = "ADMIN MODE";
-            this.aDMINMODEToolStripMenuItem.Click += new System.EventHandler(this.aDMINMODEToolStripMenuItem_Click);
+            this.pictureBox1.Image = global::SerahToolkit_SharpGL.Properties.Resources.tex;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 597);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(768, 256);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // SharpGLForm
             // 
@@ -669,10 +590,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -692,7 +613,6 @@
         private System.Windows.Forms.ToolStripMenuItem worldMapObjectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem textureEditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wireframeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showFPSToolStripMenuItem;
@@ -703,13 +623,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem texturedWLightToolStripMenuItem;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ToolStripMenuItem paletteEditToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem railobjToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem editCurrentRailToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem worldMapToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem ultimateHackerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polygonModeFacesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polygonModePointsToolStripMenuItem;
         private System.Windows.Forms.Button button1;
@@ -722,16 +639,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.ToolStripMenuItem ultiMemHackBuildYourOwnTrackToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem railBuilderSquallFF8MemoryHackingParserTRYITToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sceneoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem unpackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openUnpackedOffsetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sectionXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem section1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sceneoutEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem advancedAnalyzeToolsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem smartSearcherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cFF8SearcherToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
@@ -741,7 +654,6 @@
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parseVerticesForSegmentToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aDMINMODEToolStripMenuItem;
     }
 }
 

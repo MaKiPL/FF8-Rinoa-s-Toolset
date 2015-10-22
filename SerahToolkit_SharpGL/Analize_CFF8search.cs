@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
@@ -12,7 +7,7 @@ namespace SerahToolkit_SharpGL
 {
     public partial class Analize_CFF8search : Form
     {
-        const string FF8 = "FF8";
+        const string FF8 = "C:";
         const int FF8_Size = 256;
         const byte EOF = 0;
 
