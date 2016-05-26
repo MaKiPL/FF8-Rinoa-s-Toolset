@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -13,16 +10,16 @@ namespace SerahToolkit_SharpGL
         public AboutBox1()
         {
             InitializeComponent();
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.labelCopyright.Text = AssemblyCopyright;
-            this.textBoxDescription.Text = AssemblyDescription;
+            Text = String.Format("About {0}", AssemblyTitle);
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            labelCopyright.Text = AssemblyCopyright;
+            textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors
 
-        public string AssemblyTitle
+        private string AssemblyTitle
         {
             get
             {
@@ -35,11 +32,11 @@ namespace SerahToolkit_SharpGL
                         return titleAttribute.Title;
                     }
                 }
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 
-        public string AssemblyVersion
+        private string AssemblyVersion
         {
             get
             {
@@ -47,7 +44,7 @@ namespace SerahToolkit_SharpGL
             }
         }
 
-        public string AssemblyDescription
+        private string AssemblyDescription
         {
             get
             {
@@ -60,7 +57,7 @@ namespace SerahToolkit_SharpGL
             }
         }
 
-        public string AssemblyProduct
+        private string AssemblyProduct
         {
             get
             {
@@ -73,7 +70,7 @@ namespace SerahToolkit_SharpGL
             }
         }
 
-        public string AssemblyCopyright
+        private string AssemblyCopyright
         {
             get
             {

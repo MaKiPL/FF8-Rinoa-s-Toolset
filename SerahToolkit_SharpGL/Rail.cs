@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace SerahToolkit_SharpGL
 {
     class Rail
     {
-        private string path;
+        private readonly string path;
         private byte[] railobj;
         private const int RailSize = 2048;
         private Byte FirstStop;
@@ -61,7 +62,7 @@ namespace SerahToolkit_SharpGL
             {
                 int x = BitConverter.ToInt32(railobj, i);
                 int y = BitConverter.ToInt32(railobj, i+4);
-                int z = BitConverter.ToInt32(railobj, i+8); ;
+                int z = BitConverter.ToInt32(railobj, i+8); 
                 string enc = System.Text.Encoding.ASCII.GetString(railobj, i + 12, 4);
 
                 EncodedText.Add(enc);
@@ -71,9 +72,9 @@ namespace SerahToolkit_SharpGL
 
 
                 //sw.Write("v {0} {1} {2}", ((float)x) / 10000.0f, ((float)y) / 10000.0f, ((float)z) / 10000.0f);
-                string xa = (((float)x) / 10000.0f).ToString(); xa = xa.Replace(",", ".");
-                string ya = (((float)y) / 10000.0f).ToString(); ya = ya.Replace(",", ".");
-                string za = (((float)z) / 10000.0f).ToString(); za = za.Replace(",", ".");
+                string xa = (((float)x) / 10000.0f).ToString(CultureInfo.InvariantCulture); xa = xa.Replace(",", ".");
+                string ya = (((float)y) / 10000.0f).ToString(CultureInfo.InvariantCulture); ya = ya.Replace(",", ".");
+                string za = (((float)z) / 10000.0f).ToString(CultureInfo.InvariantCulture); za = za.Replace(",", ".");
 
                 sw.Write("v {0} {1} {2}", xa, ya, za);
                 sw.Write(Environment.NewLine);

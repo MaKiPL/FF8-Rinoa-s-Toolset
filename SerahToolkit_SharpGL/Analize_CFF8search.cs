@@ -32,11 +32,10 @@ namespace SerahToolkit_SharpGL
             dataGridView1.Rows.Clear();
             FileInfo fi = new FileInfo(path);
             byte[] wholeFile = File.ReadAllBytes(path);
-            string _debug_WH_SUBstr = null;
 
-                for (int index = 0; index!=fi.Length; index++)
+            for (int index = 0; index!=fi.Length; index++)
                 {
-                        _debug_WH_SUBstr = System.Text.Encoding.ASCII.GetString(wholeFile,index,FF8_Size);
+                        var _debug_WH_SUBstr = System.Text.Encoding.ASCII.GetString(wholeFile,index,FF8_Size);
                 if (index >= fi.Length - 2049)
                     break;
                 _debug_WH_SUBstr = _debug_WH_SUBstr.Substring(0, 3);

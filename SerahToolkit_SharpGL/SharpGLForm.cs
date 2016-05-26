@@ -19,7 +19,7 @@ namespace SerahToolkit_SharpGL
         public SharpGLForm()
         {
             InitializeComponent();
-            OpenGL gl = this.openGLControl.OpenGL;
+            OpenGL gl = openGLControl.OpenGL;
             gl.Enable(OpenGL.GL_TEXTURE_2D);
         }
 
@@ -42,7 +42,7 @@ namespace SerahToolkit_SharpGL
 
 
         OpenGL gl;
-        List<Polygon> polygons = new List<Polygon>();
+        readonly List<Polygon> polygons = new List<Polygon>();
         SharpGL.SceneGraph.Cameras.PerspectiveCamera camera = new SharpGL.SceneGraph.Cameras.PerspectiveCamera();
 
 
@@ -50,7 +50,7 @@ namespace SerahToolkit_SharpGL
         private void openGLControl_OpenGLDraw(object sender, RenderEventArgs e)
         {
             //  Get the OpenGL object, for quick access.
-            gl = this.openGLControl.OpenGL;
+            gl = openGLControl.OpenGL;
 
             //  Clear and load the identity.
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
@@ -104,12 +104,7 @@ namespace SerahToolkit_SharpGL
             ab.ShowDialog();
         }
 
-        private void openGLControl_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        public void Render3D(int WMSET_int = 0)
+        private void Render3D(int WMSET_int = 0)
         {
             polygons.Clear();
             if (State == State_BattleStageUV)
@@ -260,12 +255,11 @@ namespace SerahToolkit_SharpGL
 
                 //END OF DEBUG
 
-                string PathOFD = null;
                 PathModels = new List<string>();
                 foreach(int i in bs.GetArrayOfObjects())
                 {
                     listBox1.Items.Add(i.ToString());
-                    PathOFD = Path.GetDirectoryName(ofd.FileName);
+                    var PathOFD = Path.GetDirectoryName(ofd.FileName);
                     PathOFD += string.Format(@"\{0}_{1}_t.obj", Path.GetFileNameWithoutExtension(ofd.FileName), i.ToString());
                     if(File.Exists(PathOFD))
                         PathModels.Add(PathOFD);

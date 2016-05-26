@@ -14,7 +14,7 @@ namespace SerahToolkit_SharpGL
         private int passOK;
         private int index;
         private List<int> itemOffsets;
-        private string pathh;
+        private readonly string pathh;
 
         private int triangles;
         private int quads;
@@ -63,8 +63,8 @@ namespace SerahToolkit_SharpGL
 
 
         //CONST
-        Byte[] TIMtexture = { 0x10, 0x00, 0x00, 0x00, 0x09 };
-        Byte[] GEOM = { 0x01, 0x00, 0x01, 0x00 };
+        readonly Byte[] TIMtexture = { 0x10, 0x00, 0x00, 0x00, 0x09 };
+        readonly Byte[] GEOM = { 0x01, 0x00, 0x01, 0x00 };
 
 
         public BattleStage(string path)
