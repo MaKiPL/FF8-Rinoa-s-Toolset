@@ -387,10 +387,10 @@ namespace SerahToolkit_SharpGL
                     double X2 = Math.Floor(((U1Max * 100) * width) / 100) - 2;
                     double Y2 = Math.Floor(((V1Max * 100) * height) / 100);
 
-                    X1 = X1 < 0 ? 0 : X1; X2 = X2 < 0 ? 0 : X2;
+                    X1 = X1 <= 0 ? 1 : X1; X2 = X2 <= 0 ? 1 : X2;
 
-                    Point TopLeft = new Point((int)(Math.Round(X1)), height - (int)(Math.Round(Y2)));
-                    Point TopRight = new Point((int)(Math.Round(X2)), height - (int)(Math.Round(Y2)));
+                    Point TopLeft = new Point((int)(Math.Round(X1)-1), height - (int)(Math.Round(Y2)));
+                    Point TopRight = new Point((int)(Math.Round(X2)-1), height - (int)(Math.Round(Y2)));
                     Point BottomLeft = new Point((int)(Math.Round(X1)), height - (int)(Math.Round(Y1)));
                     Point BottomRight = new Point((int)(Math.Round(X2)), height - (int)(Math.Round(Y1)));
 
@@ -402,7 +402,15 @@ namespace SerahToolkit_SharpGL
                         PixelFormat pf = PixelFormat.Format24bppRgb;
                         /*Rectangle rectangle = new Rectangle((int) Math.Round(X1), (int) Math.Round(Y1),
                             (int) Math.Round(X2), height - (int) Math.Round(Y2));*/
-                        Rectangle rectangle = new Rectangle(TopLeft, new Size(TopRight.X - TopLeft.X,BottomLeft.Y - TopLeft.Y));
+                        int Wid = (TopRight.X - TopLeft.X) + 4;
+                        int Hei = (BottomLeft.Y - TopLeft.Y) + 4;
+                        //Wid = Wid > LoadBMP.Width - Wid ? Wid - 2 : Wid;
+                        //Hei = Hei > LoadBMP.Height - Hei ? Hei - 2 : Hei;
+                        Wid = TopLeft.X + Wid > width ? Wid - 4 : Wid;
+                        Hei = BottomRight.Y + Hei > height ? Hei - 4 : Hei;
+
+                        Size sz = new Size(Wid,Hei);
+                        Rectangle rectangle = new Rectangle(TopLeft, sz);
 
                         BitmapData targetBitmapData = bmp.LockBits(rectangle, ImageLockMode.WriteOnly, pf);
                         BitmapData sourBitmapData = LoadBMP.LockBits(rectangle, ImageLockMode.ReadOnly, pf);
@@ -434,9 +442,10 @@ namespace SerahToolkit_SharpGL
                         }*/
                     }
 
-                     pictureBox1.Image = bmp;
+                     
                     
                 }
+                pictureBox1.Image = bmp;
                 string PathTexte = Path.GetDirectoryName(LastKnownPath);
                 PathTexte = PathTexte + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + "_col.png";
                 if (File.Exists(PathTexte))
