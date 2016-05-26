@@ -122,7 +122,7 @@
             this.displayToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1046, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1059, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -139,7 +139,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -150,7 +150,7 @@
             this.convertToOBJToolStripMenuItem});
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -174,7 +174,7 @@
             this.oBJToFF8ParserToolStripMenuItem1});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -218,7 +218,7 @@
             // openToolStripMenuItem3
             // 
             this.openToolStripMenuItem3.Name = "openToolStripMenuItem3";
-            this.openToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem3.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem3.Text = "Open";
             this.openToolStripMenuItem3.Click += new System.EventHandler(this.openToolStripMenuItem3_Click);
             // 
@@ -281,7 +281,7 @@
             // openToolStripMenuItem2
             // 
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -296,7 +296,7 @@
             // environmentToolStripMenuItem
             // 
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
             // 
@@ -306,7 +306,7 @@
             this.advancedAnalyzeToolsToolStripMenuItem,
             this.rosettaStonetextDecypherToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
-            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
             // 
             // advancedAnalyzeToolsToolStripMenuItem
@@ -329,6 +329,7 @@
             this.rosettaStonetextDecypherToolStripMenuItem.Name = "rosettaStonetextDecypherToolStripMenuItem";
             this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.rosettaStonetextDecypherToolStripMenuItem.Text = "Rosetta stone (text decypher)";
+            this.rosettaStonetextDecypherToolStripMenuItem.Click += new System.EventHandler(this.rosettaStonetextDecypherToolStripMenuItem_Click_1);
             // 
             // aboutToolStripMenuItem
             // 
@@ -515,9 +516,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 856);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 858);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1046, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1059, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
@@ -565,6 +566,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1046, 878);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);

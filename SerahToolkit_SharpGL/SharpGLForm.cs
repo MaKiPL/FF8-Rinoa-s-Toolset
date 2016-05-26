@@ -777,5 +777,11 @@ namespace SerahToolkit_SharpGL
                 listBox1.Items.Add(i*size);
             }
         }
+
+        private void rosettaStonetextDecypherToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            RosettaStone.RosettaStone rs = new RosettaStone.RosettaStone();
+            rs.Show();
+        }
     }
 }
