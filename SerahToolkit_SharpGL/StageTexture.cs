@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace SerahToolkit_SharpGL
 {
@@ -107,6 +108,10 @@ namespace SerahToolkit_SharpGL
 
         private void CreateTexture()
         {
+            //GDI+ - up to 300 ms for single texture
+            //New bitlock - 19 ms for single texture !!!
+
+
             /*
             bmp = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
             index = 0;
@@ -124,20 +129,40 @@ namespace SerahToolkit_SharpGL
 
             bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
             bmp.Palette = cp;
-            index = 0;
-            int Pixels = width * height;
+            Rectangle rect = new Rectangle(0,0, bmp.Width, bmp.Height);
+            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            IntPtr bmPtr = bmpData.Scan0;
+            byte[] rawBytes = new byte[bmpData.Stride * bmpData.Height];
+            Marshal.Copy(bmPtr,rawBytes,0,rawBytes.Length);
+            int index = 0;
+            for (int i = 0; i < rawBytes.Length-4; i+=4)
+            {
+                byte R = cp.Entries[textureBuffer[index + 2]].B; byte G = cp.Entries[textureBuffer[index + 1]].G; byte B = cp.Entries[textureBuffer[index]].R;
+                rawBytes[i] = B; rawBytes[i+1] = G; rawBytes[i+2] = R;
+                rawBytes[i + 3] = 255;
+
+                if (index < width * height - 4)
+                    index++;
+            }
+
+            Marshal.Copy(rawBytes, 0, bmPtr, rawBytes.Length);
+            bmp.UnlockBits(bmpData);
+
+            /*
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     //Color palette = cp.Entries[index];
 
-                    bmp.SetPixel(x, y, Color.FromArgb(255,cp.Entries[textureBuffer[index+2]].B,cp.Entries[textureBuffer[index+1]].G,cp.Entries[textureBuffer[index]].R));
+                    bmp.SetPixel(x, y, Color.FromArgb(cp.Entries[textureBuffer[index+2]].B,cp.Entries[textureBuffer[index+1]].G,cp.Entries[textureBuffer[index]].R));
                     if (index < width * height - 4)
                         index++;
 
                 }
-            }
+            }*/
+            
+
             //GrayscaleToRGB gs = new GrayscaleToRGB();
             //gs.Apply(bmp);
 
@@ -148,13 +173,6 @@ namespace SerahToolkit_SharpGL
         public Bitmap GetBMP()
         {
             return bmp;
-        }
-
-        public void MixTextures(Point topLeft, Point topRight, Point bottomLeft, Point bottomRight, string OriginPath, Bitmap OriginalBMP)
-        {
-            //Bitmap LoadBitmap = new Bitmap(OriginPath);
-
-
         }
     }
 }

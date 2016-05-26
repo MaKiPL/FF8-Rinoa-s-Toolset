@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 using SharpGL;
 using SharpGL.SceneGraph;
 using SharpGL.SceneGraph.Primitives;
@@ -380,33 +382,56 @@ namespace SerahToolkit_SharpGL
                     double U1Min = UV.Item1.Min(); double U1Max = UV.Item1.Max();
                     double V1Min = UV.Item2.Min(); double V1Max = UV.Item2.Max();
 
-                    double X1 = (((U1Min * 100) * width) / 100);
-                    double Y1 = (((V1Min * 100) * height) / 100);
-                    double X2 = (((U1Max * 100) * width) / 100);
-                    double Y2 = (((V1Max * 100) * height) / 100);
+                    double X1 = Math.Floor(((U1Min * 100) * width) / 100) - 2;
+                    double Y1 = Math.Floor(((V1Min * 100) * height) / 100);
+                    double X2 = Math.Floor(((U1Max * 100) * width) / 100) - 2;
+                    double Y2 = Math.Floor(((V1Max * 100) * height) / 100);
+
+                    X1 = X1 < 0 ? 0 : X1; X2 = X2 < 0 ? 0 : X2;
 
                     Point TopLeft = new Point((int)(Math.Round(X1)), height - (int)(Math.Round(Y2)));
                     Point TopRight = new Point((int)(Math.Round(X2)), height - (int)(Math.Round(Y2)));
                     Point BottomLeft = new Point((int)(Math.Round(X1)), height - (int)(Math.Round(Y1)));
                     Point BottomRight = new Point((int)(Math.Round(X2)), height - (int)(Math.Round(Y1)));
 
-                    st.MixTextures(TopLeft, TopRight, BottomLeft, BottomRight, PathText, bmp);
-
                     if (File.Exists(PathText))
                     {
+                        //LoadBMP - COPIES FROM
+                        //BMP - The mixed final
                         Bitmap LoadBMP = new Bitmap(PathText);
+                        PixelFormat pf = PixelFormat.Format24bppRgb;
+                        /*Rectangle rectangle = new Rectangle((int) Math.Round(X1), (int) Math.Round(Y1),
+                            (int) Math.Round(X2), height - (int) Math.Round(Y2));*/
+                        Rectangle rectangle = new Rectangle(TopLeft, new Size(TopRight.X - TopLeft.X,BottomLeft.Y - TopLeft.Y));
 
+                        BitmapData targetBitmapData = bmp.LockBits(rectangle, ImageLockMode.WriteOnly, pf);
+                        BitmapData sourBitmapData = LoadBMP.LockBits(rectangle, ImageLockMode.ReadOnly, pf);
+                        IntPtr workingptr = targetBitmapData.Scan0;
+                        IntPtr sourceptr = sourBitmapData.Scan0;
+                        byte[] rawLoadBMP = new byte[sourBitmapData.Stride * sourBitmapData.Height];
+                        byte[] rawBMP = new byte[targetBitmapData.Stride * targetBitmapData.Height];
 
-                        for (int y = height - (int)(Math.Round(Y2)); y < height - (int)(Math.Round(Y1)); y++)
+                        Marshal.Copy(workingptr, rawBMP, 0, rawBMP.Length);
+                        Marshal.Copy(sourceptr, rawLoadBMP, 0, rawLoadBMP.Length);
+
+                        for (int pixel = 0; pixel != rawLoadBMP.Length; pixel++)
+                        {
+                            rawBMP[pixel] = rawLoadBMP[pixel];
+                        }
+
+                        Marshal.Copy(rawBMP, 0, workingptr, rawBMP.Length);
+                        LoadBMP.UnlockBits(sourBitmapData);
+                        bmp.UnlockBits(targetBitmapData);
+
+                        /*for (int y = height - (int)(Math.Round(Y2)); y < height - (int)(Math.Round(Y1)); y++)
                         {
                             for (int x = (int)(Math.Round(X1)); x < (int)(Math.Round(X2)); x++)
                             {
                                 bmp.SetPixel(x, y, LoadBMP.GetPixel(x, y));
                                 if (index < width * height - 4)
                                     index++;
-
                             }
-                        }
+                        }*/
                     }
 
                      pictureBox1.Image = bmp;
