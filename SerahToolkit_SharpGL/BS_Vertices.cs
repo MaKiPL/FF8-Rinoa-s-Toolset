@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -13,9 +14,9 @@ namespace SerahToolkit_SharpGL
     public partial class BS_Vertices : Form
     {
         private byte[] parsedByte;
-        private UInt16 vertices;
-        private int offsetFirst;
-        private string LastPath;
+        private readonly UInt16 vertices;
+        private readonly int offsetFirst;
+        private readonly string LastPath;
         private int current_forsave;
 
         private short x;
@@ -51,7 +52,7 @@ namespace SerahToolkit_SharpGL
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
-                z = short.Parse(d.ToString());
+                z = short.Parse(d.ToString(CultureInfo.InvariantCulture));
                 ParseToHex();
             ending:;
             }
@@ -70,7 +71,7 @@ namespace SerahToolkit_SharpGL
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
-                y = short.Parse(d.ToString());
+                y = short.Parse(d.ToString(CultureInfo.InvariantCulture));
                 ParseToHex();
             ending:;
             }
@@ -89,7 +90,7 @@ namespace SerahToolkit_SharpGL
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
-                x = short.Parse(d.ToString());
+                x = short.Parse(d.ToString(CultureInfo.InvariantCulture));
                 ParseToHex();
             ending:;
             }
@@ -138,9 +139,9 @@ namespace SerahToolkit_SharpGL
             byte[] tempRead = new byte[6];
             fs.Read(tempRead, 0, 6);
             fs.Close();
-            textBox1.Text = (BitConverter.ToInt16(tempRead, 0)/2000.0f).ToString();
-            textBox2.Text = (BitConverter.ToInt16(tempRead, 2) / 2000.0f).ToString();
-            textBox3.Text = (BitConverter.ToInt16(tempRead, 4) / 2000.0f).ToString();
+            textBox1.Text = (BitConverter.ToInt16(tempRead, 0)/2000.0f).ToString(CultureInfo.InvariantCulture);
+            textBox2.Text = (BitConverter.ToInt16(tempRead, 2) / 2000.0f).ToString(CultureInfo.InvariantCulture);
+            textBox3.Text = (BitConverter.ToInt16(tempRead, 4) / 2000.0f).ToString(CultureInfo.InvariantCulture);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

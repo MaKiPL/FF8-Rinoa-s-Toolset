@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 
 
@@ -30,17 +31,17 @@ namespace SerahToolkit_SharpGL
         private List<UInt16> B;
         private List<UInt16> C;   
 
-        private int height; //Texture height for PAGE id calculation
-        private int width; //As above
+        private readonly int height; //Texture height for PAGE id calculation
+        private readonly int width; //As above
 
-        private byte[] start = {0x01, 0x00, 0x01, 0x00};
+        private readonly byte[] start = {0x01, 0x00, 0x01, 0x00};
         private byte[] verticesCount; //Count of vertices
         private byte[] TrianglesCount; //Count of triangles (polygons)
         private List<byte[]> Vertices; //All vertices byte
         private List<byte[]> Polygon; //All ready polygons FACE+VT  bytes
         private int[] TPage; 
 
-        private Dictionary<decimal, byte[]> CLUT = new Dictionary<decimal, byte[]>
+        private readonly Dictionary<decimal, byte[]> CLUT = new Dictionary<decimal, byte[]>
         {
             { 0,new byte[] {0x00, 0x3C} },
             { 1,new byte[] {0x40, 0x3C} },
@@ -63,7 +64,7 @@ namespace SerahToolkit_SharpGL
         public Parser(int segment, int height, int width)
         {
             InitializeComponent();
-            this.Text = segment.ToString();
+            Text = segment.ToString();
             this.height = height;
             this.width = width;
         }
@@ -169,9 +170,9 @@ namespace SerahToolkit_SharpGL
                     */
 
                 //Works now
-                double d = Math.Round(X[i]); short xs = short.Parse(d.ToString());
-                d = Math.Round(Y[i]); short ys = short.Parse(d.ToString());
-                d = Math.Round(Z[i]); short zs = short.Parse(d.ToString());
+                double d = Math.Round(X[i]); short xs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                d = Math.Round(Y[i]); short ys = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                d = Math.Round(Z[i]); short zs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
 
 
                 byte[] vertex = new byte[6];
@@ -302,7 +303,7 @@ namespace SerahToolkit_SharpGL
                 richTextBox1.AppendText("Save segment failed");
         }
 
-        public byte[] CalculatePadding(int globalOffset)
+        private byte[] CalculatePadding(int globalOffset)
         {
             //Plus two
             //return new byte[] = {0x00} ??

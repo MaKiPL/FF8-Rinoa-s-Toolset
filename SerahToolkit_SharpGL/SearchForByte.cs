@@ -12,7 +12,6 @@ namespace SerahToolkit_SharpGL
         public static int ByteSearch(byte[] searchIn, byte[] searchBytes, int start = 0)
         {
             int found = -1;
-            bool matched = false;
 
             if (searchIn.Length > 0 && searchBytes.Length > 0 && start <= (searchIn.Length - searchBytes.Length) && searchIn.Length >= searchBytes.Length)
             {
@@ -25,7 +24,7 @@ namespace SerahToolkit_SharpGL
                         if (searchIn.Length > 1)
                         {
 
-                            matched = true;
+                            var matched = true;
                             for (int y = 1; y <= searchBytes.Length - 1; y++)
                             {
                                 if (searchIn[i + y] != searchBytes[y])

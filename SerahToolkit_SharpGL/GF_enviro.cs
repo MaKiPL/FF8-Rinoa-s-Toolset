@@ -14,8 +14,8 @@ namespace SerahToolkit_SharpGL
 
 
         private string _path;
-        private byte[] _file;
-        private byte[] BadHeader = new byte[8];
+        private readonly byte[] _file;
+        private readonly byte[] BadHeader = new byte[8];
         private uint[] subOffsets;
 
         private const int EnviroOffset = 0xC; //12th byte
@@ -28,7 +28,7 @@ namespace SerahToolkit_SharpGL
         private int VertexCount;
         private int VerticesOffset;
         private string v;
-        private string vt;
+        private string _vt;
         private string f;
         private uint pointer;
 
@@ -49,7 +49,7 @@ namespace SerahToolkit_SharpGL
 
         public GF_enviro(string path)
         {
-            this._path = path;
+            _path = path;
             _file = File.ReadAllBytes(_path);
         }
 
@@ -105,7 +105,7 @@ namespace SerahToolkit_SharpGL
             int updateOffset = offset + relativeJump;
             //Examine polygon type
             v = null;
-            vt = null;
+            _vt = null;
             f = null;
 
             

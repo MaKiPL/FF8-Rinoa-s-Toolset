@@ -107,7 +107,6 @@
             this.openGLControl.TabIndex = 0;
             this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
-            this.openGLControl.Load += new System.EventHandler(this.openGLControl_Load);
             // 
             // menuStrip1
             // 

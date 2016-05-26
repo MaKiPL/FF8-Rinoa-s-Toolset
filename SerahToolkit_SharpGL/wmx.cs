@@ -11,15 +11,15 @@ namespace SerahToolkit_SharpGL
         private const int Size = 0x9000;
         private const int Segments = 835;
         private const int Blocks = 0x10;
-        private int[] _blockOffsets = new int[Blocks];
+        private readonly int[] _blockOffsets = new int[Blocks];
         private int ID;
         private string Path;
-        private byte[] segBuffer;
-        private int shadowSize = 8;
+        private readonly byte[] segBuffer;
+        //private int shadowSize = 8;
 
         private string f = null;
-        private string vt = null;
-        private string v = null;
+        //private string vt = null;
+        //private string v = null;
 
 
         public wmx(int ID,string Path)

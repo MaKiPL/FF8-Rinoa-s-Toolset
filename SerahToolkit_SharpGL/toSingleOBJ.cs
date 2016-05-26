@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL
 {
     class toSingleOBJ
     {
-        private string path;
+        private readonly string path;
         private int HowMany;
         private FileInfo[] Forged;
 
@@ -17,7 +16,7 @@ namespace SerahToolkit_SharpGL
 
         public toSingleOBJ(string Path, int HowMany)
         {
-            this.path = Path;
+            path = Path;
             this.HowMany = HowMany;
             ForgePath();
         }
@@ -111,9 +110,9 @@ namespace SerahToolkit_SharpGL
                 }
             }
 
-            System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
+            SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Stage.obj|*.obj";
-            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (sfd.ShowDialog() == DialogResult.OK)
             {
                 if (File.Exists(sfd.FileName))
                     File.Delete(sfd.FileName);
