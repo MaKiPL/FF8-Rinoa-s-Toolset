@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class AboutBox1
+    sealed partial class AboutBox1
     {
         /// <summary>
         /// Required designer variable.

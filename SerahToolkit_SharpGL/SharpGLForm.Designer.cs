@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class SharpGLForm
+    partial class SharpGlForm
     {
         /// <summary>
         /// Required designer variable.
@@ -579,7 +579,7 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "SharpGLForm";
+            this.Name = "SharpGlForm";
             this.Text = "FF8 - SerahToolkit by MaKiPL v.0.9.00";
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
             this.menuStrip1.ResumeLayout(false);

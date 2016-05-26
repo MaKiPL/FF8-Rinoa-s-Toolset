@@ -16,32 +16,32 @@ namespace SerahToolkit_SharpGL
         private string[] _file ;
 
         //private List<Vector3>
-        private List<float> X;
-        private List<float> Y;
-        private List<float> Z;   
+        private List<float> _x;
+        private List<float> _y;
+        private List<float> _z;   
         //private Vector2 //Forget it
-        private List<double> U;
-        private List<double> U_pixel; 
-        private List<double> V;
-        private List<double> V_pixel;
-        private List<UInt16> A;
-        private List<int> At;
-        private List<int> Bt;
-        private List<int> Ct; 
-        private List<UInt16> B;
-        private List<UInt16> C;   
+        private List<double> _u;
+        private List<double> _uPixel; 
+        private List<double> _v;
+        private List<double> _vPixel;
+        private List<UInt16> _a;
+        private List<int> _at;
+        private List<int> _bt;
+        private List<int> _ct; 
+        private List<UInt16> _b;
+        private List<UInt16> _c;   
 
-        private readonly int height; //Texture height for PAGE id calculation
-        private readonly int width; //As above
+        private readonly int _height; //Texture height for PAGE id calculation
+        private readonly int _width; //As above
 
-        private readonly byte[] start = {0x01, 0x00, 0x01, 0x00};
-        private byte[] verticesCount; //Count of vertices
-        private byte[] TrianglesCount; //Count of triangles (polygons)
-        private List<byte[]> Vertices; //All vertices byte
-        private List<byte[]> Polygon; //All ready polygons FACE+VT  bytes
-        private int[] TPage; 
+        private readonly byte[] _start = {0x01, 0x00, 0x01, 0x00};
+        private byte[] _verticesCount; //Count of vertices
+        private byte[] _trianglesCount; //Count of triangles (polygons)
+        private List<byte[]> _vertices; //All vertices byte
+        private List<byte[]> _polygon; //All ready polygons FACE+VT  bytes
+        private int[] _page; 
 
-        private readonly Dictionary<decimal, byte[]> CLUT = new Dictionary<decimal, byte[]>
+        private readonly Dictionary<decimal, byte[]> _clut = new Dictionary<decimal, byte[]>
         {
             { 0,new byte[] {0x00, 0x3C} },
             { 1,new byte[] {0x40, 0x3C} },
@@ -65,14 +65,13 @@ namespace SerahToolkit_SharpGL
         {
             InitializeComponent();
             Text = segment.ToString();
-            this.height = height;
-            this.width = width;
+            _height = height;
+            _width = width;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Wavefront OBJ file .obj|*.obj";
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "Wavefront OBJ file .obj|*.obj"};
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _file = File.ReadAllLines(ofd.FileName);
@@ -88,11 +87,11 @@ namespace SerahToolkit_SharpGL
 
             //VERTICES
 
-            X = new List<float>(); Y = new List<float>(); Z = new List<float>();
-            U = new List<double>(); V = new List<double>();
-            U_pixel = new List<double>(); V_pixel = new List<double>();
-            A = new List<ushort>(); B = new List<ushort>(); C = new List<ushort>();
-            At = new List<int>(); Bt = new List<int>(); Ct = new List<int>();
+            _x = new List<float>(); _y = new List<float>(); _z = new List<float>();
+            _u = new List<double>(); _v = new List<double>();
+            _uPixel = new List<double>(); _vPixel = new List<double>();
+            _a = new List<ushort>(); _b = new List<ushort>(); _c = new List<ushort>();
+            _at = new List<int>(); _bt = new List<int>(); _ct = new List<int>();
 
             foreach (var s in _file)
             {
@@ -102,41 +101,41 @@ namespace SerahToolkit_SharpGL
                 {
 
                     string[] temp = s.Replace(".", ",").Split(' ');
-                    X.Add(float.Parse(temp[1])); Y.Add(float.Parse(temp[2]));
-                    Z.Add(float.Parse(temp[3]));
+                    _x.Add(float.Parse(temp[1])); _y.Add(float.Parse(temp[2]));
+                    _z.Add(float.Parse(temp[3]));
                 }
                 else if (s.StartsWith("vt "))
                 {
                     string[] temp = s.Replace(".", ",").Split(' ');
-                    U.Add(double.Parse(temp[1])); V.Add(double.Parse(temp[2]));
+                    _u.Add(double.Parse(temp[1])); _v.Add(double.Parse(temp[2]));
                 }
                 else if (s.StartsWith("f "))
                 {
                     string[] temp = s.Split(' '); // F[0] 1/1[1] 2/2[2] 3/3[3] 4/4[UNUSED]
-                    string[] Aa = temp[1].Split('/'); // A/T
-                    A.Add(UInt16.Parse(Aa[0]));
-                    At.Add(int.Parse(Aa[1]));
-                    string[] Bb = temp[2].Split('/'); // B/T
-                    B.Add(UInt16.Parse(Bb[0]));
-                    Bt.Add(int.Parse(Bb[1]));
-                    string[] Cc = temp[3].Split('/'); // C/T
-                    C.Add(UInt16.Parse(Cc[0]));
-                    Ct.Add(int.Parse(Cc[1]));
+                    string[] aa = temp[1].Split('/'); // A/T
+                    _a.Add(UInt16.Parse(aa[0]));
+                    _at.Add(int.Parse(aa[1]));
+                    string[] bb = temp[2].Split('/'); // B/T
+                    _b.Add(UInt16.Parse(bb[0]));
+                    _bt.Add(int.Parse(bb[1]));
+                    string[] cc = temp[3].Split('/'); // C/T
+                    _c.Add(UInt16.Parse(cc[0]));
+                    _ct.Add(int.Parse(cc[1]));
                 }
             }
-            Vertices = new List<byte[]>();
+            _vertices = new List<byte[]>();
 
-            UInt16 VertCount = Convert.ToUInt16(X.Count);
-            verticesCount = new byte[2];
-            verticesCount = BitConverter.GetBytes(VertCount);
-            richTextBox1.AppendText(Environment.NewLine + "Vertices: " + VertCount);
-            richTextBox1.AppendText(Environment.NewLine + "VT: " + U.Count);
-            richTextBox1.AppendText(Environment.NewLine + "Triangles: " + C.Count);
+            UInt16 vertCount = Convert.ToUInt16(_x.Count);
+            _verticesCount = new byte[2];
+            _verticesCount = BitConverter.GetBytes(vertCount);
+            richTextBox1.AppendText(Environment.NewLine + "Vertices: " + vertCount);
+            richTextBox1.AppendText(Environment.NewLine + "VT: " + _u.Count);
+            richTextBox1.AppendText(Environment.NewLine + "Triangles: " + _c.Count);
 
-            for (int i = 0; i != X.Count; i++)
+            for (int i = 0; i != _x.Count; i++)
             {
-                X[i] = X[i] * 2000.0f; Y[i] = Y[i] * 2000.0f;
-                Z[i] = Z[i] * 2000.0f;
+                _x[i] = _x[i] * 2000.0f; _y[i] = _y[i] * 2000.0f;
+                _z[i] = _z[i] * 2000.0f;
                 /*
                 *Nope. 
 
@@ -170,16 +169,16 @@ namespace SerahToolkit_SharpGL
                     */
 
                 //Works now
-                double d = Math.Round(X[i]); short xs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
-                d = Math.Round(Y[i]); short ys = short.Parse(d.ToString(CultureInfo.InvariantCulture));
-                d = Math.Round(Z[i]); short zs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                double d = Math.Round(_x[i]); short xs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                d = Math.Round(_y[i]); short ys = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                d = Math.Round(_z[i]); short zs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
 
 
                 byte[] vertex = new byte[6];
                 Buffer.BlockCopy(BitConverter.GetBytes(xs), 0, vertex, 0, 2);
                 Buffer.BlockCopy(BitConverter.GetBytes(ys), 0, vertex, 2, 2);
                 Buffer.BlockCopy(BitConverter.GetBytes(zs), 0, vertex, 4, 2);
-                Vertices.Add(vertex);
+                _vertices.Add(vertex);
 
             }
 
@@ -220,19 +219,19 @@ namespace SerahToolkit_SharpGL
                     Parse 33 as V to byte and apply TPage=5
                     
     */
-            TPage = new int[U.Count];
-            for (int i = 0; i != U.Count; i++)
+            _page = new int[_u.Count];
+            for (int i = 0; i != _u.Count; i++)
             {
-                U_pixel.Add(Math.Round(((U[i]*100.0d)*height)/100.0d));  //  ( (0.501953*100) * 256 ) / 100.0
-                V_pixel.Add(Math.Round(((V[i]*100.0d)*width)/100.0d));
+                _uPixel.Add(Math.Round(((_u[i]*100.0d)*_height)/100.0d));  //  ( (0.501953*100) * 256 ) / 100.0
+                _vPixel.Add(Math.Round(((_v[i]*100.0d)*_width)/100.0d));
                 
                 while (true)
                 {
-                    if (U_pixel[i] <= 128.0d)
+                    if (_uPixel[i] <= 128.0d)
                         break;
 
-                    U_pixel[i] -= 128.0d;
-                    TPage[i]++; 
+                    _uPixel[i] -= 128.0d;
+                    _page[i]++; 
 
                 }
             }
@@ -244,28 +243,28 @@ namespace SerahToolkit_SharpGL
 
             //  Wing order:     U1/T2 U2/T3 U3/T1 
             // FACE - 1 REMEMBER
-            Polygon = new List<byte[]>();
+            _polygon = new List<byte[]>();
 
-            UInt16 tempTrianglesCount = Convert.ToUInt16(A.Count);
-            TrianglesCount = BitConverter.GetBytes(tempTrianglesCount);
+            UInt16 tempTrianglesCount = Convert.ToUInt16(_a.Count);
+            _trianglesCount = BitConverter.GetBytes(tempTrianglesCount);
 
-            byte TPagePreOperand = 0xB0;
+            byte pagePreOperand = 0xB0;
 
             for (int i = 0; i != tempTrianglesCount; i++)
             {
                 byte[] triangle = new byte[20];
-                Buffer.BlockCopy(BitConverter.GetBytes(A[i]-1),0,triangle,0,2); //A
-                Buffer.BlockCopy(BitConverter.GetBytes(B[i]-1), 0, triangle, 2, 2); //B
-                Buffer.BlockCopy(BitConverter.GetBytes(C[i]-1), 0, triangle, 4, 2); //C
-                Buffer.BlockCopy(BitConverter.GetBytes(U[At[i]-1]),0,triangle,6,1); //U1
-                Buffer.BlockCopy(BitConverter.GetBytes(V[At[i]-1]), 0, triangle, 7, 1); //V1
-                Buffer.BlockCopy(BitConverter.GetBytes(U[Bt[i]-1]), 0, triangle, 8, 1); //U2
-                Buffer.BlockCopy(BitConverter.GetBytes(V[Bt[i]-1]), 0, triangle, 9, 1); //V2
-                Buffer.BlockCopy(CLUT[numericUpDown1.Value],0,triangle,10,2); //CLUTid
-                Buffer.BlockCopy(BitConverter.GetBytes(U[Ct[i]-1]), 0, triangle, 12, 1); //U3
-                Buffer.BlockCopy(BitConverter.GetBytes(V[Ct[i]-1]), 0, triangle, 13, 1); //V3
-                byte[] tempTP = BitConverter.GetBytes(TPage[At[i] - 1]);
-                var a = tempTP[0] | TPagePreOperand; //BITwise 0xB0 OR 0x0? = 0xB?
+                Buffer.BlockCopy(BitConverter.GetBytes(_a[i]-1),0,triangle,0,2); //A
+                Buffer.BlockCopy(BitConverter.GetBytes(_b[i]-1), 0, triangle, 2, 2); //B
+                Buffer.BlockCopy(BitConverter.GetBytes(_c[i]-1), 0, triangle, 4, 2); //C
+                Buffer.BlockCopy(BitConverter.GetBytes(_u[_at[i]-1]),0,triangle,6,1); //U1
+                Buffer.BlockCopy(BitConverter.GetBytes(_v[_at[i]-1]), 0, triangle, 7, 1); //V1
+                Buffer.BlockCopy(BitConverter.GetBytes(_u[_bt[i]-1]), 0, triangle, 8, 1); //U2
+                Buffer.BlockCopy(BitConverter.GetBytes(_v[_bt[i]-1]), 0, triangle, 9, 1); //V2
+                Buffer.BlockCopy(_clut[numericUpDown1.Value],0,triangle,10,2); //CLUTid
+                Buffer.BlockCopy(BitConverter.GetBytes(_u[_ct[i]-1]), 0, triangle, 12, 1); //U3
+                Buffer.BlockCopy(BitConverter.GetBytes(_v[_ct[i]-1]), 0, triangle, 13, 1); //V3
+                byte[] tempTp = BitConverter.GetBytes(_page[_at[i] - 1]);
+                var a = tempTp[0] | pagePreOperand; //BITwise 0xB0 OR 0x0? = 0xB?
                 triangle[14] = Convert.ToByte(a); // TPage Bitwised with 0xB0 (UNKNOWN)
                 //Buffer.BlockCopy(ARRAY[here], 0, triangle, 14, 1); //TPAGE !!!!
 
@@ -274,25 +273,24 @@ namespace SerahToolkit_SharpGL
                 triangle[19] = 0x2c; //PSOne GPU
 
 
-                Polygon.Add(triangle);
+                _polygon.Add(triangle);
             }
             richTextBox1.AppendText(Environment.NewLine + "Triangle data forged succesfully");
             richTextBox1.AppendText(Environment.NewLine + "Preparing to save segment...");
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Segment file used to replace *.xBIN|*.xBIN";
+            SaveFileDialog sfd = new SaveFileDialog {Filter = "Segment file used to replace *.xBIN|*.xBIN"};
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 FileStream fs = new FileStream(sfd.FileName, FileMode.Append);
-                fs.Write(start, 0, start.Length);
-                fs.Write(verticesCount, 0, verticesCount.Length);
-                foreach (byte[] b in Vertices)
+                fs.Write(_start, 0, _start.Length);
+                fs.Write(_verticesCount, 0, _verticesCount.Length);
+                foreach (byte[] b in _vertices)
                 {
                     fs.Write(b, 0, b.Length);
                 }
                 fs.Write(CalculatePadding(4), 0, CalculatePadding(4).Length); // <---- EDIT ME
-                fs.Write(TrianglesCount, 0, 2);
+                fs.Write(_trianglesCount, 0, 2);
                 fs.Write(new byte[6], 0, 2); // NULL + padding
-                foreach (var variable in Polygon)
+                foreach (var variable in _polygon)
                 {
                     fs.Write(variable, 0, 20);
                 }

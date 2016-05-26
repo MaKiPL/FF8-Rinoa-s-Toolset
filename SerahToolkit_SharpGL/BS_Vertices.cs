@@ -1,41 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
 namespace SerahToolkit_SharpGL
 {
-    public partial class BS_Vertices : Form
+    public partial class BsVertices : Form
     {
-        private byte[] parsedByte;
-        private readonly UInt16 vertices;
-        private readonly int offsetFirst;
-        private readonly string LastPath;
-        private int current_forsave;
+        private byte[] _parsedByte;
+        private readonly UInt16 _vertices;
+        private readonly int _offsetFirst;
+        private readonly string _lastPath;
+        private int _currentForsave;
 
-        private short x;
-        private short y;
-        private short z;
+        private short _x;
+        private short _y;
+        private short _z;
 
 
-        public BS_Vertices(string LastPath, int offset)
+        public BsVertices(string lastPath, int offset)
         {
             InitializeComponent();
-            this.LastPath = LastPath;
-            var fs = new FileStream(LastPath, FileMode.Open);
+            _lastPath = lastPath;
+            var fs = new FileStream(lastPath, FileMode.Open);
             fs.Seek(offset+4, SeekOrigin.Begin);
             Byte[] buffer = new byte[2];
             fs.Read(buffer, 0, 2);
-            vertices = BitConverter.ToUInt16(buffer,0);
+            _vertices = BitConverter.ToUInt16(buffer,0);
             fs.Close();
 
-            offsetFirst = offset + 6;
+            _offsetFirst = offset + 6;
             PopulateList();
 
 
@@ -52,15 +46,14 @@ namespace SerahToolkit_SharpGL
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
-                z = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                _z = short.Parse(d.ToString(CultureInfo.InvariantCulture));
                 ParseToHex();
             ending:;
             }
             catch
             {
-
+                // ignored
             }
-            
         }
 
         private void TextBox2_TextChanged(object sender, EventArgs e)
@@ -71,15 +64,14 @@ namespace SerahToolkit_SharpGL
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
-                y = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                _y = short.Parse(d.ToString(CultureInfo.InvariantCulture));
                 ParseToHex();
             ending:;
             }
             catch
             {
-
+                // ignored
             }
-            
         }
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
@@ -90,27 +82,26 @@ namespace SerahToolkit_SharpGL
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
-                x = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                _x = short.Parse(d.ToString(CultureInfo.InvariantCulture));
                 ParseToHex();
             ending:;
             }
             catch
             {
-
+                // ignored
             }
-            
         }
 
         private void ParseToHex()
         {
-            parsedByte = new byte[6];
-            Buffer.BlockCopy(BitConverter.GetBytes(x), 0, parsedByte, 0, 2);
-            Buffer.BlockCopy(BitConverter.GetBytes(y), 0, parsedByte, 2, 2);
-            Buffer.BlockCopy(BitConverter.GetBytes(z), 0, parsedByte, 4, 2);
-            updateHEX(parsedByte);
+            _parsedByte = new byte[6];
+            Buffer.BlockCopy(BitConverter.GetBytes(_x), 0, _parsedByte, 0, 2);
+            Buffer.BlockCopy(BitConverter.GetBytes(_y), 0, _parsedByte, 2, 2);
+            Buffer.BlockCopy(BitConverter.GetBytes(_z), 0, _parsedByte, 4, 2);
+            UpdateHex(_parsedByte);
         }
 
-        private void updateHEX(byte[] parsedbyte)
+        private void UpdateHex(byte[] parsedbyte)
         {
             textBox4.Text = BitConverter.ToString(parsedbyte).Replace("-"," ");
         }
@@ -118,7 +109,7 @@ namespace SerahToolkit_SharpGL
         private void PopulateList()
         {
             listBox1.Items.Clear();
-            for(int i= 0; i!=vertices; i++)
+            for(int i= 0; i!=_vertices; i++)
             {
                 listBox1.Items.Add(i);
             }
@@ -126,13 +117,13 @@ namespace SerahToolkit_SharpGL
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CalculateXYZ(LastPath, int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString()));
+            CalculateXyz(_lastPath, int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString()));
         }
 
-        private void CalculateXYZ(string path, int which)
+        private void CalculateXyz(string path, int which)
         {
-            int current = offsetFirst + (which * 6);
-            current_forsave = current;
+            int current = _offsetFirst + (which * 6);
+            _currentForsave = current;
 
             var fs = new FileStream(path, FileMode.Open);
             fs.Seek(current, SeekOrigin.Begin);
@@ -146,9 +137,9 @@ namespace SerahToolkit_SharpGL
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var fs = new FileStream(LastPath, FileMode.Open);
-            fs.Seek(current_forsave, SeekOrigin.Begin);
-            fs.Write(parsedByte, 0, 6);
+            var fs = new FileStream(_lastPath, FileMode.Open);
+            fs.Seek(_currentForsave, SeekOrigin.Begin);
+            fs.Write(_parsedByte, 0, 6);
             fs.Close();
         }
     }

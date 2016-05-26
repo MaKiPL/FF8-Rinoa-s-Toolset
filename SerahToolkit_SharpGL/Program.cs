@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL
@@ -15,7 +13,7 @@ namespace SerahToolkit_SharpGL
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SharpGLForm());
+            Application.Run(new SharpGlForm());
         }
     }
 }

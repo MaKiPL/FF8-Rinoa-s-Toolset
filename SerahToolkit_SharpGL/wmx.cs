@@ -1,41 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 
 namespace SerahToolkit_SharpGL
 {
-    class wmx
+    class Wmx
     {
         private const int Size = 0x9000;
         private const int Segments = 835;
         private const int Blocks = 0x10;
         private readonly int[] _blockOffsets = new int[Blocks];
-        private int ID;
-        private string Path;
-        private readonly byte[] segBuffer;
+        private int _id;
+        private string _path;
+        private readonly byte[] _segBuffer;
         //private int shadowSize = 8;
 
-        private string f = null;
+        private string _f = null;
         //private string vt = null;
         //private string v = null;
 
 
-        public wmx(int ID,string Path)
+        public Wmx(int id,string path)
         {
-            this.ID = ID;
-            this.Path = Path;
+            _id = id;
+            _path = path;
 
             byte[] buffer = new byte[Blocks*4];
-            FileStream fs = new FileStream(Path,FileMode.Open);
-            fs.Seek((ID*Size)+4, SeekOrigin.Begin);
+            FileStream fs = new FileStream(path,FileMode.Open);
+            fs.Seek((id*Size)+4, SeekOrigin.Begin);
             fs.Read(buffer, 0, buffer.Length);
             ProduceOffsets(buffer);
 
-            segBuffer = new byte[Size];
-            fs.Seek(ID*Size, SeekOrigin.Begin);
-            fs.Read(segBuffer, 0, Size);
+            _segBuffer = new byte[Size];
+            fs.Seek(id*Size, SeekOrigin.Begin);
+            fs.Read(_segBuffer, 0, Size);
             fs.Close();
 
 
@@ -43,7 +40,7 @@ namespace SerahToolkit_SharpGL
             {
                 Process(_blockOffsets[i]);
             }
-            Console.WriteLine(f);
+            Console.WriteLine(_f);
         }
 
         private void ProduceOffsets(byte[] buffer)
@@ -57,9 +54,9 @@ namespace SerahToolkit_SharpGL
         private void Process(int offset)
         {
             //initialize count
-            byte polygon = segBuffer[offset];
-            byte vertices = segBuffer[offset + 1];
-            byte shadow = segBuffer[offset + 2];
+            byte polygon = _segBuffer[offset];
+            byte vertices = _segBuffer[offset + 1];
+            byte shadow = _segBuffer[offset + 2];
 
             int currIndex = offset + 4;
             //Polygon is 16 bytes!
@@ -70,8 +67,8 @@ namespace SerahToolkit_SharpGL
             {
                 int vt = (i * 3)+1; // VT index
 
-                TriangleAdd(segBuffer[currIndex], segBuffer[currIndex+1], segBuffer[currIndex+2], vt);
-                TriangleAdd(segBuffer[currIndex+3], segBuffer[currIndex+4], segBuffer[currIndex+5], vt);
+                TriangleAdd(_segBuffer[currIndex], _segBuffer[currIndex+1], _segBuffer[currIndex+2], vt);
+                TriangleAdd(_segBuffer[currIndex+3], _segBuffer[currIndex+4], _segBuffer[currIndex+5], vt);
 
                 //CALCULATE vt here
 
@@ -80,9 +77,9 @@ namespace SerahToolkit_SharpGL
 
         }
 
-        private void TriangleAdd(int A, int B, int C, int vt)
+        private void TriangleAdd(int a, int b, int c, int vt)
         {
-            f += string.Format("f {0}/{3} {1}/{4} {2}/{5}{6}", A, B, C, vt, vt + 1, vt + 2,Environment.NewLine);
+            _f += string.Format("f {0}/{3} {1}/{4} {2}/{5}{6}", a, b, c, vt, vt + 1, vt + 2,Environment.NewLine);
         }
     }
 }

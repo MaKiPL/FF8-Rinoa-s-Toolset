@@ -2,65 +2,66 @@
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using static System.IO.Path;
 
 namespace SerahToolkit_SharpGL
 {
-    class toSingleOBJ
+    class ToSingleObj
     {
-        private readonly string path;
-        private int HowMany;
-        private FileInfo[] Forged;
+        private readonly string _path;
+        private int _howMany;
+        private FileInfo[] _forged;
 
-        private int LastVT;
-        private int LastV;
+        private int _lastVt;
+        private int _lastV;
 
-        public toSingleOBJ(string Path, int HowMany)
+        public ToSingleObj(string path, int howMany)
         {
-            path = Path;
-            this.HowMany = HowMany;
+            _path = path;
+            _howMany = howMany;
             ForgePath();
         }
 
         public void JustDoIt()
         {
             StringBuilder sb = new StringBuilder();
-            int FileNumber = 0;
-            foreach(FileInfo a in Forged)
+            int fileNumber = 0;
+            foreach(FileInfo a in _forged)
             {
-                if(a==Forged[0])
+                if(a==_forged[0])
                 {
-                    String[] tempLinesBEF = File.ReadAllLines(a.FullName);
-                    for (int i = 0; i != tempLinesBEF.Length; i++)
+                    String[] tempLinesBef = File.ReadAllLines(a.FullName);
+                    for (int i = 0; i != tempLinesBef.Length; i++)
                     {
-                        if (tempLinesBEF[i].StartsWith("v "))
-                                LastV++;
+                        if (tempLinesBef[i].StartsWith("v "))
+                                _lastV++;
 
-                        if (tempLinesBEF[i].StartsWith("vt"))
-                                LastVT++;
+                        if (tempLinesBef[i].StartsWith("vt"))
+                                _lastVt++;
 
                     }
-                    foreach (string s in tempLinesBEF)
+                    foreach (string s in tempLinesBef)
                     {
                         sb.AppendLine(s);
                     }
-                    FileNumber++;
+                    fileNumber++;
 
                 }
                 else
                 { 
                 String[] tempLines = File.ReadAllLines(a.FullName);
-                    int MaxVerts = 0;
-                    int MaxVT = 0;
+                    int maxVerts = 0;
+                    int maxVt = 0;
                     for (int i = 0; i != tempLines.Length; i++)
                     {
                         if (tempLines[i].StartsWith("v "))
                         {
-                                MaxVerts++;
+                                maxVerts++;
                         }
 
                         if (tempLines[i].StartsWith("vt"))
                         {
-                                MaxVT++;
+                                maxVt++;
                         }
                         if (tempLines[i].StartsWith("f"))
                         {
@@ -69,72 +70,71 @@ namespace SerahToolkit_SharpGL
                                 string ss = tempLines[i].Substring(2, tempLines[i].Length - 2);
                                 string[] temp = ss.Split('/');
 
-                                int T1 = int.Parse(temp[0]) + LastV;
-                                string[] A1 = temp[1].Split(' ');
-                                string[] A2 = temp[2].Split(' ');
-                                int U1 = int.Parse(A1[0]) + LastVT;
-                                int T2 = int.Parse(A1[1]) + LastV;
-                                int U2 = int.Parse(A2[0]) + LastVT;
-                                int T3 = int.Parse(A2[1]) + LastV;
-                                int U3 = int.Parse(temp[3]) + LastVT;
+                                int t1 = int.Parse(temp[0]) + _lastV;
+                                string[] a1 = temp[1].Split(' ');
+                                string[] a2 = temp[2].Split(' ');
+                                int u1 = int.Parse(a1[0]) + _lastVt;
+                                int t2 = int.Parse(a1[1]) + _lastV;
+                                int u2 = int.Parse(a2[0]) + _lastVt;
+                                int t3 = int.Parse(a2[1]) + _lastV;
+                                int u3 = int.Parse(temp[3]) + _lastVt;
 
-                                tempLines[i] = string.Format("f {0}/{1} {2}/{3} {4}/{5}", T1, U1, T2, U2, T3, U3);
+                                tempLines[i] = $"f {t1}/{u1} {t2}/{u2} {t3}/{u3}";
                             }
                             else
                             {
                                 string ss = tempLines[i].Substring(2, tempLines[i].Length - 2);
                                 string[] temp = ss.Split('/');
 
-                                int T1 = int.Parse(temp[0]) + LastV;
-                                string[] A1 = temp[1].Split(' ');
-                                string[] A2 = temp[2].Split(' ');
-                                string[] A3 = temp[3].Split(' ');
-                                int U1 = int.Parse(A1[0]) + LastVT;
-                                int T2 = int.Parse(A1[1]) + LastV;
-                                int U2 = int.Parse(A2[0]) + LastVT;
-                                int T3 = int.Parse(A2[1]) + LastV;
-                                int U3 = int.Parse(A3[0]) + LastVT;
-                                int T4 = int.Parse(A3[1]) + LastV;
-                                int U4 = int.Parse(temp[4]) + LastVT;
+                                int t1 = int.Parse(temp[0]) + _lastV;
+                                string[] a1 = temp[1].Split(' ');
+                                string[] a2 = temp[2].Split(' ');
+                                string[] a3 = temp[3].Split(' ');
+                                int u1 = int.Parse(a1[0]) + _lastVt;
+                                int t2 = int.Parse(a1[1]) + _lastV;
+                                int u2 = int.Parse(a2[0]) + _lastVt;
+                                int t3 = int.Parse(a2[1]) + _lastV;
+                                int u3 = int.Parse(a3[0]) + _lastVt;
+                                int t4 = int.Parse(a3[1]) + _lastV;
+                                int u4 = int.Parse(temp[4]) + _lastVt;
 
-                                tempLines[i] = string.Format("f {0}/{1} {2}/{3} {4}/{5} {6}/{7}", T1, U1, T2, U2, T3, U3, T4, U4);
+                                tempLines[i] = $"f {t1}/{u1} {t2}/{u2} {t3}/{u3} {t4}/{u4}";
                             }
                         }
 
                     }
-                    LastV += MaxVerts;
-                    LastVT += MaxVT;
-                    FileNumber++;
+                    _lastV += maxVerts;
+                    _lastVt += maxVt;
+                    fileNumber++;
                     foreach (string s in tempLines)
                         sb.AppendLine(s);
                 }
             }
 
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Stage.obj|*.obj";
+            SaveFileDialog sfd = new SaveFileDialog {Filter = "Stage.obj|*.obj"};
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 if (File.Exists(sfd.FileName))
                     File.Delete(sfd.FileName);
                 File.WriteAllText(sfd.FileName, sb.ToString());
-                string buildMTL = path.Substring(0, path.Length - 2) + ".MTL";
-                string buildPNG = path.Substring(0, path.Length - 2) + "_col.png";
+                string buildMtl = _path.Substring(0, _path.Length - 2) + ".MTL";
+                string buildPng = _path.Substring(0, _path.Length - 2) + "_col.png";
                 /*
                 if (File.Exists(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + ".MTL"))
                     File.Delete(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + ".MTL");
                 if (File.Exists(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + "_col.png"))
                     File.Delete(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + "_col.png");*/
-                    if(buildMTL!= Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + ".MTL")
-                        File.Copy(buildMTL, Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) +  ".MTL",true);
-                    if(buildPNG!= Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + "_col.png")
-                        File.Copy(buildPNG, Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + "_col.png",true);
+                    if(buildMtl!= GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + ".MTL")
+                        File.Copy(buildMtl, GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) +  ".MTL",true);
+                    if(buildPng!= GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + "_col.png")
+                        File.Copy(buildPng, GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + "_col.png",true);
             }
         }
 
         private void ForgePath()
         {
-            DirectoryInfo di = new DirectoryInfo(Path.GetDirectoryName(path));
-            Forged = di.GetFiles(Path.GetFileNameWithoutExtension(path) + "*.obj");
+            DirectoryInfo di = new DirectoryInfo(GetDirectoryName(_path));
+            _forged = di.GetFiles(GetFileNameWithoutExtension(_path) + "*.obj");
         }
     }
 }

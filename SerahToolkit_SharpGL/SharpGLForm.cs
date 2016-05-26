@@ -14,67 +14,67 @@ using SharpGL.Enumerations;
 
 namespace SerahToolkit_SharpGL
 {
-    public partial class SharpGLForm : Form
+    public partial class SharpGlForm : Form
     {
-        public SharpGLForm()
+        public SharpGlForm()
         {
             InitializeComponent();
             OpenGL gl = openGLControl.OpenGL;
             gl.Enable(OpenGL.GL_TEXTURE_2D);
         }
 
-        private List<string> PathModels;
-        private string RailPath;
-        private string LastKnownPath;
-        private int LastKnownTIM;
-        private Bitmap bmp;
-        private Bitmap bmp2;
-        private int State;
+        private List<string> _pathModels;
+        private string _railPath;
+        private string _lastKnownPath;
+        private int _lastKnownTim;
+        private Bitmap _bmp;
+        private Bitmap _bmp2;
+        private int _state;
 
-        private GF_enviro gf;
+        private GfEnviro _gf;
 
-        private const int State_BattleStageUV = 0;
-        private const int State_RailDraw = 1;
-        private const int State_wmset = 2;
-        private const int State_wmsetModel = 3;
-        private const int State_GFenviro = 4;
-        private const int State_WMX = 5;
+        private const int StateBattleStageUv = 0;
+        private const int StateRailDraw = 1;
+        private const int StateWmset = 2;
+        private const int StateWmsetModel = 3;
+        private const int StateGFenviro = 4;
+        private const int StateWmx = 5;
 
 
-        OpenGL gl;
-        readonly List<Polygon> polygons = new List<Polygon>();
-        SharpGL.SceneGraph.Cameras.PerspectiveCamera camera = new SharpGL.SceneGraph.Cameras.PerspectiveCamera();
+        OpenGL _gl;
+        readonly List<Polygon> _polygons = new List<Polygon>();
+        SharpGL.SceneGraph.Cameras.PerspectiveCamera _camera = new SharpGL.SceneGraph.Cameras.PerspectiveCamera();
 
 
 
         private void openGLControl_OpenGLDraw(object sender, RenderEventArgs e)
         {
             //  Get the OpenGL object, for quick access.
-            gl = openGLControl.OpenGL;
+            _gl = openGLControl.OpenGL;
 
             //  Clear and load the identity.
-            gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
-            gl.LoadIdentity();
+            _gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
+            _gl.LoadIdentity();
 
             //  View from a bit away the y axis and a few units above the ground.
 
-            gl.LookAt(-10, 10, -10, 0, 0, 0, 0, 1, 0);
-            gl.Rotate(0.0f, trackBar1.Value, trackBar2.Value);
+            _gl.LookAt(-10, 10, -10, 0, 0, 0, 0, 1, 0);
+            _gl.Rotate(0.0f, trackBar1.Value, trackBar2.Value);
 
             //  Move the objects down a bit so that they fit in the screen better.
-            double x_trans = (double)trackBar3.Value / 100f;
-            double y_trans = (double)trackBar4.Value / 100f;
-            double z_trans = (double)trackBar5.Value / 100f;
-            gl.Translate(x_trans, y_trans, z_trans);
+            double xTrans = (double)trackBar3.Value / 100f;
+            double yTrans = (double)trackBar4.Value / 100f;
+            double zTrans = (double)trackBar5.Value / 100f;
+            _gl.Translate(xTrans, yTrans, zTrans);
 
             //  Draw every polygon in the collection.
-            foreach (Polygon polygon in polygons)
+            foreach (Polygon polygon in _polygons)
                 {
                 if (polygon.IsEnabled)
                     {
-                    polygon.PushObjectSpace(gl);
-                    polygon.Render(gl, SharpGL.SceneGraph.Core.RenderMode.Render);
-                    polygon.PopObjectSpace(gl);
+                    polygon.PushObjectSpace(_gl);
+                    polygon.Render(_gl, SharpGL.SceneGraph.Core.RenderMode.Render);
+                    polygon.PopObjectSpace(_gl);
                     }
                 }
         }
@@ -104,13 +104,13 @@ namespace SerahToolkit_SharpGL
             ab.ShowDialog();
         }
 
-        private void Render3D(int WMSET_int = 0)
+        private void Render3D(int wmsetInt = 0)
         {
-            polygons.Clear();
-            if (State == State_BattleStageUV)
+            _polygons.Clear();
+            if (_state == StateBattleStageUv)
             {
                 
-                foreach (string s in PathModels)
+                foreach (string s in _pathModels)
                 {
                     Scene scene = SerializationEngine.Instance.LoadScene(s);
                     if (scene != null)
@@ -134,58 +134,59 @@ namespace SerahToolkit_SharpGL
                             polygon.Transformation.ScaleY = scaleFactor;
                             polygon.Transformation.ScaleZ = scaleFactor;
                             polygon.Freeze(openGLControl.OpenGL); */
-                            polygons.Add(polygon);
+                            _polygons.Add(polygon);
                         }
                     }
                 }
             }
-           if(State == State_RailDraw)
+           if(_state == StateRailDraw)
             {
-                string PathOFDe = Path.GetDirectoryName(RailPath);
-                PathOFDe += string.Format(@"\{0}_{1}.obj", Path.GetFileNameWithoutExtension(RailPath), listBox1.Items[listBox1.SelectedIndex]);
-                gl.ClearColor(0, 0, 0, 0);
+                string pathOfDe = Path.GetDirectoryName(_railPath);
+                pathOfDe +=
+                    $@"\{Path.GetFileNameWithoutExtension(_railPath)}_{listBox1.Items[listBox1.SelectedIndex]}.obj";
+                _gl.ClearColor(0, 0, 0, 0);
                 openGLControl.OpenGL.PolygonMode(FaceMode.FrontAndBack, PolygonMode.Points);
-                Scene scene = SerializationEngine.Instance.LoadScene(PathOFDe);
+                Scene scene = SerializationEngine.Instance.LoadScene(pathOfDe);
                     if (scene != null)
                     {
                         foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
                         {
                         polygon.IsEnabled = true;
-                        polygons.Add(polygon);
+                        _polygons.Add(polygon);
                         }
                     }
             }
-           if(State == State_wmset)
+           if(_state == StateWmset)
             {
                 //LOGIC HERE
                 //WMSET_int
             } 
 
-           if(State == State_wmsetModel)
+           if(_state == StateWmsetModel)
             {
-                string pathOFDe = Path.GetDirectoryName(LastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_q.obj";
-                if (File.Exists(pathOFDe))
+                string pathOfDe = Path.GetDirectoryName(_lastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_q.obj";
+                if (File.Exists(pathOfDe))
                 {
-                    Scene scene = SerializationEngine.Instance.LoadScene(pathOFDe);
+                    Scene scene = SerializationEngine.Instance.LoadScene(pathOfDe);
                     if (scene != null)
                     {
                         foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
                         {
                             polygon.IsEnabled = true;
-                            polygons.Add(polygon);
+                            _polygons.Add(polygon);
                         }
                     }
                 }
-                pathOFDe = Path.GetDirectoryName(LastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_t.obj";
-                if (File.Exists(pathOFDe))
+                pathOfDe = Path.GetDirectoryName(_lastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_t.obj";
+                if (File.Exists(pathOfDe))
                 {
-                    Scene scene = SerializationEngine.Instance.LoadScene(pathOFDe);
+                    Scene scene = SerializationEngine.Instance.LoadScene(pathOfDe);
                     if (scene != null)
                     {
                         foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
                         {
                             polygon.IsEnabled = true;
-                            polygons.Add(polygon);
+                            _polygons.Add(polygon);
                         }
                     }
                 }
@@ -230,46 +231,48 @@ namespace SerahToolkit_SharpGL
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Open FF8 .X stage model (a0stgXXX.x)";
-            ofd.Filter = "Final Fantasy VIII stage (.x)|*.X";
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = "Open FF8 .X stage model (a0stgXXX.x)",
+                Filter = "Final Fantasy VIII stage (.x)|*.X"
+            };
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                State = State_BattleStageUV;
+                _state = StateBattleStageUv;
                 exportToolStripMenuItem.Enabled = true;
                 importToolStripMenuItem.Enabled = true;
                 SetLines(false);
                 BattleStage bs = new BattleStage(ofd.FileName);
                 listBox1.Items.Clear();
-                UpdateSTATUS(ofd.FileName);
+                UpdateStatus(ofd.FileName);
                 bs.Process(true);
 
                 //DEBUG INSTANCE FOR BS+Texture
 
                 pictureBox1.Image = bs.GetTexture();
                 pictureBox1.BackgroundImage = bs.GetTexture();
-                bmp = bs.GetTexture(); //FOR edit
-                bmp2 = bs.GetTexture(); //FOR RESCUE
-                LastKnownPath = ofd.FileName;
-                LastKnownTIM = bs.GetLastTIM();
+                _bmp = bs.GetTexture(); //FOR edit
+                _bmp2 = bs.GetTexture(); //FOR RESCUE
+                _lastKnownPath = ofd.FileName;
+                _lastKnownTim = bs.GetLastTim();
 
                 //END OF DEBUG
 
-                PathModels = new List<string>();
+                _pathModels = new List<string>();
                 foreach(int i in bs.GetArrayOfObjects())
                 {
                     listBox1.Items.Add(i.ToString());
-                    var PathOFD = Path.GetDirectoryName(ofd.FileName);
-                    PathOFD += string.Format(@"\{0}_{1}_t.obj", Path.GetFileNameWithoutExtension(ofd.FileName), i.ToString());
-                    if(File.Exists(PathOFD))
-                        PathModels.Add(PathOFD);
+                    var pathOfd = Path.GetDirectoryName(ofd.FileName);
+                    pathOfd += $@"\{Path.GetFileNameWithoutExtension(ofd.FileName)}_{i.ToString()}_t.obj";
+                    if(File.Exists(pathOfd))
+                        _pathModels.Add(pathOfd);
 
-                    string PathOFD2 = Path.GetDirectoryName(ofd.FileName);
-                    PathOFD2 += string.Format(@"\{0}_{1}_q.obj", Path.GetFileNameWithoutExtension(ofd.FileName), i.ToString());
-                    if (File.Exists(PathOFD2))
-                        PathModels.Add(PathOFD2);
+                    string pathOfd2 = Path.GetDirectoryName(ofd.FileName);
+                    pathOfd2 += $@"\{Path.GetFileNameWithoutExtension(ofd.FileName)}_{i.ToString()}_q.obj";
+                    if (File.Exists(pathOfd2))
+                        _pathModels.Add(pathOfd2);
 
-                    if (File.Exists(PathOFD) && File.Exists(PathOFD2))
+                    if (File.Exists(pathOfd) && File.Exists(pathOfd2))
                         listBox1.Items.Add(i.ToString());
                 }
                 Render3D();
@@ -296,24 +299,24 @@ namespace SerahToolkit_SharpGL
         {
             if (listBox1.Items.Count == 1)
                 goto endofcode;
-            switch (State)
+            switch (_state)
             {
-                case State_BattleStageUV:
+                case StateBattleStageUv:
                     BattleStage_listbox(false);
                     break;
-                case State_RailDraw:
+                case StateRailDraw:
                     Rail_listbox();
                     break;
-                case State_wmset:
+                case StateWmset:
                     WMSET_Listbox();
                     break;
-                case State_wmsetModel:
+                case StateWmsetModel:
                     WMSETmod_listbox();
                     break;
-                case State_GFenviro:
-                    GFLogic();
+                case StateGFenviro:
+                    GfLogic();
                     break;
-                case State_WMX:
+                case StateWmx:
                     WMX_list();
                     break;
                 default:
@@ -334,12 +337,12 @@ namespace SerahToolkit_SharpGL
         {
             if (listBox1.SelectedIndex == -1)
                 listBox1.SelectedIndex = 0;
-            bmp = new Bitmap(pictureBox1.BackgroundImage);
-            Graphics g = Graphics.FromImage(bmp);
+            _bmp = new Bitmap(pictureBox1.BackgroundImage);
+            Graphics g = Graphics.FromImage(_bmp);
             int selected = Convert.ToInt32(listBox1.SelectedItems[0]);
             BattleStage bs = new BattleStage("UV");
-            Tuple<List<double>, List<double>,int> UV = bs.GetUVpoints(selected, LastKnownPath, LastKnownTIM);
-            List<Point> UV_point = new List<Point>();
+            Tuple<List<double>, List<double>,int> uv = bs.GetUVpoints(selected, _lastKnownPath, _lastKnownTim);
+            List<Point> uvPoint = new List<Point>();
 
 
 
@@ -348,13 +351,13 @@ namespace SerahToolkit_SharpGL
             int index = 0;
 
             //GET RESOLUTION
-            Tuple<int, int> TexResTuple = bs.GetTextureRes();
-            int width = TexResTuple.Item1;
-            int height = TexResTuple.Item2;
+            Tuple<int, int> texResTuple = bs.GetTextureRes();
+            int width = texResTuple.Item1;
+            int height = texResTuple.Item2;
 
 
             //Hide logic
-            checkBox1.Checked = !polygons[listBox1.SelectedIndex].IsEnabled;
+            checkBox1.Checked = !_polygons[listBox1.SelectedIndex].IsEnabled;
 
             if (bGenerateTextures)
             {
@@ -364,66 +367,66 @@ namespace SerahToolkit_SharpGL
                 for (int i = 0; i != listBox1.Items.Count; i++)
                 {
                     //Tuple<List<double>, List<double>> UV = GetUVpoints(SegmentArray[i], LastKnownPath, LastKnownTIM);
-                    UV = bs.GetUVpoints(int.Parse(listBox1.Items[i].ToString()), LastKnownPath, LastKnownTIM);
-                    int clute = UV.Item3;
+                    uv = bs.GetUVpoints(int.Parse(listBox1.Items[i].ToString()), _lastKnownPath, _lastKnownTim);
+                    int clute = uv.Item3;
 
-                    string PathText = Path.GetDirectoryName(LastKnownPath);
+                    string pathText = Path.GetDirectoryName(_lastKnownPath);
                     if(clute!=0)
-                        PathText = PathText + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + @"_" + clute + ".png";
+                        pathText = pathText + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + @"_" + clute + ".png";
                     else
-                        PathText = PathText + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + ".png";
+                        pathText = pathText + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + ".png";
 
-                    double U1Min = UV.Item1.Min(); double U1Max = UV.Item1.Max();
-                    double V1Min = UV.Item2.Min(); double V1Max = UV.Item2.Max();
+                    double u1Min = uv.Item1.Min(); double u1Max = uv.Item1.Max();
+                    double v1Min = uv.Item2.Min(); double v1Max = uv.Item2.Max();
 
-                    double X1 = Math.Floor(((U1Min * 100) * width) / 100) - 2;
-                    double Y1 = Math.Floor(((V1Min * 100) * height) / 100);
-                    double X2 = Math.Floor(((U1Max * 100) * width) / 100) - 2;
-                    double Y2 = Math.Floor(((V1Max * 100) * height) / 100);
+                    double x1 = Math.Floor(((u1Min * 100) * width) / 100) - 2;
+                    double y1 = Math.Floor(((v1Min * 100) * height) / 100);
+                    double x2 = Math.Floor(((u1Max * 100) * width) / 100) - 2;
+                    double y2 = Math.Floor(((v1Max * 100) * height) / 100);
 
-                    X1 = X1 <= 0 ? 1 : X1; X2 = X2 <= 0 ? 1 : X2;
+                    x1 = x1 <= 0 ? 1 : x1; x2 = x2 <= 0 ? 1 : x2;
 
-                    Point TopLeft = new Point((int)(Math.Round(X1)-1), height - (int)(Math.Round(Y2)));
-                    Point TopRight = new Point((int)(Math.Round(X2)-1), height - (int)(Math.Round(Y2)));
-                    Point BottomLeft = new Point((int)(Math.Round(X1)), height - (int)(Math.Round(Y1)));
-                    Point BottomRight = new Point((int)(Math.Round(X2)), height - (int)(Math.Round(Y1)));
+                    Point topLeft = new Point((int)(Math.Round(x1)-1), height - (int)(Math.Round(y2)));
+                    Point topRight = new Point((int)(Math.Round(x2)-1), height - (int)(Math.Round(y2)));
+                    Point bottomLeft = new Point((int)(Math.Round(x1)), height - (int)(Math.Round(y1)));
+                    Point bottomRight = new Point((int)(Math.Round(x2)), height - (int)(Math.Round(y1)));
 
-                    if (File.Exists(PathText))
+                    if (File.Exists(pathText))
                     {
                         //LoadBMP - COPIES FROM
                         //BMP - The mixed final
-                        Bitmap LoadBMP = new Bitmap(PathText);
+                        Bitmap loadBmp = new Bitmap(pathText);
                         PixelFormat pf = PixelFormat.Format24bppRgb;
                         /*Rectangle rectangle = new Rectangle((int) Math.Round(X1), (int) Math.Round(Y1),
                             (int) Math.Round(X2), height - (int) Math.Round(Y2));*/
-                        int Wid = (TopRight.X - TopLeft.X) + 4;
-                        int Hei = (BottomLeft.Y - TopLeft.Y) + 4;
+                        int wid = (topRight.X - topLeft.X) + 4;
+                        int hei = (bottomLeft.Y - topLeft.Y) + 4;
                         //Wid = Wid > LoadBMP.Width - Wid ? Wid - 2 : Wid;
                         //Hei = Hei > LoadBMP.Height - Hei ? Hei - 2 : Hei;
-                        Wid = TopLeft.X + Wid > width ? Wid - 4 : Wid;
-                        Hei = BottomRight.Y + Hei > height ? Hei - 4 : Hei;
+                        wid = topLeft.X + wid > width ? wid - 4 : wid;
+                        hei = bottomRight.Y + hei > height ? hei - 4 : hei;
 
-                        Size sz = new Size(Wid,Hei);
-                        Rectangle rectangle = new Rectangle(TopLeft, sz);
+                        Size sz = new Size(wid,hei);
+                        Rectangle rectangle = new Rectangle(topLeft, sz);
 
-                        BitmapData targetBitmapData = bmp.LockBits(rectangle, ImageLockMode.WriteOnly, pf);
-                        BitmapData sourBitmapData = LoadBMP.LockBits(rectangle, ImageLockMode.ReadOnly, pf);
+                        BitmapData targetBitmapData = _bmp.LockBits(rectangle, ImageLockMode.WriteOnly, pf);
+                        BitmapData sourBitmapData = loadBmp.LockBits(rectangle, ImageLockMode.ReadOnly, pf);
                         IntPtr workingptr = targetBitmapData.Scan0;
                         IntPtr sourceptr = sourBitmapData.Scan0;
-                        byte[] rawLoadBMP = new byte[sourBitmapData.Stride * sourBitmapData.Height];
-                        byte[] rawBMP = new byte[targetBitmapData.Stride * targetBitmapData.Height];
+                        byte[] rawLoadBmp = new byte[sourBitmapData.Stride * sourBitmapData.Height];
+                        byte[] rawBmp = new byte[targetBitmapData.Stride * targetBitmapData.Height];
 
-                        Marshal.Copy(workingptr, rawBMP, 0, rawBMP.Length);
-                        Marshal.Copy(sourceptr, rawLoadBMP, 0, rawLoadBMP.Length);
+                        Marshal.Copy(workingptr, rawBmp, 0, rawBmp.Length);
+                        Marshal.Copy(sourceptr, rawLoadBmp, 0, rawLoadBmp.Length);
 
-                        for (int pixel = 0; pixel != rawLoadBMP.Length; pixel++)
+                        for (int pixel = 0; pixel != rawLoadBmp.Length; pixel++)
                         {
-                            rawBMP[pixel] = rawLoadBMP[pixel];
+                            rawBmp[pixel] = rawLoadBmp[pixel];
                         }
 
-                        Marshal.Copy(rawBMP, 0, workingptr, rawBMP.Length);
-                        LoadBMP.UnlockBits(sourBitmapData);
-                        bmp.UnlockBits(targetBitmapData);
+                        Marshal.Copy(rawBmp, 0, workingptr, rawBmp.Length);
+                        loadBmp.UnlockBits(sourBitmapData);
+                        _bmp.UnlockBits(targetBitmapData);
 
                         /*for (int y = height - (int)(Math.Round(Y2)); y < height - (int)(Math.Round(Y1)); y++)
                         {
@@ -439,21 +442,21 @@ namespace SerahToolkit_SharpGL
                      
                     
                 }
-                pictureBox1.Image = bmp;
-                string PathTexte = Path.GetDirectoryName(LastKnownPath);
-                PathTexte = PathTexte + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + "_col.png";
-                if (File.Exists(PathTexte))
-                    File.Delete(PathTexte);
-                bmp.MakeTransparent(Color.Black);
-                bmp.Save(PathTexte);
+                pictureBox1.Image = _bmp;
+                string pathTexte = Path.GetDirectoryName(_lastKnownPath);
+                pathTexte = pathTexte + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_col.png";
+                if (File.Exists(pathTexte))
+                    File.Delete(pathTexte);
+                _bmp.MakeTransparent(Color.Black);
+                _bmp.Save(pathTexte);
 
-                PathTexte = Path.GetDirectoryName(LastKnownPath);
-                PathTexte = PathTexte + @"\" + Path.GetFileNameWithoutExtension(LastKnownPath) + ".MTL";
+                pathTexte = Path.GetDirectoryName(_lastKnownPath);
+                pathTexte = pathTexte + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + ".MTL";
 
-                string[] newfile = File.ReadAllLines(PathTexte);
-                newfile[newfile.Length-1] = "map_Kd " + Path.GetFileNameWithoutExtension(LastKnownPath) + "_col.png";
-                File.WriteAllLines(PathTexte, newfile);
-                pictureBox1.BackgroundImage = bmp;
+                string[] newfile = File.ReadAllLines(pathTexte);
+                newfile[newfile.Length-1] = "map_Kd " + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_col.png";
+                File.WriteAllLines(pathTexte, newfile);
+                pictureBox1.BackgroundImage = _bmp;
                 Render3D();
 
                
@@ -463,10 +466,10 @@ namespace SerahToolkit_SharpGL
                 while (true)
                 {
 
-                    double X1 = (((UV.Item1[index] * 100) * width) / 100);
-                    double Y1 = (((UV.Item2[index] * 100) * height) / 100);
-                    double X2 = (((UV.Item1[index + 1] * 100) * width) / 100);
-                    double Y2 = (((UV.Item2[index + 1] * 100) * height) / 100);
+                    double x1 = (((uv.Item1[index] * 100) * width) / 100);
+                    double y1 = (((uv.Item2[index] * 100) * height) / 100);
+                    double x2 = (((uv.Item1[index + 1] * 100) * width) / 100);
+                    double y2 = (((uv.Item2[index + 1] * 100) * height) / 100);
 
                     /*
                     Test
@@ -475,20 +478,20 @@ namespace SerahToolkit_SharpGL
                     double X2 = (UV.Item1[index+1] * pictureBox1.Size.Height);
                     double Y2 = (UV.Item2[index+1] * pictureBox1.Size.Width); */
 
-                    Point XY1 = new Point((int)(Math.Round(X1)), 256 - (int)(Math.Round(Y1)));
-                    Point XY2 = new Point((int)(Math.Round(X2)), 256 - (int)(Math.Round(Y2)));
-                    UV_point.Add(XY1);
-                    UV_point.Add(XY2);
+                    Point xy1 = new Point((int)(Math.Round(x1)), 256 - (int)(Math.Round(y1)));
+                    Point xy2 = new Point((int)(Math.Round(x2)), 256 - (int)(Math.Round(y2)));
+                    uvPoint.Add(xy1);
+                    uvPoint.Add(xy2);
 
-                    g.DrawLine(pen, UV_point[index], UV_point[index + 1]);
+                    g.DrawLine(pen, uvPoint[index], uvPoint[index + 1]);
 
-                    if (index >= UV.Item1.Count - 3 && index >= UV.Item2.Count - 3)
+                    if (index >= uv.Item1.Count - 3 && index >= uv.Item2.Count - 3)
                         break;
                     else
                         index += 2;
                 }
                 g.Dispose();
-                pictureBox1.Image = bmp;
+                pictureBox1.Image = _bmp;
             }
 
 
@@ -496,7 +499,7 @@ namespace SerahToolkit_SharpGL
 
         private void Rail_listbox()
         {
-            Rail rail = new Rail(RailPath);
+            Rail rail = new Rail(_railPath);
             //polygons.Add(rail.rail((int)listBox1.Items[listBox1.SelectedIndex]));
             rail.rail((int)listBox1.Items[listBox1.SelectedIndex]);
             Render3D();
@@ -505,14 +508,16 @@ namespace SerahToolkit_SharpGL
         private void openToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             SetLines(true);
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Open FF8 rail.obj file (rail.obj)";
-            ofd.Filter = "Final Fantasy VIII train file (rail.obj)|rail.obj";
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = "Open FF8 rail.obj file (rail.obj)",
+                Filter = "Final Fantasy VIII train file (rail.obj)|rail.obj"
+            };
             if(ofd.ShowDialog()==DialogResult.OK)
             {
-                State = State_RailDraw;
-                RailPath = ofd.FileName;
-                UpdateSTATUS(RailPath);
+                _state = StateRailDraw;
+                _railPath = ofd.FileName;
+                UpdateStatus(_railPath);
                 Rail rail = new Rail(ofd.FileName);
                 listBox1.Items.Clear();
                 foreach(var i in rail.GetRails())
@@ -534,11 +539,7 @@ namespace SerahToolkit_SharpGL
 
         private void SetLines(bool bLines)
         {
-            if(bLines)
-                openGLControl.OpenGL.PolygonMode(FaceMode.FrontAndBack, PolygonMode.Points);
-            else
-                openGLControl.OpenGL.PolygonMode(FaceMode.FrontAndBack, PolygonMode.Filled);
-
+            openGLControl.OpenGL.PolygonMode(FaceMode.FrontAndBack, bLines ? PolygonMode.Points : PolygonMode.Filled);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -552,12 +553,9 @@ namespace SerahToolkit_SharpGL
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if(State == State_BattleStageUV)
+            if(_state == StateBattleStageUv)
             {
-                if (checkBox1.Checked == true)
-                    polygons[listBox1.SelectedIndex].IsEnabled = false;
-                else
-                    polygons[listBox1.SelectedIndex].IsEnabled = true;
+                _polygons[listBox1.SelectedIndex].IsEnabled = checkBox1.Checked != true;
             }
         }
 
@@ -568,36 +566,25 @@ namespace SerahToolkit_SharpGL
                         poly.Freeze(openGLControl1.OpenGL);
          */
 
-        public int[] ListOfSegments()
-        {
-            List<int> a = new List<int>();
-            foreach(var i in listBox1.Items)
-            {
-                a.Add(int.Parse(i.ToString()));
-            }
-            return a.ToArray();
 
-
-
-        }
 
         private void dumpRAWDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (State != State_BattleStageUV)
+            if (_state != StateBattleStageUv)
                 goto eof;
 
 
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                BattleStage bs = new BattleStage(LastKnownPath);
+                BattleStage bs = new BattleStage(_lastKnownPath);
                 int nextoffset;
                 if (listBox1.SelectedIndex == listBox1.Items.Count-1)
                     nextoffset = -1;
                 else
                     nextoffset = int.Parse(listBox1.Items[listBox1.SelectedIndex + 1].ToString());
 
-                bs.DumpRAW(int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString()),sfd.FileName, nextoffset);
+                bs.DumpRaw(int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString()),sfd.FileName, nextoffset);
             }
 
 
@@ -608,27 +595,19 @@ namespace SerahToolkit_SharpGL
         private void verticesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int offset = int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString());
-            BS_Vertices bsv = new BS_Vertices(LastKnownPath, offset);
+            BsVertices bsv = new BsVertices(_lastKnownPath, offset);
             bsv.ShowDialog();
         }
-
-        private void rosettaStonetextDecypherToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            RosettaStone.RosettaStone rs = new RosettaStone.RosettaStone();
-            rs.ShowDialog();
-        }
-
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "wmsetxx.obj|wmset*.obj";
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "wmsetxx.obj|wmset*.obj"};
             if(ofd.ShowDialog() == DialogResult.OK)
             {
-                LastKnownPath = ofd.FileName;
+                _lastKnownPath = ofd.FileName;
                 unpackToolStripMenuItem.Enabled = true;
-                UpdateSTATUS(LastKnownPath);
-                State = State_wmset;
-                wmset wmset = new wmset(LastKnownPath);
+                UpdateStatus(_lastKnownPath);
+                _state = StateWmset;
+                Wmset wmset = new Wmset(_lastKnownPath);
                 listBox1.Items.Clear(); //JustInCase
                 listBox1.Items.AddRange(wmset._Debug_GetSections().Item1.ToArray());
 
@@ -640,62 +619,61 @@ namespace SerahToolkit_SharpGL
 
         private void unpackToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            wmset wmset = new wmset(LastKnownPath);
-            var OffsetList = wmset._Debug_GetSections().Item2.ToArray();
+            Wmset wmset = new Wmset(_lastKnownPath);
+            var offsetList = wmset._Debug_GetSections().Item2.ToArray();
             listBox1.Items.Clear(); //JustInCase
             listBox1.Items.AddRange(wmset._Debug_GetSections().Item1.ToArray());
 
-            for (int i=0; i!=wmset.d_OffsetCount; i++)
+            for (int i=0; i!=Wmset.DOffsetCount; i++)
             {
-                string buildPath = Path.GetDirectoryName(LastKnownPath);
-                buildPath += string.Format("\\{0}.Section{1}", Path.GetFileNameWithoutExtension(LastKnownPath), (i+1).ToString());
+                string buildPath = Path.GetDirectoryName(_lastKnownPath);
+                buildPath += $"\\{Path.GetFileNameWithoutExtension(_lastKnownPath)}.Section{(i + 1).ToString()}";
                 if (File.Exists(buildPath))
                     File.Delete(buildPath);
-                using (var fs = new FileStream(LastKnownPath, FileMode.Open))
+                using (var fs = new FileStream(_lastKnownPath, FileMode.Open))
                 {
-                    using (var fs_w = new FileStream(buildPath, FileMode.OpenOrCreate))
+                    using (var fsW = new FileStream(buildPath, FileMode.OpenOrCreate))
                     {
-                        if (i+1 != OffsetList.Length)
+                        if (i+1 != offsetList.Length)
                         {
-                            byte[] tempMem = new byte[OffsetList[i+1]-OffsetList[i]];
-                            fs.Seek(OffsetList[i], SeekOrigin.Begin);
+                            byte[] tempMem = new byte[offsetList[i+1]-offsetList[i]];
+                            fs.Seek(offsetList[i], SeekOrigin.Begin);
                             fs.Read(tempMem, 0, tempMem.Length);
                             fs.Close();
-                            fs_w.Write(tempMem, 0, tempMem.Length);
-                            fs_w.Close();
+                            fsW.Write(tempMem, 0, tempMem.Length);
+                            fsW.Close();
                         }
                         else
                         {
-                            FileInfo fi = new FileInfo(LastKnownPath);
-                            long EOF = fi.Length;
-                            byte[] tempMem = new byte[EOF - OffsetList[i]];
-                            fs.Seek(OffsetList[i], SeekOrigin.Begin);
+                            FileInfo fi = new FileInfo(_lastKnownPath);
+                            long eof = fi.Length;
+                            byte[] tempMem = new byte[eof - offsetList[i]];
+                            fs.Seek(offsetList[i], SeekOrigin.Begin);
                             fs.Read(tempMem, 0, tempMem.Length);
                             fs.Close();
-                            fs_w.Write(tempMem, 0, tempMem.Length);
-                            fs_w.Close();
+                            fsW.Write(tempMem, 0, tempMem.Length);
+                            fsW.Close();
                         }
                     }
                 }
             }
-            UpdateSTATUS("Unpacked wmsetus.obj");
+            UpdateStatus("Unpacked wmsetus.obj");
         }
 
-        private void UpdateSTATUS(string status)
+        private void UpdateStatus(string status)
         {
             toolStripStatusLabel2.Text = status;
         }
 
         private void section1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "wmsetxx.obj/Sector16|wmset**.Section16";
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "wmsetxx.obj/Sector16|wmset**.Section16"};
             if(ofd.ShowDialog() == DialogResult.OK)
             {
-                State = State_wmsetModel;
-                wmset wmset = new wmset(ofd.FileName);
-                LastKnownPath = ofd.FileName;
-                UpdateSTATUS(LastKnownPath);
+                _state = StateWmsetModel;
+                Wmset wmset = new Wmset(ofd.FileName);
+                _lastKnownPath = ofd.FileName;
+                UpdateStatus(_lastKnownPath);
                 listBox1.Items.Clear();
                 foreach(int i in wmset.ProduceOffset_sec16())
                 {
@@ -707,9 +685,9 @@ namespace SerahToolkit_SharpGL
 
         private void WMSETmod_listbox()
         {
-            wmset wmset = new wmset(LastKnownPath);
-            int SelectedModel = Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]);
-            wmset.Sector16(SelectedModel, listBox1.SelectedIndex);
+            Wmset wmset = new Wmset(_lastKnownPath);
+            int selectedModel = Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]);
+            wmset.Sector16(selectedModel, listBox1.SelectedIndex);
             Bitmap bmp = wmset.GetTexture();
             pictureBox1.Image = bmp;
             Render3D();
@@ -717,31 +695,30 @@ namespace SerahToolkit_SharpGL
 
         private void cFF8SearcherToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Analize_CFF8search ff8s = new Analize_CFF8search();
-            ff8s.ShowDialog();
+            AnalizeCff8Search ff8S = new AnalizeCff8Search();
+            ff8S.ShowDialog();
         }
 
         private void convertToOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toSingleOBJ tso = new toSingleOBJ(LastKnownPath, listBox1.Items.Count);
+            ToSingleObj tso = new ToSingleObj(_lastKnownPath, listBox1.Items.Count);
             tso.JustDoIt();
         }
 
         private void environmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "GF Mag files mag*|mag*";
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "GF Mag files mag*|mag*"};
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                gf = new GF_enviro(ofd.FileName);
-                LastKnownPath = ofd.FileName;
-                if (!gf.bValidHeader())
+                _gf = new GfEnviro(ofd.FileName);
+                _lastKnownPath = ofd.FileName;
+                if (!_gf.BValidHeader())
                     MessageBox.Show("Bad file!");
                 else
                 {
-                    State = State_GFenviro;
+                    _state = StateGFenviro;
                     listBox1.Items.Clear();
-                    foreach (int a in gf.PopulateOffsets())
+                    foreach (int a in _gf.PopulateOffsets())
                     {
                         listBox1.Items.Add(a);
                     }
@@ -749,14 +726,14 @@ namespace SerahToolkit_SharpGL
             }
         }
 
-        private void GFLogic()
+        private void GfLogic()
         {
-            gf.ProcessGF((int)listBox1.Items[listBox1.SelectedIndex]);
+            _gf.ProcessGf((int)listBox1.Items[listBox1.SelectedIndex]);
         }
 
         private void WMX_list()
         {
-            wmx wmx = new wmx(listBox1.SelectedIndex, LastKnownPath);
+            Wmx wmx = new Wmx(listBox1.SelectedIndex, _lastKnownPath);
         }
 
         private void parseVerticesForSegmentToolStripMenuItem_Click(object sender, EventArgs e)
@@ -769,33 +746,18 @@ namespace SerahToolkit_SharpGL
             Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]),pictureBox1.Image.Height,pictureBox1.Image.Width);
             parser.ShowDialog();
         }
-
-        private void aDMINMODEToolStripMenuItem_Click(object sender, EventArgs e)
-        {/*
-            foreach (var a in SharpGLForm.ActiveForm.Controls)
-            {
-                a.Enabled = true;
-            }*/
-        }
-
-        private void editCurrentRailToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void openToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "wmx.obj|wmx.obj";
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "wmx.obj|wmx.obj"};
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                State = State_WMX;
-                LastKnownPath = ofd.FileName;
-                PopulateWMX(LastKnownPath);
+                _state = StateWmx;
+                _lastKnownPath = ofd.FileName;
+                PopulateWmx(_lastKnownPath);
             }
         }
 
-        private void PopulateWMX(string ofd)
+        private void PopulateWmx(string ofd)
         {
             int count = 835;
             int size = 0x9000;

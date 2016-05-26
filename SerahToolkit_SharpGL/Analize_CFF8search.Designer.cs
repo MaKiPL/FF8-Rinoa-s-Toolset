@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class Analize_CFF8search
+    partial class AnalizeCff8Search
     {
         /// <summary>
         /// Required designer variable.
@@ -105,7 +105,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Analize_CFF8search";
+            this.Name = "AnalizeCff8Search";
             this.Text = "Analize_CFF8search";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

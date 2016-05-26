@@ -9,36 +9,26 @@ namespace SerahToolkit_SharpGL
 {
     class StageTexture
     {
-        private int index;
-        private readonly int width;
-        private readonly int height;
+        private int _index;
+        private readonly int _width;
+        private readonly int _height;
 
-        private Bitmap bmp;
+        private Bitmap _bmp;
 
-        private Byte[] textureBuffer;
-        private byte[] palBuffer;
+        private Byte[] _textureBuffer;
+        private byte[] _palBuffer;
 
-        private ColorPalette cp;
+        private ColorPalette _cp;
 
-        private const int Color_MaxBit = 31;
-        private const int Color_color = 255;
+        private const int ColorMaxBit = 31;
+        private const int ColorColor = 255;
         private const float ColorReal = 8.2580645129032f;
 
         public StageTexture(int index, int width, int height)
         {
-            this.index = index;
-            this.width = width;
-            this.height = height;
-        }
-
-        public StageTexture(bool debug)
-        {
-            if(debug)
-            {
-                index = 36948;
-                width = 768;
-                height = 256;
-            }
+            _index = index;
+            _width = width;
+            _height = height;
         }
 
         //Only 8BPP this time!
@@ -49,40 +39,39 @@ namespace SerahToolkit_SharpGL
 
         public void CopyTextureBuffer(byte[] buffer)
         {
-            textureBuffer = buffer;
+            _textureBuffer = buffer;
             CreateTexture();
         }
 
-        public void CreatePalettedTEX(int CLUTid, byte[] buffer)
+        public void CreatePalettedTex(int cluTid, byte[] buffer)
         {
-            palBuffer = buffer;
-            Bitmap bmpPalette = new Bitmap(width, height, PixelFormat.Format8bppIndexed);
-            cp = bmpPalette.Palette;
-            UInt16 CLUTs = BitConverter.ToUInt16(palBuffer, 18);
-            if (CLUTid > CLUTs)
+            _palBuffer = buffer;
+            Bitmap bmpPalette = new Bitmap(_width, _height, PixelFormat.Format8bppIndexed);
+            _cp = bmpPalette.Palette;
+            UInt16 cluTs = BitConverter.ToUInt16(_palBuffer, 18);
+            if (cluTid > cluTs)
                 throw new Exception("Given clut is bigger than data!");
-            int startBuffer = 20+ (CLUTid*512);
+            int startBuffer = 20+ (cluTid*512);
             for(int i = 0; i!= 255; i++)
             {
-                byte[] CLUTcolor = new byte[2];
-                Buffer.BlockCopy(palBuffer, startBuffer, CLUTcolor, 0, 2);
-                BitArray ba = new BitArray(CLUTcolor);
+                byte[] cluTcolor = new byte[2];
+                Buffer.BlockCopy(_palBuffer, startBuffer, cluTcolor, 0, 2);
+                BitArray ba = new BitArray(cluTcolor);
 
                 BitArray B = new BitArray(5);
                 BitArray R = new BitArray(5);
                 BitArray G = new BitArray(5);
-                BitArray A = new BitArray(1);
+                BitArray a = new BitArray(1);
                 B[0] = ba[10]; B[1] = ba[11]; B[2] = ba[12]; B[3] = ba[13]; B[4] = ba[14]; //R
                 R[0] = ba[0]; R[1] = ba[1]; R[2] = ba[2]; R[3] = ba[3]; R[4] = ba[4]; //G
                 G[0] = ba[5]; G[1] = ba[6]; G[2] = ba[7]; G[3] = ba[8]; G[4] = ba[9]; //B
-                A[0] = ba[15]; //Alpha if 0
+                a[0] = ba[15]; //Alpha if 0
                 int[] b_ = new int[1]; B.CopyTo(b_,0);  //b_[0] = (b_[0] * Color_color) / Color_MaxBit;
                 int[] r_ = new int[1]; R.CopyTo(r_, 0); //r_[0] = (r_[0] * Color_color) / Color_MaxBit;
                 int[] g_ = new int[1]; G.CopyTo(g_, 0); //g_[0] = (g_[0] * Color_color) / Color_MaxBit;
-                int[] a_ = new int[1]; A.CopyTo(a_, 0);
+                int[] aa = new int[1]; a.CopyTo(aa, 0);
 
-                int alpha = 0;
-                alpha = a_[0] == 0 ? 0 : 255;
+                var alpha = aa[0] == 0 ? 0 : 255;
 
                 double b = Math.Round(b_[0] * ColorReal);
                 double r = Math.Round(r_[0] * ColorReal);
@@ -96,7 +85,7 @@ namespace SerahToolkit_SharpGL
                     g--;
 
 
-                cp.Entries[i] = Color.FromArgb(alpha,int.Parse(b.ToString(CultureInfo.InvariantCulture)),int.Parse(g.ToString(CultureInfo.InvariantCulture)),int.Parse(r.ToString(CultureInfo.InvariantCulture)));
+                _cp.Entries[i] = Color.FromArgb(alpha,int.Parse(b.ToString(CultureInfo.InvariantCulture)),int.Parse(g.ToString(CultureInfo.InvariantCulture)),int.Parse(r.ToString(CultureInfo.InvariantCulture)));
                 startBuffer += 2;
             }
         }
@@ -122,26 +111,25 @@ namespace SerahToolkit_SharpGL
                 }
             } */
 
-            bmp = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-            bmp.Palette = cp;
-            Rectangle rect = new Rectangle(0,0, bmp.Width, bmp.Height);
-            BitmapData bmpData = bmp.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            _bmp = new Bitmap(_width, _height, PixelFormat.Format32bppArgb) {Palette = _cp};
+            Rectangle rect = new Rectangle(0,0, _bmp.Width, _bmp.Height);
+            BitmapData bmpData = _bmp.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
             IntPtr bmPtr = bmpData.Scan0;
             byte[] rawBytes = new byte[bmpData.Stride * bmpData.Height];
             Marshal.Copy(bmPtr,rawBytes,0,rawBytes.Length);
             int index = 0;
             for (int i = 0; i < rawBytes.Length-4; i+=4)
             {
-                byte R = cp.Entries[textureBuffer[index + 2]].B; byte G = cp.Entries[textureBuffer[index + 1]].G; byte B = cp.Entries[textureBuffer[index]].R;
-                rawBytes[i] = B; rawBytes[i+1] = G; rawBytes[i+2] = R;
+                byte r = _cp.Entries[_textureBuffer[index + 2]].B; byte g = _cp.Entries[_textureBuffer[index + 1]].G; byte b = _cp.Entries[_textureBuffer[index]].R;
+                rawBytes[i] = b; rawBytes[i+1] = g; rawBytes[i+2] = r;
                 rawBytes[i + 3] = 255;
 
-                if (index < width * height - 4)
+                if (index < _width * _height - 4)
                     index++;
             }
 
             Marshal.Copy(rawBytes, 0, bmPtr, rawBytes.Length);
-            bmp.UnlockBits(bmpData);
+            _bmp.UnlockBits(bmpData);
 
             /*
             for (int y = 0; y < height; y++)
@@ -161,13 +149,13 @@ namespace SerahToolkit_SharpGL
             //GrayscaleToRGB gs = new GrayscaleToRGB();
             //gs.Apply(bmp);
 
-            bmp.MakeTransparent(Color.Black);
+            _bmp.MakeTransparent(Color.Black);
 
         }
         
-        public Bitmap GetBMP()
+        public Bitmap GetBmp()
         {
-            return bmp;
+            return _bmp;
         }
     }
 }

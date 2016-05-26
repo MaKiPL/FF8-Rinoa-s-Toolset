@@ -5,14 +5,13 @@ using System.IO;
 
 namespace SerahToolkit_SharpGL
 {
-    public partial class Analize_CFF8search : Form
+    public partial class AnalizeCff8Search : Form
     {
-        const string FF8 = "C:";
-        const int FF8_Size = 256;
-        const byte EOF = 0;
+        const string Ff8 = "C:";
+        const int Ff8Size = 256;
 
 
-        public Analize_CFF8search()
+        public AnalizeCff8Search()
         {
             InitializeComponent();
         }
@@ -35,14 +34,14 @@ namespace SerahToolkit_SharpGL
 
             for (int index = 0; index!=fi.Length; index++)
                 {
-                        var _debug_WH_SUBstr = System.Text.Encoding.ASCII.GetString(wholeFile,index,FF8_Size);
+                        var debugWhSuBstr = System.Text.Encoding.ASCII.GetString(wholeFile,index,Ff8Size);
                 if (index >= fi.Length - 2049)
                     break;
-                _debug_WH_SUBstr = _debug_WH_SUBstr.Substring(0, 3);
-                if (_debug_WH_SUBstr == FF8)
+                debugWhSuBstr = debugWhSuBstr.Substring(0, 3);
+                if (debugWhSuBstr == Ff8)
                     {
                     int index3 = index;
-                        for(int index2 = index; index2!=index+FF8_Size; index2++)
+                        for(int index2 = index; index2!=index+Ff8Size; index2++)
                         {
                             if(wholeFile[index2] == 0x00)
                             {
@@ -50,9 +49,9 @@ namespace SerahToolkit_SharpGL
                                 break;
                             }
                         }
-                    string BuildString = System.Text.Encoding.ASCII.GetString(wholeFile, index, index3 - index);
+                    string buildString = System.Text.Encoding.ASCII.GetString(wholeFile, index, index3 - index);
 
-                    dataGridView1.Rows.Add(index.ToString(), BuildString);
+                    dataGridView1.Rows.Add(index.ToString(), buildString);
                     }
                 }
             

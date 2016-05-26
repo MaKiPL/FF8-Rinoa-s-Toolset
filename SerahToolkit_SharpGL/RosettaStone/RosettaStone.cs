@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
@@ -12,10 +6,10 @@ namespace SerahToolkit_SharpGL.RosettaStone
 {
     public partial class RosettaStone : Form
     {
-        private string Modelpath;
-        private UInt32 START;
-        private UInt32 END;
-        private Byte[] b;
+        private string _modelpath;
+        private UInt32 _start;
+        private UInt32 _end;
+        private Byte[] _b;
 
         public RosettaStone()
         {
@@ -27,8 +21,8 @@ namespace SerahToolkit_SharpGL.RosettaStone
         {
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
-                Modelpath = ofd.FileName;
-            CheckFile(Modelpath);
+                _modelpath = ofd.FileName;
+            CheckFile(_modelpath);
 
         }
 
@@ -36,7 +30,7 @@ namespace SerahToolkit_SharpGL.RosettaStone
         {
             if (File.Exists(path))
             {
-                label1.Text = "Opened: " + path.ToString();
+                label1.Text = "Opened: " + path;
                 button1.Enabled = true;
             }
             else
@@ -49,16 +43,16 @@ namespace SerahToolkit_SharpGL.RosettaStone
         private void button1_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
-            START = (UInt32)numericUpDown1.Value;
-            END = (UInt32)numericUpDown2.Value + 1;
-            b = new byte[END - START];
-            using (var fs = new FileStream(Modelpath, FileMode.Open))
+            _start = (UInt32)numericUpDown1.Value;
+            _end = (UInt32)numericUpDown2.Value + 1;
+            _b = new byte[_end - _start];
+            using (var fs = new FileStream(_modelpath, FileMode.Open))
             {
-                fs.Seek(START, SeekOrigin.Begin);
-                fs.Read(b, 0, (int)END - (int)START);
+                fs.Seek(_start, SeekOrigin.Begin);
+                fs.Read(_b, 0, (int)_end - (int)_start);
             }
-            CharTable_provider ct = new CharTable_provider();
-            string[] ret = ct.Decipher(b);
+            CharTableProvider ct = new CharTableProvider();
+            string[] ret = ct.Decipher(_b);
             foreach (string a in ret)
             {
                 if (a != null)
@@ -68,8 +62,7 @@ namespace SerahToolkit_SharpGL.RosettaStone
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "*.txt|*.txt";
+            SaveFileDialog sfd = new SaveFileDialog {Filter = "*.txt|*.txt"};
             if (sfd.ShowDialog() == DialogResult.OK)
                 File.WriteAllText(sfd.FileName, richTextBox1.Text);
         }

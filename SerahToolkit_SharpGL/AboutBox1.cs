@@ -1,18 +1,17 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL
 {
-    partial class AboutBox1 : Form
+    sealed partial class AboutBox1 : Form
     {
         public AboutBox1()
         {
             InitializeComponent();
-            Text = String.Format("About {0}", AssemblyTitle);
+            Text = $"About {AssemblyTitle}";
             labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
+            labelVersion.Text = $"Version {AssemblyVersion}";
             labelCopyright.Text = AssemblyCopyright;
             textBoxDescription.Text = AssemblyDescription;
         }
@@ -36,13 +35,7 @@ namespace SerahToolkit_SharpGL
             }
         }
 
-        private string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        private string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         private string AssemblyDescription
         {
@@ -83,18 +76,6 @@ namespace SerahToolkit_SharpGL
             }
         }
 
-        public string AssemblyCompany
-        {
-            get
-            {
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                if (attributes.Length == 0)
-                {
-                    return "";
-                }
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
-        }
         #endregion
     }
 }

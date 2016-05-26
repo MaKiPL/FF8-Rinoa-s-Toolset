@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SerahToolkit_SharpGL
 {
-    class GF_enviro
+    class GfEnviro
     {
         //MODELS ARE UPSIDE DOWN XZY ?
         //Mag005_01 uses other format... 
@@ -12,28 +12,26 @@ namespace SerahToolkit_SharpGL
         //mag205 To research 
 
 
-
-        private string _path;
         private readonly byte[] _file;
-        private readonly byte[] BadHeader = new byte[8];
-        private uint[] subOffsets;
+        private readonly byte[] _badHeader = new byte[8];
+        private uint[] _subOffsets;
 
         private const int EnviroOffset = 0xC; //12th byte
 
 
         //process vars
-        private int ObjCount;
-        private int relativeJump;
-        private const int _passFromStart = 24;
-        private int VertexCount;
-        private int VerticesOffset;
-        private string v;
-        private string _vt;
-        private string f;
-        private uint pointer;
+        private int _objCount;
+        private int _relativeJump;
+        private const int PassFromStart = 24;
+        private int _vertexCount;
+        private int _verticesOffset;
+        private string _v;
+        //private string _vt;
+        //private string f;
+        private uint _pointer;
 
 
-        private Dictionary<UInt16,int> PolygonType = new Dictionary<ushort, int>
+        private Dictionary<UInt16,int> _polygonType = new Dictionary<ushort, int>
         {
             { 0x7, 20},     //BAD?
             { 0x8, 20}, //OK 
@@ -47,17 +45,16 @@ namespace SerahToolkit_SharpGL
         
 
 
-        public GF_enviro(string path)
+        public GfEnviro(string path)
         {
-            _path = path;
-            _file = File.ReadAllBytes(_path);
+            _file = File.ReadAllBytes(path);
         }
 
-        public bool bValidHeader()
+        public bool BValidHeader()
         {
             byte[] buffer = new byte[8];
             Buffer.BlockCopy(_file,0,buffer,0,buffer.Length);
-            if (buffer == BadHeader)
+            if (buffer == _badHeader)
                 return false;
             else
                 return true;
@@ -65,23 +62,23 @@ namespace SerahToolkit_SharpGL
 
         public int[] PopulateOffsets()
         {
-            pointer = BitConverter.ToUInt32(_file, EnviroOffset);
-            UInt32 Count = BitConverter.ToUInt32(_file, (int)pointer);
-            subOffsets = new uint[Count];
-            for (int i = 0; i != Count; i++)
+            _pointer = BitConverter.ToUInt32(_file, EnviroOffset);
+            UInt32 count = BitConverter.ToUInt32(_file, (int)_pointer);
+            _subOffsets = new uint[count];
+            for (int i = 0; i != count; i++)
             {
-                uint temp = BitConverter.ToUInt32(_file,  4 + (i*4) + (int)pointer);
+                uint temp = BitConverter.ToUInt32(_file,  4 + (i*4) + (int)_pointer);
                 if (temp == 0)
-                    subOffsets[i] = 0;
+                    _subOffsets[i] = 0;
                 else
-                    subOffsets[i] = temp;
+                    _subOffsets[i] = temp;
 
                 if (i > 0x24)
                     break; //CRASH handler
             }
 
             List<int> safeList = new List<int>();
-            foreach (int a in subOffsets)
+            foreach (int a in _subOffsets)
             {
                 if (a != 0) 
                     safeList.Add(a);
@@ -93,20 +90,20 @@ namespace SerahToolkit_SharpGL
 
         }
 
-        public void ProcessGF(int offset)
+        public void ProcessGf(int offset)
         {
-            offset += (int)pointer;
-            ObjCount = BitConverter.ToInt32(_file, offset);
-            if(ObjCount > 0x12)
+            offset += (int)_pointer;
+            _objCount = BitConverter.ToInt32(_file, offset);
+            if(_objCount > 0x12)
                 goto NOPE;
-            relativeJump = BitConverter.ToInt32(_file, offset + 8);
-            VertexCount = BitConverter.ToUInt16(_file, offset + _passFromStart) * 8;
-            VerticesOffset = BitConverter.ToUInt16(_file, offset + _passFromStart - 4);
-            int updateOffset = offset + relativeJump;
+            _relativeJump = BitConverter.ToInt32(_file, offset + 8);
+            _vertexCount = BitConverter.ToUInt16(_file, offset + PassFromStart) * 8;
+            _verticesOffset = BitConverter.ToUInt16(_file, offset + PassFromStart - 4);
+            //int updateOffset = offset + _relativeJump;
             //Examine polygon type
-            v = null;
-            _vt = null;
-            f = null;
+            _v = null;
+            //_vt = null;
+            //f = null;
 
             
             
@@ -124,34 +121,34 @@ namespace SerahToolkit_SharpGL
                 else
                     updateOffset += 4 + polyLenght*passB;
             }*/
-            ProcessVertices(VerticesOffset + offset, VertexCount);
-            Console.WriteLine(v);
+            ProcessVertices(_verticesOffset + offset, _vertexCount);
+            Console.WriteLine(_v);
 
         NOPE:
             ;
 
         }
 
-        private void ProcessPolygon(int BPP, int Effectiveoffset, int Length)
+        private void ProcessPolygon(int bpp, int effectiveoffset, int length)
         {
             /* TODO
             f += string.Format(@"f {0}/{1} {2}/{3} {4}/{5}", null, null, null, null, null, null);
             // END OF TODO*/
         }
 
-        private void ProcessVertices(int EffectiveOffset, int length)
+        private void ProcessVertices(int effectiveOffset, int length)
         {
             if(length % 8 != 0)
                 throw new Exception("Bad file!");
 
             for (int i = 0; i != length/8; i++)
             {
-                float X = (BitConverter.ToInt16(_file, EffectiveOffset + i*8)) / 2000.0f;
-                float Y = (BitConverter.ToInt16(_file, EffectiveOffset + i * 8 + 2)) / 2000.0f;
-                float Z = (BitConverter.ToInt16(_file, EffectiveOffset + i * 8 + 4)) / 2000.0f;
-                v += string.Format("v {0} {1} {2}{3}", X, Y, Z, Environment.NewLine);
+                float x = (BitConverter.ToInt16(_file, effectiveOffset + i*8)) / 2000.0f;
+                float y = (BitConverter.ToInt16(_file, effectiveOffset + i * 8 + 2)) / 2000.0f;
+                float z = (BitConverter.ToInt16(_file, effectiveOffset + i * 8 + 4)) / 2000.0f;
+                _v += $"v {x} {y} {z}{Environment.NewLine}";
             }
-            v = v.Replace(',', '.');
+            _v = _v.Replace(',', '.');
 
         }
     }

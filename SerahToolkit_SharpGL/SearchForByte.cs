@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SerahToolkit_SharpGL
+﻿namespace SerahToolkit_SharpGL
 {
 
-    public class SearchForByte
+    public static class SearchForByte
     {
         public static int ByteSearch(byte[] searchIn, byte[] searchBytes, int start = 0)
         {
