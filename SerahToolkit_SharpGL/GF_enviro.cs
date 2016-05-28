@@ -13,7 +13,6 @@ namespace SerahToolkit_SharpGL
 
 
         private readonly byte[] _file;
-        private readonly byte[] _badHeader = new byte[8];
         private uint[] _subOffsets;
 
         private const int EnviroOffset = 0xC; //12th byte
@@ -52,12 +51,8 @@ namespace SerahToolkit_SharpGL
 
         public bool BValidHeader()
         {
-            byte[] buffer = new byte[8];
-            Buffer.BlockCopy(_file,0,buffer,0,buffer.Length);
-            if (buffer == _badHeader)
-                return false;
-            else
-                return true;
+            //New byte[8] trick doesn't work??
+            return (_file[0] == 0x00 && _file[1] == 0x00 && _file[2] == 0x00 && _file[3] == 0x00 && _file[4] == 0x00 && _file[5] == 0x00 && _file[6] == 0x00 && _file[7] == 0x00);
         }
 
         public int[] PopulateOffsets()
