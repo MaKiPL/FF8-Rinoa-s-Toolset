@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace SerahToolkit_SharpGL
 {
     class GfEnviro
     {
         //MODELS ARE UPSIDE DOWN XZY ?
-        //Mag005_01 uses other format... 
+        //Mag005_09 compatible in 75%
         //mag201 ??
         //mag205 To research 
 
@@ -26,8 +27,10 @@ namespace SerahToolkit_SharpGL
         private int _verticesOffset;
         private string _v;
         //private string _vt;
-        //private string f;
+        private string f;
         private uint _pointer;
+        private string _path;
+        private bool _generatefaces;
 
 
         private Dictionary<UInt16,int> _polygonType = new Dictionary<ushort, int>
@@ -46,6 +49,7 @@ namespace SerahToolkit_SharpGL
 
         public GfEnviro(string path)
         {
+            _path = path;
             _file = File.ReadAllBytes(path);
         }
 
@@ -87,6 +91,7 @@ namespace SerahToolkit_SharpGL
 
         public void ProcessGf(int offset)
         {
+            _generatefaces = true;
             offset += (int)_pointer;
             _objCount = BitConverter.ToInt32(_file, offset);
             if(_objCount > 0x12)
@@ -98,12 +103,21 @@ namespace SerahToolkit_SharpGL
             //Examine polygon type
             _v = null;
             //_vt = null;
-            //f = null;
+            f = null;
+            int polygons = BitConverter.ToUInt16(_file, offset+_relativeJump+2);
+            if (BitConverter.ToUInt16(_file, offset + _relativeJump) == 0x09)
+                _generatefaces = false;
+            int localoffset = offset + _relativeJump + 4;
+            if (!_generatefaces)
+            {
+                for (int i = 0; i < polygons*28; i+=28)
+                {
+                    f += $"f {GetPolygonType9(localoffset+i+18)} {GetPolygonType9(localoffset + i +20)} {GetPolygonType9(localoffset + i +22)}\n";
+                }
+            }
 
-            
-            
 
-           /* while (true)
+            /* while (true)
             {
                 int passB = PolygonType[BitConverter.ToUInt16(_file, updateOffset)];
                 UInt16 polyLenght = BitConverter.ToUInt16(_file, updateOffset + 2);
@@ -117,12 +131,38 @@ namespace SerahToolkit_SharpGL
                     updateOffset += 4 + polyLenght*passB;
             }*/
             ProcessVertices(_verticesOffset + offset, _vertexCount);
-            Console.WriteLine(_v);
+            string ppath = $"{_path}{offset.ToString()}.obj";
+            StreamWriter sw = new StreamWriter(ppath, false);
+            sw.Write(_v);
+            sw.Close();
+            sw = new StreamWriter(ppath, true);
+
+            string[] countmebitch = _v.Split('\n');
+
+
+            if (_generatefaces)
+            {
+                for (int i = 1; i < countmebitch.Length - 2; i += 2)
+                {
+                    sw.WriteLine($"f {i} {i + 1} {i + 2}");
+                }
+            }
+            else
+                sw.Write(f);
+            SharpGlForm.GFEnviro = _path + offset.ToString() + ".obj";
+            sw.Close();
 
         NOPE:
             ;
 
         }
+
+        private int GetPolygonType9(int offset)
+        {
+            UInt16 byteb = BitConverter.ToUInt16(_file, offset);
+            return byteb == 0 ? 1 : byteb/8 + 1;
+        }
+
 
         private void ProcessPolygon(int bpp, int effectiveoffset, int length)
         {

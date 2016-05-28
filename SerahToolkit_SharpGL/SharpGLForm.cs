@@ -39,6 +39,7 @@ namespace SerahToolkit_SharpGL
         private const int StateWmsetModel = 3;
         private const int StateGFenviro = 4;
         private const int StateWmx = 5;
+        public static string GFEnviro;
 
 
         OpenGL _gl;
@@ -155,6 +156,19 @@ namespace SerahToolkit_SharpGL
                         _polygons.Add(polygon);
                         }
                     }
+            }
+            if (_state == StateGFenviro)
+            {
+                _gl.ClearColor(0, 0, 0, 0);
+                Scene scene = SerializationEngine.Instance.LoadScene(GFEnviro);
+                if (scene != null)
+                {
+                    foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                    {
+                        polygon.IsEnabled = true;
+                        _polygons.Add(polygon);
+                    }
+                }
             }
            if(_state == StateWmset)
             {
@@ -729,6 +743,8 @@ namespace SerahToolkit_SharpGL
         private void GfLogic()
         {
             _gf.ProcessGf((int)listBox1.Items[listBox1.SelectedIndex]);
+            if(GFEnviro != null)
+                Render3D();
         }
 
         private void WMX_list()
