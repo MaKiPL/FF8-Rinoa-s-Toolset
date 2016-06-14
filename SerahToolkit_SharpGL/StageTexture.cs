@@ -22,7 +22,7 @@ namespace SerahToolkit_SharpGL
 
         private const int ColorMaxBit = 31;
         private const int ColorColor = 255;
-        private const float ColorReal = 8.2580645129032f;
+        private const float ColorReal = 256 / 32;  //8.2580645129032f;
 
         public StageTexture(int index, int width, int height)
         {
