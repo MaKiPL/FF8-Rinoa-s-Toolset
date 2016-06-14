@@ -726,17 +726,23 @@ namespace SerahToolkit_SharpGL
             {
                 _gf = new GfEnviro(ofd.FileName);
                 _lastKnownPath = ofd.FileName;
-                if (!_gf.BValidHeader())
+
+                /*if (!_gf.BValidHeader())
                     MessageBox.Show("Bad file!");
                 else
-                {
+                { */
                     _state = StateGFenviro;
                     listBox1.Items.Clear();
                     foreach (int a in _gf.PopulateOffsets())
                     {
+                    if (a == 0)
+                    {
+                        MessageBox.Show("Error! Probably wrong file.\nIf you are sure it's GF file, please write name of the file you opened to: makipol@gmail.com");
+                        return;
+                    }
                         listBox1.Items.Add(a);
                     }
-                }
+                //}
             }
         }
 

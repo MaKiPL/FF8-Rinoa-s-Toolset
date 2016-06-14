@@ -62,6 +62,8 @@ namespace SerahToolkit_SharpGL
         public int[] PopulateOffsets()
         {
             _pointer = BitConverter.ToUInt32(_file, EnviroOffset);
+            if (_pointer >= _file.Length)
+                return new int[] { 0 };   //Crash handler         
             UInt32 count = BitConverter.ToUInt32(_file, (int)_pointer);
             _subOffsets = new uint[count];
             for (int i = 0; i != count; i++)
