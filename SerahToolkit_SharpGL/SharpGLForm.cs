@@ -393,10 +393,10 @@ namespace SerahToolkit_SharpGL
                     double u1Min = uv.Item1.Min(); double u1Max = uv.Item1.Max();
                     double v1Min = uv.Item2.Min(); double v1Max = uv.Item2.Max();
 
-                    double x1 = Math.Floor(((u1Min * 100) * width) / 100) - 2;
-                    double y1 = Math.Floor(((v1Min * 100) * height) / 100);
-                    double x2 = Math.Floor(((u1Max * 100) * width) / 100) - 2;
-                    double y2 = Math.Floor(((v1Max * 100) * height) / 100);
+                    double x1 = Math.Floor(((u1Min * 100) * width) / 100);
+                    double y1 = Math.Floor(((v1Min * 100) * height) / 100) ;
+                    double x2 = Math.Floor(((u1Max * 100) * width) / 100);
+                    double y2 = Math.Floor(((v1Max * 100) * height) / 100) ;
 
                     x1 = x1 <= 0 ? 1 : x1; x2 = x2 <= 0 ? 1 : x2;
 

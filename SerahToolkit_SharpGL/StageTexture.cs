@@ -20,8 +20,8 @@ namespace SerahToolkit_SharpGL
 
         private ColorPalette _cp;
 
-        private const int ColorMaxBit = 31;
-        private const int ColorColor = 255;
+        private const int ColorMaxBit = 32;
+        private const int ColorColor = 256;
         private const float ColorReal = 256 / 32;  //8.2580645129032f;
 
         public StageTexture(int index, int width, int height)
@@ -70,7 +70,6 @@ namespace SerahToolkit_SharpGL
                 int[] r_ = new int[1]; R.CopyTo(r_, 0); //r_[0] = (r_[0] * Color_color) / Color_MaxBit;
                 int[] g_ = new int[1]; G.CopyTo(g_, 0); //g_[0] = (g_[0] * Color_color) / Color_MaxBit;
                 int[] aa = new int[1]; a.CopyTo(aa, 0);
-
                 var alpha = aa[0] == 0 ? 0 : 255;
 
                 double b = Math.Round(b_[0] * ColorReal);
@@ -118,18 +117,27 @@ namespace SerahToolkit_SharpGL
             byte[] rawBytes = new byte[bmpData.Stride * bmpData.Height];
             Marshal.Copy(bmPtr,rawBytes,0,rawBytes.Length);
             int index = 0;
-            for (int i = 0; i < rawBytes.Length-4; i+=4)
+            for (int i = 0; i < rawBytes.Length-3; i+=4)
             {
-                byte r = _cp.Entries[_textureBuffer[index + 2]].B; byte g = _cp.Entries[_textureBuffer[index + 1]].G; byte b = _cp.Entries[_textureBuffer[index]].R;
-                rawBytes[i] = b; rawBytes[i+1] = g; rawBytes[i+2] = r;
+                byte r = _cp.Entries[_textureBuffer[index]].R; byte g = _cp.Entries[_textureBuffer[index]].G; byte b = _cp.Entries[_textureBuffer[index]].B;
+                rawBytes[i] = r; rawBytes[i+1] = g; rawBytes[i+2] = b;
                 rawBytes[i + 3] = 255;
 
-                if (index < _width * _height - 4)
+                if (index < _width * _height - 3)
                     index++;
             }
 
+            /*
+            byte[] safeimg = rawBytes;
+
+            for (int i = 0; i < rawBytes.Length - 4; i += 4)
+            {
+                //
+            }*/
+
             Marshal.Copy(rawBytes, 0, bmPtr, rawBytes.Length);
             _bmp.UnlockBits(bmpData);
+
 
             /*
             for (int y = 0; y < height; y++)

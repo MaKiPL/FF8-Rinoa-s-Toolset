@@ -320,24 +320,6 @@ namespace SerahToolkit_SharpGL
                         _bmp.SetPixel(x, y, Color.FromArgb(255, _cp.Entries[rr[0]].B, _cp.Entries[rr[0]].G, _cp.Entries[rr[0]].R));
                         if (ind < (debugWidth * _height)*4)
                             ind+=4;
-
-                        //HELLO DEAR SOURCE VIEWER!
-                        /* Here is the story! The viewer drawn texture only to it's 1/4 of height
-                        * I spent 1+ hour. ONE painful hour to watch code, try some wicked ideas
-                        * And nothing. I said to myself, that I'd leave it for tomorrow
-                        * Maybe something would get on my mind
-                        * I wrote a bmp saver to file and configured .MTL to use. This time I opened mspaint
-                        * to see at which pixel does it stop
-                        * That pixel was y=16
-                        * I also remembered "32768" - this was used somewhere.((32x64)*16(bits))
-                        * >32768< and what is height*width? 8192
-                        * 32768/8192 is...?
-                        * FUKIN' FOUR.
-                        * (_debug_width * height) * MOTHERFKNG FOUR
-                        * Voila... I lost one hour, because I didn't add four.
-                        * PS> I like cats.
-                         */
-
                     }
                 }
             }
