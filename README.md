@@ -19,7 +19,3 @@ FF8 All-in-one modding toolset is almost complete tool to rip and view various F
 * Convert segments to single OBJ file!
 * Get final rendered texture as in game [mixing textures with original algorithm]
 * Convert OBJ model to FFVIII ! ***[Not working/Alpha]***
-
-# TODO list:
-* Get working GF environment objects
-* Implement world map segment viewer?
