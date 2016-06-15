@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SharpGlForm));
             this.openGLControl = new SharpGL.OpenGLControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.battleStageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -305,7 +306,7 @@
             this.advancedAnalyzeToolsToolStripMenuItem,
             this.rosettaStonetextDecypherToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
-            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
             // 
             // advancedAnalyzeToolsToolStripMenuItem
@@ -578,9 +579,10 @@
             this.Controls.Add(this.openGLControl);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
-            this.Text = "FF8 - SerahToolkit by MaKiPL v.0.9.45";
+            this.Text = "FF8 - Rinoa\'s Toolkit by MaKiPL v.0.9.8 - Edycja stypendialna";
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

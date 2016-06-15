@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FF8 Rinoa's Toolkit by MaKiPL")]
-[assembly: AssemblyDescription("Thanks to A B C D E F G H")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FF8 Rinoa's Toolkit")]
-[assembly: AssemblyCopyright("Copyright © Marcin Gomulak (aka) MaKiPL 2015")]
+[assembly: AssemblyCopyright("Copyright © Marcin Gomulak (aka) MaKiPL 2015/2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,7 +32,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.9.0.1")]
+[assembly: AssemblyVersion("0.9.8.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: NeutralResourcesLanguage("en")]
 
