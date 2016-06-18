@@ -96,7 +96,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(321, 17);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "0.9.8 - Edycja stypendialna";
+            this.labelVersion.Text = "0.9.8.1";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
@@ -123,7 +123,8 @@
             this.textBoxDescription.Size = new System.Drawing.Size(321, 151);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
+            this.textBoxDescription.Text = "\r\n\r\nGitHub page:\r\nhttps://github.com/MaKiPL/FF8-Rinoa-s-Toolset\r\n\r\nArtwork from l" +
+    "eft:\r\nhttp://teramaster.deviantart.com/art/Rinoa-Heartilly-46724762";
             // 
             // okButton
             // 

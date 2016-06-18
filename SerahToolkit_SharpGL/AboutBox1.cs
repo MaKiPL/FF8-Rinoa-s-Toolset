@@ -13,7 +13,7 @@ namespace SerahToolkit_SharpGL
             labelProductName.Text = AssemblyProduct;
             labelVersion.Text = $"Version {AssemblyVersion}";
             labelCopyright.Text = AssemblyCopyright;
-            textBoxDescription.Text = AssemblyDescription;
+            //textBoxDescription.Text = AssemblyDescription;
         }
 
         #region Assembly Attribute Accessors

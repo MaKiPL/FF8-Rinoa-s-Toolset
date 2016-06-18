@@ -30,7 +30,7 @@ namespace SerahToolkit_SharpGL
 
         private const int Color_8Bpp = 255;
         private const int Color_4Bpp = 15;
-        private const float ColorReal = 8.2580645129032f;
+        private const float ColorReal = 256/32;
 
         private const int DSizeHeader = 0xC4-4;
         public const int DOffsetCount = DSizeHeader / 4; //48?
@@ -284,7 +284,7 @@ namespace SerahToolkit_SharpGL
                     {
                         //Color palette = cp.Entries[index];
 
-                        _bmp.SetPixel(x, y, Color.FromArgb(255, _cp.Entries[_sec42[index + 2]].B, _cp.Entries[_sec42[index + 1]].G, _cp.Entries[_sec42[index]].R));
+                        _bmp.SetPixel(x, y, Color.FromArgb(255, _cp.Entries[_sec42[index]].B, _cp.Entries[_sec42[index]].G, _cp.Entries[_sec42[index]].R));
                         //bmp.SetPixel(x, y, Color.FromArgb(255, SEC42[index + 2], SEC42[index + 1], SEC42[index]));
                         if (index < debugWidth * _height - 4 + startTexture)
                             index++;

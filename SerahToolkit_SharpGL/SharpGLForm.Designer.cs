@@ -582,7 +582,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
-            this.Text = "FF8 - Rinoa\'s Toolkit by MaKiPL v.0.9.8 - Edycja stypendialna";
+            this.Text = "FF8 - Rinoa\'s Toolkit by MaKiPL v.0.9.8.1";
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
