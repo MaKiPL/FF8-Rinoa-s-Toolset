@@ -12,6 +12,7 @@ namespace SerahToolkit_SharpGL.FileScanner
     {
         private string _path;
         private List<string> _listOfFiles;
+        private bool _useDebug = true;
 
         public FileScanner_Core(string path)
         {
@@ -26,7 +27,12 @@ namespace SerahToolkit_SharpGL.FileScanner
             _listOfFiles = new List<string>();
             _listOfFiles = Directory.EnumerateFiles(_path).ToList();
             foreach (var file in _listOfFiles)
-                Check(file);
+            {
+                if (_useDebug)
+                    CheckDebug(file);
+                else
+                    Check(file);
+            }
             _path = null; //Just in case?
         }
 
@@ -43,10 +49,10 @@ namespace SerahToolkit_SharpGL.FileScanner
                 long? b64, b128 = null; //Nullable<T>
                 var perform = fsh.ToByteArray();//.Reverse();
                 Array.Reverse(perform);
-                byte[] newPerform = new byte[16];
-                Array.Copy(perform, 1, newPerform, 0, 8);
-                if (fsh > 0xFFFFFFFFFFFFFFFF)
-                    b128 = BitConverter.ToInt64(newPerform, 8);
+                byte[] newPerform = new byte[32];
+                Array.Copy(perform, 1, newPerform, 0, perform.Length-1);
+                if (perform.Length >= 16)
+                    b128 = BitConverter.ToInt64(newPerform, 16);
                 b64 = BitConverter.ToInt64(newPerform, 0);
 
                 if (b128 != null)
@@ -72,6 +78,55 @@ namespace SerahToolkit_SharpGL.FileScanner
             
         }
 
+        //Fast new version
+        private void CheckDebug(string file)
+        {
+            var bytes = TemporaryGet32Bytes(file);
+            if (bytes == null)
+                return;
+            
+            byte safeValue = 0;
+            bool bOutOfOptions = true;
+
+            foreach(byte[] b in FileScanner_Headers.DebugHeaders)
+            {
+                byte[] buffer = new byte[b.Length];
+                Array.Copy(bytes, buffer, buffer.Length); //Test only the same size
+
+                if(buffer.SequenceEqual(b))
+                {
+                    Console.WriteLine($"==>>> Engine found file!=={Path.GetFileName(file)} is {FileScanner_Headers.Names[safeValue]}");
+                    bOutOfOptions = false;
+                    return; //Break out of foreach
+                }
+                safeValue++;
+            }
+             if (bOutOfOptions)
+                 Console.WriteLine($"{Path.GetFileName(file)} is UNKNOWN. MAGIC: 0x{BitConverter.ToString(bytes).Replace("-", "")}"); //Works fine
+        }
+
+        private byte[] TemporaryGet32Bytes(string file)
+        {
+            try
+            {
+                using (FileStream fs = new FileStream(file, FileMode.Open))
+                {
+                    using (BinaryReader br = new BinaryReader(fs))
+                    {
+                        if (fs.Length < 32)
+                            return null;
+                        return br.ReadBytes(32);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error with: {Path.GetFileName(file)}, {e.ToString()}");
+                return null;
+            }
+        }
+
+        //Deprecated?
         private Tuple<Int64, Int64> Header64(string file)
         {
             try
