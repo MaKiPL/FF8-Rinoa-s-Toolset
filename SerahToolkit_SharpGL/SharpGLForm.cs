@@ -740,7 +740,7 @@ namespace SerahToolkit_SharpGL
                     {
                     if (a == 0)
                     {
-                        MessageBox.Show("Error! Probably wrong file.\nIf you are sure it's GF file, please write name of the file you opened to: makipol@gmail.com");
+                        Console.WriteLine("GFWorker: Error! Probably wrong file. No offsets found.");
                         return;
                     }
                         listBox1.Items.Add(a);

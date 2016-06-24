@@ -20,7 +20,7 @@ namespace SerahToolkit_SharpGL
 
 
         //process vars
-        private int _objCount;
+        private uint _objCount;
         private int _relativeJump;
         private const int PassFromStart = 24;
         private int _vertexCount;
@@ -95,8 +95,8 @@ namespace SerahToolkit_SharpGL
         {
             _generatefaces = true;
             offset += (int)_pointer;
-            _objCount = BitConverter.ToInt32(_file, offset);
-            if(_objCount > 0x12)
+            _objCount = BitConverter.ToUInt32(_file, offset);
+            if (_objCount > 12u)
                 goto NOPE;
             _relativeJump = BitConverter.ToInt32(_file, offset + 8);
             _vertexCount = BitConverter.ToUInt16(_file, offset + PassFromStart) * 8;
@@ -112,6 +112,7 @@ namespace SerahToolkit_SharpGL
             int localoffset = offset + _relativeJump + 4;
             if (!_generatefaces)
             {
+                Console.WriteLine("GFWorker: This polygon type is supported! Reading data...");
                 for (int i = 0; i < polygons*28; i+=28)
                 {
                     f += $"f {GetPolygonType9(localoffset+i+18)} {GetPolygonType9(localoffset + i +20)} {GetPolygonType9(localoffset + i +22)}\n";
@@ -144,6 +145,7 @@ namespace SerahToolkit_SharpGL
 
             if (_generatefaces)
             {
+                Console.WriteLine("GFWorker: Unsupported polygon data. Generating fake face indices.");
                 for (int i = 1; i < countmebitch.Length - 2; i += 2)
                 {
                     sw.WriteLine($"f {i} {i + 1} {i + 2}");
@@ -153,14 +155,15 @@ namespace SerahToolkit_SharpGL
                 sw.Write(f);
             SharpGlForm.GFEnviro = _path + offset.ToString() + ".obj";
             sw.Close();
-
+            return;
         NOPE:
-            ;
+            Console.WriteLine($"GFWorker: The file is probably bad. The objCount is{_objCount}");
 
         }
 
         private int GetPolygonType9(int offset)
         {
+            Console.WriteLine("GFWorker: Polygon type 0x09");
             UInt16 byteb = BitConverter.ToUInt16(_file, offset);
             return byteb == 0 ? 1 : byteb/8 + 1;
         }
@@ -186,7 +189,7 @@ namespace SerahToolkit_SharpGL
                 _v += $"v {x} {y} {z}{Environment.NewLine}";
             }
             _v = _v.Replace(',', '.');
-
+            Console.WriteLine("GFWorker: Vertices parsed succesfully!");
         }
     }
 }
