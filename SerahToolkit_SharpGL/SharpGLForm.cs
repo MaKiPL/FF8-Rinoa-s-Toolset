@@ -100,6 +100,7 @@ namespace SerahToolkit_SharpGL
             openGLControl.OpenGL.Enable(OpenGL.GL_BLEND);
             openGLControl.OpenGL.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
             AllocConsole();
+            Console.WriteLine("===========Welcome!==========\nPlease do not close this console, it's connected to software. It may come handy.\nThis window will also let you see the output of FileScanner and WMX section.\n\n\n");
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

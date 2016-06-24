@@ -40,7 +40,7 @@ namespace SerahToolkit_SharpGL
             {
                 Process(_blockOffsets[i]);
             }
-            Console.WriteLine(_f);
+            Console.WriteLine($"WMX: Debug Face indice: {_f}");
         }
 
         private void ProduceOffsets(byte[] buffer)

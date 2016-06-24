@@ -101,10 +101,12 @@ namespace SerahToolkit_SharpGL
         {
             SetupMtl(_path, whichModel);
             Process(whichModel,index);
+            Console.WriteLine($"WMSet: Done!");
         }
 
         public UInt32[] ProduceOffset_sec16()
         {
+            Console.WriteLine($"WMSet: Producing offsets for section 16");
             List<UInt32> offsetList = new List<UInt32>();
             using (var fs = new FileStream(_path, FileMode.Open))
             {
@@ -128,6 +130,7 @@ namespace SerahToolkit_SharpGL
 
         private void SetupMtl(string pathh, int offset)
         {
+            Console.WriteLine($"WMSet: Setting up MTL file");
             string pathOfd = Path.GetDirectoryName(pathh);
             pathOfd += @"\" + Path.GetFileNameWithoutExtension(pathh) + offset + ".MTL";
 
@@ -146,6 +149,7 @@ namespace SerahToolkit_SharpGL
         //SECTION 42
         private UInt32[] ProduceOffset_sec42()
         {
+            Console.WriteLine($"WMSet: Producing offsets for section 42");
             List<UInt32> offsetList = new List<UInt32>();
             using (var fs = new FileStream(_pathSec42, FileMode.Open))
             {
@@ -170,6 +174,7 @@ namespace SerahToolkit_SharpGL
 
         private void Process(int offset, int texindex)
         {
+            Console.WriteLine($"WMSet: Starting process...");
             string fT = null;
             string fQ = null;
             string vt = null;
@@ -185,6 +190,7 @@ namespace SerahToolkit_SharpGL
             UInt16 vertexCount = BitConverter.ToUInt16(holdStage, offset+6);
             _curRrun = offset+8;
 
+            Console.WriteLine($"WMSet: TriangleCount: {triangleCount}, QuadCount: {quadCount}, TexturePage: {texturePage}, VerticesCount: {vertexCount}");
 
             uint[] debugPreProduceOffset = ProduceOffset_sec42();
             int textureOffsetInSec42 = (int)debugPreProduceOffset[texindex];
@@ -197,7 +203,8 @@ namespace SerahToolkit_SharpGL
             _paletteY = _sec42[textureOffsetInSec42 + 14]; //I should do the generic TIM reader... :C
             _imageX = _sec42[textureOffsetInSec42 + 12 + _hardcodedClutSize];
             _imageY = _sec42[textureOffsetInSec42 + 14 + _hardcodedClutSize];
-
+            Console.WriteLine($"WMSet: Reading Texture...");
+            Console.WriteLine($"WMSet: PaletteX:{_paletteX}, PaletteY:{_paletteY}, ImageX:{_imageX}, ImageY:{_imageY}");
 
 
             _width = GetTextureDimension_ByBPP(bpp, textureOffsetInSec42).Item1;
@@ -205,12 +212,13 @@ namespace SerahToolkit_SharpGL
 
             
             int startBuffer = _textureStartInt+20;
+            Console.WriteLine($"WMSet: Texture start buffer");
 
             int whichBpp = bpp == 8 ? Color_4Bpp : Color_8Bpp;
             _bmp = bpp == 9 ? new Bitmap(_width, _height, PixelFormat.Format8bppIndexed) : new Bitmap(_width, _height, PixelFormat.Format4bppIndexed);
-
+            Console.WriteLine($"WMSet: Texture BPP colors: {whichBpp}");
             _cp = _bmp.Palette;
-
+            Console.WriteLine($"WMSet: Building palette data");
             for (int i = 0; i != whichBpp-1; i++)
             {
                 byte[] cluTcolor = new byte[2];
@@ -268,6 +276,7 @@ namespace SerahToolkit_SharpGL
 
             int startTexture = GetTextureDimension_ByBPP(bpp, textureOffsetInSec42).Item3;
 
+            Console.WriteLine($"WMSet: Drawing texture...");
             _bmp = new Bitmap(_width, _height, PixelFormat.Format32bppArgb) {Palette = _cp};
             int index = startTexture;
             UInt16 size = BitConverter.ToUInt16(_sec42, startTexture - 12);
@@ -324,9 +333,10 @@ namespace SerahToolkit_SharpGL
                 }
             }
 
-
+            Console.WriteLine($"WMSet: Drawing texture transparency");
             _bmp.MakeTransparent(Color.Black);
 
+            Console.WriteLine($"WMSet: Reading UVs...");
             if (triangleCount != 0)
             {
                 int a = _curRrun;
@@ -350,6 +360,7 @@ namespace SerahToolkit_SharpGL
                 }
                 int c = 1;
                 a = _curRrun;
+                Console.WriteLine($"WMSet: Calculating UV wireframe for Wavefront OBJ");
                 while (true)
                 {
                     int u1 = holdStage[a] + 1;
@@ -406,7 +417,7 @@ namespace SerahToolkit_SharpGL
 
 
             //TEX COORD END
-
+            Console.WriteLine($"WMSet: Processing quads");
             if (quadCount != 0)
             {
                 int a = _curRrun;
@@ -532,7 +543,8 @@ namespace SerahToolkit_SharpGL
                     $"U:{Environment.NewLine}{_u.Min()},{_u.Max()}{Environment.NewLine}V:{Environment.NewLine}{_v.Min()},{_v.Max()}{Environment.NewLine}H:{_height} W:{_width} palX:{_paletteX} palY:{_paletteY} texX:{_imageX} texY:{_imageY}");
 
             int start = _curRrun;
-            while(true)
+            Console.WriteLine($"WMSet: Reading vertices data");
+            while (true)
             {
                 float xa = (BitConverter.ToInt16(holdStage, _curRrun)) / 100.0f;
                 float ya = (BitConverter.ToInt16(holdStage, _curRrun+2)) / 100.0f;
@@ -552,7 +564,7 @@ namespace SerahToolkit_SharpGL
                     File.Delete(pathofd);
                 using (var fs = new StreamWriter(pathofd))
                 {
-                    fs.WriteLine(@"#Made with Serah toolset by MaKiPL. Hit me up at makipol@gmail.com <3 :*");
+                    fs.WriteLine(@"#Made with Rinoa's toolset by MaKiPL.");
                     fs.WriteLine(@"mtllib " + Path.GetFileNameWithoutExtension(_path) + offset + ".mtl");
                     fs.WriteLine(@"usemtl Textured");
                     fs.WriteLine("");
@@ -568,7 +580,7 @@ namespace SerahToolkit_SharpGL
                     File.Delete(pathofd);
                 using (var fs = new StreamWriter(pathofd))
                 {
-                    fs.WriteLine(@"#Made with Serah toolset by MaKiPL. Hit me up at makipol@gmail.com <3 :*");
+                    fs.WriteLine(@"#Made with Rinoa's toolset by MaKiPL.");
                     fs.WriteLine(@"mtllib " + Path.GetFileNameWithoutExtension(_path) + offset + ".mtl");
                     fs.WriteLine(@"usemtl Textured");
                     fs.WriteLine("");
@@ -576,7 +588,7 @@ namespace SerahToolkit_SharpGL
                     fs.Close();
                 }
             }
-
+            Console.WriteLine($"WMSet: Saving bitmap");
             _bmp.Save(Path.GetDirectoryName(_path) + @"\" + Path.GetFileNameWithoutExtension(_path) + offset +".png", ImageFormat.Png);
 
         }
@@ -587,7 +599,7 @@ namespace SerahToolkit_SharpGL
 
         private Tuple<int,int, int> GetTextureDimension_ByBPP(int bpp, int textureOffsetInSec42)
         {
-
+            Console.WriteLine("WMSet: Getting texture dimension basing on BPP");
             int tiMoffsetCluTetc = textureOffsetInSec42 + 18;
             int cluTsize = BitConverter.ToUInt16(_sec42, tiMoffsetCluTetc-2);
             cluTsize = bpp == 8 ? cluTsize / 16 : cluTsize / 256;
@@ -618,6 +630,7 @@ namespace SerahToolkit_SharpGL
             int height = wysoU;
 
             Tuple<int, int, int> ret = new Tuple<int, int, int>(width, height, textureDataInt);
+            Console.WriteLine($"WMSet: Texture width: {width} height: {height}, DataInt: {textureDataInt}");
             return ret;
         }
 

@@ -42,6 +42,7 @@ namespace SerahToolkit_SharpGL
 
         public void rail(int offset)
         {
+            Console.WriteLine($"Rail: Reading rail data at {offset}");
             _curroff = offset;
             Byte frames = _railobj[offset];
             _firstStop = _railobj[offset + 4];
@@ -56,7 +57,7 @@ namespace SerahToolkit_SharpGL
 
             StreamWriter sw = new StreamWriter(pathOfd);
             //STEP 2 - Header
-            sw.WriteLine(@"#Made with Serah toolset by MaKiPL. Hit me up at makipol@gmail.com <3 :*");
+            sw.WriteLine(@"#Made with Rinoa's toolset by MaKiPL.");
             sw.WriteLine("usemtl rail");
             sw.WriteLine("");
             for (int i = offset+ 12; i!= offset+12+(frames*16); i+= 16)
