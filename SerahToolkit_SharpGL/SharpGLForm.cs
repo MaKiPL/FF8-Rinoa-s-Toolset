@@ -46,6 +46,9 @@ namespace SerahToolkit_SharpGL
         readonly List<Polygon> _polygons = new List<Polygon>();
         SharpGL.SceneGraph.Cameras.PerspectiveCamera _camera = new SharpGL.SceneGraph.Cameras.PerspectiveCamera();
 
+        [DllImport("kernel32")]
+        static extern bool AllocConsole();
+
 
 
         private void openGLControl_OpenGLDraw(object sender, RenderEventArgs e)
@@ -96,7 +99,7 @@ namespace SerahToolkit_SharpGL
             openGLControl.OpenGL.Enable(OpenGL.GL_COLOR_MATERIAL);
             openGLControl.OpenGL.Enable(OpenGL.GL_BLEND);
             openGLControl.OpenGL.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            
+            AllocConsole();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -799,11 +802,15 @@ namespace SerahToolkit_SharpGL
         private void fileScannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileScanner.FileScanner_Core fsc;
+            Console.WriteLine("FileScanner engine started\nYou will find output here");
             FolderBrowserDialog fbd = new FolderBrowserDialog();
             if (fbd.ShowDialog() == DialogResult.OK)
+            {
                 fsc = new FileScanner.FileScanner_Core(fbd.SelectedPath);
+                fsc.Start();
+            }
             else return;
-            fsc.Start();
+            
         }
     }
 }
