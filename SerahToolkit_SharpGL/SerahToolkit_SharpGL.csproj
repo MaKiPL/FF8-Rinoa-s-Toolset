@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -87,6 +88,8 @@
     <Compile Include="BS_Vertices.Designer.cs">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileScanner\FileScanner_Core.cs" />
+    <Compile Include="FileScanner\FileScanner_Headers.cs" />
     <Compile Include="GF_enviro.cs" />
     <Compile Include="Parser.cs">
       <SubType>Form</SubType>

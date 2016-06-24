@@ -82,6 +82,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.fileScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -218,7 +219,7 @@
             // openToolStripMenuItem3
             // 
             this.openToolStripMenuItem3.Name = "openToolStripMenuItem3";
-            this.openToolStripMenuItem3.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem3.Text = "Open";
             this.openToolStripMenuItem3.Click += new System.EventHandler(this.openToolStripMenuItem3_Click);
             // 
@@ -281,7 +282,7 @@
             // openToolStripMenuItem2
             // 
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -296,7 +297,7 @@
             // environmentToolStripMenuItem
             // 
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
             // 
@@ -304,7 +305,8 @@
             // 
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advancedAnalyzeToolsToolStripMenuItem,
-            this.rosettaStonetextDecypherToolStripMenuItem});
+            this.rosettaStonetextDecypherToolStripMenuItem,
+            this.fileScannerToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
             this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
@@ -562,6 +564,13 @@
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
+            // fileScannerToolStripMenuItem
+            // 
+            this.fileScannerToolStripMenuItem.Name = "fileScannerToolStripMenuItem";
+            this.fileScannerToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.fileScannerToolStripMenuItem.Text = "File Scanner (recognizer)";
+            this.fileScannerToolStripMenuItem.Click += new System.EventHandler(this.fileScannerToolStripMenuItem_Click);
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -657,6 +666,7 @@
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem parseVerticesForSegmentToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileScannerToolStripMenuItem;
     }
 }
 

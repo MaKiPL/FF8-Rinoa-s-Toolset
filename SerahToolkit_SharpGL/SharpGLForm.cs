@@ -795,5 +795,15 @@ namespace SerahToolkit_SharpGL
             RosettaStone.RosettaStone rs = new RosettaStone.RosettaStone();
             rs.Show();
         }
+
+        private void fileScannerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FileScanner.FileScanner_Core fsc;
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            if (fbd.ShowDialog() == DialogResult.OK)
+                fsc = new FileScanner.FileScanner_Core(fbd.SelectedPath);
+            else return;
+            fsc.Start();
+        }
     }
 }
