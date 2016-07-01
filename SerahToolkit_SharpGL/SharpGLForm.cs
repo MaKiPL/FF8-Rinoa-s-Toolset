@@ -815,5 +815,54 @@ namespace SerahToolkit_SharpGL
             else return;
             
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Save texture";
+            sfd.Filter = "Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {/*
+                    ImageFormat imageFormat;
+
+                    switch(Path.GetExtension(sfd.FileName).ToUpper())
+                    {
+                        case "BMP":
+                            imageFormat = ImageFormat.Bmp;
+                            break;
+                        case "GIF":
+                            imageFormat = ImageFormat.Gif;
+                            break;
+                        case "JPEG":
+                            imageFormat = ImageFormat.Jpeg;
+                            break;
+                        case "JPG":
+                            imageFormat = ImageFormat.Jpeg;
+                            break;
+                        case "PNG":
+                            imageFormat = ImageFormat.Png;
+                            break;
+                        case "TIFF":
+                            imageFormat = ImageFormat.Tiff;
+                            break;
+                        default:
+                            Console.WriteLine("Wrong extension. Saving as PNG");
+                            imageFormat = ImageFormat.Png;
+                            break;
+                    }
+                    */
+                    pictureBox1.Image.Save(sfd.FileName/*, imageFormat*/);
+                    Console.WriteLine("Texture saved.");
+                }
+                catch(Exception ee)
+                {
+                    Console.WriteLine($"We had an error with saving texture. Exception:{Environment.NewLine}{ee.ToString()}");
+                }
+            }
+            else
+                Console.WriteLine("Cancelled texture save as...");
+        }
     }
 }
