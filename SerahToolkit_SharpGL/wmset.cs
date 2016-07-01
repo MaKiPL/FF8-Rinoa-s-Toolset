@@ -551,7 +551,7 @@ namespace SerahToolkit_SharpGL
                 float za = (BitConverter.ToInt16(holdStage, _curRrun+4)) / 100.0f;
 
 
-                v += $"v {xa} {ya} {za}" + Environment.NewLine;
+                v += $"v {xa} {ya*-1f} {za}" + Environment.NewLine;
                 v = v.Replace(',', '.');
                 _curRrun += 8;
                 if (_curRrun == start + (vertexCount * 8))

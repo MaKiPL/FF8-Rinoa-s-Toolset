@@ -90,6 +90,7 @@
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.railEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -289,7 +290,8 @@
             // railobjToolStripMenuItem
             // 
             this.railobjToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem2});
+            this.openToolStripMenuItem2,
+            this.railEditorToolStripMenuItem});
             this.railobjToolStripMenuItem.Name = "railobjToolStripMenuItem";
             this.railobjToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.railobjToolStripMenuItem.Text = "rail.obj";
@@ -297,7 +299,7 @@
             // openToolStripMenuItem2
             // 
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -741,6 +743,14 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
+            // railEditorToolStripMenuItem
+            // 
+            this.railEditorToolStripMenuItem.Enabled = false;
+            this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.railEditorToolStripMenuItem.Text = "Rail editor";
+            this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -859,6 +869,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
     }
 }
 

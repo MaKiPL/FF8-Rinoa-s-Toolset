@@ -543,6 +543,8 @@ namespace SerahToolkit_SharpGL
                 {
                     listBox1.Items.Add(i);
                 }
+                listBox1.SelectedIndex = 0;
+                railEditorToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -863,6 +865,19 @@ namespace SerahToolkit_SharpGL
             }
             else
                 Console.WriteLine("Cancelled texture save as...");
+        }
+
+        private void railEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(_state != StateRailDraw)
+            {
+                Console.WriteLine("ERROR! Did you try to open RailEditor working on other file!?");
+                return;
+            }
+            int getRot = int.Parse(listBox1.SelectedItem.ToString());
+            Console.WriteLine($"Starting rail editor for segment {listBox1.SelectedItem.ToString()}");
+            RailEditor.RailEditor RailEditor = new SerahToolkit_SharpGL.RailEditor.RailEditor(File.ReadAllBytes(_railPath), getRot);
+            RailEditor.Show();
         }
     }
 }
