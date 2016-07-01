@@ -186,7 +186,7 @@ namespace SerahToolkit_SharpGL
                 float x = (BitConverter.ToInt16(_file, effectiveOffset + i*8)) / 2000.0f;
                 float y = (BitConverter.ToInt16(_file, effectiveOffset + i * 8 + 2)) / 2000.0f;
                 float z = (BitConverter.ToInt16(_file, effectiveOffset + i * 8 + 4)) / 2000.0f;
-                _v += $"v {x} {y} {z}{Environment.NewLine}";
+                _v += $"v {x} {y*-1f /*Math.Abs(y) * -1.0f*/} {z}{Environment.NewLine}";
             }
             _v = _v.Replace(',', '.');
             Console.WriteLine("GFWorker: Vertices parsed succesfully!");
