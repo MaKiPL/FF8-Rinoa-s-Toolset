@@ -295,6 +295,7 @@ namespace SerahToolkit_SharpGL
                 }
                 Render3D();
                     BattleStage_listbox(true);
+                pictureBox1.BackgroundImage = null;
             }
             
             
