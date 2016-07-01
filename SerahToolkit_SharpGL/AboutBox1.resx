@@ -3598,4 +3598,19 @@
         vrNG+I9Z7yFOVSP8rpir/9k=
 </value>
   </data>
+  <data name="textBoxDescription.Text" xml:space="preserve">
+    <value>NOTE!
+
+This software automatically converts
+parts of model to .OBJ, you can find
+them along with ripped .PNG texture
+and .MTL file in directory where the
+source file is.
+
+GitHub page:
+https://github.com/MaKiPL/FF8-Rinoa-s-Toolset
+
+Artwork from left:
+http://teramaster.deviantart.com/art/Rinoa-Heartilly-46724762</value>
+  </data>
 </root>

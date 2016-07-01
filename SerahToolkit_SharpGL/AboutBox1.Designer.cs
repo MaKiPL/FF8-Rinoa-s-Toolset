@@ -123,8 +123,7 @@
             this.textBoxDescription.Size = new System.Drawing.Size(321, 151);
             this.textBoxDescription.TabIndex = 23;
             this.textBoxDescription.TabStop = false;
-            this.textBoxDescription.Text = "\r\n\r\nGitHub page:\r\nhttps://github.com/MaKiPL/FF8-Rinoa-s-Toolset\r\n\r\nArtwork from l" +
-    "eft:\r\nhttp://teramaster.deviantart.com/art/Rinoa-Heartilly-46724762";
+            this.textBoxDescription.Text = resources.GetString("textBoxDescription.Text");
             // 
             // okButton
             // 
