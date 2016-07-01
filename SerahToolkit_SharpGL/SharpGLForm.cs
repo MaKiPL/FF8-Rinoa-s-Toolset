@@ -729,6 +729,7 @@ namespace SerahToolkit_SharpGL
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 _gf = new GfEnviro(ofd.FileName);
+                UpdateStatus(ofd.FileName);
                 _lastKnownPath = ofd.FileName;
 
                 /*if (!_gf.BValidHeader())
