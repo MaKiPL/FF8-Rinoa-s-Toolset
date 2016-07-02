@@ -31,6 +31,20 @@ namespace SerahToolkit_SharpGL
         private uint _pointer;
         private string _path;
         private bool _generatefaces;
+        public bool _onlyVertex = false;
+        private ushort polygonType;
+        public bool _bForceNotDraw = false;
+        private int[] _knownPolygons = new int[] 
+        {
+            0x7,
+            0x8,
+            0x9,
+            0xC,
+            0x10,
+            0x12,
+            0x11,
+            0x13,
+        };
 
 
         private Dictionary<UInt16,int> _polygonType = new Dictionary<ushort, int>
@@ -38,26 +52,31 @@ namespace SerahToolkit_SharpGL
             { 0x7, 20},     //BAD?
             { 0x8, 20}, //OK 
             { 0x9, 28}, //OK
+            { 0xC, 28}, //OK
             {0x10, 20},     //BAD?
-            {0x12, 24}, //OK
             {0x13, 36}, //OK
-            {0x18, 0x18}    //24 BAD?
+            {0x18, 0x18},    //24 BAD?
+            //0x13 = 36
+            //0x7 = 20
+            //0x10 = 12
+            {17, 24 }
         };
+
          
         /*Polygon is:
          * 
          * uint16 - type
          * uint16 - count
-         * 
+         * FF FF FF FF ends object
          */
 
 
 
         //0x8 structure:
         /*
-         * 0xB - A  (normal)
-         * 0xD - B (normal)
-         * 0xF - C (normal)
+         * 0xA - A
+         * 0xC - B
+         * 0xE - C
          * 
          */
         
@@ -67,7 +86,11 @@ namespace SerahToolkit_SharpGL
              * 20, 22, 24?? is polygon?
              * 18, 20, 22 is divide by 8.
              * 
-             * 
+             * 0x12: Divide by 8
+             * 12 A
+             * 14 B
+             * 16 C
+             * 18 D
              */
 
 
@@ -77,17 +100,13 @@ namespace SerahToolkit_SharpGL
             _file = File.ReadAllBytes(path);
         }
 
-        public bool BValidHeader()
-        {
-            //New byte[8] trick doesn't work??
-            return (_file[0] == 0x00 && _file[1] == 0x00 && _file[2] == 0x00 && _file[3] == 0x00 && _file[4] == 0x00 && _file[5] == 0x00 && _file[6] == 0x00 && _file[7] == 0x00);
-        }
-
         public int[] PopulateOffsets()
         {
             _pointer = BitConverter.ToUInt32(_file, EnviroOffset);
             if (_pointer >= _file.Length)
                 return new int[] { 0 };   //Crash handler         
+            if (_pointer == 0)
+                Console.WriteLine("GFWorker: BAD FILE! This file has no section offsets");
             UInt32 count = BitConverter.ToUInt32(_file, (int)_pointer);
             _subOffsets = new uint[count];
             for (int i = 0; i != count; i++)
@@ -117,29 +136,126 @@ namespace SerahToolkit_SharpGL
 
         public void ProcessGf(int offset)
         {
+            _bForceNotDraw = false;
+            _onlyVertex = true;
             _generatefaces = true;
             offset += (int)_pointer;
             _objCount = BitConverter.ToUInt32(_file, offset);
             if (_objCount > 12u)
                 goto NOPE;
+            if (_objCount != 2u)
+                _onlyVertex = false;
             _relativeJump = BitConverter.ToInt32(_file, offset + 8);
             _vertexCount = BitConverter.ToUInt16(_file, offset + PassFromStart) * 8;
             _verticesOffset = BitConverter.ToUInt16(_file, offset + PassFromStart - 4);
-            //int updateOffset = offset + _relativeJump;
+            if (_onlyVertex)
+            {
+                Console.WriteLine("GFWorker: This specific model contains only vertices data. Probably used for animation purpouses?");
+                Console.WriteLine("GFWorker: Switching renderer over to point cloud mode");
+                Console.WriteLine("GFWorker: Fake face indices are still generated and saved to file. Ignore them");
+                goto vertex;
+            }
             //Examine polygon type
             _v = null;
             //_vt = null;
             f = null;
             int polygons = BitConverter.ToUInt16(_file, offset+_relativeJump+2);
-            if (BitConverter.ToUInt16(_file, offset + _relativeJump) == 0x09)
-                _generatefaces = false;
+            polygonType = BitConverter.ToUInt16(_file, offset + _relativeJump);
+
+            foreach(int a in _knownPolygons)
+            {
+                if (a == polygonType)
+                    _generatefaces = false;
+            }
+
             int localoffset = offset + _relativeJump + 4;
             if (!_generatefaces)
             {
-                Console.WriteLine("GFWorker: This polygon type is supported! Reading data...");
-                for (int i = 0; i < polygons*28; i+=28)
+                Console.WriteLine($"GFWorker: This polygon type {polygonType.ToString()} is supported! Reading data...");
+                int safeHandle = 0;
+                cheeseBurger:
+
+                if (polygonType == 0x07)
                 {
-                    f += $"f {GetPolygonType9(localoffset+i+18)} {GetPolygonType9(localoffset + i +20)} {GetPolygonType9(localoffset + i +22)}\n";
+                    for (int i = 0; i < polygons * 20; i += 20)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 0xC)} {GetPolygon(localoffset + i + 0xE)} {GetPolygon(localoffset + i + 0x10)}\n";
+                    }
+                    safeHandle = polygons * 20;
+                }
+                if (polygonType == 0x09)
+                {
+                    for (int i = 0; i < polygons * 28; i += 28)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 18)} {GetPolygon(localoffset + i + 20)} {GetPolygon(localoffset + i + 22)}\n";
+                    }
+                    safeHandle = polygons * 28;
+                }
+
+                if (polygonType == 0x08)
+                {
+                    for (int i = 0; i < polygons * 20; i += 20)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 0xA)} {GetPolygon(localoffset + i + 0xC)} {GetPolygon(localoffset + i + 0xE)}\n";
+                    }
+                    safeHandle = polygons * 20;
+                }
+
+                if (polygonType == 12)
+                {
+                    for (int i = 0; i < polygons * 28; i += 28)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 20)} {GetPolygon(localoffset + i + 22)} {GetPolygon(localoffset + i + 26)} {GetPolygon(localoffset + i + 24)}\n";
+                    }
+                    safeHandle = polygons * 28;
+                }
+
+
+                if (polygonType == 0x12)
+                {
+                    for (int i = 0; i < polygons * 24; i += 24)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 12)} {GetPolygon(localoffset + i + 14)} {GetPolygon(localoffset + i + 18)} {GetPolygon(localoffset + i + 16)}\n";
+                    }
+                    safeHandle = polygons * 24;
+                }
+
+                if (polygonType == 0x13)
+                {
+                    for (int i = 0; i < polygons * 36; i += 36)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 24)} {GetPolygon(localoffset + i + 26)} {GetPolygon(localoffset + i + 30)} {GetPolygon(localoffset + i + 28)}\n";
+                    }
+                    safeHandle = polygons * 36;
+                }
+                if (polygonType == 0x11)
+                {
+                    for (int i = 0; i < polygons * 24; i += 24)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 16)} {GetPolygon(localoffset + i + 18)} {GetPolygon(localoffset + i + 22)} {GetPolygon(localoffset + i + 20)}\n";
+                    }
+                    safeHandle = polygons * 24;
+                }
+
+                if (polygonType == 0x10)
+                {
+                    for (int i = 0; i < polygons * 12; i += 12)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 4)} {GetPolygon(localoffset + i + 6)} {GetPolygon(localoffset + i + 10)} {GetPolygon(localoffset + i + 8)}\n";
+                    }
+                    safeHandle = polygons * 12;
+                }
+
+                uint isNext = BitConverter.ToUInt32(_file, localoffset + safeHandle);
+                if (isNext != 0xFFFFFFFF)
+                {
+                    Console.WriteLine("GFWorker: There are more polygons for this object! Reading again...");
+                    localoffset += safeHandle;
+                    polygonType = BitConverter.ToUInt16(_file, localoffset);
+                    polygons = BitConverter.ToUInt16(_file, localoffset + 2);
+                    Console.WriteLine($"GFWorker: New polygon is {polygonType}");
+                    localoffset += 4;
+                    goto cheeseBurger;
                 }
             }
 
@@ -157,6 +273,8 @@ namespace SerahToolkit_SharpGL
                 else
                     updateOffset += 4 + polyLenght*passB;
             }*/
+
+            vertex:
             ProcessVertices(_verticesOffset + offset, _vertexCount);
             string ppath = $"{_path}{offset.ToString()}.obj";
             StreamWriter sw = new StreamWriter(ppath, false);
@@ -169,7 +287,8 @@ namespace SerahToolkit_SharpGL
 
             if (_generatefaces)
             {
-                Console.WriteLine("GFWorker: Unsupported polygon data. Generating fake face indices.");
+                if(!_onlyVertex)
+                    Console.WriteLine($"GFWorker: Unsupported polygon {polygonType} data. Generating fake face indices.");
                 for (int i = 1; i < countmebitch.Length - 2; i += 2)
                 {
                     sw.WriteLine($"f {i} {i + 1} {i + 2}");
@@ -182,23 +301,17 @@ namespace SerahToolkit_SharpGL
             return;
         NOPE:
             Console.WriteLine($"GFWorker: The file is probably bad. The objCount is{_objCount}");
+            _bForceNotDraw = true;
 
         }
 
-        private int GetPolygonType9(int offset)
+        private int GetPolygon(int offset)
         {
-            Console.WriteLine("GFWorker: Polygon type 0x09");
             UInt16 byteb = BitConverter.ToUInt16(_file, offset);
             return byteb == 0 ? 1 : byteb/8 + 1;
         }
 
 
-        private void ProcessPolygon(int bpp, int effectiveoffset, int length)
-        {
-            /* TODO
-            f += string.Format(@"f {0}/{1} {2}/{3} {4}/{5}", null, null, null, null, null, null);
-            // END OF TODO*/
-        }
 
         private void ProcessVertices(int effectiveOffset, int length)
         {

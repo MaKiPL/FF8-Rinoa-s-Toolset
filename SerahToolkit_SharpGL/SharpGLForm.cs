@@ -161,7 +161,7 @@ namespace SerahToolkit_SharpGL
                         }
                     }
             }
-            if (_state == StateGFenviro)
+            if (_state == StateGFenviro && !_gf._bForceNotDraw)
             {
                 _gl.ClearColor(0, 0, 0, 0);
                 Scene scene = SerializationEngine.Instance.LoadScene(GFEnviro);
@@ -174,6 +174,9 @@ namespace SerahToolkit_SharpGL
                     }
                 }
             }
+            else
+                _gl.ClearColor(0, 0, 0, 0);
+
            if(_state == StateWmset)
             {
                 //LOGIC HERE
@@ -757,6 +760,10 @@ namespace SerahToolkit_SharpGL
         private void GfLogic()
         {
             _gf.ProcessGf((int)listBox1.Items[listBox1.SelectedIndex]);
+            if (_gf._onlyVertex)
+                SetLines(true);
+            else
+                SetLines(false);
             if(GFEnviro != null)
                 Render3D();
         }
