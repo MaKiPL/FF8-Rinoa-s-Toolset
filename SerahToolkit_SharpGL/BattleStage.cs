@@ -215,7 +215,7 @@ namespace SerahToolkit_SharpGL
             StreamWriter sw = new StreamWriter(pathOfd);
 
             //STEP 2 - Header
-            sw.WriteLine(@"#Made with Serah toolset by MaKiPL. Hit me up at makipol@gmail.com <3 :*");
+            sw.WriteLine(@"#Made with Rinoa's toolset by MaKiPL");
             sw.WriteLine(@"mtllib " + Path.GetFileNameWithoutExtension(_pathh) + ".mtl");
             sw.WriteLine(@"usemtl Textured");
             sw.WriteLine("");

@@ -44,7 +44,31 @@ namespace SerahToolkit_SharpGL
             {0x18, 0x18}    //24 BAD?
         };
          
+        /*Polygon is:
+         * 
+         * uint16 - type
+         * uint16 - count
+         * 
+         */
+
+
+
+        //0x8 structure:
+        /*
+         * 0xB - A  (normal)
+         * 0xD - B (normal)
+         * 0xF - C (normal)
+         * 
+         */
         
+
+        //0x9 structure:
+            /*
+             * 20, 22, 24?? is polygon?
+             * 18, 20, 22 is divide by 8.
+             * 
+             * 
+             */
 
 
         public GfEnviro(string path)
