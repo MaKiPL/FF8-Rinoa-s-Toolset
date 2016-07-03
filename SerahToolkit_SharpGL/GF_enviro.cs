@@ -36,6 +36,8 @@ namespace SerahToolkit_SharpGL
         public bool _bForceNotDraw = false;
         private int[] _knownPolygons = new int[] 
         {
+            0x2,
+            0x6,
             0x7,
             0x8,
             0x9,
@@ -45,54 +47,6 @@ namespace SerahToolkit_SharpGL
             0x11,
             0x13,
         };
-
-
-        private Dictionary<UInt16,int> _polygonType = new Dictionary<ushort, int>
-        {
-            { 0x7, 20},     //BAD?
-            { 0x8, 20}, //OK 
-            { 0x9, 28}, //OK
-            { 0xC, 28}, //OK
-            {0x10, 20},     //BAD?
-            {0x13, 36}, //OK
-            {0x18, 0x18},    //24 BAD?
-            //0x13 = 36
-            //0x7 = 20
-            //0x10 = 12
-            {17, 24 }
-        };
-
-         
-        /*Polygon is:
-         * 
-         * uint16 - type
-         * uint16 - count
-         * FF FF FF FF ends object
-         */
-
-
-
-        //0x8 structure:
-        /*
-         * 0xA - A
-         * 0xC - B
-         * 0xE - C
-         * 
-         */
-        
-
-        //0x9 structure:
-            /*
-             * 20, 22, 24?? is polygon?
-             * 18, 20, 22 is divide by 8.
-             * 
-             * 0x12: Divide by 8
-             * 12 A
-             * 14 B
-             * 16 C
-             * 18 D
-             */
-
 
         public GfEnviro(string path)
         {
@@ -174,7 +128,22 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine($"GFWorker: This polygon type {polygonType.ToString()} is supported! Reading data...");
                 int safeHandle = 0;
                 cheeseBurger:
-
+                if (polygonType == 0x02)
+                {
+                    for (int i = 0; i < polygons * 20; i += 20)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 0xC)} {GetPolygon(localoffset + i + 0xE)} {GetPolygon(localoffset + i + 0x10)}\n";
+                    }
+                    safeHandle = polygons * 20;
+                }
+                if (polygonType == 0x06)
+                {
+                    for (int i = 0; i < polygons * 12; i += 12)
+                    {
+                        f += $"f {GetPolygon(localoffset + i + 0x4)} {GetPolygon(localoffset + i + 0x6)} {GetPolygon(localoffset + i + 0x08)}\n";
+                    }
+                    safeHandle = polygons * 12;
+                }
                 if (polygonType == 0x07)
                 {
                     for (int i = 0; i < polygons * 20; i += 20)
