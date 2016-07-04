@@ -359,7 +359,8 @@ namespace SerahToolkit_SharpGL
         {
             if (listBox1.SelectedIndex == -1)
                 listBox1.SelectedIndex = 0;
-            _bmp = new Bitmap(pictureBox1.BackgroundImage);
+            Image nullImageRes = _bmp2; //bug fix by trick
+            _bmp = new Bitmap(nullImageRes);
             Graphics g = Graphics.FromImage(_bmp);
             int selected = Convert.ToInt32(listBox1.SelectedItems[0]);
             BattleStage bs = new BattleStage("UV");
@@ -465,6 +466,7 @@ namespace SerahToolkit_SharpGL
                     
                 }
                 pictureBox1.Image = _bmp;
+                _bmp2 = _bmp;
                 string pathTexte = Path.GetDirectoryName(_lastKnownPath);
                 pathTexte = pathTexte + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_col.png";
                 if (File.Exists(pathTexte))
@@ -778,11 +780,7 @@ namespace SerahToolkit_SharpGL
             //TODO
         }
 
-        private void oBJToFF8ParserToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]),pictureBox1.Image.Height,pictureBox1.Image.Width);
-            parser.ShowDialog();
-        }
+
         private void openToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog {Filter = "wmx.obj|wmx.obj"};
@@ -885,6 +883,12 @@ namespace SerahToolkit_SharpGL
             Console.WriteLine($"Starting rail editor for segment {listBox1.SelectedItem.ToString()}");
             RailEditor.RailEditor RailEditor = new SerahToolkit_SharpGL.RailEditor.RailEditor(File.ReadAllBytes(_railPath), getRot);
             RailEditor.Show();
+        }
+
+        private void oBJToFF8ParserToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]), pictureBox1.Image.Height, pictureBox1.Image.Width);
+            parser.ShowDialog();
         }
     }
 }

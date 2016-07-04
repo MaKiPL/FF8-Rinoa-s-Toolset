@@ -38,8 +38,7 @@
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oBJToFF8ParserToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.oBJToFF8ParserToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parseVerticesForSegmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.battleStageEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +49,7 @@
             this.unpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.railobjToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.railEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,58 +68,57 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.trackBar5 = new System.Windows.Forms.TrackBar();
-            this.trackBar4 = new System.Windows.Forms.TrackBar();
-            this.trackBar3 = new System.Windows.Forms.TrackBar();
-            this.label3 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.trackBar4 = new System.Windows.Forms.TrackBar();
+            this.trackBar5 = new System.Windows.Forms.TrackBar();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.button1 = new System.Windows.Forms.Button();
-            this.openGLControl = new SharpGL.OpenGLControl();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.openGLControl = new SharpGL.OpenGLControl();
+            this.button1 = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.railEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.flowLayoutPanel2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
+            this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -188,7 +187,8 @@
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verticesToolStripMenuItem,
-            this.oBJToFF8ParserToolStripMenuItem1});
+            this.oBJToFF8ParserToolStripMenuItem1,
+            this.battleStageEditorToolStripMenuItem});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
@@ -197,32 +197,22 @@
             // verticesToolStripMenuItem
             // 
             this.verticesToolStripMenuItem.Name = "verticesToolStripMenuItem";
-            this.verticesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.verticesToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.verticesToolStripMenuItem.Text = "Single vertex edit";
             this.verticesToolStripMenuItem.Click += new System.EventHandler(this.verticesToolStripMenuItem_Click);
             // 
             // oBJToFF8ParserToolStripMenuItem1
             // 
-            this.oBJToFF8ParserToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.oBJToFF8ParserToolStripMenuItem,
-            this.parseVerticesForSegmentToolStripMenuItem});
             this.oBJToFF8ParserToolStripMenuItem1.Name = "oBJToFF8ParserToolStripMenuItem1";
-            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(164, 22);
+            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
             this.oBJToFF8ParserToolStripMenuItem1.Text = "OBJ to FF8 parser";
+            this.oBJToFF8ParserToolStripMenuItem1.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem1_Click);
             // 
-            // oBJToFF8ParserToolStripMenuItem
+            // battleStageEditorToolStripMenuItem
             // 
-            this.oBJToFF8ParserToolStripMenuItem.Name = "oBJToFF8ParserToolStripMenuItem";
-            this.oBJToFF8ParserToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.oBJToFF8ParserToolStripMenuItem.Text = "Complete segment replacer (Beta)";
-            this.oBJToFF8ParserToolStripMenuItem.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem_Click_1);
-            // 
-            // parseVerticesForSegmentToolStripMenuItem
-            // 
-            this.parseVerticesForSegmentToolStripMenuItem.Name = "parseVerticesForSegmentToolStripMenuItem";
-            this.parseVerticesForSegmentToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.parseVerticesForSegmentToolStripMenuItem.Text = "Parse vertices for segment";
-            this.parseVerticesForSegmentToolStripMenuItem.Click += new System.EventHandler(this.parseVerticesForSegmentToolStripMenuItem_Click);
+            this.battleStageEditorToolStripMenuItem.Name = "battleStageEditorToolStripMenuItem";
+            this.battleStageEditorToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.battleStageEditorToolStripMenuItem.Text = "Battle stage editor";
             // 
             // worldMapToolStripMenuItem
             // 
@@ -299,9 +289,17 @@
             // openToolStripMenuItem2
             // 
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(127, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
+            // 
+            // railEditorToolStripMenuItem
+            // 
+            this.railEditorToolStripMenuItem.Enabled = false;
+            this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.railEditorToolStripMenuItem.Text = "Rail editor";
+            this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
             // 
             // gFToolStripMenuItem
             // 
@@ -456,6 +454,17 @@
             this.splitContainer3.SplitterDistance = 689;
             this.splitContainer3.TabIndex = 22;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Image = global::SerahToolkit_SharpGL.Properties.Resources.tex;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(689, 192);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
             // splitContainer4
             // 
             this.splitContainer4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -474,6 +483,37 @@
             this.splitContainer4.Size = new System.Drawing.Size(273, 192);
             this.splitContainer4.SplitterDistance = 119;
             this.splitContainer4.TabIndex = 22;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.label1);
+            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(117, 190);
+            this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "==Additional options==";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(3, 16);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(111, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "Save texture as...";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // splitContainer5
             // 
@@ -497,6 +537,59 @@
             this.splitContainer5.SplitterDistance = 147;
             this.splitContainer5.TabIndex = 16;
             // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.label3);
+            this.flowLayoutPanel3.Controls.Add(this.trackBar3);
+            this.flowLayoutPanel3.Controls.Add(this.trackBar4);
+            this.flowLayoutPanel3.Controls.Add(this.trackBar5);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(148, 145);
+            this.flowLayoutPanel3.TabIndex = 14;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Location = new System.Drawing.Point(3, 3);
+            this.label3.Margin = new System.Windows.Forms.Padding(3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(137, 13);
+            this.label3.TabIndex = 13;
+            this.label3.Text = "==TRANSLATION (XYZ)==";
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar3.Location = new System.Drawing.Point(3, 22);
+            this.trackBar3.Maximum = 2000;
+            this.trackBar3.Minimum = -2000;
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Size = new System.Drawing.Size(157, 45);
+            this.trackBar3.TabIndex = 9;
+            // 
+            // trackBar4
+            // 
+            this.trackBar4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar4.Location = new System.Drawing.Point(3, 73);
+            this.trackBar4.Maximum = 2000;
+            this.trackBar4.Minimum = -2000;
+            this.trackBar4.Name = "trackBar4";
+            this.trackBar4.Size = new System.Drawing.Size(157, 45);
+            this.trackBar4.TabIndex = 10;
+            // 
+            // trackBar5
+            // 
+            this.trackBar5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar5.Location = new System.Drawing.Point(3, 124);
+            this.trackBar5.Maximum = 2000;
+            this.trackBar5.Minimum = -2000;
+            this.trackBar5.Name = "trackBar5";
+            this.trackBar5.Size = new System.Drawing.Size(157, 45);
+            this.trackBar5.TabIndex = 11;
+            // 
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.label4);
@@ -506,6 +599,16 @@
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(146, 39);
             this.flowLayoutPanel2.TabIndex = 18;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label4.Location = new System.Drawing.Point(3, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(109, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Battle stage segment:";
             // 
             // checkBox1
             // 
@@ -519,111 +622,6 @@
             this.checkBox1.Text = "Hidden";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label4.Location = new System.Drawing.Point(3, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Battle stage segment:";
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.Controls.Add(this.label3);
-            this.flowLayoutPanel3.Controls.Add(this.trackBar3);
-            this.flowLayoutPanel3.Controls.Add(this.trackBar4);
-            this.flowLayoutPanel3.Controls.Add(this.trackBar5);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(148, 145);
-            this.flowLayoutPanel3.TabIndex = 14;
-            // 
-            // trackBar5
-            // 
-            this.trackBar5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar5.Location = new System.Drawing.Point(3, 124);
-            this.trackBar5.Maximum = 2000;
-            this.trackBar5.Minimum = -2000;
-            this.trackBar5.Name = "trackBar5";
-            this.trackBar5.Size = new System.Drawing.Size(157, 45);
-            this.trackBar5.TabIndex = 11;
-            // 
-            // trackBar4
-            // 
-            this.trackBar4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar4.Location = new System.Drawing.Point(3, 73);
-            this.trackBar4.Maximum = 2000;
-            this.trackBar4.Minimum = -2000;
-            this.trackBar4.Name = "trackBar4";
-            this.trackBar4.Size = new System.Drawing.Size(157, 45);
-            this.trackBar4.TabIndex = 10;
-            // 
-            // trackBar3
-            // 
-            this.trackBar3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar3.Location = new System.Drawing.Point(3, 22);
-            this.trackBar3.Maximum = 2000;
-            this.trackBar3.Minimum = -2000;
-            this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(157, 45);
-            this.trackBar3.TabIndex = 9;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(3, 3);
-            this.label3.Margin = new System.Windows.Forms.Padding(3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "==TRANSLATION (XYZ)==";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.label1);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(117, 190);
-            this.flowLayoutPanel1.TabIndex = 1;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(3, 16);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(111, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Save texture as...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "==Additional options==";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::SerahToolkit_SharpGL.Properties.Resources.tex;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(689, 192);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
             // 
             // splitContainer2
             // 
@@ -640,8 +638,20 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel1);
             this.splitContainer2.Size = new System.Drawing.Size(966, 337);
-            this.splitContainer2.SplitterDistance = 111;
+            this.splitContainer2.SplitterDistance = 110;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // listBox1
+            // 
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "No items found."});
+            this.listBox1.Location = new System.Drawing.Point(0, 0);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(110, 337);
+            this.listBox1.TabIndex = 0;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -659,30 +669,19 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.93567F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.064327F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(851, 337);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(852, 337);
             this.tableLayoutPanel1.TabIndex = 7;
             // 
-            // trackBar1
+            // trackBar2
             // 
-            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar1.Location = new System.Drawing.Point(3, 309);
-            this.trackBar1.Maximum = 1500;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(806, 25);
-            this.trackBar1.TabIndex = 2;
-            this.trackBar1.Value = 750;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(812, 306);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(39, 31);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "reset";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.trackBar2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar2.Location = new System.Drawing.Point(816, 3);
+            this.trackBar2.Maximum = 1500;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar2.Size = new System.Drawing.Size(33, 300);
+            this.trackBar2.TabIndex = 3;
+            this.trackBar2.Value = 723;
             // 
             // openGLControl
             // 
@@ -694,33 +693,32 @@
             this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
             this.openGLControl.RenderContextType = SharpGL.RenderContextType.FBO;
             this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-            this.openGLControl.Size = new System.Drawing.Size(806, 300);
+            this.openGLControl.Size = new System.Drawing.Size(807, 300);
             this.openGLControl.TabIndex = 6;
             this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
             this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
             // 
-            // trackBar2
+            // button1
             // 
-            this.trackBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar2.Location = new System.Drawing.Point(815, 3);
-            this.trackBar2.Maximum = 1500;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar2.Size = new System.Drawing.Size(33, 300);
-            this.trackBar2.TabIndex = 3;
-            this.trackBar2.Value = 723;
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(813, 306);
+            this.button1.Margin = new System.Windows.Forms.Padding(0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(39, 31);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "reset";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // listBox1
+            // trackBar1
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "No items found."});
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(111, 337);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar1.Location = new System.Drawing.Point(3, 309);
+            this.trackBar1.Maximum = 1500;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(807, 25);
+            this.trackBar1.TabIndex = 2;
+            this.trackBar1.Value = 750;
             // 
             // splitContainer1
             // 
@@ -743,14 +741,6 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
-            // railEditorToolStripMenuItem
-            // 
-            this.railEditorToolStripMenuItem.Enabled = false;
-            this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
-            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.railEditorToolStripMenuItem.Text = "Rail editor";
-            this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
-            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -771,33 +761,33 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
-            this.flowLayoutPanel2.ResumeLayout(false);
-            this.flowLayoutPanel2.PerformLayout();
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.flowLayoutPanel2.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -843,8 +833,6 @@
         private System.Windows.Forms.ToolStripMenuItem environmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rosettaStonetextDecypherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem oBJToFF8ParserToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parseVerticesForSegmentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileScannerToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -870,6 +858,7 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem battleStageEditorToolStripMenuItem;
     }
 }
 
