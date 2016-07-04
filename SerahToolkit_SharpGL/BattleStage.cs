@@ -119,10 +119,13 @@ namespace SerahToolkit_SharpGL
 
         public void Process(bool generateTexture = false, bool bUpdating = false)
         {
+            Console.WriteLine("BS: Searching for objects...");
             SearchObjects();
+            Console.WriteLine("BS: Reading texture metadata:");
             ResolveTex();
             if (!bUpdating)
             {
+                Console.WriteLine($"BS: Setting up MTL");
                 SetupMtl();
                 _st = new StageTexture(_tim, _width, _height);
 
@@ -132,12 +135,13 @@ namespace SerahToolkit_SharpGL
                 Buffer.BlockCopy(_stage, _textureDataInt, textureByte, 0, textureByte.Length);
                 Buffer.BlockCopy(_stage, _tim, clutByte, 0, _textureDataInt - _tim);
 
-
+                Console.WriteLine($"BS: TextureWorker initialized");
                 string pathOfd;
                 if (generateTexture)
                 {
                     for (int i = _cluTsize - 1; i > 0; i--)
                     {
+                        Console.WriteLine($"BS: TextureWorker generating palette and texture");
                         _st.CreatePalettedTex(i, clutByte);
                         _st.CopyTextureBuffer(textureByte);
                         _bmp = _st.GetBmp();
@@ -147,13 +151,14 @@ namespace SerahToolkit_SharpGL
 
                     }
                 }
+                Console.WriteLine($"BS: TextureWorker generating palette and texture");
                 _st.CreatePalettedTex(0, clutByte);
                 _st.CopyTextureBuffer(textureByte);
                 _bmp = _st.GetBmp();
                 pathOfd = Path.GetDirectoryName(_pathh);
 
 
-
+                Console.WriteLine($"BS: TextureWorker saving texture");
                 _bmp.Save(pathOfd + @"\" + Path.GetFileNameWithoutExtension(_pathh) + ".png", ImageFormat.Png);
 
 
@@ -167,7 +172,7 @@ namespace SerahToolkit_SharpGL
                     _absolutePolygon = off + 6 + (_verts * 6);
                     _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
                     _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
-
+                    Console.WriteLine($"BS: Offset: {off}, \n\tVertices: {_verts}\n\tTriangles: {_triangles}\n\tQuads: {_quads}");
                     if (_triangles != 0 && _quads != 0)  //HEY!
                     {
                         Process_Step(true, off);
@@ -186,6 +191,7 @@ namespace SerahToolkit_SharpGL
             {
                 foreach (int off in _itemOffsets)
                 {
+                    Console.WriteLine($"BS: Updating for BS_Verts editor");
                     _verts = BitConverter.ToUInt16(_stage, off + 4);
                     _absolutePolygon = off + 6 + (_verts * 6);
                     _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
@@ -215,6 +221,7 @@ namespace SerahToolkit_SharpGL
             // Modified, faster code now... :)
             int tiMoffsetCluTetc = _tim + 18;
             _cluTsize = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
+            Console.WriteLine($"BS: CLUT size: {_cluTsize}");
             //DETERMINE HOW MUCH TO PASS
             tiMoffsetCluTetc += 2 + (_cluTsize * 512) + 8;
             _textureDataInt = tiMoffsetCluTetc + 4;
@@ -222,10 +229,12 @@ namespace SerahToolkit_SharpGL
             UInt16 wysoU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc + 2);
             _width = szerU * 2;
             _height = wysoU;
+            Console.WriteLine($"BS: Texture width: {_width}\nBS: Texture height: {_height}");
         }
 
         private void Process_Step(bool bTriangle,int off)
         {
+            Console.WriteLine($"BS: Geometry parser: is triangle? {bTriangle}, offset: {off}");
             //wipe data - Extremely MANDATORY!
             _v = null;
             _tt = null;
@@ -266,7 +275,7 @@ namespace SerahToolkit_SharpGL
 
             int vertStop = vertexOffset + (6 * _verts);
             int loopIndexV = vertexOffset;
-
+            Console.WriteLine($"BS: Calculating vertices from {loopIndexV} to {vertStop}");
             while (true)
             {
                 short x = (BitConverter.ToInt16(_stage, loopIndexV));
@@ -287,18 +296,22 @@ namespace SerahToolkit_SharpGL
             if (bTriangle)
             {
                 _triangleOffset = _absolutePolygon + 12 + (_absolutePolygon % 4);
+                Console.WriteLine($"BS: Triangle offset: {_triangleOffset}");
                 _currRun = _triangleOffset + 6;
                 _trisStop = _currRun + (_triangles * 20);
+                Console.WriteLine($"BS: Triangle end offset: {_trisStop}");
             }
             else
             {
                 if (_triangles != 0)
                 {
                     _quadOffset = _absolutePolygon + 12 + (_absolutePolygon % 4) + _triangles * 20;
+                    Console.WriteLine($"BS: Quads offset: {_quadOffset}");
                 }
                 else
                 {
                     _quadOffset = _absolutePolygon + 12 + (_absolutePolygon % 4);
+                    Console.WriteLine($"BS: Quads offset: {_quadOffset}");
                 }
 
                 _currRun = _quadOffset + 8;
@@ -368,10 +381,10 @@ namespace SerahToolkit_SharpGL
                 _currRun += _changeAdd;
             }
 
-
+            Console.WriteLine($"BS: Calculated UVs and fixed output");
             _v = _v.Replace(',', '.');
             _tt = _tt.Replace(',', '.');
-
+            Console.WriteLine($"BS: Preparing face indices parsing");
             //STEP 3 - Face indices + VT
             int faceIndex = 1;
             var faceQuad = bTriangle ? _triangleOffset : _quadOffset;
@@ -382,7 +395,7 @@ namespace SerahToolkit_SharpGL
                 quadStoPq = _quadOffset + (_quads * _changeAdd);
 
             _fv = null;
-
+            Console.WriteLine($"BS: Polygon parsing...");
             while (true)
             {
                 UInt16 u1U = BitConverter.ToUInt16(_stage, faceQuad);
@@ -418,7 +431,7 @@ namespace SerahToolkit_SharpGL
             }
 
 
-
+            Console.WriteLine($"BS: Parsing done! Outputting to file...");
             sw.WriteLine(_v);
             sw.WriteLine(_tt);
             if (bTriangle)
@@ -427,6 +440,7 @@ namespace SerahToolkit_SharpGL
                 sw.WriteLine("g " + off + "_q");
             sw.WriteLine(_fv);
             sw.Close();
+            Console.WriteLine($"BS: Job is done!");
         }
 
 
@@ -484,7 +498,10 @@ namespace SerahToolkit_SharpGL
 
                             }
                             else
+                            {
+                                Console.WriteLine($"BS: Found working geometry at: {_passOk}");
                                 _itemOffsets.Add(_passOk);
+                            }
                         }
                     }
                 }

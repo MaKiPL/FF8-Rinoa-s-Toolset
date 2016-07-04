@@ -273,6 +273,7 @@ namespace SerahToolkit_SharpGL
             };
             if (ofd.ShowDialog() == DialogResult.OK)
             {
+                Console.WriteLine("BS: Opening file...");
                 _state = StateBattleStageUv;
                 exportToolStripMenuItem.Enabled = true;
                 importToolStripMenuItem.Enabled = true;
@@ -422,9 +423,10 @@ namespace SerahToolkit_SharpGL
 
             if (bGenerateTextures)
             {
+                Console.WriteLine($"BS: Mixing textures...");
                 StageTexture st = new StageTexture(0, width, height);
 
-
+                Console.WriteLine($"BS: Collecting UV data and preparing bounding boxes");
                 for (int i = 0; i != listBox1.Items.Count; i++)
                 {
                     //Tuple<List<double>, List<double>> UV = GetUVpoints(SegmentArray[i], LastKnownPath, LastKnownTIM);
@@ -454,6 +456,7 @@ namespace SerahToolkit_SharpGL
 
                     if (File.Exists(pathText))
                     {
+                        Console.WriteLine($"BS: Mixing {pathText}");
                         //LoadBMP - COPIES FROM
                         //BMP - The mixed final
                         Bitmap loadBmp = new Bitmap(pathText);
@@ -498,6 +501,7 @@ namespace SerahToolkit_SharpGL
                                     index++;
                             }
                         }*/
+                        Console.WriteLine($"BS: Mixing finished");
                     }
 
                      
@@ -506,9 +510,11 @@ namespace SerahToolkit_SharpGL
                 pictureBox1.Image = _bmp;
                 _bmp2 = _bmp;
                 string pathTexte = Path.GetDirectoryName(_lastKnownPath);
+                Console.WriteLine($"BS: Saving final texture");
                 pathTexte = pathTexte + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_col.png";
                 if (File.Exists(pathTexte))
                     File.Delete(pathTexte);
+                Console.WriteLine($"BS: Setting transparency on final texture");
                 _bmp.MakeTransparent(Color.Black);
                 _bmp.Save(pathTexte);
 
@@ -519,12 +525,15 @@ namespace SerahToolkit_SharpGL
                 newfile[newfile.Length-1] = "map_Kd " + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_col.png";
                 File.WriteAllLines(pathTexte, newfile);
                 pictureBox1.BackgroundImage = _bmp;
+                Console.WriteLine($"BS: Finished!");
+                Console.WriteLine($"BS: Delivered to renderer.");
                 Render3D();
 
                
             }
             if (!bGenerateTextures)
             {
+                Console.WriteLine($"BS: Drawing UV layout");
                 while (true)
                 {
 
