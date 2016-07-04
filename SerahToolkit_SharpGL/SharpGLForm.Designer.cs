@@ -38,7 +38,6 @@
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.verticesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oBJToFF8ParserToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.battleStageEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapObjectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -187,8 +186,7 @@
             // 
             this.importToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.verticesToolStripMenuItem,
-            this.oBJToFF8ParserToolStripMenuItem1,
-            this.battleStageEditorToolStripMenuItem});
+            this.oBJToFF8ParserToolStripMenuItem1});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
@@ -197,22 +195,16 @@
             // verticesToolStripMenuItem
             // 
             this.verticesToolStripMenuItem.Name = "verticesToolStripMenuItem";
-            this.verticesToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.verticesToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.verticesToolStripMenuItem.Text = "Single vertex edit";
             this.verticesToolStripMenuItem.Click += new System.EventHandler(this.verticesToolStripMenuItem_Click);
             // 
             // oBJToFF8ParserToolStripMenuItem1
             // 
             this.oBJToFF8ParserToolStripMenuItem1.Name = "oBJToFF8ParserToolStripMenuItem1";
-            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
-            this.oBJToFF8ParserToolStripMenuItem1.Text = "OBJ to FF8 parser";
+            this.oBJToFF8ParserToolStripMenuItem1.Size = new System.Drawing.Size(194, 22);
+            this.oBJToFF8ParserToolStripMenuItem1.Text = "OBJ to FF8 parser (test)";
             this.oBJToFF8ParserToolStripMenuItem1.Click += new System.EventHandler(this.oBJToFF8ParserToolStripMenuItem1_Click);
-            // 
-            // battleStageEditorToolStripMenuItem
-            // 
-            this.battleStageEditorToolStripMenuItem.Name = "battleStageEditorToolStripMenuItem";
-            this.battleStageEditorToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.battleStageEditorToolStripMenuItem.Text = "Battle stage editor";
             // 
             // worldMapToolStripMenuItem
             // 
@@ -858,7 +850,6 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem battleStageEditorToolStripMenuItem;
     }
 }
 

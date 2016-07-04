@@ -214,6 +214,11 @@ namespace SerahToolkit_SharpGL
             }
         }
 
+        public void ForceRendererUpdate()
+        {
+            Render3D();
+        }
+
         private void showFPSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openGLControl.DrawFPS)
@@ -248,6 +253,15 @@ namespace SerahToolkit_SharpGL
             openGLControl.OpenGL.Enable(OpenGL.GL_LIGHTING);
             openGLControl.OpenGL.Enable(OpenGL.GL_LIGHT0);
             openGLControl.OpenGL.Enable(OpenGL.GL_COLOR_MATERIAL);
+        }
+
+        public void BSVertEditor_Update(string ofd)
+        {
+            BattleStage bs = new BattleStage(ofd);
+            listBox1.Items.Clear();
+            bs.Process(false, true);
+            BS_UpdateObjects(bs.GetArrayOfObjects(), ofd);
+            Render3D();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -302,6 +316,30 @@ namespace SerahToolkit_SharpGL
             }
             
             
+        }
+
+
+        public void BS_UpdateObjects(int[] bs, string ofd)
+        {
+            _pathModels = new List<string>();
+            foreach (int i in bs)
+            {
+                listBox1.Items.Add(i.ToString());
+                var pathOfd = Path.GetDirectoryName(ofd);
+                pathOfd += $@"\{Path.GetFileNameWithoutExtension(ofd)}_{i.ToString()}_t.obj";
+                if (File.Exists(pathOfd))
+                    _pathModels.Add(pathOfd);
+
+                string pathOfd2 = Path.GetDirectoryName(ofd);
+                pathOfd2 += $@"\{Path.GetFileNameWithoutExtension(ofd)}_{i.ToString()}_q.obj";
+                if (File.Exists(pathOfd2))
+                    _pathModels.Add(pathOfd2);
+
+                if (File.Exists(pathOfd) && File.Exists(pathOfd2))
+                    listBox1.Items.Add(i.ToString());
+            }
+            Render3D();
+            //BattleStage_listbox(true);
         }
 
         private void texturedWLightToolStripMenuItem_Click(object sender, EventArgs e)
@@ -621,7 +659,7 @@ namespace SerahToolkit_SharpGL
         private void verticesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int offset = int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString());
-            BsVertices bsv = new BsVertices(_lastKnownPath, offset);
+            BsVertices bsv = new BsVertices(_lastKnownPath, offset, this);
             bsv.ShowDialog();
         }
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -889,6 +927,17 @@ namespace SerahToolkit_SharpGL
         {
             Parser parser = new Parser(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]), pictureBox1.Image.Height, pictureBox1.Image.Width);
             parser.ShowDialog();
+        }
+
+        private void battleStageEditorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_state != StateBattleStageUv)
+            {
+                Console.WriteLine("Did you try to open Battle Stage editor with other file!?");
+                return;
+            }
+            BattleStageEditor.BSEdit BSEdit = new BattleStageEditor.BSEdit(_lastKnownPath, Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]));
+
         }
     }
 }

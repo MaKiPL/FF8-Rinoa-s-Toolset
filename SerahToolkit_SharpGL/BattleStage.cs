@@ -117,65 +117,95 @@ namespace SerahToolkit_SharpGL
 
             */
 
-        public void Process(bool generateTexture = false)
+        public void Process(bool generateTexture = false, bool bUpdating = false)
         {
             SearchObjects();
-            SetupMtl();
             ResolveTex();
-            _st = new StageTexture(_tim, _width, _height);
-            
+            if (!bUpdating)
+            {
+                SetupMtl();
+                _st = new StageTexture(_tim, _width, _height);
+
                 //Give texture to StageTexture class
                 Byte[] textureByte = new byte[_stage.Length - _textureDataInt];
                 byte[] clutByte = new byte[_stage.Length - (_textureDataInt - _tim)];
                 Buffer.BlockCopy(_stage, _textureDataInt, textureByte, 0, textureByte.Length);
-                Buffer.BlockCopy(_stage, _tim, clutByte, 0, _textureDataInt-_tim);
+                Buffer.BlockCopy(_stage, _tim, clutByte, 0, _textureDataInt - _tim);
 
 
-            string pathOfd;
-            if (generateTexture)
-            {
-                for (int i = _cluTsize-1; i > 0; i--)
+                string pathOfd;
+                if (generateTexture)
                 {
+                    for (int i = _cluTsize - 1; i > 0; i--)
+                    {
                         _st.CreatePalettedTex(i, clutByte);
                         _st.CopyTextureBuffer(textureByte);
                         _bmp = _st.GetBmp();
                         pathOfd = Path.GetDirectoryName(_pathh);
                         _bmp.Save(pathOfd + @"\" + Path.GetFileNameWithoutExtension(_pathh) + @"_" + i + ".png", ImageFormat.Png);
-                    
 
+
+                    }
                 }
-            }
                 _st.CreatePalettedTex(0, clutByte);
                 _st.CopyTextureBuffer(textureByte);
                 _bmp = _st.GetBmp();
                 pathOfd = Path.GetDirectoryName(_pathh);
+
+
+
                 _bmp.Save(pathOfd + @"\" + Path.GetFileNameWithoutExtension(_pathh) + ".png", ImageFormat.Png);
-            
 
 
-            //if (generateTexture)
-              //  PrepareToMix(st);
 
-            foreach(int off in _itemOffsets)
-            {
-                _verts = BitConverter.ToUInt16(_stage, off + 4);
-                _absolutePolygon = off + 6 + (_verts * 6);
-                _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
-                _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
+                //if (generateTexture)
+                //  PrepareToMix(st);
 
-                if (_triangles != 0 && _quads != 0)  //HEY!
+                foreach (int off in _itemOffsets)
                 {
-                    Process_Step(true, off);
-                    Process_Step(false, off);
-                }
-                else
-                    if (_triangles != 0)
+                    _verts = BitConverter.ToUInt16(_stage, off + 4);
+                    _absolutePolygon = off + 6 + (_verts * 6);
+                    _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
+                    _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
+
+                    if (_triangles != 0 && _quads != 0)  //HEY!
+                    {
+                        Process_Step(true, off);
+                        Process_Step(false, off);
+                    }
+                    else
+                        if (_triangles != 0)
                         Process_Step(true, off);
                     else
-                        if (_quads != 0)
-                            Process_Step(false, off);
+                            if (_quads != 0)
+                        Process_Step(false, off);
 
+                }
             }
+            else
+            {
+                foreach (int off in _itemOffsets)
+                {
+                    _verts = BitConverter.ToUInt16(_stage, off + 4);
+                    _absolutePolygon = off + 6 + (_verts * 6);
+                    _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
+                    _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
+
+                    if (_triangles != 0 && _quads != 0)  //HEY!
+                    {
+                        Process_Step(true, off);
+                        Process_Step(false, off);
+                    }
+                    else
+                        if (_triangles != 0)
+                        Process_Step(true, off);
+                    else
+                            if (_quads != 0)
+                        Process_Step(false, off);
+
+                }
+            }
+            
 
         }
 
@@ -479,6 +509,12 @@ namespace SerahToolkit_SharpGL
         {
             return _bmp;
         }
+
+        public void Editor(int offset)
+        {
+
+        }
+
 
         public Tuple<List<double>,List<double>,int> GetUVpoints(int offset, string stagePath, int lastKnownTim)
         {

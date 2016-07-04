@@ -17,9 +17,13 @@ namespace SerahToolkit_SharpGL
         private short _y;
         private short _z;
 
+        private static SharpGlForm _sl;
+        private bool _forceNoProcess = false;
 
-        public BsVertices(string lastPath, int offset)
+
+        public BsVertices(string lastPath, int offset, SharpGlForm sl)
         {
+            _sl = sl;
             InitializeComponent();
             _lastPath = lastPath;
             var fs = new FileStream(lastPath, FileMode.Open);
@@ -42,7 +46,7 @@ namespace SerahToolkit_SharpGL
         {
             try
             {
-                string st = textBox3.Text;//.Replace(",", ".");
+                string st = textBox3.Text.Replace(".", ",");
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
@@ -60,7 +64,7 @@ namespace SerahToolkit_SharpGL
         {
             try
             {
-                string st = textBox2.Text;//.Replace(",", ".");
+                string st = textBox2.Text.Replace(".", ",");
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
@@ -78,7 +82,7 @@ namespace SerahToolkit_SharpGL
         {
             try
             {
-                string st = textBox1.Text;//.Replace(",", ".");
+                string st = textBox1.Text.Replace(".", ",");
                 if (st.Length == 0)
                     goto ending;
                 double d = double.Parse(st); d = d * 2000.0f; d = Math.Round(d);
@@ -99,6 +103,15 @@ namespace SerahToolkit_SharpGL
             Buffer.BlockCopy(BitConverter.GetBytes(_y), 0, _parsedByte, 2, 2);
             Buffer.BlockCopy(BitConverter.GetBytes(_z), 0, _parsedByte, 4, 2);
             UpdateHex(_parsedByte);
+            var fs = new FileStream(_lastPath, FileMode.Open);
+            fs.Seek(_currentForsave, SeekOrigin.Begin);
+            fs.Write(_parsedByte, 0, 6);
+            fs.Close();
+            if (checkBox1.Checked && !_forceNoProcess)
+            {
+                _sl.BSVertEditor_Update(_lastPath);
+                //_sl.ForceRendererUpdate();
+            }
         }
 
         private void UpdateHex(byte[] parsedbyte)
@@ -122,6 +135,7 @@ namespace SerahToolkit_SharpGL
 
         private void CalculateXyz(string path, int which)
         {
+            _forceNoProcess = true;
             int current = _offsetFirst + (which * 6);
             _currentForsave = current;
 
@@ -133,14 +147,8 @@ namespace SerahToolkit_SharpGL
             textBox1.Text = (BitConverter.ToInt16(tempRead, 0)/2000.0f).ToString(CultureInfo.InvariantCulture);
             textBox2.Text = (BitConverter.ToInt16(tempRead, 2) / 2000.0f).ToString(CultureInfo.InvariantCulture);
             textBox3.Text = (BitConverter.ToInt16(tempRead, 4) / 2000.0f).ToString(CultureInfo.InvariantCulture);
-        }
-
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var fs = new FileStream(_lastPath, FileMode.Open);
-            fs.Seek(_currentForsave, SeekOrigin.Begin);
-            fs.Write(_parsedByte, 0, 6);
-            fs.Close();
+            _forceNoProcess = false;
+            ParseToHex();
         }
     }
 }

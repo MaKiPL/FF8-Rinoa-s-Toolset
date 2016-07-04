@@ -52,9 +52,9 @@
             // button1
             // 
             this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button1.Location = new System.Drawing.Point(0, 357);
+            this.button1.Location = new System.Drawing.Point(0, 364);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(216, 23);
+            this.button1.Size = new System.Drawing.Size(214, 23);
             this.button1.TabIndex = 0;
             this.button1.Text = "Open .OBJ file";
             this.button1.UseVisualStyleBackColor = true;
@@ -63,9 +63,9 @@
             // button2
             // 
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button2.Location = new System.Drawing.Point(0, 334);
+            this.button2.Location = new System.Drawing.Point(0, 341);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(216, 23);
+            this.button2.Size = new System.Drawing.Size(214, 23);
             this.button2.TabIndex = 1;
             this.button2.Text = "Save parsed segment";
             this.button2.UseVisualStyleBackColor = true;
@@ -73,9 +73,9 @@
             // button3
             // 
             this.button3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button3.Location = new System.Drawing.Point(0, 311);
+            this.button3.Location = new System.Drawing.Point(0, 318);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(216, 23);
+            this.button3.Size = new System.Drawing.Size(214, 23);
             this.button3.TabIndex = 2;
             this.button3.Text = "Save RAW segment";
             this.button3.UseVisualStyleBackColor = true;
@@ -95,7 +95,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.label4);
-            this.splitContainer4.Size = new System.Drawing.Size(216, 311);
+            this.splitContainer4.Size = new System.Drawing.Size(214, 318);
             this.splitContainer4.SplitterDistance = 34;
             this.splitContainer4.TabIndex = 4;
             // 
@@ -119,7 +119,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(216, 20);
+            this.numericUpDown1.Size = new System.Drawing.Size(214, 20);
             this.numericUpDown1.TabIndex = 3;
             // 
             // label4
@@ -148,8 +148,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.richTextBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(649, 380);
-            this.splitContainer1.SplitterDistance = 216;
+            this.splitContainer1.Size = new System.Drawing.Size(644, 387);
+            this.splitContainer1.SplitterDistance = 214;
             this.splitContainer1.TabIndex = 0;
             // 
             // richTextBox1
@@ -157,7 +157,7 @@
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(429, 380);
+            this.richTextBox1.Size = new System.Drawing.Size(426, 387);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "Vertices:\nTriangles:\nQuads:";
             // 
@@ -165,10 +165,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 380);
+            this.ClientSize = new System.Drawing.Size(644, 387);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Parser";
-            this.Text = "Parser";
+            this.Text = "Parser (BETA)";
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.PerformLayout();
             this.splitContainer4.Panel2.ResumeLayout(false);

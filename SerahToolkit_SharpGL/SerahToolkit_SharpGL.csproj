@@ -82,6 +82,12 @@
       <DependentUpon>Analize_CFF8search.cs</DependentUpon>
     </Compile>
     <Compile Include="BattleStage.cs" />
+    <Compile Include="BattleStageEditor\BSEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BattleStageEditor\BSEdit.Designer.cs">
+      <DependentUpon>BSEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="BS_Vertices.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Analize_CFF8search.resx">
       <DependentUpon>Analize_CFF8search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BattleStageEditor\BSEdit.resx">
+      <DependentUpon>BSEdit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
