@@ -40,6 +40,7 @@ namespace SerahToolkit_SharpGL
         private const int StateGFenviro = 4;
         private const int StateWmx = 5;
         public static string GFEnviro;
+        private string _wmxPath;
 
 
         OpenGL _gl;
@@ -472,9 +473,23 @@ namespace SerahToolkit_SharpGL
            if(_state == StateWmset)
             {
 
-            } 
+            }
 
-           if(_state == StateWmsetModel)
+            if (_state == StateWmx)
+            {
+                _gl.ClearColor(0, 0, 0, 0);
+                Scene scene = SerializationEngine.Instance.LoadScene(_wmxPath);
+                if (scene != null)
+                {
+                    foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                    {
+                        polygon.IsEnabled = true;
+                        _polygons.Add(polygon);
+                    }
+                }
+            }
+
+            if (_state == StateWmsetModel)
             {
                 string pathOfDe = Path.GetDirectoryName(_lastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_q.obj";
                 if (File.Exists(pathOfDe))
@@ -621,6 +636,11 @@ namespace SerahToolkit_SharpGL
         private void WMX_list()
         {
             Wmx wmx = new Wmx(listBox1.SelectedIndex, _lastKnownPath);
+            if(wmx.GetModelPath() != null)
+            {
+                _wmxPath = wmx.GetModelPath();
+                Render3D();
+            }
         }
 
         private void WMSET_Listbox()

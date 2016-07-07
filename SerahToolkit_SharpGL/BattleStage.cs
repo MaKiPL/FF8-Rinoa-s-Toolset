@@ -77,46 +77,6 @@ namespace SerahToolkit_SharpGL
             }
 
         }
-
-        /*
-        private void PrepareToMix(StageTexture st)
-        {
-            //Pętla musi być przez wszystkie listbox!! :/
-            GetUVpoints(0, "t", 0); //TUTAJ
-
-            SharpGLForm sgl = new SharpGLForm();
-            int[] SegmentArray = sgl.ListOfSegments();
-
-            for (int i = 0; i != SegmentArray.Length; i++)
-            {
-                Tuple<List<double>, List<double>> UV = GetUVpoints(SegmentArray[i], LastKnownPath, LastKnownTIM);
-                List<Point> UV_point = new List<Point>();
-
-
-                int clute = 1;
-
-                string PathText = Path.GetDirectoryName(pathh);
-                PathText = PathText + @"\" + Path.GetFileNameWithoutExtension(pathh) + @"_" + clute + ".png";
-
-                double U1Min = MemoryUV.Item1.Min(); double U1Max = MemoryUV.Item1.Max();
-                double V1Min = MemoryUV.Item2.Min(); double V1Max = MemoryUV.Item2.Max();
-
-                double X1 = (((U1Min * 100) * width) / 100);
-                double Y1 = (((V1Min * 100) * height) / 100);
-                double X2 = (((U1Max * 100) * width) / 100);
-                double Y2 = (((V1Max * 100) * height) / 100);
-
-                Point TopLeft = new Point((int)(Math.Round(X1)), 256 - (int)(Math.Round(Y2)));
-                Point TopRight = new Point((int)(Math.Round(X2)), 256 - (int)(Math.Round(Y2)));
-                Point BottomLeft = new Point((int)(Math.Round(X1)), 256 - (int)(Math.Round(Y1)));
-                Point BottomRight = new Point((int)(Math.Round(X2)), 256 - (int)(Math.Round(Y1)));
-
-                st.MixTextures(clute, TopLeft, TopRight, BottomLeft, BottomRight, PathText);
-            }
-        }
-
-            */
-
         public void Process(bool generateTexture = false, bool bUpdating = false)
         {
             Console.WriteLine("BS: Searching for objects...");
