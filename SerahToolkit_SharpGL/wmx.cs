@@ -26,9 +26,9 @@ namespace SerahToolkit_SharpGL
         private int _offsetZ;
         private int _size = 2048;
         private int _columnsPerRow = 4;
+        //END
 
         private string buildPath;
-        //END
 
 
         public Wmx(int id,string path)
@@ -116,12 +116,12 @@ namespace SerahToolkit_SharpGL
 
             for(int i = 0; i<= vertices; i++)
             {
-                _v += $"v {((BitConverter.ToInt16(_segBuffer, currIndex)+_offsetX)/1000.0f).ToString().Replace(',','.')} {((BitConverter.ToInt16(_segBuffer, currIndex+2))/1000.0f).ToString().Replace(',', '.')} {((BitConverter.ToInt16(_segBuffer, currIndex+4)+_offsetZ)/1000.0f).ToString().Replace(',', '.')}\n";
+                _v += $"v {((BitConverter.ToInt16(_segBuffer, currIndex)+_offsetX)/1000.0f).ToString().Replace(',','.')} {((BitConverter.ToInt16(_segBuffer, currIndex+2) * -1.0f)/1000.0f).ToString().Replace(',', '.')} {((BitConverter.ToInt16(_segBuffer, currIndex+4)+_offsetZ)/1000.0f).ToString().Replace(',', '.')}\n";
                 currIndex += 8;
             }
             _absoluteVertice += vertices;
             _vt = _vt.Replace(',', '.');
-            _absolutePolygon += 0;
+            _absolutePolygon += vertices+1;
         }
 
         private void TriangleAdd(int a, int b, int c, int vt)
