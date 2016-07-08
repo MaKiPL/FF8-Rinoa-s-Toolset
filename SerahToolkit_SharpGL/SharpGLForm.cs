@@ -638,6 +638,7 @@ namespace SerahToolkit_SharpGL
             Wmx wmx = new Wmx(listBox1.SelectedIndex, _lastKnownPath);
             if(wmx.GetModelPath() != null)
             {
+                Console.WriteLine($"WMX: Giving model to renderer...");
                 _wmxPath = wmx.GetModelPath();
                 Render3D();
             }
