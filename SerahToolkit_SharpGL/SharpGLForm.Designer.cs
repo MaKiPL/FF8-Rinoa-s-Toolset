@@ -89,6 +89,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -154,7 +155,7 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -165,7 +166,7 @@
             this.convertToOBJToolStripMenuItem});
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -189,7 +190,7 @@
             this.oBJToFF8ParserToolStripMenuItem1});
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -313,7 +314,8 @@
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.advancedAnalyzeToolsToolStripMenuItem,
             this.rosettaStonetextDecypherToolStripMenuItem,
-            this.fileScannerToolStripMenuItem});
+            this.fileScannerToolStripMenuItem,
+            this.manualGeometryRipperexpertToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
             this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
@@ -323,7 +325,7 @@
             this.advancedAnalyzeToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cFF8SearcherToolStripMenuItem});
             this.advancedAnalyzeToolsToolStripMenuItem.Name = "advancedAnalyzeToolsToolStripMenuItem";
-            this.advancedAnalyzeToolsToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.advancedAnalyzeToolsToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.advancedAnalyzeToolsToolStripMenuItem.Text = "Advanced analyze tools";
             // 
             // cFF8SearcherToolStripMenuItem
@@ -336,14 +338,14 @@
             // rosettaStonetextDecypherToolStripMenuItem
             // 
             this.rosettaStonetextDecypherToolStripMenuItem.Name = "rosettaStonetextDecypherToolStripMenuItem";
-            this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.rosettaStonetextDecypherToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.rosettaStonetextDecypherToolStripMenuItem.Text = "Rosetta stone (text decypher)";
             this.rosettaStonetextDecypherToolStripMenuItem.Click += new System.EventHandler(this.rosettaStonetextDecypherToolStripMenuItem_Click_1);
             // 
             // fileScannerToolStripMenuItem
             // 
             this.fileScannerToolStripMenuItem.Name = "fileScannerToolStripMenuItem";
-            this.fileScannerToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.fileScannerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.fileScannerToolStripMenuItem.Text = "File Scanner (recognizer)";
             this.fileScannerToolStripMenuItem.Click += new System.EventHandler(this.fileScannerToolStripMenuItem_Click);
             // 
@@ -733,6 +735,13 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
+            // manualGeometryRipperexpertToolStripMenuItem
+            // 
+            this.manualGeometryRipperexpertToolStripMenuItem.Name = "manualGeometryRipperexpertToolStripMenuItem";
+            this.manualGeometryRipperexpertToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.manualGeometryRipperexpertToolStripMenuItem.Text = "Manual geometry ripper (expert)";
+            this.manualGeometryRipperexpertToolStripMenuItem.Click += new System.EventHandler(this.manualGeometryRipperexpertToolStripMenuItem_Click);
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -850,6 +859,7 @@
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualGeometryRipperexpertToolStripMenuItem;
     }
 }
 

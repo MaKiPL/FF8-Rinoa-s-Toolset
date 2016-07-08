@@ -91,6 +91,12 @@
     <Compile Include="FileScanner\FileScanner_Core.cs" />
     <Compile Include="FileScanner\FileScanner_Headers.cs" />
     <Compile Include="GF_enviro.cs" />
+    <Compile Include="ManualGeometryRipper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualGeometryRipper.Designer.cs">
+      <DependentUpon>ManualGeometryRipper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Parser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManualGeometryRipper.resx">
+      <DependentUpon>ManualGeometryRipper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Parser.resx">
       <DependentUpon>Parser.cs</DependentUpon>
