@@ -60,6 +60,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
+            this.listBox2 = new System.Windows.Forms.ListBox();
             this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
@@ -70,7 +71,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -142,21 +142,23 @@
             // 
             this.splitContainer1.Panel1.Controls.Add(this.statusStrip1);
             this.splitContainer1.Panel1.Controls.Add(this.flowLayoutPanel1);
+            this.splitContainer1.Panel1MinSize = 0;
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(494, 442);
-            this.splitContainer1.SplitterDistance = 285;
+            this.splitContainer1.Panel2MinSize = 0;
+            this.splitContainer1.Size = new System.Drawing.Size(494, 478);
+            this.splitContainer1.SplitterDistance = 290;
             this.splitContainer1.TabIndex = 1;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 420);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 456);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(285, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(290, 22);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -174,7 +176,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(285, 442);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 478);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -324,7 +326,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(3, 213);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(280, 209);
+            this.groupBox3.Size = new System.Drawing.Size(300, 248);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Polygon (triangle/quad) (values in HEX)";
@@ -353,7 +355,7 @@
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(274, 190);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(294, 229);
             this.flowLayoutPanel4.TabIndex = 0;
             // 
             // radioButton3
@@ -439,7 +441,7 @@
             "uint16 per face (2B)"});
             this.listBox1.Location = new System.Drawing.Point(171, 26);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(96, 30);
+            this.listBox1.Size = new System.Drawing.Size(110, 30);
             this.listBox1.TabIndex = 17;
             // 
             // numericUpDown5
@@ -497,10 +499,24 @@
             this.label6.TabIndex = 9;
             this.label6.Text = "N/A";
             // 
+            // listBox2
+            // 
+            this.flowLayoutPanel4.SetFlowBreak(this.listBox2, true);
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Items.AddRange(new object[] {
+            "Normal (Face + 1)",
+            "GF like (divide by 8)",
+            "FF8.EXE like (& 3F)",
+            "FF8.exe like (divide by 2)"});
+            this.listBox2.Location = new System.Drawing.Point(163, 62);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(128, 56);
+            this.listBox2.TabIndex = 18;
+            // 
             // numericUpDown7
             // 
             this.numericUpDown7.Hexadecimal = true;
-            this.numericUpDown7.Location = new System.Drawing.Point(3, 111);
+            this.numericUpDown7.Location = new System.Drawing.Point(3, 124);
             this.numericUpDown7.Maximum = new decimal(new int[] {
             40,
             0,
@@ -524,7 +540,7 @@
             // 
             this.label7.AutoSize = true;
             this.flowLayoutPanel4.SetFlowBreak(this.label7, true);
-            this.label7.Location = new System.Drawing.Point(98, 108);
+            this.label7.Location = new System.Drawing.Point(98, 121);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 11;
@@ -533,7 +549,7 @@
             // numericUpDown8
             // 
             this.numericUpDown8.Hexadecimal = true;
-            this.numericUpDown8.Location = new System.Drawing.Point(3, 137);
+            this.numericUpDown8.Location = new System.Drawing.Point(3, 150);
             this.numericUpDown8.Maximum = new decimal(new int[] {
             -949672960,
             9,
@@ -552,7 +568,7 @@
             // 
             this.label8.AutoSize = true;
             this.flowLayoutPanel4.SetFlowBreak(this.label8, true);
-            this.label8.Location = new System.Drawing.Point(129, 134);
+            this.label8.Location = new System.Drawing.Point(129, 147);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(71, 13);
             this.label8.TabIndex = 13;
@@ -561,7 +577,7 @@
             // numericUpDown9
             // 
             this.numericUpDown9.Hexadecimal = true;
-            this.numericUpDown9.Location = new System.Drawing.Point(3, 163);
+            this.numericUpDown9.Location = new System.Drawing.Point(3, 176);
             this.numericUpDown9.Maximum = new decimal(new int[] {
             65535,
             0,
@@ -585,7 +601,7 @@
             // 
             this.label9.AutoSize = true;
             this.flowLayoutPanel4.SetFlowBreak(this.label9, true);
-            this.label9.Location = new System.Drawing.Point(129, 160);
+            this.label9.Location = new System.Drawing.Point(129, 173);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(128, 13);
             this.label9.TabIndex = 15;
@@ -593,7 +609,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(3, 189);
+            this.button3.Location = new System.Drawing.Point(3, 202);
             this.button3.Name = "button3";
             this.button3.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.button3.Size = new System.Drawing.Size(75, 23);
@@ -617,8 +633,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.button1);
-            this.splitContainer2.Size = new System.Drawing.Size(205, 442);
-            this.splitContainer2.SplitterDistance = 399;
+            this.splitContainer2.Size = new System.Drawing.Size(200, 478);
+            this.splitContainer2.SplitterDistance = 431;
             this.splitContainer2.TabIndex = 0;
             // 
             // richTextBox1
@@ -627,7 +643,7 @@
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(205, 399);
+            this.richTextBox1.Size = new System.Drawing.Size(200, 431);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -636,29 +652,17 @@
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(205, 39);
+            this.button1.Size = new System.Drawing.Size(200, 43);
             this.button1.TabIndex = 0;
             this.button1.Text = "Reset output";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Items.AddRange(new object[] {
-            "Normal (Face + 1)",
-            "GF like (divide by 8)",
-            "FF8.EXE like (& 3F)"});
-            this.listBox2.Location = new System.Drawing.Point(163, 62);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(108, 43);
-            this.listBox2.TabIndex = 18;
-            // 
             // ManualGeometryRipper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 466);
+            this.ClientSize = new System.Drawing.Size(494, 502);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;

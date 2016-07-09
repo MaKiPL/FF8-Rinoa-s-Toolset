@@ -157,10 +157,10 @@ namespace SerahToolkit_SharpGL
                 if(listBox2.SelectedIndex == 1) //GF like
                 {
                     a = (int)Math.Round((double)(a / 8));
-                    b = (int)Math.Round((double)(a / 8));
-                    c = (int)Math.Round((double)(a / 8));
+                    b = (int)Math.Round((double)(b / 8));
+                    c = (int)Math.Round((double)(c / 8));
                     if(radioButton4.Checked)
-                        d = (int)Math.Round((double)(a / 8));
+                        d = (int)Math.Round((double)(d / 8));
                 }
 
                 if (listBox2.SelectedIndex == 2) //FF8.exe GF hidden geometry structures
@@ -170,6 +170,15 @@ namespace SerahToolkit_SharpGL
                     c &= 0x3F;
                     if (radioButton4.Checked)
                         d &= 0x3F;
+                }
+
+                if (listBox2.SelectedIndex == 1) //FF8.exe GF hidden divide by two
+                {
+                    a = (int)Math.Round((double)(a / 2));
+                    b = (int)Math.Round((double)(b / 2));
+                    c = (int)Math.Round((double)(c / 2));
+                    if (radioButton4.Checked)
+                        d = (int)Math.Round((double)(d / 2));
                 }
 
                 f += $"f {a+1} {b+1} ";
