@@ -418,7 +418,7 @@ namespace SerahToolkit_SharpGL
         private void manualGeometryRipperexpertToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ManualGeometryRipper mgr = new ManualGeometryRipper();
-            mgr.ShowDialog();
+            mgr.Show();
         }
         #endregion
 

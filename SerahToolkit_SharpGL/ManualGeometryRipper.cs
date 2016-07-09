@@ -15,6 +15,7 @@ namespace SerahToolkit_SharpGL
         {
             InitializeComponent();
             listBox1.SelectedIndex = 0;
+            listBox2.SelectedIndex = 0;
         }
 
         private void importantInfoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -146,10 +147,30 @@ namespace SerahToolkit_SharpGL
 
             for(int i = 0; i <buffer.Length; i+= (int)numericUpDown7.Value)
             {
+                int? d = 0;
                 int a = listBox1.SelectedIndex != 0 ? BitConverter.ToUInt16(buffer, i+(int)numericUpDown3.Value) : buffer[i+(int)numericUpDown3.Value];
                 int b = listBox1.SelectedIndex != 0 ? BitConverter.ToUInt16(buffer, i + (int)numericUpDown4.Value) : buffer[i + (int)numericUpDown4.Value];
                 int c = listBox1.SelectedIndex != 0 ? BitConverter.ToUInt16(buffer, i + (int)numericUpDown5.Value) : buffer[i + (int)numericUpDown5.Value];
-                int d = listBox1.SelectedIndex != 0 ? BitConverter.ToUInt16(buffer, i + (int)numericUpDown6.Value) : buffer[i + (int)numericUpDown6.Value];
+                if(radioButton4.Checked)
+                    d = listBox1.SelectedIndex != 0 ? BitConverter.ToUInt16(buffer, i + (int)numericUpDown6.Value) : buffer[i + (int)numericUpDown6.Value];
+
+                if(listBox2.SelectedIndex == 1) //GF like
+                {
+                    a = (int)Math.Round((double)(a / 8));
+                    b = (int)Math.Round((double)(a / 8));
+                    c = (int)Math.Round((double)(a / 8));
+                    if(radioButton4.Checked)
+                        d = (int)Math.Round((double)(a / 8));
+                }
+
+                if (listBox2.SelectedIndex == 2) //FF8.exe GF hidden geometry structures
+                {
+                    a &= 0x3F;
+                    b &= 0x3F;
+                    c &= 0x3F;
+                    if (radioButton4.Checked)
+                        d &= 0x3F;
+                }
 
                 f += $"f {a+1} {b+1} ";
                 if (radioButton3.Checked)
