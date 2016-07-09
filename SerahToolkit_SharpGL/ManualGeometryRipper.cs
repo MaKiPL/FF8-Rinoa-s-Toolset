@@ -172,7 +172,7 @@ namespace SerahToolkit_SharpGL
                         d &= 0x3F;
                 }
 
-                if (listBox2.SelectedIndex == 1) //FF8.exe GF hidden divide by two
+                if (listBox2.SelectedIndex == 3) //FF8.exe GF hidden divide by two
                 {
                     a = (int)Math.Round((double)(a / 2));
                     b = (int)Math.Round((double)(b / 2));
