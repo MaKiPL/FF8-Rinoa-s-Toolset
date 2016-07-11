@@ -217,12 +217,9 @@ namespace SerahToolkit_SharpGL
         {
             if (!CheckFile(_path))
                 return;
-            var offset = numericUpDown8.Value;
-            var size = numericUpDown7.Value;
-            var count = numericUpDown9.Value;
             string vt = null;
             
-            if (_fileSize <= offset + (size * count)) 
+            if (numericUpDown8.Value + numericUpDown9.Value * numericUpDown7.Value >= _fileSize) 
             {
                 Console.WriteLine("MGR: Bad offset or size too big?");
                 return;
