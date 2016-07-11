@@ -18,6 +18,30 @@ namespace SerahToolkit_SharpGL
             listBox2.SelectedIndex = 0;
         }
 
+        private byte[] GetBuffer(string path, object a, object b, object c)
+        {
+            if(path == null)
+            {
+                Console.WriteLine("MGR: NO FILE OPENED!");
+                return null;
+            }
+            byte[] buffer;
+            using (FileStream fs = new FileStream(_path, FileMode.Open))
+            {
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    fs.Seek(Convert.ToInt64(a), SeekOrigin.Begin);
+                    buffer = br.ReadBytes(Convert.ToInt32(b) * Convert.ToInt32(c));
+                }
+            }
+            if (buffer == null)
+            {
+                Console.WriteLine("MGR: Something went wrong with buffer reading from file...");
+                throw new Exception("MGR: GetBuffer returns null");
+            }
+            return buffer;
+        }
+
         private void importantInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(_note, "Please read", MessageBoxButtons.OK,MessageBoxIcon.Information);
@@ -39,18 +63,10 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine("MGR: You set the values wrong. The amount of data you want to read is bigger than whole file size!");
                 return;
             }
-            byte[] buffer;
-            using (FileStream fs = new FileStream(_path, FileMode.Open))
+            byte[] buffer = GetBuffer(_path, numericUpDown1.Value, numericUpDown2.Value, vertexsize);
+            if (buffer == null)
             {
-                using (BinaryReader br = new BinaryReader(fs))
-                {
-                    fs.Seek((long)numericUpDown1.Value,SeekOrigin.Begin);
-                    buffer = br.ReadBytes((int)numericUpDown2.Value * vertexsize);
-                }
-            }
-            if(buffer == null)
-            {
-                Console.WriteLine("MGR: Something went wrong with buffer reading from file...");
+                Console.WriteLine("MGR: File buffer is empty. Something wrong with the specified file...");
                 return;
             }
             string f = null;
@@ -128,23 +144,14 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine("MGR: You set the values wrong. The amount of data you want to read is bigger than whole file size!");
                 return;
             }
-            byte[] buffer;
-            using (FileStream fs = new FileStream(_path, FileMode.Open))
+            byte[] buffer = GetBuffer(_path, numericUpDown8.Value, numericUpDown9.Value, numericUpDown7.Value);
+            if(buffer == null)
             {
-                using (BinaryReader br = new BinaryReader(fs))
-                {
-                    fs.Seek((long)numericUpDown8.Value, SeekOrigin.Begin);
-                    buffer = br.ReadBytes((int)numericUpDown9.Value * (int)numericUpDown7.Value);
-                }
-            }
-            if (buffer == null)
-            {
-                Console.WriteLine("MGR: Something went wrong with buffer reading from file...");
+                Console.WriteLine("MGR: File buffer is empty. Something wrong with the specified file...");
                 return;
             }
-
             string f = null;
-
+            int vtIndex = 1;
             for(int i = 0; i <buffer.Length; i+= (int)numericUpDown7.Value)
             {
                 int? d = 0;
@@ -180,11 +187,23 @@ namespace SerahToolkit_SharpGL
                     if (radioButton4.Checked)
                         d = (int)Math.Round((double)(d / 2));
                 }
-
-                f += $"f {a+1} {b+1} ";
-                if (radioButton3.Checked)
-                    f += $"{c+1}\n";
-                else f += $"{d+1} {c+1}\n";
+                if (checkBox1.Checked)
+                {
+                    f += $"f {a + 1}/{vtIndex} {b + 1}/{vtIndex + 1} ";
+                    if (radioButton3.Checked)
+                    {
+                        f += $"{c + 1}/{vtIndex + 2}\n";
+                        vtIndex += 3;
+                    }
+                    else { f += $"{d + 1}/{vtIndex + 2} {c + 1}/{vtIndex + 3}\n"; vtIndex += 4; }
+                }
+                else
+                {
+                    f += $"f {a + 1} {b + 1} ";
+                    if (radioButton3.Checked)
+                        f += $"{c + 1}\n";
+                    else f += $"{d + 1} {c + 1}\n";
+                }
             }
             if (f == null)
             {
@@ -192,6 +211,48 @@ namespace SerahToolkit_SharpGL
                 return;
             }
             richTextBox1.AppendText($"{f.Replace(',', '.')}\n");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!CheckFile(_path))
+                return;
+            var offset = numericUpDown8.Value;
+            var size = numericUpDown7.Value;
+            var count = numericUpDown9.Value;
+            string vt = null;
+            
+            if (_fileSize <= offset + (size * count)) 
+            {
+                Console.WriteLine("MGR: Bad offset or size too big?");
+                return;
+            }
+
+            byte[] buffer = GetBuffer(_path, numericUpDown8.Value, numericUpDown9.Value, numericUpDown7.Value);
+            if (buffer == null)
+            {
+                Console.WriteLine("MGR: File buffer is empty. Something wrong with the specified file...");
+                return;
+            }
+            double d = Convert.ToDouble(numericUpDown18.Value);
+
+            for (int i = 0; i < buffer.Length; i += (int)numericUpDown7.Value)
+            {
+                double u1 = (buffer[(int)numericUpDown10.Value + i]) / d;
+                double u2 = (buffer[(int)numericUpDown11.Value + i]) / d;
+                double u3 = (buffer[(int)numericUpDown12.Value + i]) / d;
+                double u4 = (buffer[(int)numericUpDown13.Value + i]) / d;
+                double v1 = (buffer[(int)numericUpDown14.Value + i]) / d;
+                double v2 = (buffer[(int)numericUpDown15.Value + i]) / d;
+                double v3 = (buffer[(int)numericUpDown16.Value + i]) / d;
+                double v4 = (buffer[(int)numericUpDown17.Value + i]) / d;
+                vt += $"vt {Math.Round(u1, 5)} {Math.Round(v1, 5)}\nvt {Math.Round(u2, 5)} {Math.Round(v2, 5)}\nvt {Math.Round(u3, 5)} {Math.Round(v3, 5)}\n";
+                if (radioButton6.Checked)
+                    vt += $"vt{Math.Round(u4, 5)} {Math.Round(v4, 5)}\n";
+            }
+            vt = vt.Replace(',', '.');
+            richTextBox1.AppendText(vt);
+
         }
     }
 }

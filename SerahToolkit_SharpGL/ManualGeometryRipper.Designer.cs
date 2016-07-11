@@ -71,6 +71,28 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.numericUpDown10 = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDown11 = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.numericUpDown12 = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.numericUpDown13 = new System.Windows.Forms.NumericUpDown();
+            this.label13 = new System.Windows.Forms.Label();
+            this.numericUpDown14 = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDown15 = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.numericUpDown16 = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.numericUpDown17 = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button4 = new System.Windows.Forms.Button();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.numericUpDown18 = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -83,6 +105,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.flowLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
@@ -96,6 +119,15 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -148,7 +180,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(494, 478);
+            this.splitContainer1.Size = new System.Drawing.Size(494, 553);
             this.splitContainer1.SplitterDistance = 290;
             this.splitContainer1.TabIndex = 1;
             // 
@@ -156,7 +188,7 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 456);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 531);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(290, 22);
             this.statusStrip1.TabIndex = 3;
@@ -176,7 +208,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 478);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(290, 553);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // groupBox1
@@ -307,24 +339,45 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(3, 136);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(270, 71);
+            this.groupBox2.Size = new System.Drawing.Size(290, 129);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "UV (vt)";
+            this.groupBox2.Text = "UV (vt) - size and offset based on polygons!!";
             // 
             // flowLayoutPanel3
             // 
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown10);
+            this.flowLayoutPanel3.Controls.Add(this.label10);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown11);
+            this.flowLayoutPanel3.Controls.Add(this.label11);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown12);
+            this.flowLayoutPanel3.Controls.Add(this.label12);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown13);
+            this.flowLayoutPanel3.Controls.Add(this.label13);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown14);
+            this.flowLayoutPanel3.Controls.Add(this.label14);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown15);
+            this.flowLayoutPanel3.Controls.Add(this.label15);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown16);
+            this.flowLayoutPanel3.Controls.Add(this.label16);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown17);
+            this.flowLayoutPanel3.Controls.Add(this.label17);
+            this.flowLayoutPanel3.Controls.Add(this.button4);
+            this.flowLayoutPanel3.Controls.Add(this.radioButton5);
+            this.flowLayoutPanel3.Controls.Add(this.radioButton6);
+            this.flowLayoutPanel3.Controls.Add(this.numericUpDown18);
+            this.flowLayoutPanel3.Controls.Add(this.label18);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(264, 52);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(284, 110);
             this.flowLayoutPanel3.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.flowLayoutPanel4);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox3.Location = new System.Drawing.Point(3, 213);
+            this.groupBox3.Location = new System.Drawing.Point(3, 271);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(300, 248);
             this.groupBox3.TabIndex = 2;
@@ -352,6 +405,7 @@
             this.flowLayoutPanel4.Controls.Add(this.numericUpDown9);
             this.flowLayoutPanel4.Controls.Add(this.label9);
             this.flowLayoutPanel4.Controls.Add(this.button3);
+            this.flowLayoutPanel4.Controls.Add(this.checkBox1);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(3, 16);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
@@ -523,7 +577,7 @@
             0,
             0});
             this.numericUpDown7.Minimum = new decimal(new int[] {
-            4,
+            3,
             0,
             0,
             0});
@@ -542,9 +596,9 @@
             this.flowLayoutPanel4.SetFlowBreak(this.label7, true);
             this.label7.Location = new System.Drawing.Point(98, 121);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.Size = new System.Drawing.Size(110, 13);
             this.label7.TabIndex = 11;
-            this.label7.Text = "Size of polygon";
+            this.label7.Text = "Size of polygon (HEX)";
             // 
             // numericUpDown8
             // 
@@ -633,8 +687,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.button1);
-            this.splitContainer2.Size = new System.Drawing.Size(200, 478);
-            this.splitContainer2.SplitterDistance = 431;
+            this.splitContainer2.Size = new System.Drawing.Size(200, 553);
+            this.splitContainer2.SplitterDistance = 498;
             this.splitContainer2.TabIndex = 0;
             // 
             // richTextBox1
@@ -643,7 +697,7 @@
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(200, 431);
+            this.richTextBox1.Size = new System.Drawing.Size(200, 498);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -652,17 +706,224 @@
             this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button1.Location = new System.Drawing.Point(0, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(200, 43);
+            this.button1.Size = new System.Drawing.Size(200, 51);
             this.button1.TabIndex = 0;
             this.button1.Text = "Reset output";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // numericUpDown10
+            // 
+            this.numericUpDown10.Location = new System.Drawing.Point(3, 3);
+            this.numericUpDown10.Name = "numericUpDown10";
+            this.numericUpDown10.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown10.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(46, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(21, 13);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "U1";
+            // 
+            // numericUpDown11
+            // 
+            this.numericUpDown11.Location = new System.Drawing.Point(73, 3);
+            this.numericUpDown11.Name = "numericUpDown11";
+            this.numericUpDown11.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown11.TabIndex = 2;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(116, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(21, 13);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "U2";
+            // 
+            // numericUpDown12
+            // 
+            this.numericUpDown12.Location = new System.Drawing.Point(143, 3);
+            this.numericUpDown12.Name = "numericUpDown12";
+            this.numericUpDown12.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown12.TabIndex = 4;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(186, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(21, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "U3";
+            // 
+            // numericUpDown13
+            // 
+            this.numericUpDown13.Location = new System.Drawing.Point(213, 3);
+            this.numericUpDown13.Name = "numericUpDown13";
+            this.numericUpDown13.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown13.TabIndex = 6;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.flowLayoutPanel3.SetFlowBreak(this.label13, true);
+            this.label13.Location = new System.Drawing.Point(256, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(21, 13);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "U4";
+            // 
+            // numericUpDown14
+            // 
+            this.numericUpDown14.Location = new System.Drawing.Point(3, 29);
+            this.numericUpDown14.Name = "numericUpDown14";
+            this.numericUpDown14.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown14.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(46, 26);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(20, 13);
+            this.label14.TabIndex = 9;
+            this.label14.Text = "V1";
+            // 
+            // numericUpDown15
+            // 
+            this.numericUpDown15.Location = new System.Drawing.Point(72, 29);
+            this.numericUpDown15.Name = "numericUpDown15";
+            this.numericUpDown15.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown15.TabIndex = 10;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(115, 26);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(20, 13);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "V2";
+            // 
+            // numericUpDown16
+            // 
+            this.numericUpDown16.Location = new System.Drawing.Point(141, 29);
+            this.numericUpDown16.Name = "numericUpDown16";
+            this.numericUpDown16.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown16.TabIndex = 12;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(184, 26);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(20, 13);
+            this.label16.TabIndex = 13;
+            this.label16.Text = "V3";
+            // 
+            // numericUpDown17
+            // 
+            this.numericUpDown17.Location = new System.Drawing.Point(210, 29);
+            this.numericUpDown17.Name = "numericUpDown17";
+            this.numericUpDown17.Size = new System.Drawing.Size(37, 20);
+            this.numericUpDown17.TabIndex = 14;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.flowLayoutPanel3.SetFlowBreak(this.label17, true);
+            this.label17.Location = new System.Drawing.Point(253, 26);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(20, 13);
+            this.label17.TabIndex = 15;
+            this.label17.Text = "V4";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(84, 202);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(102, 17);
+            this.checkBox1.TabIndex = 19;
+            this.checkBox1.Text = "Add UV indexes";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(3, 55);
+            this.button4.Name = "button4";
+            this.button4.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 16;
+            this.button4.Text = "Parse";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Checked = true;
+            this.radioButton5.Location = new System.Drawing.Point(84, 55);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(86, 17);
+            this.radioButton5.TabIndex = 17;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "triangle (3 vt)";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.flowLayoutPanel3.SetFlowBreak(this.radioButton6, true);
+            this.radioButton6.Location = new System.Drawing.Point(176, 55);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(76, 17);
+            this.radioButton6.TabIndex = 18;
+            this.radioButton6.Text = "quad (4 vt)";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDown18
+            // 
+            this.numericUpDown18.Location = new System.Drawing.Point(3, 84);
+            this.numericUpDown18.Maximum = new decimal(new int[] {
+            2048,
+            0,
+            0,
+            0});
+            this.numericUpDown18.Minimum = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numericUpDown18.Name = "numericUpDown18";
+            this.numericUpDown18.Size = new System.Drawing.Size(89, 20);
+            this.numericUpDown18.TabIndex = 19;
+            this.numericUpDown18.Value = new decimal(new int[] {
+            256,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(98, 81);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(67, 13);
+            this.label18.TabIndex = 20;
+            this.label18.Text = "texture width";
+            // 
             // ManualGeometryRipper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 502);
+            this.ClientSize = new System.Drawing.Size(494, 577);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -684,6 +945,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel3.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
@@ -698,6 +961,15 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown12)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown18)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -748,5 +1020,27 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.NumericUpDown numericUpDown10;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.NumericUpDown numericUpDown11;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown numericUpDown12;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown numericUpDown13;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown numericUpDown14;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown numericUpDown15;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown numericUpDown16;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown numericUpDown17;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.NumericUpDown numericUpDown18;
+        private System.Windows.Forms.Label label18;
     }
 }
