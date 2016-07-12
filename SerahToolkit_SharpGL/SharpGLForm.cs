@@ -104,7 +104,7 @@ namespace SerahToolkit_SharpGL
             }
             int getRot = int.Parse(listBox1.SelectedItem.ToString());
             Console.WriteLine($"Starting rail editor for segment {listBox1.SelectedItem.ToString()}");
-            RailEditor.RailEditor RailEditor = new SerahToolkit_SharpGL.RailEditor.RailEditor(File.ReadAllBytes(_railPath), getRot);
+            RailEditor.RailEditor RailEditor = new SerahToolkit_SharpGL.RailEditor.RailEditor(File.ReadAllBytes(_railPath), getRot, _railPath);
             RailEditor.Show();
         }
 
