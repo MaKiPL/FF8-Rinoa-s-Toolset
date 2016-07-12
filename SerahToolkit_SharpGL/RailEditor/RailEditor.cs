@@ -38,7 +38,7 @@ namespace SerahToolkit_SharpGL.RailEditor
                 Console.WriteLine("RailEditor: Current track has more than 127 frames. Something's wrong... Exiting");
                 this.Close();
             }
-
+            Console.WriteLine("RailEd: Preinitializing track...");
             _trainStopOne = rail[rot + 4];
             _trainStopTwo = rail[rot + 8];
             listBox1.Items.Clear();
@@ -61,6 +61,7 @@ namespace SerahToolkit_SharpGL.RailEditor
             UnumericUpDown5.Minimum = Int32.MinValue;
             bInitializing = false;
             listBox1.SelectedIndex = 0;
+            Console.WriteLine("RailEd: Ready!");
         }
 
         private void UpdateAxis(int value, int effectiveOffset)
@@ -103,6 +104,16 @@ namespace SerahToolkit_SharpGL.RailEditor
         {
             if(MessageBox.Show("Are you sure?\nThe file would be overwritten!", "Caution!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                if(_animationFrames >= _trainStopOne || _animationFrames >= _trainStopTwo)
+                {
+                    MessageBox.Show("Please correct the train stop indexes!\nIndex cannot be bigger than amount of frames!");
+                    return;
+                }
+                if(_trainStopOne == _trainStopTwo)
+                {
+                    MessageBox.Show("Train cannot have two the same stops. Correct it!");
+                    return;
+                }
                 System.IO.File.WriteAllBytes(path, rail);
                 MessageBox.Show("File saved!");
             }
@@ -110,6 +121,7 @@ namespace SerahToolkit_SharpGL.RailEditor
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            Console.WriteLine("RailEd: Changing display style...");
                 XnumericUpDown3.Hexadecimal = checkBox1.Checked;
                 YnumericUpDown4.Hexadecimal = checkBox1.Checked;
                 ZnumericUpDown6.Hexadecimal = checkBox1.Checked;
@@ -159,13 +171,14 @@ namespace SerahToolkit_SharpGL.RailEditor
             listBox1.Items.Add($"Frame {_animationFrames++}");
             rail[rot] = _animationFrames;
             textBox1.Text = _animationFrames.ToString();
+            Console.WriteLine("RailEd: Added new keyframe!");
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             if (_animationFrames <= 4)
             {
-                MessageBox.Show("Too few animation frames! Can't remove another!");
+                MessageBox.Show("Too few keyframes! Can't remove another!");
                 return;
             }
             bInitializing = true;
@@ -178,7 +191,7 @@ namespace SerahToolkit_SharpGL.RailEditor
             for (byte i = 0; i < _animationFrames; i++)
                 listBox1.Items.Add($"Frame {i}");
             bInitializing = false;
-
+            Console.WriteLine("RailEd: Deleted one keyframe");
 
         }
     }

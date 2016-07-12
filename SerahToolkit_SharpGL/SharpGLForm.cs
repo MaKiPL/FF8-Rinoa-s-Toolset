@@ -39,6 +39,7 @@ namespace SerahToolkit_SharpGL
         private const int StateWmsetModel = 3;
         private const int StateGFenviro = 4;
         private const int StateWmx = 5;
+        private const int StateTexture = 6; //unused
         public static string GFEnviro;
         private string _wmxPath;
 
@@ -634,6 +635,9 @@ namespace SerahToolkit_SharpGL
                 case StateWmx:
                     WMX_list();
                     break;
+                case StateTexture:
+                    TextureLogic();
+                    break;
                 default:
                     return;
             }
@@ -648,6 +652,11 @@ namespace SerahToolkit_SharpGL
                 _wmxPath = wmx.GetModelPath();
                 Render3D();
             }
+        }
+
+        private void TextureLogic()
+        {
+
         }
 
         private void WMSET_Listbox()
