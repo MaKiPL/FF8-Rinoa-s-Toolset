@@ -96,6 +96,12 @@ namespace SerahToolkit_SharpGL
             toolStripStatusLabel2.Text = status;
         }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            AnalizeCff8Search ff8S = new AnalizeCff8Search();
+            ff8S.ShowDialog();
+        }
+
         private void railEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_state != StateRailDraw)
@@ -380,12 +386,6 @@ namespace SerahToolkit_SharpGL
         private void polygonModePointsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetLines(true);
-        }
-
-        private void cFF8SearcherToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            AnalizeCff8Search ff8S = new AnalizeCff8Search();
-            ff8S.ShowDialog();
         }
 
         private void convertToOBJToolStripMenuItem_Click(object sender, EventArgs e)

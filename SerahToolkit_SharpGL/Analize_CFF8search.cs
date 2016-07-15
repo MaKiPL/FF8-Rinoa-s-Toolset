@@ -7,8 +7,8 @@ namespace SerahToolkit_SharpGL
 {
     public partial class AnalizeCff8Search : Form
     {
-        const string Ff8 = "C:";
-        const int Ff8Size = 256;
+        const string Ff8 = "FF8";
+        const int Ff8Size = 128;
 
 
         public AnalizeCff8Search()

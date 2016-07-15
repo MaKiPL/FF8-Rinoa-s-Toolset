@@ -46,17 +46,18 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.XnumericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.YnumericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.UnumericUpDown5 = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
             this.ZnumericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.YnumericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.UnumericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -77,12 +78,12 @@
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.XnumericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.YnumericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UnumericUpDown5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ZnumericUpDown6)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.XnumericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ZnumericUpDown6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.YnumericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnumericUpDown5)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -98,6 +99,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer3);
             this.splitContainer1.Size = new System.Drawing.Size(364, 442);
             this.splitContainer1.SplitterDistance = 138;
@@ -192,6 +194,8 @@
             // 
             // splitContainer3.Panel2
             // 
+            this.splitContainer3.Panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.splitContainer3.Panel2.Controls.Add(this.panel1);
             this.splitContainer3.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer3.Panel2.Padding = new System.Windows.Forms.Padding(0, 25, 0, 0);
             this.splitContainer3.Size = new System.Drawing.Size(222, 442);
@@ -304,6 +308,34 @@
             this.numericUpDown2.TabIndex = 6;
             this.numericUpDown2.ValueChanged += new System.EventHandler(this.numericUpDown2_ValueChanged);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.flowLayoutPanel3);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(0, 25);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(222, 150);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Keyframe";
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.checkBox1);
+            this.flowLayoutPanel3.Controls.Add(this.XnumericUpDown3);
+            this.flowLayoutPanel3.Controls.Add(this.label5);
+            this.flowLayoutPanel3.Controls.Add(this.ZnumericUpDown6);
+            this.flowLayoutPanel3.Controls.Add(this.label6);
+            this.flowLayoutPanel3.Controls.Add(this.YnumericUpDown4);
+            this.flowLayoutPanel3.Controls.Add(this.label7);
+            this.flowLayoutPanel3.Controls.Add(this.UnumericUpDown5);
+            this.flowLayoutPanel3.Controls.Add(this.label8);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(216, 131);
+            this.flowLayoutPanel3.TabIndex = 9;
+            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
@@ -335,13 +367,13 @@
             this.label5.TabIndex = 2;
             this.label5.Text = "X axis";
             // 
-            // YnumericUpDown4
+            // ZnumericUpDown6
             // 
-            this.YnumericUpDown4.Location = new System.Drawing.Point(3, 78);
-            this.YnumericUpDown4.Name = "YnumericUpDown4";
-            this.YnumericUpDown4.Size = new System.Drawing.Size(99, 20);
-            this.YnumericUpDown4.TabIndex = 3;
-            this.YnumericUpDown4.ValueChanged += new System.EventHandler(this.YnumericUpDown4_ValueChanged);
+            this.ZnumericUpDown6.Location = new System.Drawing.Point(3, 52);
+            this.ZnumericUpDown6.Name = "ZnumericUpDown6";
+            this.ZnumericUpDown6.Size = new System.Drawing.Size(99, 20);
+            this.ZnumericUpDown6.TabIndex = 7;
+            this.ZnumericUpDown6.ValueChanged += new System.EventHandler(this.ZnumericUpDown6_ValueChanged);
             // 
             // label6
             // 
@@ -354,13 +386,13 @@
             this.label6.TabIndex = 4;
             this.label6.Text = "Z axis";
             // 
-            // UnumericUpDown5
+            // YnumericUpDown4
             // 
-            this.UnumericUpDown5.Location = new System.Drawing.Point(3, 104);
-            this.UnumericUpDown5.Name = "UnumericUpDown5";
-            this.UnumericUpDown5.Size = new System.Drawing.Size(99, 20);
-            this.UnumericUpDown5.TabIndex = 5;
-            this.UnumericUpDown5.ValueChanged += new System.EventHandler(this.UnumericUpDown5_ValueChanged);
+            this.YnumericUpDown4.Location = new System.Drawing.Point(3, 78);
+            this.YnumericUpDown4.Name = "YnumericUpDown4";
+            this.YnumericUpDown4.Size = new System.Drawing.Size(99, 20);
+            this.YnumericUpDown4.TabIndex = 3;
+            this.YnumericUpDown4.ValueChanged += new System.EventHandler(this.YnumericUpDown4_ValueChanged);
             // 
             // label7
             // 
@@ -373,13 +405,13 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Y axis";
             // 
-            // ZnumericUpDown6
+            // UnumericUpDown5
             // 
-            this.ZnumericUpDown6.Location = new System.Drawing.Point(3, 52);
-            this.ZnumericUpDown6.Name = "ZnumericUpDown6";
-            this.ZnumericUpDown6.Size = new System.Drawing.Size(99, 20);
-            this.ZnumericUpDown6.TabIndex = 7;
-            this.ZnumericUpDown6.ValueChanged += new System.EventHandler(this.ZnumericUpDown6_ValueChanged);
+            this.UnumericUpDown5.Location = new System.Drawing.Point(3, 104);
+            this.UnumericUpDown5.Name = "UnumericUpDown5";
+            this.UnumericUpDown5.Size = new System.Drawing.Size(99, 20);
+            this.UnumericUpDown5.TabIndex = 5;
+            this.UnumericUpDown5.ValueChanged += new System.EventHandler(this.UnumericUpDown5_ValueChanged);
             // 
             // label8
             // 
@@ -392,40 +424,25 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Unknown";
             // 
-            // groupBox2
+            // panel1
             // 
-            this.groupBox2.Controls.Add(this.flowLayoutPanel3);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 25);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(222, 150);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Keyframe";
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.Controls.Add(this.checkBox1);
-            this.flowLayoutPanel3.Controls.Add(this.XnumericUpDown3);
-            this.flowLayoutPanel3.Controls.Add(this.label5);
-            this.flowLayoutPanel3.Controls.Add(this.ZnumericUpDown6);
-            this.flowLayoutPanel3.Controls.Add(this.label6);
-            this.flowLayoutPanel3.Controls.Add(this.YnumericUpDown4);
-            this.flowLayoutPanel3.Controls.Add(this.label7);
-            this.flowLayoutPanel3.Controls.Add(this.UnumericUpDown5);
-            this.flowLayoutPanel3.Controls.Add(this.label8);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 16);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(216, 131);
-            this.flowLayoutPanel3.TabIndex = 9;
+            this.panel1.BackgroundImage = global::SerahToolkit_SharpGL.Properties.Resources.railbg3;
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 175);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(222, 148);
+            this.panel1.TabIndex = 10;
             // 
             // RailEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(364, 442);
             this.Controls.Add(this.splitContainer1);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "RailEditor";
@@ -451,13 +468,13 @@
             this.flowLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.XnumericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.YnumericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.UnumericUpDown5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ZnumericUpDown6)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
             this.flowLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.XnumericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ZnumericUpDown6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.YnumericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UnumericUpDown5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -492,5 +509,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
+        private System.Windows.Forms.Panel panel1;
     }
 }

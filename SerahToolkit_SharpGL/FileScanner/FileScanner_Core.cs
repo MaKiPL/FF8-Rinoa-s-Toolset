@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL.FileScanner
 {
@@ -12,7 +9,6 @@ namespace SerahToolkit_SharpGL.FileScanner
     {
         private string _path;
         private List<string> _listOfFiles;
-        private bool _useDebug = true;
 
         public FileScanner_Core(string path)
         {
@@ -28,15 +24,12 @@ namespace SerahToolkit_SharpGL.FileScanner
             _listOfFiles = Directory.EnumerateFiles(_path).ToList();
             foreach (var file in _listOfFiles)
             {
-                if (_useDebug)
-                    CheckDebug(file);
-                else
                     Check(file);
             }
             _path = null; //Just in case?
         }
 
-        private void Check(string file)
+        /*private void Check(string file)
         {
             var bytes = Header64(file);
             if (bytes == null)
@@ -76,10 +69,10 @@ namespace SerahToolkit_SharpGL.FileScanner
                     Console.WriteLine($"{Path.GetFileName(file)} is UNKNOWN. MAGIC: 0x{BitConverter.ToString(BitConverter.GetBytes(bytes.Item1)).Replace("-", "")}"); //Works fine
                 //Console.WriteLine($"{Path.GetFileName(file)} is {Enum.GetName(typeof(FileScanner_Headers),fsh)}");
             
-        }
+        }*/
 
         //Fast new version
-        private void CheckDebug(string file)
+        private void Check(string file)
         {
             var bytes = TemporaryGet32Bytes(file);
             if (bytes == null)
