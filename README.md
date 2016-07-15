@@ -5,7 +5,7 @@ FF8 All-in-one modding toolset is almost complete tool to rip and view various F
 * World Map vehicles
 * World Map segments
 * World Map train track visualizer
-* World Map train track editor ***In-Dev***
+* World Map train track editor
 * Guardian Forces environment objects 
 
 ## Features - Other
