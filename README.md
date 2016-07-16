@@ -1,3 +1,7 @@
+Current code status: [![Build Status](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset.svg?branch=master)](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset)
+
+Current code version: 0.9.9.9 (pre-release)
+
 # FF8 Rinoa's Toolset
 FF8 All-in-one modding toolset is almost complete tool to rip and view various Final Fantasy VIII objects.
 ## Features - 3D
@@ -5,7 +9,7 @@ FF8 All-in-one modding toolset is almost complete tool to rip and view various F
 * World Map vehicles
 * World Map segments
 * World Map train track visualizer
-* World Map train track editor ***In-Dev***
+* World Map train track editor
 * Guardian Forces environment objects 
 
 ## Features - Other
