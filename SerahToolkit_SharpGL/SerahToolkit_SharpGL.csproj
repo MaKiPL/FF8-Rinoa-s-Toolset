@@ -40,21 +40,21 @@
     <ApplicationIcon>rin_Vex_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SharpGL, Version=2.3.0.1, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+    <Reference Include="SharpGL, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\sharpgl-master\source\SharpGL\Core\SharpGL.Serialization\bin\Debug\SharpGL.dll</HintPath>
+      <HintPath>RinoaDLL\SharpGL.dll</HintPath>
     </Reference>
-    <Reference Include="SharpGL.SceneGraph, Version=2.3.0.1, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+    <Reference Include="SharpGL.SceneGraph, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\sharpgl-master\source\SharpGL\Core\SharpGL.Serialization\bin\Debug\SharpGL.SceneGraph.dll</HintPath>
+      <HintPath>RinoaDLL\SharpGL.SceneGraph.dll</HintPath>
     </Reference>
-    <Reference Include="SharpGL.Serialization, Version=2.3.0.1, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+    <Reference Include="SharpGL.Serialization, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\sharpgl-master\source\SharpGL\Core\SharpGL.Serialization\bin\Debug\SharpGL.Serialization.dll</HintPath>
+      <HintPath>RinoaDLL\SharpGL.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="SharpGL.WinForms, Version=2.3.0.1, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+    <Reference Include="SharpGL.WinForms, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Desktop\sharpgl-master\source\SharpGL\Core\SharpGL.WinForms\bin\Debug\SharpGL.WinForms.dll</HintPath>
+      <HintPath>RinoaDLL\SharpGL.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
