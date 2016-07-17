@@ -55,7 +55,7 @@
             this.openToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(754, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(686, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -96,9 +96,9 @@
             // richTextBox1
             // 
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.richTextBox1.Location = new System.Drawing.Point(352, 24);
+            this.richTextBox1.Location = new System.Drawing.Point(284, 24);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(402, 510);
+            this.richTextBox1.Size = new System.Drawing.Size(402, 316);
             this.richTextBox1.TabIndex = 6;
             this.richTextBox1.Text = "DECIPHERED TEXT GOES HERE";
             // 
@@ -108,7 +108,7 @@
             this.button1.Enabled = false;
             this.button1.Location = new System.Drawing.Point(0, 63);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(352, 23);
+            this.button1.Size = new System.Drawing.Size(284, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "Decypher";
             this.button1.UseVisualStyleBackColor = true;
@@ -120,7 +120,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Top;
             this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(257, 130);
+            this.label4.Size = new System.Drawing.Size(257, 104);
             this.label4.TabIndex = 8;
             this.label4.Text = resources.GetString("label4.Text");
             // 
@@ -153,7 +153,7 @@
             this.button2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button2.Location = new System.Drawing.Point(0, 143);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(352, 23);
+            this.button2.Size = new System.Drawing.Size(284, 23);
             this.button2.TabIndex = 11;
             this.button2.Text = "Save output";
             this.button2.UseVisualStyleBackColor = true;
@@ -164,9 +164,9 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 368);
+            this.panel1.Location = new System.Drawing.Point(0, 174);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(352, 166);
+            this.panel1.Size = new System.Drawing.Size(284, 166);
             this.panel1.TabIndex = 12;
             // 
             // panel2
@@ -179,14 +179,14 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 24);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(352, 86);
+            this.panel2.Size = new System.Drawing.Size(284, 86);
             this.panel2.TabIndex = 13;
             // 
             // RosettaStone
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(754, 534);
+            this.ClientSize = new System.Drawing.Size(686, 340);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.richTextBox1);

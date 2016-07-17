@@ -23,6 +23,12 @@ namespace SerahToolkit_SharpGL
             gl.Enable(OpenGL.GL_TEXTURE_2D);
         }
 
+        internal static class NativeMethods
+        {
+            [DllImport("kernel32")]
+            internal static extern bool AllocConsole();
+        }
+
         private List<string> _pathModels;
         private string _railPath;
         private string _lastKnownPath;
@@ -46,10 +52,6 @@ namespace SerahToolkit_SharpGL
 
         OpenGL _gl;
         readonly List<Polygon> _polygons = new List<Polygon>();
-        SharpGL.SceneGraph.Cameras.PerspectiveCamera _camera = new SharpGL.SceneGraph.Cameras.PerspectiveCamera();
-
-        [DllImport("kernel32")]
-        static extern bool AllocConsole();
 
 
         #region OpenGL
@@ -66,12 +68,10 @@ namespace SerahToolkit_SharpGL
             _gl.Translate(xTrans, yTrans, zTrans);
             foreach (Polygon polygon in _polygons)
                 {
-                if (polygon.IsEnabled)
-                    {
+                    if (!polygon.IsEnabled) continue;
                     polygon.PushObjectSpace(_gl);
                     polygon.Render(_gl, SharpGL.SceneGraph.Core.RenderMode.Render);
                     polygon.PopObjectSpace(_gl);
-                    }
                 }
         }
 
@@ -85,16 +85,13 @@ namespace SerahToolkit_SharpGL
             openGLControl.OpenGL.Enable(OpenGL.GL_COLOR_MATERIAL);
             openGLControl.OpenGL.Enable(OpenGL.GL_BLEND);
             openGLControl.OpenGL.BlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
-            AllocConsole();
+            NativeMethods.AllocConsole();
             Console.WriteLine("===========Welcome!==========\nPlease do not close this console, it's connected to software. It may come handy.\nThis window will also let you see the output of FileScanner and WMX section.\n\n\n");
         }
         #endregion
 
         #region Menu functionality
-        private void UpdateStatus(string status)
-        {
-            toolStripStatusLabel2.Text = status;
-        }
+        private void UpdateStatus(string status) => toolStripStatusLabel2.Text = status;
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -111,7 +108,7 @@ namespace SerahToolkit_SharpGL
             }
             int getRot = int.Parse(listBox1.SelectedItem.ToString());
             Console.WriteLine($"Starting rail editor for segment {listBox1.SelectedItem.ToString()}");
-            RailEditor.RailEditor RailEditor = new SerahToolkit_SharpGL.RailEditor.RailEditor(File.ReadAllBytes(_railPath), getRot, _railPath);
+            RailEditor.RailEditor RailEditor = new RailEditor.RailEditor(File.ReadAllBytes(_railPath), getRot, _railPath);
             RailEditor.Show();
         }
 
@@ -153,19 +150,14 @@ namespace SerahToolkit_SharpGL
         private void section1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog { Filter = "wmsetxx.obj/Sector16|wmset**.Section16" };
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                _state = StateWmsetModel;
-                Wmset wmset = new Wmset(ofd.FileName);
-                _lastKnownPath = ofd.FileName;
-                UpdateStatus(_lastKnownPath);
-                listBox1.Items.Clear();
-                foreach (int i in wmset.ProduceOffset_sec16())
-                {
-                    listBox1.Items.Add(i);
-                }
-
-            }
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _state = StateWmsetModel;
+            Wmset wmset = new Wmset(ofd.FileName);
+            _lastKnownPath = ofd.FileName;
+            UpdateStatus(_lastKnownPath);
+            listBox1.Items.Clear();
+            foreach (int i in wmset.ProduceOffset_sec16())
+                listBox1.Items.Add(i);
         }
 
         private void dumpRAWDataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -174,17 +166,14 @@ namespace SerahToolkit_SharpGL
                 return;
 
             SaveFileDialog sfd = new SaveFileDialog();
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                BattleStage bs = new BattleStage(_lastKnownPath);
-                int nextoffset;
-                if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
-                    nextoffset = -1;
-                else
-                    nextoffset = int.Parse(listBox1.Items[listBox1.SelectedIndex + 1].ToString());
-
-                bs.DumpRaw(int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString()), sfd.FileName, nextoffset);
-            }
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            BattleStage bs = new BattleStage(_lastKnownPath);
+            int nextoffset;
+            if (listBox1.SelectedIndex == listBox1.Items.Count - 1)
+                nextoffset = -1;
+            else
+                nextoffset = int.Parse(listBox1.Items[listBox1.SelectedIndex + 1].ToString());
+            bs.DumpRaw(int.Parse(listBox1.Items[listBox1.SelectedIndex].ToString()), sfd.FileName, nextoffset);
         }
 
         private void verticesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -196,17 +185,15 @@ namespace SerahToolkit_SharpGL
         private void openToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog { Filter = "wmsetxx.obj|wmset*.obj" };
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                _lastKnownPath = ofd.FileName;
-                unpackToolStripMenuItem.Enabled = true;
-                UpdateStatus(_lastKnownPath);
-                _state = StateWmset;
-                Wmset wmset = new Wmset(_lastKnownPath);
-                listBox1.Items.Clear();
-                listBox1.Items.AddRange(wmset._Debug_GetSections().Item1.ToArray());
-                Render3D(); 
-            }
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _lastKnownPath = ofd.FileName;
+            unpackToolStripMenuItem.Enabled = true;
+            UpdateStatus(_lastKnownPath);
+            _state = StateWmset;
+            Wmset wmset = new Wmset(_lastKnownPath);
+            listBox1.Items.Clear();
+            listBox1.Items.AddRange(wmset._Debug_GetSections().Item1.ToArray());
+            Render3D();
         }
 
         private void unpackToolStripMenuItem_Click(object sender, EventArgs e)
@@ -222,18 +209,16 @@ namespace SerahToolkit_SharpGL
                 buildPath += $"\\{Path.GetFileNameWithoutExtension(_lastKnownPath)}.Section{(i + 1).ToString()}";
                 if (File.Exists(buildPath))
                     File.Delete(buildPath);
-                using (var fs = new FileStream(_lastKnownPath, FileMode.Open))
+                using (FileStream fs = new FileStream(_lastKnownPath, FileMode.Open))
                 {
-                    using (var fsW = new FileStream(buildPath, FileMode.OpenOrCreate))
+                    using (FileStream fsW = new FileStream(buildPath, FileMode.OpenOrCreate))
                     {
                         if (i + 1 != offsetList.Length)
                         {
                             byte[] tempMem = new byte[offsetList[i + 1] - offsetList[i]];
                             fs.Seek(offsetList[i], SeekOrigin.Begin);
                             fs.Read(tempMem, 0, tempMem.Length);
-                            fs.Close();
                             fsW.Write(tempMem, 0, tempMem.Length);
-                            fsW.Close();
                         }
                         else
                         {
@@ -242,9 +227,7 @@ namespace SerahToolkit_SharpGL
                             byte[] tempMem = new byte[eof - offsetList[i]];
                             fs.Seek(offsetList[i], SeekOrigin.Begin);
                             fs.Read(tempMem, 0, tempMem.Length);
-                            fs.Close();
                             fsW.Write(tempMem, 0, tempMem.Length);
-                            fsW.Close();
                         }
                     }
                 }
@@ -273,26 +256,21 @@ namespace SerahToolkit_SharpGL
 
         private void fileScannerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileScanner.FileScanner_Core fsc;
+            FileScanner.FileScannerCore fsc;
             Console.WriteLine("FileScanner engine started\nYou will find output here");
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            if (fbd.ShowDialog() == DialogResult.OK)
-            {
-                fsc = new FileScanner.FileScanner_Core(fbd.SelectedPath);
-                fsc.Start();
-            }
-            else return;
+            if (fbd.ShowDialog() != DialogResult.OK) return;
+            fsc = new FileScanner.FileScannerCore(fbd.SelectedPath);
+            fsc.Start();
         }
 
         private void openToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog { Filter = "wmx.obj|wmx.obj" };
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                _state = StateWmx;
-                _lastKnownPath = ofd.FileName;
-                PopulateWmx(_lastKnownPath);
-            }
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _state = StateWmx;
+            _lastKnownPath = ofd.FileName;
+            PopulateWmx(_lastKnownPath);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -302,44 +280,42 @@ namespace SerahToolkit_SharpGL
                 Title = "Open FF8 .X stage model (a0stgXXX.x)",
                 Filter = "Final Fantasy VIII stage (.x)|*.X"
             };
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            Console.WriteLine("BS: Opening file...");
+            _state = StateBattleStageUv;
+            exportToolStripMenuItem.Enabled = true;
+            importToolStripMenuItem.Enabled = true;
+            SetLines(false);
+            BattleStage bs = new BattleStage(ofd.FileName);
+            listBox1.Items.Clear();
+            UpdateStatus(ofd.FileName);
+            bs.Process(true);
+            pictureBox1.Image = bs.GetTexture();
+            pictureBox1.BackgroundImage = bs.GetTexture();
+            _bmp = bs.GetTexture();
+            _bmp2 = bs.GetTexture(); 
+            _lastKnownPath = ofd.FileName;
+            _lastKnownTim = bs.GetLastTim();
+            _pathModels = new List<string>();
+            foreach (int i in bs.GetArrayOfObjects())
             {
-                Console.WriteLine("BS: Opening file...");
-                _state = StateBattleStageUv;
-                exportToolStripMenuItem.Enabled = true;
-                importToolStripMenuItem.Enabled = true;
-                SetLines(false);
-                BattleStage bs = new BattleStage(ofd.FileName);
-                listBox1.Items.Clear();
-                UpdateStatus(ofd.FileName);
-                bs.Process(true);
-                pictureBox1.Image = bs.GetTexture();
-                pictureBox1.BackgroundImage = bs.GetTexture();
-                _bmp = bs.GetTexture();
-                _bmp2 = bs.GetTexture(); 
-                _lastKnownPath = ofd.FileName;
-                _lastKnownTim = bs.GetLastTim();
-                _pathModels = new List<string>();
-                foreach (int i in bs.GetArrayOfObjects())
-                {
+                listBox1.Items.Add(i.ToString());
+                var pathOfd = Path.GetDirectoryName(ofd.FileName);
+                pathOfd += $@"\{Path.GetFileNameWithoutExtension(ofd.FileName)}_{i.ToString()}_t.obj";
+                if (File.Exists(pathOfd))
+                    _pathModels.Add(pathOfd);
+
+                string pathOfd2 = Path.GetDirectoryName(ofd.FileName);
+                pathOfd2 += $@"\{Path.GetFileNameWithoutExtension(ofd.FileName)}_{i.ToString()}_q.obj";
+                if (File.Exists(pathOfd2))
+                    _pathModels.Add(pathOfd2);
+
+                if (File.Exists(pathOfd) && File.Exists(pathOfd2))
                     listBox1.Items.Add(i.ToString());
-                    var pathOfd = Path.GetDirectoryName(ofd.FileName);
-                    pathOfd += $@"\{Path.GetFileNameWithoutExtension(ofd.FileName)}_{i.ToString()}_t.obj";
-                    if (File.Exists(pathOfd))
-                        _pathModels.Add(pathOfd);
-
-                    string pathOfd2 = Path.GetDirectoryName(ofd.FileName);
-                    pathOfd2 += $@"\{Path.GetFileNameWithoutExtension(ofd.FileName)}_{i.ToString()}_q.obj";
-                    if (File.Exists(pathOfd2))
-                        _pathModels.Add(pathOfd2);
-
-                    if (File.Exists(pathOfd) && File.Exists(pathOfd2))
-                        listBox1.Items.Add(i.ToString());
-                }
-                Render3D();
-                BattleStage_listbox(true);
-                pictureBox1.BackgroundImage = null;
             }
+            Render3D();
+            BattleStage_listbox(true);
+            pictureBox1.BackgroundImage = null;
         }
 
         private void texturedWLightToolStripMenuItem_Click(object sender, EventArgs e)
@@ -362,57 +338,47 @@ namespace SerahToolkit_SharpGL
                 Title = "Open FF8 rail.obj file (rail.obj)",
                 Filter = "Final Fantasy VIII train file (rail.obj)|rail.obj"
             };
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _state = StateRailDraw;
+            _railPath = ofd.FileName;
+            UpdateStatus(_railPath);
+            Rail rail = new Rail(ofd.FileName);
+            listBox1.Items.Clear();
+            foreach (var i in rail.GetRails())
             {
-                _state = StateRailDraw;
-                _railPath = ofd.FileName;
-                UpdateStatus(_railPath);
-                Rail rail = new Rail(ofd.FileName);
-                listBox1.Items.Clear();
-                foreach (var i in rail.GetRails())
-                {
-                    listBox1.Items.Add(i);
-                }
-                listBox1.SelectedIndex = 0;
-                railEditorToolStripMenuItem.Enabled = true;
+                listBox1.Items.Add(i);
             }
+            listBox1.SelectedIndex = 0;
+            railEditorToolStripMenuItem.Enabled = true;
         }
 
-        private void polygonModeFacesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            openGLControl.OpenGL.PolygonMode(FaceMode.FrontAndBack, PolygonMode.Filled);
-        }
+        private void polygonModeFacesToolStripMenuItem_Click(object sender, EventArgs e) => openGLControl.OpenGL.PolygonMode(FaceMode.FrontAndBack, PolygonMode.Filled);
 
-        private void polygonModePointsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetLines(true);
-        }
+        private void polygonModePointsToolStripMenuItem_Click(object sender, EventArgs e) => SetLines(true);
 
         private void convertToOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToSingleObj tso = new ToSingleObj(_lastKnownPath, listBox1.Items.Count);
-            tso.JustDoIt();
+            tso.PerformSingleOBJ();
         }
 
         private void environmentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog { Filter = "GF Mag files mag*|mag*" };
-            if (ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _gf = new GfEnviro(ofd.FileName);
+            UpdateStatus(ofd.FileName);
+            _lastKnownPath = ofd.FileName;
+            _state = StateGFenviro;
+            listBox1.Items.Clear();
+            foreach (uint a in _gf.PopulateOffsets())
             {
-                _gf = new GfEnviro(ofd.FileName);
-                UpdateStatus(ofd.FileName);
-                _lastKnownPath = ofd.FileName;
-                _state = StateGFenviro;
-                listBox1.Items.Clear();
-                foreach (int a in _gf.PopulateOffsets())
+                if (a == 0)
                 {
-                    if (a == 0)
-                    {
-                        Console.WriteLine("GFWorker: Error! Probably wrong file. No offsets found.");
-                        return;
-                    }
-                    listBox1.Items.Add(a);
+                    Console.WriteLine("GFWorker: Error! Probably wrong file. No offsets found.");
+                    return;
                 }
+                listBox1.Items.Add(a);
             }
         }
 
@@ -427,19 +393,14 @@ namespace SerahToolkit_SharpGL
         private void Render3D(int wmsetInt = 0)
         {
             _polygons.Clear();
-
             if (_state == StateBattleStageUv)
             {
                 foreach (string s in _pathModels)
                 {
                     Scene scene = SerializationEngine.Instance.LoadScene(s);
-                    if (scene != null)
-                    {
-                        foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
-                        {
-                            _polygons.Add(polygon);
-                        }
-                    }
+                    if (scene == null) continue;
+                    foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
+                        _polygons.Add(polygon);
                 }
             }
 
@@ -453,7 +414,7 @@ namespace SerahToolkit_SharpGL
                 Scene scene = SerializationEngine.Instance.LoadScene(pathOfDe);
                     if (scene != null)
                     {
-                        foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                        foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
                         {
                         polygon.IsEnabled = true;
                         _polygons.Add(polygon);
@@ -461,13 +422,13 @@ namespace SerahToolkit_SharpGL
                     }
             }
 
-            if (_state == StateGFenviro && !_gf._bForceNotDraw)
+            if (_state == StateGFenviro && !_gf.bForceNotDraw)
             {
                 _gl.ClearColor(0, 0, 0, 0);
                 Scene scene = SerializationEngine.Instance.LoadScene(GFEnviro);
                 if (scene != null)
                 {
-                    foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                    foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
                     {
                         polygon.IsEnabled = true;
                         _polygons.Add(polygon);
@@ -477,18 +438,13 @@ namespace SerahToolkit_SharpGL
             else
                 _gl.ClearColor(0, 0, 0, 0);
 
-           if(_state == StateWmset)
-            {
-
-            }
-
             if (_state == StateWmx)
             {
                 _gl.ClearColor(0, 0, 0, 0);
                 Scene scene = SerializationEngine.Instance.LoadScene(_wmxPath);
                 if (scene != null)
                 {
-                    foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                    foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
                     {
                         polygon.IsEnabled = true;
                         _polygons.Add(polygon);
@@ -496,7 +452,7 @@ namespace SerahToolkit_SharpGL
                 }
             }
 
-            if (_state == StateWmsetModel)
+            if (_state != StateWmsetModel) return;
             {
                 string pathOfDe = Path.GetDirectoryName(_lastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_q.obj";
                 if (File.Exists(pathOfDe))
@@ -504,7 +460,7 @@ namespace SerahToolkit_SharpGL
                     Scene scene = SerializationEngine.Instance.LoadScene(pathOfDe);
                     if (scene != null)
                     {
-                        foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                        foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
                         {
                             polygon.IsEnabled = true;
                             _polygons.Add(polygon);
@@ -512,12 +468,12 @@ namespace SerahToolkit_SharpGL
                     }
                 }
                 pathOfDe = Path.GetDirectoryName(_lastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_t.obj";
-                if (File.Exists(pathOfDe))
+                if (!File.Exists(pathOfDe)) return;
                 {
                     Scene scene = SerializationEngine.Instance.LoadScene(pathOfDe);
                     if (scene != null)
                     {
-                        foreach (var polygon in scene.SceneContainer.Traverse<Polygon>())
+                        foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
                         {
                             polygon.IsEnabled = true;
                             _polygons.Add(polygon);
@@ -542,9 +498,7 @@ namespace SerahToolkit_SharpGL
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (_state == StateBattleStageUv)
-            {
                 _polygons[listBox1.SelectedIndex].IsEnabled = checkBox1.Checked != true;
-            }
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -646,22 +600,18 @@ namespace SerahToolkit_SharpGL
         private void WMX_list()
         {
             Wmx wmx = new Wmx(listBox1.SelectedIndex, _lastKnownPath);
-            if(wmx.GetModelPath() != null)
-            {
-                Console.WriteLine($"WMX: Giving model to renderer...");
-                _wmxPath = wmx.GetModelPath();
-                Render3D();
-            }
+            if (wmx.GetModelPath() == null) return;
+            Console.WriteLine($"WMX: Giving model to renderer...");
+            _wmxPath = wmx.GetModelPath();
+            Render3D();
         }
 
         private void TextureLogic()
         {
-
         }
 
         private void WMSET_Listbox()
         {
-
         }
 
         private void BattleStage_listbox(bool bGenerateTextures)
@@ -684,7 +634,6 @@ namespace SerahToolkit_SharpGL
             if (bGenerateTextures)
             {
                 Console.WriteLine($"BS: Mixing textures...");
-                StageTexture st = new StageTexture(0, width, height);
                 Console.WriteLine($"BS: Collecting UV data and preparing bounding boxes");
                 for (int i = 0; i != listBox1.Items.Count; i++)
                 {
@@ -709,36 +658,30 @@ namespace SerahToolkit_SharpGL
                     Point bottomLeft = new Point((int)(Math.Round(x1)), height - (int)(Math.Round(y1)));
                     Point bottomRight = new Point((int)(Math.Round(x2)), height - (int)(Math.Round(y1)));
 
-                    if (File.Exists(pathText))
-                    {
-                        Console.WriteLine($"BS: Mixing {pathText}");
-                        Bitmap loadBmp = new Bitmap(pathText);
-                        PixelFormat pf = PixelFormat.Format24bppRgb;
-                        int wid = (topRight.X - topLeft.X) + 4;
-                        int hei = (bottomLeft.Y - topLeft.Y) + 4;
-                        wid = topLeft.X + wid > width ? wid - 4 : wid;
-                        hei = bottomRight.Y + hei > height ? hei - 4 : hei;
-                        Size sz = new Size(wid,hei);
-                        Rectangle rectangle = new Rectangle(topLeft, sz);
-                        BitmapData targetBitmapData = _bmp.LockBits(rectangle, ImageLockMode.WriteOnly, pf);
-                        BitmapData sourBitmapData = loadBmp.LockBits(rectangle, ImageLockMode.ReadOnly, pf);
-                        IntPtr workingptr = targetBitmapData.Scan0;
-                        IntPtr sourceptr = sourBitmapData.Scan0;
-                        byte[] rawLoadBmp = new byte[sourBitmapData.Stride * sourBitmapData.Height];
-                        byte[] rawBmp = new byte[targetBitmapData.Stride * targetBitmapData.Height];
-                        Marshal.Copy(workingptr, rawBmp, 0, rawBmp.Length);
-                        Marshal.Copy(sourceptr, rawLoadBmp, 0, rawLoadBmp.Length);
-
-                        for (int pixel = 0; pixel != rawLoadBmp.Length; pixel++)
-                        {
-                            rawBmp[pixel] = rawLoadBmp[pixel];
-                        }
-
-                        Marshal.Copy(rawBmp, 0, workingptr, rawBmp.Length);
-                        loadBmp.UnlockBits(sourBitmapData);
-                        _bmp.UnlockBits(targetBitmapData);
-                        Console.WriteLine($"BS: Mixing finished");
-                    }
+                    if (!File.Exists(pathText)) continue;
+                    Console.WriteLine($"BS: Mixing {pathText}");
+                    Bitmap loadBmp = new Bitmap(pathText);
+                    PixelFormat pf = PixelFormat.Format24bppRgb;
+                    int wid = (topRight.X - topLeft.X) + 4;
+                    int hei = (bottomLeft.Y - topLeft.Y) + 4;
+                    wid = topLeft.X + wid > width ? wid - 4 : wid;
+                    hei = bottomRight.Y + hei > height ? hei - 4 : hei;
+                    Size sz = new Size(wid,hei);
+                    Rectangle rectangle = new Rectangle(topLeft, sz);
+                    BitmapData targetBitmapData = _bmp.LockBits(rectangle, ImageLockMode.WriteOnly, pf);
+                    BitmapData sourBitmapData = loadBmp.LockBits(rectangle, ImageLockMode.ReadOnly, pf);
+                    IntPtr workingptr = targetBitmapData.Scan0;
+                    IntPtr sourceptr = sourBitmapData.Scan0;
+                    byte[] rawLoadBmp = new byte[sourBitmapData.Stride * sourBitmapData.Height];
+                    byte[] rawBmp = new byte[targetBitmapData.Stride * targetBitmapData.Height];
+                    Marshal.Copy(workingptr, rawBmp, 0, rawBmp.Length);
+                    Marshal.Copy(sourceptr, rawLoadBmp, 0, rawLoadBmp.Length);
+                    for (int pixel = 0; pixel != rawLoadBmp.Length; pixel++)
+                        rawBmp[pixel] = rawLoadBmp[pixel];
+                    Marshal.Copy(rawBmp, 0, workingptr, rawBmp.Length);
+                    loadBmp.UnlockBits(sourBitmapData);
+                    _bmp.UnlockBits(targetBitmapData);
+                    Console.WriteLine($"BS: Mixing finished");
                 }
                 pictureBox1.Image = _bmp;
                 _bmp2 = _bmp;
@@ -760,7 +703,7 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine($"BS: Delivered to renderer.");
                 Render3D();
             }
-            if (!bGenerateTextures)
+            if (bGenerateTextures) return;
             {
                 Console.WriteLine($"BS: Drawing UV layout");
                 while (true)
@@ -777,8 +720,7 @@ namespace SerahToolkit_SharpGL
 
                     if (index >= uv.Item1.Count - 3 && index >= uv.Item2.Count - 3)
                         break;
-                    else
-                        index += 2;
+                    index += 2;
                 }
                 g.Dispose();
                 pictureBox1.Image = _bmp;
@@ -805,10 +747,7 @@ namespace SerahToolkit_SharpGL
         private void GfLogic()
         {
             _gf.ProcessGf((int)listBox1.Items[listBox1.SelectedIndex]);
-            if (_gf._onlyVertex)
-                SetLines(true);
-            else
-                SetLines(false);
+            SetLines(_gf.OnlyVertex);
             if (GFEnviro != null)
                 Render3D();
         }
@@ -817,13 +756,10 @@ namespace SerahToolkit_SharpGL
         #region WMX
         private void PopulateWmx(string ofd)
         {
-            int count = 835;
-            int size = 0x9000;
+            const int size = 0x9000;
             listBox1.Items.Clear();
-            for (int i = 0; i != count; i++)
-            {
+            for (int i = 0; i != 835; i++)
                 listBox1.Items.Add(i*size);
-            }
         }
         #endregion
     }

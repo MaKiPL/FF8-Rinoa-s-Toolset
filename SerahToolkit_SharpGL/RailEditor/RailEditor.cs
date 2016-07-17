@@ -3,29 +3,27 @@ using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL.RailEditor
 {
-    public partial class RailEditor : Form
+    internal partial class RailEditor : Form
     {
         private byte[] rail;
         private int rot;
         private string path;
-        private const int _entrySize = 2048;
-        private const int _animationFrameSize = 16;
-        private bool bInitializing;
-        private bool bUpdatingData;
+        private const int AnimationFrameSize = 16;
+        private bool _bInitializing;
+        private bool _bUpdatingData;
 
         private byte _animationFrames;
         private byte _trainStopOne;
         private byte _trainStopTwo;
         private int _effectiveOffset;
 
-
-        public RailEditor(byte[] rail, int rot, string path)
+        internal RailEditor(byte[] rail, int rot, string path)
         {
             this.rail = rail;
             this.rot = rot;
             this.path = path;
             InitializeComponent();
-            this.Text = $"Rail editor- Track: {rot.ToString()}";
+            Text = $"Rail editor- Track: {rot.ToString()}";
             Initialize();
         }
 
@@ -36,7 +34,7 @@ namespace SerahToolkit_SharpGL.RailEditor
             if(_animationFrames > 127)
             {
                 Console.WriteLine("RailEditor: Current track has more than 127 frames. Something's wrong... Exiting");
-                this.Close();
+                Close();
             }
             Console.WriteLine("RailEd: Preinitializing track...");
             _trainStopOne = rail[rot + 4];
@@ -51,15 +49,15 @@ namespace SerahToolkit_SharpGL.RailEditor
             numericUpDown2.Maximum = _animationFrames;
             numericUpDown1.Value = _trainStopOne;
             numericUpDown2.Value = _trainStopTwo;
-            XnumericUpDown3.Maximum = Int32.MaxValue;
-            ZnumericUpDown6.Maximum = Int32.MaxValue;
-            YnumericUpDown4.Maximum = Int32.MaxValue;
-            UnumericUpDown5.Maximum = Int32.MaxValue;
-            XnumericUpDown3.Minimum = Int32.MinValue;
-            ZnumericUpDown6.Minimum = Int32.MinValue;
-            YnumericUpDown4.Minimum = Int32.MinValue;
-            UnumericUpDown5.Minimum = Int32.MinValue;
-            bInitializing = false;
+            XnumericUpDown3.Maximum = int.MaxValue;
+            ZnumericUpDown6.Maximum = int.MaxValue;
+            YnumericUpDown4.Maximum = int.MaxValue;
+            UnumericUpDown5.Maximum = int.MaxValue;
+            XnumericUpDown3.Minimum = int.MinValue;
+            ZnumericUpDown6.Minimum = int.MinValue;
+            YnumericUpDown4.Minimum = int.MinValue;
+            UnumericUpDown5.Minimum = int.MinValue;
+            _bInitializing = false;
             listBox1.SelectedIndex = 0;
             Console.WriteLine("RailEd: Ready!");
         }
@@ -70,33 +68,28 @@ namespace SerahToolkit_SharpGL.RailEditor
             Array.Copy(buffer, 0, rail, effectiveOffset, 4);
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (bInitializing)
+            if (_bInitializing)
                 return;
-            bUpdatingData = true;
-            _effectiveOffset = rot+(listBox1.SelectedIndex * _animationFrameSize)+12;
+            _bUpdatingData = true;
+            _effectiveOffset = rot+(listBox1.SelectedIndex * AnimationFrameSize)+12;
             XnumericUpDown3.Value = BitConverter.ToInt32(rail,_effectiveOffset);
             ZnumericUpDown6.Value = BitConverter.ToInt32(rail, _effectiveOffset+4);
             YnumericUpDown4.Value = BitConverter.ToInt32(rail, _effectiveOffset+8);
             UnumericUpDown5.Value = BitConverter.ToInt32(rail, _effectiveOffset+12);
-            bUpdatingData = false;
+            _bUpdatingData = false;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            if(!bInitializing)
+            if(!_bInitializing)
                 rail[rot + 4] = (byte)((int)numericUpDown1.Value & 0xFF);
         }
 
         private void numericUpDown2_ValueChanged(object sender, EventArgs e)
         {
-            if (!bInitializing)
+            if (!_bInitializing)
                 rail[rot + 8] = (byte)((int)numericUpDown2.Value & 0xFF);
         }
 
@@ -130,7 +123,7 @@ namespace SerahToolkit_SharpGL.RailEditor
 
         private void XnumericUpDown3_ValueChanged(object sender, EventArgs e)
         {
-            if (bUpdatingData)
+            if (_bUpdatingData)
                 return;
 
             UpdateAxis((int)XnumericUpDown3.Value, _effectiveOffset);
@@ -138,7 +131,7 @@ namespace SerahToolkit_SharpGL.RailEditor
 
         private void ZnumericUpDown6_ValueChanged(object sender, EventArgs e)
         {
-            if (bUpdatingData)
+            if (_bUpdatingData)
                 return;
 
             UpdateAxis((int)ZnumericUpDown6.Value, _effectiveOffset+4);
@@ -146,7 +139,7 @@ namespace SerahToolkit_SharpGL.RailEditor
 
         private void YnumericUpDown4_ValueChanged(object sender, EventArgs e)
         {
-            if (bUpdatingData)
+            if (_bUpdatingData)
                 return;
 
             UpdateAxis((int)YnumericUpDown4.Value, _effectiveOffset+8);
@@ -154,7 +147,7 @@ namespace SerahToolkit_SharpGL.RailEditor
 
         private void UnumericUpDown5_ValueChanged(object sender, EventArgs e)
         {
-            if (bUpdatingData)
+            if (_bUpdatingData)
                 return;
 
             UpdateAxis((int)UnumericUpDown5.Value, _effectiveOffset+12);
@@ -181,8 +174,8 @@ namespace SerahToolkit_SharpGL.RailEditor
                 MessageBox.Show("Too few keyframes! Can't remove another!");
                 return;
             }
-            bInitializing = true;
-            int bufferLength = 2048 - 12 - (listBox1.SelectedIndex+1 * _animationFrameSize);
+            _bInitializing = true;
+            int bufferLength = 2048 - 12 - (listBox1.SelectedIndex+1 * AnimationFrameSize);
             byte[] buffer = new byte[2048];
             Array.Copy(rail, _effectiveOffset + 16, buffer, 0, bufferLength);
             Array.Copy(buffer, 0, rail, _effectiveOffset, bufferLength);
@@ -190,9 +183,8 @@ namespace SerahToolkit_SharpGL.RailEditor
             listBox1.Items.Clear();
             for (byte i = 0; i < _animationFrames; i++)
                 listBox1.Items.Add($"Frame {i}");
-            bInitializing = false;
+            _bInitializing = false;
             Console.WriteLine("RailEd: Deleted one keyframe");
-
         }
     }
 }

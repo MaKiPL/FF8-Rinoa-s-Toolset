@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class AnalizeCff8Search
+    internal partial class AnalizeCff8Search
     {
         /// <summary>
         /// Required designer variable.

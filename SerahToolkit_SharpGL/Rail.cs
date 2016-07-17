@@ -6,13 +6,11 @@ using System.Text;
 
 namespace SerahToolkit_SharpGL
 {
-    class Rail
+    internal class Rail
     {
         private readonly string _path;
         private byte[] _railobj;
         private const int RailSize = 2048;
-        private Byte _firstStop;
-        private Byte _secondStop;
         private int _curroff;
 
         public Rail(string path)
@@ -21,19 +19,14 @@ namespace SerahToolkit_SharpGL
             ReadFile();
         }
 
-        private void ReadFile()
-        {
-            _railobj = File.ReadAllBytes(_path);
-        }
+        private void ReadFile() => _railobj = File.ReadAllBytes(_path);
 
         public List<int> GetRails()
         {
             List<int> railsOffsets = new List<int>();
 
-            for(int i = 0; i!= _railobj.Length; i+= RailSize)
-            {
+            for (int i = 0; i != _railobj.Length; i += RailSize)
                 railsOffsets.Add(i);
-            }
 
             return railsOffsets;
         }
@@ -43,10 +36,7 @@ namespace SerahToolkit_SharpGL
         {
             Console.WriteLine($"Rail: Reading rail data at {offset}");
             _curroff = offset;
-            Byte frames = _railobj[offset];
-            _firstStop = _railobj[offset + 4];
-            _secondStop = _railobj[offset + 8];
-
+            byte frames = _railobj[offset];
             string pathOfd = Path.GetDirectoryName(_path);
             pathOfd += $@"\{Path.GetFileNameWithoutExtension(_path)}_{_curroff}.obj";
 
@@ -54,7 +44,6 @@ namespace SerahToolkit_SharpGL
                 File.Delete(pathOfd);
 
             StreamWriter sw = new StreamWriter(pathOfd);
-            //STEP 2 - Header
             sw.WriteLine(@"#Made with Rinoa's toolset by MaKiPL.");
             sw.WriteLine("usemtl rail");
             sw.WriteLine("Genrated polygons are fake. You can delete them!");
@@ -72,11 +61,9 @@ namespace SerahToolkit_SharpGL
                 sw.Write(Environment.NewLine);
             }
 
-            //fake polygons
-            for(int i = 1; i<= frames-3; i+=2)
-            {
-                sw.Write(@"f {0} {1} {2}{3}", i, i + 1, i + 2, Environment.NewLine);
-            }
+            //Fake polygons
+            for (int i = 1; i <= frames - 3; i += 2)
+                sw.Write("f {0} {1} {2}{3}", i, i + 1, i + 2, Environment.NewLine);
             sw.Close();
         }
     }

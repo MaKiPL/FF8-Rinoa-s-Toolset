@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class BsVertices
+    internal partial class BsVertices
     {
         /// <summary>
         /// Required designer variable.

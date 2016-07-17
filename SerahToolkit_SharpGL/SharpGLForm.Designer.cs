@@ -16,6 +16,7 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+                _bmp.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -52,9 +53,10 @@
             this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wireframeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,7 +90,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -319,7 +320,7 @@
             // 
             this.environmentToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
             // 
@@ -334,6 +335,14 @@
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
             this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
+            // 
+            // manualGeometryRipperexpertToolStripMenuItem
+            // 
+            this.manualGeometryRipperexpertToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
+            this.manualGeometryRipperexpertToolStripMenuItem.Name = "manualGeometryRipperexpertToolStripMenuItem";
+            this.manualGeometryRipperexpertToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.manualGeometryRipperexpertToolStripMenuItem.Text = "Manual geometry ripper (expert)";
+            this.manualGeometryRipperexpertToolStripMenuItem.Click += new System.EventHandler(this.manualGeometryRipperexpertToolStripMenuItem_Click);
             // 
             // rosettaStonetextDecypherToolStripMenuItem
             // 
@@ -351,13 +360,13 @@
             this.fileScannerToolStripMenuItem.Text = "File Scanner (recognizer)";
             this.fileScannerToolStripMenuItem.Click += new System.EventHandler(this.fileScannerToolStripMenuItem_Click);
             // 
-            // manualGeometryRipperexpertToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.manualGeometryRipperexpertToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
-            this.manualGeometryRipperexpertToolStripMenuItem.Name = "manualGeometryRipperexpertToolStripMenuItem";
-            this.manualGeometryRipperexpertToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.manualGeometryRipperexpertToolStripMenuItem.Text = "Manual geometry ripper (expert)";
-            this.manualGeometryRipperexpertToolStripMenuItem.Click += new System.EventHandler(this.manualGeometryRipperexpertToolStripMenuItem_Click);
+            this.toolStripMenuItem1.Image = global::SerahToolkit_SharpGL.Properties.Resources.Search_icon;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(245, 22);
+            this.toolStripMenuItem1.Text = "FF8\\ searcher (obsolete)";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -747,14 +756,6 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::SerahToolkit_SharpGL.Properties.Resources.Search_icon;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(245, 22);
-            this.toolStripMenuItem1.Text = "FF8\\ searcher (obsolete)";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -767,7 +768,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
             this.Text = "FF8 - Rinoa\'s Toolkit- by Marcin Gomulak aka MaKiPL                           Ver" +
-    "sion: 0.9.9.9                         Last update: 15.07.2016";
+    "sion: 1.0.0.0                         Last update: 17.07.2016";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

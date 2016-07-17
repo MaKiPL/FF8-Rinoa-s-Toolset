@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL.RailEditor
 {
-    partial class RailEditor
+    internal partial class RailEditor
     {
         /// <summary>
         /// Required designer variable.

@@ -7,22 +7,18 @@ using System.IO;
 
 namespace SerahToolkit_SharpGL
 {
-    class Wmx
+    internal class Wmx
     {
         private const int Size = 0x9000;
-        private const int Segments = 835;
         private const int Blocks = 0x10;
         private readonly int[] _blockOffsets = new int[Blocks];
-        private int _id;
-        private string _path;
         private readonly byte[] _segBuffer;
 
-        private string _f = null;
-        private string _vt = null;
-        private string _v = null;
+        private string _f;
+        private string _vt;
+        private string _v;
 
-        private int _absolutePolygon = 0;
-        private float _absoluteVertice = 0;
+        private int _absolutePolygon;
 
         //wmx2obj source code
         private int _offsetX;
@@ -33,18 +29,13 @@ namespace SerahToolkit_SharpGL
 
         private string buildPath;
 
-
         public Wmx(int id,string path)
         {
             Console.WriteLine($"WMX: Initialized engine for ID: {id}, Path:{path}");
-            _id = id;
-            _path = path;
-
             _vt = null;
             _v = null;
             _f = null;
             _absolutePolygon = 0;
-            _absoluteVertice = 0;
 
             //wmx2obj
             _offsetX = _size * (id % _columnsPerRow);
@@ -57,20 +48,16 @@ namespace SerahToolkit_SharpGL
             fs.Seek((id*Size)+4, SeekOrigin.Begin);
             fs.Read(buffer, 0, buffer.Length);
             ProduceOffsets(buffer);
-
             Console.WriteLine($"WMX: Copying segment to buffer");
             _segBuffer = new byte[Size];
             fs.Seek(id*Size, SeekOrigin.Begin);
             fs.Read(_segBuffer, 0, Size);
             fs.Close();
-
-
             for (int i = 0; i != Blocks; i++)
             {
                 Console.WriteLine($"WMX: Processing block {i+1}/16");
                 Process(_blockOffsets[i], i);
             }
-
             buildPath = $"{Path.GetDirectoryName(path)}\\wmx_sector{id.ToString()}.obj";
             if (File.Exists(buildPath))
                 File.Delete(buildPath);
@@ -90,9 +77,7 @@ namespace SerahToolkit_SharpGL
         {
             Console.WriteLine($"WMX: Producing 16 blocks offsets");
             for (int i = 0; i != Blocks; i++)
-            {
                 _blockOffsets[i] = BitConverter.ToInt32(buffer, i*4);
-            }
         }
 
         private void Process(int offset, int id)
@@ -101,7 +86,6 @@ namespace SerahToolkit_SharpGL
             byte vertices = _segBuffer[offset + 1];
             byte shadow = _segBuffer[offset + 2];
             int currIndex = offset + 4;
-
             Console.WriteLine($"WMX: Block {id+1} contains:\n\tPolygons: {polygon}\n\tVertices: {vertices}\n\tNormals: {shadow}");
 
             //wmx2obj
@@ -112,7 +96,7 @@ namespace SerahToolkit_SharpGL
             Console.WriteLine($"WMX: Block {id+1}: Processing polygons and UV coordinates");
             for (int i = 0; i != polygon; i++)
             {
-                int vt = (i * 3)+1; //fake vt index- due to wavefront's obj structure it has to work like this
+                int vt = (i * 3)+1;
 
                 TriangleAdd(_segBuffer[currIndex], _segBuffer[currIndex+1], _segBuffer[currIndex+2], vt);
 
@@ -120,7 +104,6 @@ namespace SerahToolkit_SharpGL
                 _vt += $"vt {_segBuffer[currIndex + 8] / 256.0f} {_segBuffer[currIndex + 9] / 256.0f}\n";
                 _vt += $"vt {_segBuffer[currIndex + 10] / 256.0f} {_segBuffer[currIndex + 11] / 256.0f}\n";
                 //+12 is clut / TODO?
-
                 currIndex += 16;
             }
             Console.WriteLine($"WMX: Block {id+1}: Processing vertices");
@@ -129,17 +112,12 @@ namespace SerahToolkit_SharpGL
                 _v += $"v {((BitConverter.ToInt16(_segBuffer, currIndex)+_offsetX)/1000.0f).ToString().Replace(',','.')} {((BitConverter.ToInt16(_segBuffer, currIndex+2) * -1.0f)/1000.0f).ToString().Replace(',', '.')} {((BitConverter.ToInt16(_segBuffer, currIndex+4)+_offsetZ)/1000.0f).ToString().Replace(',', '.')}\n";
                 currIndex += 8;
             }
-
-            _absoluteVertice += vertices;
             _vt = _vt.Replace(',', '.');
             Console.WriteLine($"WMX: Block {id+1} finished! Preparing variables for next block.");
             _absolutePolygon += vertices+1;
         }
 
-        private void TriangleAdd(int a, int b, int c, int vt)
-        {
-            _f += string.Format("f {0}/{3} {1}/{4} {2}/{5}{6}", a+1+_absolutePolygon, b+1+_absolutePolygon, c+1+_absolutePolygon, vt, vt + 1, vt + 2,Environment.NewLine);
-        }
+        private void TriangleAdd(int a, int b, int c, int vt) => _f += string.Format($"f {a+1+_absolutePolygon}/{vt} {b+1+_absolutePolygon}/{vt + 1} {c+1+_absolutePolygon}/{vt + 2}{Environment.NewLine}");
 
         public string GetModelPath()
         {

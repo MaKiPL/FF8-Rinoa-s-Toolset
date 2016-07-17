@@ -126,8 +126,6 @@ to decode it via FF8 char table. This one is helpful
 for unknown file diagnostics and any other inspection
 on file. You may use it on everything, even EXE. 
 
-Thanks to Myst6re for providing character table.
-
 Given output is RAW decoded, without any FF8
 formatting. Keep it in mind. Use only to detect strings
 and for quick tests. </value>

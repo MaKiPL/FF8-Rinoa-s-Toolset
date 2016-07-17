@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class Parser
+    internal partial class Parser
     {
         /// <summary>
         /// Required designer variable.

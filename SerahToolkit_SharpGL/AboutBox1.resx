@@ -3606,8 +3606,30 @@
 *Uses icons by Cem
 *Uses icons by Lokas Software (http://awicons.com)
 *Uses icons by Martin Berube
-*Uses artwork by http://teramaster.deviantart.com
+*Uses artwork by http://teramaster.deviantart.com  (Thanks! :3   )
 
+
+Big thanks to the greatest people that helped me with testing, reversing and supported me!
+-------(alphabetical order)
+-Blue (for wmx2obj source and permission to use some calculation algorithms)
+
+-Halfer (for never ending support, engine reversing exchange of notes, dealing with unknown functions and codes, Giant WMX reversing process and much MUCH more!)
+
+-Kaspar01 (for never ending support, delivering ready files, testing, showing possible geometry fixes for models and much more!)
+
+-Myst6re (for LZS and chartable help and for being creator of the best archive tool!)
+
+-Shakotay2 (for showing me what geometry is, how OBJ works, how to deal with geometry models and methods of recognizing geometry binary formats. Thanks!)
+
+-Softtm17 (for BS tool testing, showing model issues and making the BS reverse productive!)
+
+-Vehek (for reversing wmset geometry section)
+
+-Yagami Light (for help with BS reversing, testing software and inspecting data)
+
+...and anyone I might have omitted. 
+
+You are the best! Thank you again for taking giant part in Final Fantasy VIII reverse engineering!
 
 
 =====================================

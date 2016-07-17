@@ -7,10 +7,10 @@ using System.IO;
 
 namespace SerahToolkit_SharpGL
 {
-    class BattleStage
+    internal class BattleStage
     {
         private int _tim;
-        private Byte[] _stage;
+        private byte[] _stage;
         private int _pass;
         private int _passOk;
         private int _index;
@@ -23,7 +23,6 @@ namespace SerahToolkit_SharpGL
         private int _absolutePolygon;
         private int _width;
         private int _height;
-
 
         private byte _u1;
         private byte _u2;
@@ -57,25 +56,19 @@ namespace SerahToolkit_SharpGL
         private StageTexture _st;
         private Bitmap _bmp;
 
-        private UInt16 _u4U;
+        private ushort _u4U;
 
-        private UInt16 _cluTsize;
+        private ushort _cluTsize;
 
-
-
-        //CONST
-        readonly Byte[] _tiMtexture = { 0x10, 0x00, 0x00, 0x00, 0x09 };
-        readonly Byte[] _geom = { 0x01, 0x00, 0x01, 0x00 };
+        readonly byte[] _tiMtexture = { 0x10, 0x00, 0x00, 0x00, 0x09 };
+        readonly byte[] _geom = { 0x01, 0x00, 0x01, 0x00 };
 
 
         public BattleStage(string path)
         {
-            if (path != "UV")
-            {
-                _pathh = path;
-                _stage = File.ReadAllBytes(path);
-            }
-
+            if (path == "UV") return;
+            _pathh = path;
+            _stage = File.ReadAllBytes(path);
         }
         public void Process(bool generateTexture = false, bool bUpdating = false)
         {
@@ -88,13 +81,10 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine($"BS: Setting up MTL");
                 SetupMtl();
                 _st = new StageTexture(_tim, _width, _height);
-
-                //Give texture to StageTexture class
-                Byte[] textureByte = new byte[_stage.Length - _textureDataInt];
+                byte[] textureByte = new byte[_stage.Length - _textureDataInt];
                 byte[] clutByte = new byte[_stage.Length - (_textureDataInt - _tim)];
                 Buffer.BlockCopy(_stage, _textureDataInt, textureByte, 0, textureByte.Length);
                 Buffer.BlockCopy(_stage, _tim, clutByte, 0, _textureDataInt - _tim);
-
                 Console.WriteLine($"BS: TextureWorker initialized");
                 string pathOfd;
                 if (generateTexture)
@@ -107,8 +97,6 @@ namespace SerahToolkit_SharpGL
                         _bmp = _st.GetBmp();
                         pathOfd = Path.GetDirectoryName(_pathh);
                         _bmp.Save(pathOfd + @"\" + Path.GetFileNameWithoutExtension(_pathh) + @"_" + i + ".png", ImageFormat.Png);
-
-
                     }
                 }
                 Console.WriteLine($"BS: TextureWorker generating palette and texture");
@@ -116,16 +104,8 @@ namespace SerahToolkit_SharpGL
                 _st.CopyTextureBuffer(textureByte);
                 _bmp = _st.GetBmp();
                 pathOfd = Path.GetDirectoryName(_pathh);
-
-
                 Console.WriteLine($"BS: TextureWorker saving texture");
                 _bmp.Save(pathOfd + @"\" + Path.GetFileNameWithoutExtension(_pathh) + ".png", ImageFormat.Png);
-
-
-
-                //if (generateTexture)
-                //  PrepareToMix(st);
-
                 foreach (int off in _itemOffsets)
                 {
                     _verts = BitConverter.ToUInt16(_stage, off + 4);
@@ -133,7 +113,7 @@ namespace SerahToolkit_SharpGL
                     _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
                     _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
                     Console.WriteLine($"BS: Offset: {off}, \n\tVertices: {_verts}\n\tTriangles: {_triangles}\n\tQuads: {_quads}");
-                    if (_triangles != 0 && _quads != 0)  //HEY!
+                    if (_triangles != 0 && _quads != 0)  
                     {
                         Process_Step(true, off);
                         Process_Step(false, off);
@@ -144,7 +124,6 @@ namespace SerahToolkit_SharpGL
                     else
                             if (_quads != 0)
                         Process_Step(false, off);
-
                 }
             }
             else
@@ -157,7 +136,7 @@ namespace SerahToolkit_SharpGL
                     _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
                     _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
 
-                    if (_triangles != 0 && _quads != 0)  //HEY!
+                    if (_triangles != 0 && _quads != 0) 
                     {
                         Process_Step(true, off);
                         Process_Step(false, off);
@@ -168,40 +147,28 @@ namespace SerahToolkit_SharpGL
                     else
                             if (_quads != 0)
                         Process_Step(false, off);
-
                 }
             }
-            
-
         }
 
         private void ResolveTex()
         {
-            // Source: VT Calc v.1.3 //13-07-2015
-            // Modified, faster code now... :)
             int tiMoffsetCluTetc = _tim + 18;
             _cluTsize = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
             Console.WriteLine($"BS: CLUT size: {_cluTsize}");
-            //DETERMINE HOW MUCH TO PASS
             tiMoffsetCluTetc += 2 + (_cluTsize * 512) + 8;
             _textureDataInt = tiMoffsetCluTetc + 4;
-            UInt16 szerU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
-            UInt16 wysoU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc + 2);
-            _width = szerU * 2;
-            _height = wysoU;
+            _width = (BitConverter.ToUInt16(_stage, tiMoffsetCluTetc) * 2);
+            _height = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc + 2);
             Console.WriteLine($"BS: Texture width: {_width}\nBS: Texture height: {_height}");
         }
 
         private void Process_Step(bool bTriangle,int off)
         {
             Console.WriteLine($"BS: Geometry parser: is triangle? {bTriangle}, offset: {off}");
-            //wipe data - Extremely MANDATORY!
             _v = null;
             _tt = null;
             _fv = null;
-            //Modified FF8 Stage to OBJ converter - ProcessQuad(int B=0) function... 
-
-            //Step 1 Open stream writer to sfd
             string pathOfd = Path.GetDirectoryName(_pathh);
             if (bTriangle)
                 pathOfd += $@"\{Path.GetFileNameWithoutExtension(_pathh)}_{off}_t.obj";
@@ -212,27 +179,11 @@ namespace SerahToolkit_SharpGL
                 File.Delete(pathOfd);
 
             StreamWriter sw = new StreamWriter(pathOfd);
-
-            //STEP 2 - Header
             sw.WriteLine(@"#Made with Rinoa's toolset by MaKiPL");
             sw.WriteLine(@"mtllib " + Path.GetFileNameWithoutExtension(_pathh) + ".mtl");
             sw.WriteLine(@"usemtl Textured");
             sw.WriteLine("");
-
-            //LET THE RIP BEGIN!
-
-            /*
-             * 
-             * VARIABLES SETUP
-             * 
-             */
-
             int vertexOffset = off + 6;
-
-
-
-            //STEP 1 - Calculate vertices
-
             int vertStop = vertexOffset + (6 * _verts);
             int loopIndexV = vertexOffset;
             Console.WriteLine($"BS: Calculating vertices from {loopIndexV} to {vertStop}");
@@ -244,15 +195,13 @@ namespace SerahToolkit_SharpGL
                 float xa = x / 2000.0f; 
                 float ya = y / 2000.0f;
                 float za = z / 2000.0f;
-                String vline = $"v {xa} {ya} {za}" + Environment.NewLine;
+                string vline = $"v {xa} {ya} {za}" + Environment.NewLine;
                 _v += vline;
                 _v = _v.Replace(',', '.');
                 loopIndexV += 6;
                 if (loopIndexV == vertStop)
                     break;
             }
-            //STEP 2 - Calculate VT
-
             if (bTriangle)
             {
                 _triangleOffset = _absolutePolygon + 12 + (_absolutePolygon % 4);
@@ -278,8 +227,6 @@ namespace SerahToolkit_SharpGL
                 _quadStop = (_currRun + (_quads * 24));
                 _trisStop = (_currRun + (_triangles * 20));
             }
-
-
             while (true)
             {
                 _u1 = _stage[_currRun];
@@ -300,14 +247,11 @@ namespace SerahToolkit_SharpGL
                     _u4 = _stage[_currRun + 10];
                     _v4 = _stage[_currRun + 11];
                 }
-
-                //Get Bit
                 var add86 = bTriangle ? 8 : 6;
                 string strByte = _stage[_currRun + add86].ToString("X2");
                 strByte = "0" + strByte.Substring(1);
-                Byte page = Byte.Parse(strByte);
+                byte page = byte.Parse(strByte);
                 int pageInt = page * 128;
-
                 float uu1 = _u1 / (float)_width + ((float)pageInt / _width);
                 float vv1 = 1.0f - (_v1 / 256.0f);
                 float uu2 = _u2 / (float)_width + ((float)pageInt / _width);
@@ -323,7 +267,6 @@ namespace SerahToolkit_SharpGL
                     float vv4 = 1.0f - (_v4 / 256.0f);
                     _tt += string.Format("vt {0} {1}" + Environment.NewLine, uu4, vv4);
                 }
-
                 if(bTriangle)
                 {
                     _changeStop = _trisStop - 20;
@@ -335,17 +278,13 @@ namespace SerahToolkit_SharpGL
                     _changeAdd = 24;
                 }
                 if (_currRun == _changeStop)
-                {
                     break;
-                }
                 _currRun += _changeAdd;
             }
-
             Console.WriteLine($"BS: Calculated UVs and fixed output");
             _v = _v.Replace(',', '.');
             _tt = _tt.Replace(',', '.');
             Console.WriteLine($"BS: Preparing face indices parsing");
-            //STEP 3 - Face indices + VT
             int faceIndex = 1;
             var faceQuad = bTriangle ? _triangleOffset : _quadOffset;
             int quadStoPq;
@@ -353,14 +292,13 @@ namespace SerahToolkit_SharpGL
                 quadStoPq = _triangleOffset + (_triangles * _changeAdd);
             else
                 quadStoPq = _quadOffset + (_quads * _changeAdd);
-
             _fv = null;
             Console.WriteLine($"BS: Polygon parsing...");
             while (true)
             {
-                UInt16 u1U = BitConverter.ToUInt16(_stage, faceQuad);
-                UInt16 u2U = BitConverter.ToUInt16(_stage, faceQuad + 2);
-                UInt16 u3U = BitConverter.ToUInt16(_stage, faceQuad + 4);
+                ushort u1U = BitConverter.ToUInt16(_stage, faceQuad);
+                ushort u2U = BitConverter.ToUInt16(_stage, faceQuad + 2);
+                ushort u3U = BitConverter.ToUInt16(_stage, faceQuad + 4);
                 if(!bTriangle)
                     _u4U = BitConverter.ToUInt16(_stage, faceQuad + 6);
 
@@ -375,12 +313,10 @@ namespace SerahToolkit_SharpGL
                 int t3 = faceIndex + 2;
                 if(!bTriangle)
                     _t5 = faceIndex + 3;
-
                 if(!bTriangle)
-                    _fv += string.Format("f {0}/{1} {2}/{3} {4}/{5} {6}/{7}" + Environment.NewLine, u1, t1, u2, t2, _u5, _t5, u3, t3);
+                    _fv += $"f {u1}/{t1} {u2}/{t2} {_u5}/{_t5} {u3}/{t3}{Environment.NewLine}";
                 else
-                    _fv += string.Format("f {0}/{1} {2}/{3} {4}/{5}" + Environment.NewLine, u1, t2, u2, t3, u3, t1);
-
+                    _fv += $"f {u1}/{t2} {u2}/{t3} {u3}/{t1}{Environment.NewLine}";
                 if (faceQuad == quadStoPq - _changeAdd)
                     break;
                 faceQuad += _changeAdd;
@@ -389,8 +325,6 @@ namespace SerahToolkit_SharpGL
                 else
                     faceIndex += 4;
             }
-
-
             Console.WriteLine($"BS: Parsing done! Outputting to file...");
             sw.WriteLine(_v);
             sw.WriteLine(_tt);
@@ -403,30 +337,19 @@ namespace SerahToolkit_SharpGL
             Console.WriteLine($"BS: Job is done!");
         }
 
-
-
-
-
-
         private void SetupMtl()
         {
-            //Build Path
             string pathOfd = Path.GetDirectoryName(_pathh);
             pathOfd += @"\" + Path.GetFileNameWithoutExtension(_pathh) + ".MTL";
 
             if (File.Exists(pathOfd))
-            {
                 File.Delete(pathOfd);
-            }
-                //SETUP - check MTL
-                //OFD HERE
-                StreamWriter swe = new StreamWriter(pathOfd);
+            StreamWriter swe = new StreamWriter(pathOfd);
                 swe.WriteLine("newmtl Textured");
                 swe.WriteLine("Kd 1.000 1.000 1.000");
                 swe.WriteLine("illum 2");
                 swe.WriteLine("map_Kd " + Path.GetFileNameWithoutExtension(_pathh) + ".png");
                 swe.Close();
-
         }
 
         private void SearchObjects()
@@ -482,16 +405,7 @@ namespace SerahToolkit_SharpGL
             return array;
         }
 
-        public Bitmap GetTexture()
-        {
-            return _bmp;
-        }
-
-        public void Editor(int offset)
-        {
-
-        }
-
+        public Bitmap GetTexture() => _bmp;
 
         public Tuple<List<double>,List<double>,int> GetUVpoints(int offset, string stagePath, int lastKnownTim)
         {
@@ -502,27 +416,22 @@ namespace SerahToolkit_SharpGL
             _stage = File.ReadAllBytes(stagePath);
             int tim = lastKnownTim;
             int tiMoffsetCluTetc = tim + 18;
-            UInt16 cluTsize = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
-            //DETERMINE HOW MUCH TO PASS
+            ushort cluTsize = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
             tiMoffsetCluTetc += 2 + (cluTsize * 512) + 8;
             _textureDataInt = tiMoffsetCluTetc + 4;
-            UInt16 szerU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
-            UInt16 wysoU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc + 2);
+            ushort szerU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc);
+            ushort wysoU = BitConverter.ToUInt16(_stage, tiMoffsetCluTetc + 2);
             _width = szerU * 2;
             _height = wysoU;
-
             _verts = BitConverter.ToUInt16(_stage, offset + 4);
             _absolutePolygon = offset + 6 + (_verts * 6);
             _triangles = BitConverter.ToUInt16(_stage, _absolutePolygon + 4 + (_absolutePolygon % 4));
             _quads = BitConverter.ToUInt16(_stage, _absolutePolygon + 6 + (_absolutePolygon % 4));
-
             if (_triangles != 0)
             {
                     _triangleOffset = _absolutePolygon + 12 + (_absolutePolygon % 4);
                     _currRun = _triangleOffset + 6;
                     _trisStop = _currRun + (_triangles * 20);
-
-
                 while (true)
                 {
                     _u1 = _stage[_currRun];
@@ -533,45 +442,28 @@ namespace SerahToolkit_SharpGL
                     byte[] clutBuff = new byte[2];
                     Buffer.BlockCopy(_stage, _currRun + 4, clutBuff, 0, 2);
                     clut = ResolveClut(clutBuff);
-
                     _u3 = _stage[_currRun + 6];
                     _v3 = _stage[_currRun + 7];
-
-                    //Get Bit
                     string strByte = _stage[_currRun + 8].ToString("X2");
                     strByte = "0" + strByte.Substring(1);
-                    Byte page = Byte.Parse(strByte);
+                    byte page = byte.Parse(strByte);
                     int pageInt = page * 128;
-
                     double uu1 = _u1 / (float)_width + ((float)pageInt / _width);
                     double vv1 = 1.0f - (_v1 / 256.0f);
                     double uu2 = _u2 / (float)_width + ((float)pageInt / _width);
                     double vv2 = 1.0f - (_v2 / 256.0f);
                     double uu3 = _u3 / (float)_width + ((float)pageInt / _width);
                     double vv3 = 1.0f - (_v3 / 256.0f);
-
-                    /*
-                    int A1 = Convert.ToInt32(Math.Ceiling(UU1 * 100));
-                    int B1 = Convert.ToInt32(Math.Ceiling(VV1 * 100));
-                    int A2 = Convert.ToInt32(Math.Ceiling(UU2 * 100));
-                    int B2 = Convert.ToInt32(Math.Ceiling(VV2 * 100));
-                    int A3 = Convert.ToInt32(Math.Ceiling(UU3 * 100));
-                    int B3 = Convert.ToInt32(Math.Ceiling(VV3 * 100));*/
-
                     uv1.Add(uu1);
                     uv2.Add(vv1);
                     uv1.Add(uu2);
                     uv2.Add(vv2);
                     uv1.Add(uu3);
                     uv2.Add(vv3);
-
                         _changeStop = _trisStop - 20;
                         _changeAdd = 20;
-
                     if (_currRun == _changeStop)
-                    {
                         break;
-                    }
                     _currRun += _changeAdd;
                 }
             }
@@ -586,12 +478,9 @@ namespace SerahToolkit_SharpGL
                 {
                     _quadOffset = _absolutePolygon + 12 + (_absolutePolygon % 4);
                 }
-
                 _currRun = _quadOffset + 8;
                 _quadStop = (_currRun + (_quads * 24));
                 _trisStop = (_currRun + (_triangles * 20));
-
-
                 while (true)
                 {
                     _u1 = _stage[_currRun];
@@ -605,11 +494,9 @@ namespace SerahToolkit_SharpGL
                     _v3 = _stage[_currRun + 9];
                     _u4 = _stage[_currRun + 10];
                     _v4 = _stage[_currRun + 11];
-
-                    //Get Bit
                     string strByte = _stage[_currRun + 6].ToString("X2");
                     strByte = "0" + strByte.Substring(1);
-                    Byte page = Byte.Parse(strByte);
+                    byte page = byte.Parse(strByte);
                     int pageInt = page * 128;
 
                     double uu1 = _u1 / (float)_width + ((float)pageInt / _width);
@@ -620,17 +507,6 @@ namespace SerahToolkit_SharpGL
                     double vv3 = 1.0f - (_v3 / 256.0f);
                     double uu4 = _u4 / (float)_width + ((float)pageInt / _width);
                     double vv4 = 1.0f - (_v4 / 256.0f);
-                    /*
-                                        int A1 = Convert.ToInt32(Math.Ceiling(UU1 * 100));
-                                        int B1 = Convert.ToInt32(Math.Ceiling(VV1 * 100));
-                                        int A2 = Convert.ToInt32(Math.Ceiling(UU2 * 100));
-                                        int B2 = Convert.ToInt32(Math.Ceiling(VV2 * 100));
-                                        int A3 = Convert.ToInt32(Math.Ceiling(UU3 * 100));
-                                        int B3 = Convert.ToInt32(Math.Ceiling(VV3 * 100));
-                                        int A4 = Convert.ToInt32(Math.Ceiling(UU4 * 100));
-                                        int B4 = Convert.ToInt32(Math.Ceiling(VV4 * 100)); 
-                                        */
-
                     uv1.Add(uu1);
                     uv2.Add(vv1);
                     uv1.Add(uu2);
@@ -639,40 +515,25 @@ namespace SerahToolkit_SharpGL
                     uv2.Add(vv3);
                     uv1.Add(uu4);
                     uv2.Add(vv4);
-
                     _changeStop = _quadStop - 24;
                     _changeAdd = 24;
-
                     if (_currRun == _changeStop)
-                    {
                         break;
-                    }
                     _currRun += _changeAdd;
                 }
             }
-
-
-            Tuple< List<double>, List<double>,int> tupRet= new Tuple<List<double>, List<double>,int>(uv1, uv2, clut);
-            //MemoryUV = new Tuple<List<double>, List<double>>(UV1, UV2);
-            return tupRet;
+            return new Tuple<List<double>, List<double>, int>(uv1, uv2, clut);
         }
 
-        public int GetLastTim()
-        {
-            return _tim;
-        }
+        public int GetLastTim() => _tim;
 
-        public Tuple<int,int> GetTextureRes()
-        {
-            Tuple<int, int> textureSizeTuple = new Tuple<int, int>(_width, _height);
-            return textureSizeTuple;
-        }
+        public Tuple<int,int> GetTextureRes() => new Tuple<int, int>(_width, _height);
 
-        private int ResolveClut(byte[] buffer)
+        private static int ResolveClut(byte[] buffer)
         {
             byte[] bt = new byte[2];
-            Buffer.BlockCopy(buffer, 1, bt, 0, 1); //00 
-            Buffer.BlockCopy(buffer, 0, bt, 1, 1); //3C
+            Buffer.BlockCopy(buffer, 1, bt, 0, 1);
+            Buffer.BlockCopy(buffer, 0, bt, 1, 1);
             BitArray ba = new BitArray(bt);
             BitArray cluTbit = new BitArray(4)
             {
@@ -685,17 +546,14 @@ namespace SerahToolkit_SharpGL
             int[] clutArray = new int[1];
             cluTbit.CopyTo(clutArray, 0);
             return clutArray[0];
-
         }
 
         public void DumpRaw(int offset, string savePath, int nextOffset = -1)
         {
-            if(nextOffset == -1)
-            {
+            if (nextOffset == -1)
                 nextOffset = SearchForByte.ByteSearch(_tiMtexture, _stage, offset);
-            }
 
-            Byte[] rawData = new byte[nextOffset - offset];
+            byte[] rawData = new byte[nextOffset - offset];
             Buffer.BlockCopy(_stage, offset, rawData, 0, nextOffset - offset);
             File.WriteAllBytes(savePath, rawData);
         }

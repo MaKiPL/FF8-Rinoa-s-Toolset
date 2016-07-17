@@ -21,7 +21,8 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -88,9 +89,9 @@
     <Compile Include="BS_Vertices.Designer.cs">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileScanner\FileScanner_Core.cs" />
-    <Compile Include="FileScanner\FileScanner_Headers.cs" />
-    <Compile Include="GF_enviro.cs" />
+    <Compile Include="FileScanner\FileScannerCore.cs" />
+    <Compile Include="FileScanner\FileScannerHeaders.cs" />
+    <Compile Include="GfEnviro.cs" />
     <Compile Include="ManualGeometryRipper.cs">
       <SubType>Form</SubType>
     </Compile>

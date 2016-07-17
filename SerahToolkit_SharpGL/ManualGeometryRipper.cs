@@ -4,10 +4,9 @@ using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL
 {
-
-    public partial class ManualGeometryRipper : Form
+    internal partial class ManualGeometryRipper : Form
     {
-        private const string _note = "This is manual geometry ripper!\nTo use it correctly you need to know what vertices, face indices, UV mapping is\nFinal Fantasy VIII uses MANY model structures and MANY ways of writing polygons\nThis works only for binary type of models and should be used only for testing and research\n\nThe options available here are only for most probably FFVIII structure\nIf you'd like similar software that would include much more ways of storing data like vertex in float, then see: \"HEX2OBJ\" by shakotay2";
+        private const string Note = "This is manual geometry ripper!\nTo use it correctly you need to know what vertices, face indices, UV mapping is\nFinal Fantasy VIII uses MANY model structures and MANY ways of writing polygons\nThis works only for binary type of models and should be used only for testing and research\n\nThe options available here are only for most probably FFVIII structure\nIf you'd like similar software that would include much more ways of storing data like vertex in float, then see: \"HEX2OBJ\" by shakotay2";
         private string _path;
         private long _fileSize;
 
@@ -25,38 +24,20 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine("MGR: NO FILE OPENED!");
                 return null;
             }
-            byte[] buffer;
-            using (FileStream fs = new FileStream(_path, FileMode.Open))
-            {
-                using (BinaryReader br = new BinaryReader(fs))
-                {
+            FileStream fs = new FileStream(_path, FileMode.Open);
+            BinaryReader br = new BinaryReader(fs);
                     fs.Seek(Convert.ToInt64(a), SeekOrigin.Begin);
-                    buffer = br.ReadBytes(Convert.ToInt32(b) * Convert.ToInt32(c));
-                }
-            }
-            if (buffer == null)
-            {
-                Console.WriteLine("MGR: Something went wrong with buffer reading from file...");
-                throw new Exception("MGR: GetBuffer returns null");
-            }
-            return buffer;
+            return br.ReadBytes(Convert.ToInt32(b) * Convert.ToInt32(c));
         }
 
-        private void importantInfoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(_note, "Please read", MessageBoxButtons.OK,MessageBoxIcon.Information);
-        }
+        private void importantInfoToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show(Note, "Please read", MessageBoxButtons.OK,MessageBoxIcon.Information);
 
-        private void howToUseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("====How to use?====\nOpen file by clicking on menu option. After that you can build full model or only generate point-of-cloud/ parse polygons\nEvery parse button for every type of data makes the textbox on right get filled by converted data. Due to fact, that you'd maybe want to parse full model, then the textbox doesn't clear itself after clicking button. Please use \"reset\" button or delete it manually.\nAfter parsing copy all text in textbox to new text file and give it .obj extension\nIf you are still unsure, see the tutorial in official Qhimm topic");
-        }
+        private void howToUseToolStripMenuItem_Click(object sender, EventArgs e) => MessageBox.Show("====How to use?====\nOpen file by clicking on menu option. After that you can build full model or only generate point-of-cloud/ parse polygons\nEvery parse button for every type of data makes the textbox on right get filled by converted data. Due to fact, that you'd maybe want to parse full model, then the textbox doesn't clear itself after clicking button. Please use \"reset\" button or delete it manually.\nAfter parsing copy all text in textbox to new text file and give it .obj extension\nIf you are still unsure, see the tutorial in official Qhimm topic");
 
         private void button2_Click(object sender, EventArgs e)
         {
             if (!CheckFile(_path))
                 return;
-
             byte vertexsize = radioButton1.Checked ? (byte)6 : (byte)8;
             if(numericUpDown2.Value*vertexsize + numericUpDown1.Value >= _fileSize)
             {
@@ -85,12 +66,9 @@ namespace SerahToolkit_SharpGL
         private void openFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                _path = ofd.FileName;
-                toolStripStatusLabel1.Text = _path;
-            }
-
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _path = ofd.FileName;
+            toolStripStatusLabel1.Text = _path;
         }
 
         private bool CheckFile(string path)
@@ -163,11 +141,11 @@ namespace SerahToolkit_SharpGL
 
                 if(listBox2.SelectedIndex == 1) //GF like
                 {
-                    a = (int)Math.Round((double)(a / 8));
-                    b = (int)Math.Round((double)(b / 8));
-                    c = (int)Math.Round((double)(c / 8));
+                    a = (int)Math.Round((double)(a / 8d));
+                    b = (int)Math.Round((double)(b / 8d));
+                    c = (int)Math.Round((double)(c / 8d));
                     if(radioButton4.Checked)
-                        d = (int)Math.Round((double)(d / 8));
+                        d = (int)Math.Round((double)(d / 8d));
                 }
 
                 if (listBox2.SelectedIndex == 2) //FF8.exe GF hidden geometry structures
@@ -181,11 +159,11 @@ namespace SerahToolkit_SharpGL
 
                 if (listBox2.SelectedIndex == 3) //FF8.exe GF hidden divide by two
                 {
-                    a = (int)Math.Round((double)(a / 2));
-                    b = (int)Math.Round((double)(b / 2));
-                    c = (int)Math.Round((double)(c / 2));
+                    a = (int)Math.Round((double)(a / 2d));
+                    b = (int)Math.Round((double)(b / 2d));
+                    c = (int)Math.Round((double)(c / 2d));
                     if (radioButton4.Checked)
-                        d = (int)Math.Round((double)(d / 2));
+                        d = (int)Math.Round((double)(d / 2d));
                 }
                 if (checkBox1.Checked)
                 {

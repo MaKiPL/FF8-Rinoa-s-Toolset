@@ -6,10 +6,9 @@ using static System.IO.Path;
 
 namespace SerahToolkit_SharpGL
 {
-    class ToSingleObj
+    internal class ToSingleObj
     {
         private readonly string _path;
-        private int _howMany;
         private FileInfo[] _forged;
 
         private int _lastVt;
@@ -18,19 +17,17 @@ namespace SerahToolkit_SharpGL
         public ToSingleObj(string path, int howMany)
         {
             _path = path;
-            _howMany = howMany;
             ForgePath();
         }
 
-        public void JustDoIt()
+        public void PerformSingleOBJ()
         {
             StringBuilder sb = new StringBuilder();
-            int fileNumber = 0;
             foreach(FileInfo a in _forged)
             {
                 if(a==_forged[0])
                 {
-                    String[] tempLinesBef = File.ReadAllLines(a.FullName);
+                    string[] tempLinesBef = File.ReadAllLines(a.FullName);
                     for (int i = 0; i != tempLinesBef.Length; i++)
                     {
                         if (tempLinesBef[i].StartsWith("v "))
@@ -41,35 +38,25 @@ namespace SerahToolkit_SharpGL
 
                     }
                     foreach (string s in tempLinesBef)
-                    {
                         sb.AppendLine(s);
-                    }
-                    fileNumber++;
-
                 }
                 else
-                { 
-                String[] tempLines = File.ReadAllLines(a.FullName);
+                {
+                    string[] tempLines = File.ReadAllLines(a.FullName);
                     int maxVerts = 0;
                     int maxVt = 0;
                     for (int i = 0; i != tempLines.Length; i++)
                     {
                         if (tempLines[i].StartsWith("v "))
-                        {
-                                maxVerts++;
-                        }
-
+                            maxVerts++;
                         if (tempLines[i].StartsWith("vt"))
-                        {
-                                maxVt++;
-                        }
+                            maxVt++;
                         if (tempLines[i].StartsWith("f"))
                         {
                             if (a.FullName.EndsWith("t.obj"))
                             {
                                 string ss = tempLines[i].Substring(2, tempLines[i].Length - 2);
                                 string[] temp = ss.Split('/');
-
                                 int t1 = int.Parse(temp[0]) + _lastV;
                                 string[] a1 = temp[1].Split(' ');
                                 string[] a2 = temp[2].Split(' ');
@@ -78,14 +65,12 @@ namespace SerahToolkit_SharpGL
                                 int u2 = int.Parse(a2[0]) + _lastVt;
                                 int t3 = int.Parse(a2[1]) + _lastV;
                                 int u3 = int.Parse(temp[3]) + _lastVt;
-
                                 tempLines[i] = $"f {t1}/{u1} {t2}/{u2} {t3}/{u3}";
                             }
                             else
                             {
                                 string ss = tempLines[i].Substring(2, tempLines[i].Length - 2);
                                 string[] temp = ss.Split('/');
-
                                 int t1 = int.Parse(temp[0]) + _lastV;
                                 string[] a1 = temp[1].Split(' ');
                                 string[] a2 = temp[2].Split(' ');
@@ -97,38 +82,27 @@ namespace SerahToolkit_SharpGL
                                 int u3 = int.Parse(a3[0]) + _lastVt;
                                 int t4 = int.Parse(a3[1]) + _lastV;
                                 int u4 = int.Parse(temp[4]) + _lastVt;
-
                                 tempLines[i] = $"f {t1}/{u1} {t2}/{u2} {t3}/{u3} {t4}/{u4}";
                             }
                         }
-
                     }
                     _lastV += maxVerts;
                     _lastVt += maxVt;
-                    fileNumber++;
                     foreach (string s in tempLines)
                         sb.AppendLine(s);
                 }
             }
-
             SaveFileDialog sfd = new SaveFileDialog {Filter = "Stage.obj|*.obj"};
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                if (File.Exists(sfd.FileName))
-                    File.Delete(sfd.FileName);
-                File.WriteAllText(sfd.FileName, sb.ToString());
-                string buildMtl = _path.Substring(0, _path.Length - 2) + ".MTL";
-                string buildPng = _path.Substring(0, _path.Length - 2) + "_col.png";
-                /*
-                if (File.Exists(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + ".MTL"))
-                    File.Delete(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + ".MTL");
-                if (File.Exists(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + "_col.png"))
-                    File.Delete(Path.GetDirectoryName(sfd.FileName) + @"\" + Path.GetFileNameWithoutExtension(path) + "_col.png");*/
-                    if(buildMtl!= GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + ".MTL")
-                        File.Copy(buildMtl, GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) +  ".MTL",true);
-                    if(buildPng!= GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + "_col.png")
-                        File.Copy(buildPng, GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + "_col.png",true);
-            }
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            if (File.Exists(sfd.FileName))
+                File.Delete(sfd.FileName);
+            File.WriteAllText(sfd.FileName, sb.ToString());
+            string buildMtl = _path.Substring(0, _path.Length - 2) + ".MTL";
+            string buildPng = _path.Substring(0, _path.Length - 2) + "_col.png";
+            if(buildMtl!= GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + ".MTL")
+                File.Copy(buildMtl, GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) +  ".MTL",true);
+            if(buildPng!= GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + "_col.png")
+                File.Copy(buildPng, GetDirectoryName(sfd.FileName) + @"\" + GetFileNameWithoutExtension(_path) + "_col.png",true);
         }
 
         private void ForgePath()

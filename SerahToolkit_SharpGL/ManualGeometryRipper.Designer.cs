@@ -1,6 +1,6 @@
 ﻿namespace SerahToolkit_SharpGL
 {
-    partial class ManualGeometryRipper
+    internal partial class ManualGeometryRipper
     {
         /// <summary>
         /// Required designer variable.

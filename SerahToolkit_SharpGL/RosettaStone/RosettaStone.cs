@@ -4,17 +4,16 @@ using System.IO;
 
 namespace SerahToolkit_SharpGL.RosettaStone
 {
-    public partial class RosettaStone : Form
+    internal partial class RosettaStone : Form
     {
         private string _modelpath;
-        private UInt32 _start;
-        private UInt32 _end;
-        private Byte[] _b;
+        private uint _start;
+        private uint _end;
+        private byte[] _b;
 
         public RosettaStone()
         {
             InitializeComponent();
-            
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -23,14 +22,13 @@ namespace SerahToolkit_SharpGL.RosettaStone
             if (ofd.ShowDialog() == DialogResult.OK)
                 _modelpath = ofd.FileName;
             CheckFile(_modelpath);
-
         }
 
         private void CheckFile(string path)
         {
             if (File.Exists(path))
             {
-                label1.Text = "Opened: " + path;
+                label1.Text = $"Opened: {path}";
                 button1.Enabled = true;
             }
             else
@@ -43,10 +41,10 @@ namespace SerahToolkit_SharpGL.RosettaStone
         private void button1_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
-            _start = (UInt32)numericUpDown1.Value;
-            _end = (UInt32)numericUpDown2.Value + 1;
+            _start = (uint)numericUpDown1.Value;
+            _end = (uint)numericUpDown2.Value + 1;
             _b = new byte[_end - _start];
-            using (var fs = new FileStream(_modelpath, FileMode.Open))
+            using (FileStream fs = new FileStream(_modelpath, FileMode.Open))
             {
                 fs.Seek(_start, SeekOrigin.Begin);
                 fs.Read(_b, 0, (int)_end - (int)_start);

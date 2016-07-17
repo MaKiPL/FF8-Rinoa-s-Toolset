@@ -2,9 +2,9 @@
 
 namespace SerahToolkit_SharpGL.FileScanner
 {
-    public class FileScanner_Headers
+    public class FileScannerHeaders
     {
-        public static List<byte[]> DebugHeaders = new List<byte[]>()
+        public List<byte[]> Headers = new List<byte[]>()
         {
             new byte[] { 0xE8, 0xFF, 0xBD, 0x27, 0x01, 0x00, 0x02, 0x24 }, //BS
             new byte[] {0xE8,0xFF,0xBD,0x27,0x03,0x00,0x02,0x24 }, //BS
@@ -23,7 +23,7 @@ namespace SerahToolkit_SharpGL.FileScanner
             new byte[] {0x41, 0x4B, 0x41, 0x4F } //AKAO
         };
 
-        public static string[] Names = new string[] // : byte
+        public string[] Names = new string[] // : byte
         {
             "Battle Stage file (.x) [I SUPPORT THIS FILE! :)  ]",
             "Battle Stage file (.x) [I SUPPORT THIS FILE! :)  ]",
@@ -39,19 +39,7 @@ namespace SerahToolkit_SharpGL.FileScanner
             "GF Environment file [I SUPPORT THIS FILE! :)  ]",
             "GF Sequence (SCOT)",
             "Scene.out",
-            "Sound AKAO file",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
-            "TODO",
+            "Sound AKAO file"
         };
     }
 }
