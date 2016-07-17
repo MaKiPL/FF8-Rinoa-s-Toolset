@@ -1,6 +1,6 @@
 Current code status: [![Build Status](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset.svg?branch=master)](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset)
 
-Current code version: 0.9.9.9 (pre-release)
+Current code version: 1.0.0.0
 
 # FF8 Rinoa's Toolset
 FF8 All-in-one modding toolset is almost complete tool to rip and view various Final Fantasy VIII objects.
