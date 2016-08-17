@@ -93,12 +93,6 @@ namespace SerahToolkit_SharpGL
         #region Menu functionality
         private void UpdateStatus(string status) => toolStripStatusLabel2.Text = status;
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            AnalizeCff8Search ff8S = new AnalizeCff8Search();
-            ff8S.ShowDialog();
-        }
-
         private void railEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_state != StateRailDraw)
