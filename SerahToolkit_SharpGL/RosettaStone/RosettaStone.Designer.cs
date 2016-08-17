@@ -87,11 +87,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(0, 17);
+            this.label3.Location = new System.Drawing.Point(3, 17);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(154, 13);
+            this.label3.Size = new System.Drawing.Size(109, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Decypher in range of (decimal):";
+            this.label3.Text = "Decypher in range of:";
             // 
             // richTextBox1
             // 
@@ -126,6 +126,7 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Hexadecimal = true;
             this.numericUpDown1.Location = new System.Drawing.Point(3, 33);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             -727379968,
@@ -138,6 +139,7 @@
             // 
             // numericUpDown2
             // 
+            this.numericUpDown2.Hexadecimal = true;
             this.numericUpDown2.Location = new System.Drawing.Point(142, 33);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             -727379968,

@@ -43,6 +43,8 @@ namespace SerahToolkit_SharpGL.RosettaStone
             richTextBox1.Clear();
             _start = (uint)numericUpDown1.Value;
             _end = (uint)numericUpDown2.Value + 1;
+            if (_start > _end || _end == 0)
+                return;
             _b = new byte[_end - _start];
             using (FileStream fs = new FileStream(_modelpath, FileMode.Open))
             {
