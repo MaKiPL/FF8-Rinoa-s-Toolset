@@ -56,7 +56,6 @@
             this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wireframeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -294,7 +293,7 @@
             // 
             this.openToolStripMenuItem2.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(127, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -303,7 +302,7 @@
             this.railEditorToolStripMenuItem.Enabled = false;
             this.railEditorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
-            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.railEditorToolStripMenuItem.Text = "Rail editor";
             this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
             // 
@@ -320,7 +319,7 @@
             // 
             this.environmentToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
             // 
@@ -329,11 +328,10 @@
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manualGeometryRipperexpertToolStripMenuItem,
             this.rosettaStonetextDecypherToolStripMenuItem,
-            this.fileScannerToolStripMenuItem,
-            this.toolStripMenuItem1});
+            this.fileScannerToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
-            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
+            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
             this.sceneoutToolStripMenuItem.Text = "Other Tools";
             // 
             // manualGeometryRipperexpertToolStripMenuItem
@@ -359,14 +357,6 @@
             this.fileScannerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.fileScannerToolStripMenuItem.Text = "File Scanner (recognizer)";
             this.fileScannerToolStripMenuItem.Click += new System.EventHandler(this.fileScannerToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = global::SerahToolkit_SharpGL.Properties.Resources.Search_icon;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(245, 22);
-            this.toolStripMenuItem1.Text = "FF8\\ searcher (obsolete)";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -873,7 +863,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualGeometryRipperexpertToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 

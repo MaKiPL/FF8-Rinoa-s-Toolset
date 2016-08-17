@@ -76,12 +76,6 @@
     <Compile Include="AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Analize_CFF8search.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Analize_CFF8search.Designer.cs">
-      <DependentUpon>Analize_CFF8search.cs</DependentUpon>
-    </Compile>
     <Compile Include="BattleStage.cs" />
     <Compile Include="BS_Vertices.cs">
       <SubType>Form</SubType>
@@ -133,9 +127,6 @@
     <Compile Include="wmx.cs" />
     <EmbeddedResource Include="AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Analize_CFF8search.resx">
-      <DependentUpon>Analize_CFF8search.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
