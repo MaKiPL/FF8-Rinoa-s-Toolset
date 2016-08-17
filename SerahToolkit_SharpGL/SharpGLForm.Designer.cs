@@ -89,6 +89,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.otherFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.namedicbinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wm2fieldtblToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lZSDecompressorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fSArchiveUnpackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -132,6 +137,7 @@
             this.worldMapObjectToolStripMenuItem,
             this.railobjToolStripMenuItem,
             this.gFToolStripMenuItem,
+            this.otherFilesToolStripMenuItem,
             this.sceneoutToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.displayToolStripMenuItem});
@@ -328,11 +334,13 @@
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.manualGeometryRipperexpertToolStripMenuItem,
             this.rosettaStonetextDecypherToolStripMenuItem,
-            this.fileScannerToolStripMenuItem});
+            this.fileScannerToolStripMenuItem,
+            this.lZSDecompressorToolStripMenuItem,
+            this.fSArchiveUnpackerToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
-            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
-            this.sceneoutToolStripMenuItem.Text = "Other Tools";
+            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.sceneoutToolStripMenuItem.Text = "Tools";
             // 
             // manualGeometryRipperexpertToolStripMenuItem
             // 
@@ -746,6 +754,42 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
+            // otherFilesToolStripMenuItem
+            // 
+            this.otherFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.namedicbinToolStripMenuItem,
+            this.wm2fieldtblToolStripMenuItem});
+            this.otherFilesToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
+            this.otherFilesToolStripMenuItem.Name = "otherFilesToolStripMenuItem";
+            this.otherFilesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.otherFilesToolStripMenuItem.Text = "Other files";
+            // 
+            // namedicbinToolStripMenuItem
+            // 
+            this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.namedicbinToolStripMenuItem.Text = "namedic.bin [TODO]";
+            // 
+            // wm2fieldtblToolStripMenuItem
+            // 
+            this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl [TODO]";
+            // 
+            // lZSDecompressorToolStripMenuItem
+            // 
+            this.lZSDecompressorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
+            this.lZSDecompressorToolStripMenuItem.Name = "lZSDecompressorToolStripMenuItem";
+            this.lZSDecompressorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.lZSDecompressorToolStripMenuItem.Text = "LZS decompressor [TODO]";
+            // 
+            // fSArchiveUnpackerToolStripMenuItem
+            // 
+            this.fSArchiveUnpackerToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
+            this.fSArchiveUnpackerToolStripMenuItem.Name = "fSArchiveUnpackerToolStripMenuItem";
+            this.fSArchiveUnpackerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.fSArchiveUnpackerToolStripMenuItem.Text = "FS archive unpacker [TODO]";
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -758,7 +802,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
             this.Text = "FF8 - Rinoa\'s Toolkit- by Marcin Gomulak aka MaKiPL                           Ver" +
-    "sion: 1.0.0.0                         Last update: 17.07.2016";
+    "sion: 1.0.0.3                         Last update: 17.08.2016";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -863,6 +907,11 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualGeometryRipperexpertToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem otherFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem namedicbinToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wm2fieldtblToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lZSDecompressorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fSArchiveUnpackerToolStripMenuItem;
     }
 }
 
