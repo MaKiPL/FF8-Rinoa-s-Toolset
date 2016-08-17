@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace SerahToolkit_SharpGL.RosettaStone
 {
@@ -27,6 +28,18 @@ namespace SerahToolkit_SharpGL.RosettaStone
                 index++;
             }
             return process;
+        }
+        public string Decipher(string _in)
+        {
+            if (_in.Length == 0)
+                return null;
+            StringBuilder sb = new StringBuilder(_in.Length);
+            foreach (byte a in _in)
+            {
+                if (a - 31 >= 0 && a < _charstable.Length)
+                    sb.Append(_charstable[a - 31]);
+            }
+            return sb.ToString();
         }
     }
 }

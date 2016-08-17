@@ -52,10 +52,15 @@
             this.railEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.otherFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.namedicbinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wm2fieldtblToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lZSDecompressorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fSArchiveUnpackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wireframeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -89,11 +94,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.otherFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.namedicbinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.wm2fieldtblToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lZSDecompressorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fSArchiveUnpackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -299,7 +299,7 @@
             // 
             this.openToolStripMenuItem2.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(127, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -308,7 +308,7 @@
             this.railEditorToolStripMenuItem.Enabled = false;
             this.railEditorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
-            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.railEditorToolStripMenuItem.Text = "Rail editor";
             this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
             // 
@@ -325,9 +325,32 @@
             // 
             this.environmentToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
+            // 
+            // otherFilesToolStripMenuItem
+            // 
+            this.otherFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.namedicbinToolStripMenuItem,
+            this.wm2fieldtblToolStripMenuItem});
+            this.otherFilesToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
+            this.otherFilesToolStripMenuItem.Name = "otherFilesToolStripMenuItem";
+            this.otherFilesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.otherFilesToolStripMenuItem.Text = "Other files";
+            // 
+            // namedicbinToolStripMenuItem
+            // 
+            this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.namedicbinToolStripMenuItem.Text = "namedic.bin";
+            this.namedicbinToolStripMenuItem.Click += new System.EventHandler(this.namedicbinToolStripMenuItem_Click);
+            // 
+            // wm2fieldtblToolStripMenuItem
+            // 
+            this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl [TODO]";
             // 
             // sceneoutToolStripMenuItem
             // 
@@ -365,6 +388,20 @@
             this.fileScannerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.fileScannerToolStripMenuItem.Text = "File Scanner (recognizer)";
             this.fileScannerToolStripMenuItem.Click += new System.EventHandler(this.fileScannerToolStripMenuItem_Click);
+            // 
+            // lZSDecompressorToolStripMenuItem
+            // 
+            this.lZSDecompressorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
+            this.lZSDecompressorToolStripMenuItem.Name = "lZSDecompressorToolStripMenuItem";
+            this.lZSDecompressorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.lZSDecompressorToolStripMenuItem.Text = "LZS decompressor [TODO]";
+            // 
+            // fSArchiveUnpackerToolStripMenuItem
+            // 
+            this.fSArchiveUnpackerToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
+            this.fSArchiveUnpackerToolStripMenuItem.Name = "fSArchiveUnpackerToolStripMenuItem";
+            this.fSArchiveUnpackerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.fSArchiveUnpackerToolStripMenuItem.Text = "FS archive unpacker [TODO]";
             // 
             // aboutToolStripMenuItem
             // 
@@ -753,42 +790,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(970, 541);
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
-            // 
-            // otherFilesToolStripMenuItem
-            // 
-            this.otherFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.namedicbinToolStripMenuItem,
-            this.wm2fieldtblToolStripMenuItem});
-            this.otherFilesToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
-            this.otherFilesToolStripMenuItem.Name = "otherFilesToolStripMenuItem";
-            this.otherFilesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.otherFilesToolStripMenuItem.Text = "Other files";
-            // 
-            // namedicbinToolStripMenuItem
-            // 
-            this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
-            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.namedicbinToolStripMenuItem.Text = "namedic.bin [TODO]";
-            // 
-            // wm2fieldtblToolStripMenuItem
-            // 
-            this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
-            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl [TODO]";
-            // 
-            // lZSDecompressorToolStripMenuItem
-            // 
-            this.lZSDecompressorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
-            this.lZSDecompressorToolStripMenuItem.Name = "lZSDecompressorToolStripMenuItem";
-            this.lZSDecompressorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.lZSDecompressorToolStripMenuItem.Text = "LZS decompressor [TODO]";
-            // 
-            // fSArchiveUnpackerToolStripMenuItem
-            // 
-            this.fSArchiveUnpackerToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
-            this.fSArchiveUnpackerToolStripMenuItem.Name = "fSArchiveUnpackerToolStripMenuItem";
-            this.fSArchiveUnpackerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.fSArchiveUnpackerToolStripMenuItem.Text = "FS archive unpacker [TODO]";
             // 
             // SharpGlForm
             // 

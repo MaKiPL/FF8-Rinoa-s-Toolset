@@ -92,6 +92,7 @@
     <Compile Include="ManualGeometryRipper.Designer.cs">
       <DependentUpon>ManualGeometryRipper.cs</DependentUpon>
     </Compile>
+    <Compile Include="namedic.cs" />
     <Compile Include="Parser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +123,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StageTexture.cs" />
+    <Compile Include="Text.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Text.Designer.cs">
+      <DependentUpon>Text.cs</DependentUpon>
+    </Compile>
     <Compile Include="toSingleOBJ.cs" />
     <Compile Include="wmset.cs" />
     <Compile Include="wmx.cs" />
@@ -155,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SharpGLForm.resx">
       <DependentUpon>SharpGLForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Text.resx">
+      <DependentUpon>Text.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />

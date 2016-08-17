@@ -756,5 +756,11 @@ namespace SerahToolkit_SharpGL
                 listBox1.Items.Add(i*size);
         }
         #endregion
+
+        private void namedicbinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Text text = new SerahToolkit_SharpGL.Text(0);
+            text.ShowDialog();
+        }
     }
 }
