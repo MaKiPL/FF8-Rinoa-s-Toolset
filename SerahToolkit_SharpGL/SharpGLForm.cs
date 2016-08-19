@@ -724,7 +724,7 @@ namespace SerahToolkit_SharpGL
         private void Rail_listbox()
         {
             Rail rail = new Rail(_railPath);
-            rail.rail((int)listBox1.Items[listBox1.SelectedIndex]);
+            rail.rail(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]));
             Render3D();
         }
 
