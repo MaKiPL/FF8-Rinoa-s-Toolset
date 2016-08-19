@@ -740,7 +740,7 @@ namespace SerahToolkit_SharpGL
 
         private void GfLogic()
         {
-            _gf.ProcessGf((int)listBox1.Items[listBox1.SelectedIndex]);
+            _gf.ProcessGf(Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]));
             SetLines(_gf.OnlyVertex);
             if (GFEnviro != null)
                 Render3D();
