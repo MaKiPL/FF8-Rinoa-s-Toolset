@@ -55,12 +55,12 @@ namespace SerahToolkit_SharpGL
         readonly List<Polygon> _polygons = new List<Polygon>();
 
         double _rotX = 0.0f;
-        double _rotY = 750.0f;
-        double _rotZ = 723.0f;
+        double _rotY = 807.97f;
+        double _rotZ = 765.81f;
         double _transX = 0.0f;
         double _transY = 0.0f;
         double _transZ = 0.0f;
-        double _w = 0.0f;
+        double _w = 13.5f;
         double _h = 0.0f;
         private static bool mouseLeftDown, mouseMiddleDown, mouseRightDown;
         private static int downX, downY, downZ;
@@ -72,7 +72,7 @@ namespace SerahToolkit_SharpGL
             _gl = openGLControl.OpenGL;
             _gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             _gl.LoadIdentity();
-            _gl.LookAt(-10, 10, _w, 0, 0, 0, 0, 1, 0); //gluOrtho2D (cx - w, cx + w, cy - h, cy + h);
+            _gl.LookAt(0, 0, _w, 0, 0, 0, 0, 1, 0); //-10, 10, _w, 0, 0, 0, 0, 1, 0
             _gl.Rotate((float)_rotX, (float)_rotY, (float)_rotZ);
             _gl.Translate(_transX, _transY, _transZ);
             foreach (Polygon polygon in _polygons)
@@ -526,8 +526,8 @@ namespace SerahToolkit_SharpGL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _rotY = 750;
-            _rotZ = 723;
+            _rotY = 807.97f;
+            _rotZ = 765.81f;
             _transX = 0.0f;
             _transY = 0.0f;
             _transZ = 0.0f;
