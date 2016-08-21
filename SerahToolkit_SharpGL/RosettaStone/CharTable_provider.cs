@@ -42,17 +42,25 @@ namespace SerahToolkit_SharpGL.RosettaStone
             return sb.ToString();
         }
 
-        public string Cipher(string _in)
+        //broken
+        //public string Cipher(string _in)
+        //{
+        //    if (_in.Length == 0)
+        //        return null;
+        //    StringBuilder sb = new StringBuilder(_in.Length);
+        //    foreach (byte a in _in)
+        //        sb.Append((byte)(LocateChar(a)+31));
+        //    return sb.ToString();
+        //}
+
+        public byte[] Cipher(string _in)
         {
             if (_in.Length == 0)
                 return null;
-            StringBuilder sb = new StringBuilder(_in.Length);
-            foreach (byte a in _in)
-            {
-                if (a - 31 >= 0 && a < _charstable.Length)
-                    sb.Append(_charstable[LocateChar(a)]);
-            }
-            return sb.ToString();
+            byte[] buffer = new byte[_in.Length];
+            for(int i=0; i!=buffer.Length; i++)
+                buffer[i] = (byte)(LocateChar((byte)_in[i]) + 31);
+            return buffer;
         }
 
         private uint LocateChar(byte a)
@@ -68,7 +76,7 @@ namespace SerahToolkit_SharpGL.RosettaStone
                     index++;
                     goto again;
                 }
-                if (a == _charstable[index][0])
+                if ((char)a == _charstable[index][0])
                     return index;
                 else index++;
             }
