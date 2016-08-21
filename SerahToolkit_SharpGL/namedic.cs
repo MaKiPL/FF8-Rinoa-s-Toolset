@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace SerahToolkit_SharpGL
 {
@@ -32,6 +33,21 @@ namespace SerahToolkit_SharpGL
                 _text[i] = ctp.Decipher(s);
             }
             return _text;
+        }
+
+        public static byte[] BuildFile()
+        {
+            byte[] buffer = new byte[sizeof(ushort) + (sizeof(ushort) * _offsets.Length) + (MathExtended.TotalLength(_text) + _offsets.Length) + sizeof(ushort)]; //count+offsets+text+terminator+end
+            Array.Copy(BitConverter.GetBytes(_count), 0, buffer, 0, sizeof(ushort)); //count
+            for(int i = 0; i!=_count; i++)
+                Array.Copy(BitConverter.GetBytes(_offsets[i]), 0, buffer, 2+i*2, sizeof(ushort)); //offsets
+
+            return buffer;
+        }
+
+        private static string[] GetCiphered()
+        {
+            return null;
         }
     }
 

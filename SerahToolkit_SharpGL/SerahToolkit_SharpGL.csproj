@@ -92,6 +92,7 @@
     <Compile Include="ManualGeometryRipper.Designer.cs">
       <DependentUpon>ManualGeometryRipper.cs</DependentUpon>
     </Compile>
+    <Compile Include="MathExtended.cs" />
     <Compile Include="namedic.cs" />
     <Compile Include="Parser.cs">
       <SubType>Form</SubType>
