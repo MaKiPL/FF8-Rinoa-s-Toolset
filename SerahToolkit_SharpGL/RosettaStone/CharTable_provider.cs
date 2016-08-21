@@ -41,5 +41,38 @@ namespace SerahToolkit_SharpGL.RosettaStone
             }
             return sb.ToString();
         }
+
+        public string Cipher(string _in)
+        {
+            if (_in.Length == 0)
+                return null;
+            StringBuilder sb = new StringBuilder(_in.Length);
+            foreach (byte a in _in)
+            {
+                if (a - 31 >= 0 && a < _charstable.Length)
+                    sb.Append(_charstable[LocateChar(a)]);
+            }
+            return sb.ToString();
+        }
+
+        private uint LocateChar(byte a)
+        {
+            uint index = 0;
+            while (true)
+            {
+                again:
+                if (index >= _charstable.Length)
+                    break;
+                if (_charstable[index].Length == 0)
+                {
+                    index++;
+                    goto again;
+                }
+                if (a == _charstable[index][0])
+                    return index;
+                else index++;
+            }
+            return 0;
+        }
     }
 }

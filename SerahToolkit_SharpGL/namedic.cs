@@ -9,6 +9,8 @@ namespace SerahToolkit_SharpGL
         public static string[] _text;
         public static ushort[] _offsets;
 
+        private static RosettaStone.CharTableProvider ctp;
+
         public static string[] GetText(string path)
         {
             if (!System.IO.File.Exists(path))
@@ -19,7 +21,7 @@ namespace SerahToolkit_SharpGL
             _offsets = new ushort[_count];
             for(int i = 0; i!=_count; i++)
                 _offsets[i] = BitConverter.ToUInt16(buffer, i * 2 + 2);
-            RosettaStone.CharTableProvider ctp = new RosettaStone.CharTableProvider();
+            ctp = new RosettaStone.CharTableProvider();
             for(int i = 0; i!=_count; i++)
             {
                 string s = null;
@@ -41,13 +43,18 @@ namespace SerahToolkit_SharpGL
             Array.Copy(BitConverter.GetBytes(_count), 0, buffer, 0, sizeof(ushort)); //count
             for(int i = 0; i!=_count; i++)
                 Array.Copy(BitConverter.GetBytes(_offsets[i]), 0, buffer, 2+i*2, sizeof(ushort)); //offsets
-
+            string[] ciphered = GetCiphered();
+            for (int i = 0; i != _count; i++)
+                Array.Copy(System.Text.Encoding.ASCII.GetBytes(ciphered[i]), 0, buffer, _offsets[i], ciphered[i].Length); //text
             return buffer;
         }
 
         private static string[] GetCiphered()
         {
-            return null;
+            string[] ciphered = new string[_count];
+            for (int i = 0; i != _text.Length; i++)
+                ciphered[i] = ctp.Cipher(_text[i]) + (char)0x00; //terminator
+            return ciphered;
         }
     }
 
