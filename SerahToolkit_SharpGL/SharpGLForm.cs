@@ -21,6 +21,7 @@ namespace SerahToolkit_SharpGL
             InitializeComponent();
             OpenGL gl = openGLControl.OpenGL;
             gl.Enable(OpenGL.GL_TEXTURE_2D);
+            
         }
 
         internal static class NativeMethods
@@ -53,6 +54,17 @@ namespace SerahToolkit_SharpGL
         OpenGL _gl;
         readonly List<Polygon> _polygons = new List<Polygon>();
 
+        double _rotX = 0.0f;
+        double _rotY = 750.0f;
+        double _rotZ = 723.0f;
+        double _transX = 0.0f;
+        double _transY = 0.0f;
+        double _transZ = 0.0f;
+        double _w = 0.0f;
+        double _h = 0.0f;
+        private static bool mouseLeftDown, mouseMiddleDown, mouseRightDown;
+        private static int downX, downY, downZ;
+
 
         #region OpenGL
         private void openGLControl_OpenGLDraw(object sender, RenderEventArgs e)
@@ -60,12 +72,9 @@ namespace SerahToolkit_SharpGL
             _gl = openGLControl.OpenGL;
             _gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
             _gl.LoadIdentity();
-            _gl.LookAt(-10, 10, -10, 0, 0, 0, 0, 1, 0);
-            _gl.Rotate(0.0f, trackBar1.Value, trackBar2.Value);
-            double xTrans = (double)trackBar3.Value / 100f;
-            double yTrans = (double)trackBar4.Value / 100f;
-            double zTrans = (double)trackBar5.Value / 100f;
-            _gl.Translate(xTrans, yTrans, zTrans);
+            _gl.LookAt(-10, 10, _w, 0, 0, 0, 0, 1, 0); //gluOrtho2D (cx - w, cx + w, cy - h, cy + h);
+            _gl.Rotate((float)_rotX, (float)_rotY, (float)_rotZ);
+            _gl.Translate(_transX, _transY, _transZ);
             foreach (Polygon polygon in _polygons)
                 {
                     if (!polygon.IsEnabled) continue;
@@ -517,11 +526,11 @@ namespace SerahToolkit_SharpGL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            trackBar1.Value = 750;
-            trackBar2.Value = 723;
-            trackBar3.Value = 0;
-            trackBar4.Value = 0;
-            trackBar5.Value = 0;
+            _rotY = 750;
+            _rotZ = 723;
+            _transX = 0.0f;
+            _transY = 0.0f;
+            _transZ = 0.0f;
         }
         #endregion
 
@@ -757,10 +766,71 @@ namespace SerahToolkit_SharpGL
         }
         #endregion
 
+
+
         private void namedicbinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Text text = new SerahToolkit_SharpGL.Text(0);
             text.ShowDialog();
+        }
+
+        private void openGLControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            mouseLeftDown = (e.Button == MouseButtons.Left) ? true : false;
+            mouseMiddleDown = (e.Button == MouseButtons.Middle) ? true : false;
+            mouseRightDown = (e.Button == MouseButtons.Right) ? true : false;
+
+
+            if (mouseLeftDown || mouseMiddleDown || mouseRightDown)
+            {
+                downX = MousePosition.X;
+                downY = MousePosition.Y;
+            }
+        }
+
+        private void openGLControl_MouseUp(object sender, MouseEventArgs e)
+        {
+            mouseLeftDown = (e.Button == MouseButtons.Left) ? false : true;
+            mouseMiddleDown = (e.Button == MouseButtons.Middle) ? false : true;
+            mouseRightDown = (e.Button == MouseButtons.Right) ? false : true;
+        }
+
+        private void openGLControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.None) //If no button is pressed, don't proceed
+                return;
+
+            if (MousePosition.X == downX && MousePosition.Y == downY) return;
+
+            if (mouseLeftDown)
+            {
+                _rotY += (downX - MousePosition.X) * 0.010f;
+                _rotZ += (downY - MousePosition.Y) * 0.010f;
+
+                if (downX != MousePosition.X || downY != MousePosition.Y)
+                    Cursor.Position = new Point(downX, downY);
+            }
+
+            if (mouseMiddleDown)
+            {
+                _transX += (MousePosition.X - downX) * 0.003f;
+                _transY -= (MousePosition.Y - downY) * 0.003f;
+
+                if (downX != MousePosition.X || downY != MousePosition.Y)
+                    Cursor.Position = new Point(downX, downY);
+            }
+            if (mouseRightDown)
+            {
+                _w += (downX - MousePosition.X) * 0.010f;
+                //_transY += (downX - MousePosition.X) * 0.010f;
+
+                if (downX != MousePosition.X || downY != MousePosition.Y)
+                    Cursor.Position = new Point(downX, downY);
+            }
+
+
+            downX = MousePosition.X;
+            downY = MousePosition.Y;
         }
     }
 }

@@ -78,22 +78,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.trackBar3 = new System.Windows.Forms.TrackBar();
-            this.trackBar4 = new System.Windows.Forms.TrackBar();
-            this.trackBar5 = new System.Windows.Forms.TrackBar();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.trackBar2 = new System.Windows.Forms.TrackBar();
-            this.openGLControl = new SharpGL.OpenGLControl();
-            this.button1 = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button1 = new System.Windows.Forms.Button();
+            this.openGLControl = new SharpGL.OpenGLControl();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -107,26 +99,18 @@
             this.splitContainer4.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
-            this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.flowLayoutPanel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
             this.flowLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -538,6 +522,7 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -576,7 +561,6 @@
             // 
             // splitContainer5.Panel1
             // 
-            this.splitContainer5.Panel1.Controls.Add(this.flowLayoutPanel3);
             this.splitContainer5.Panel1.Margin = new System.Windows.Forms.Padding(3);
             // 
             // splitContainer5.Panel2
@@ -586,59 +570,6 @@
             this.splitContainer5.Size = new System.Drawing.Size(150, 192);
             this.splitContainer5.SplitterDistance = 147;
             this.splitContainer5.TabIndex = 16;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.Controls.Add(this.label3);
-            this.flowLayoutPanel3.Controls.Add(this.trackBar3);
-            this.flowLayoutPanel3.Controls.Add(this.trackBar4);
-            this.flowLayoutPanel3.Controls.Add(this.trackBar5);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(148, 145);
-            this.flowLayoutPanel3.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label3.Location = new System.Drawing.Point(3, 3);
-            this.label3.Margin = new System.Windows.Forms.Padding(3);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(137, 13);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "==TRANSLATION (XYZ)==";
-            // 
-            // trackBar3
-            // 
-            this.trackBar3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar3.Location = new System.Drawing.Point(3, 22);
-            this.trackBar3.Maximum = 2000;
-            this.trackBar3.Minimum = -2000;
-            this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(157, 45);
-            this.trackBar3.TabIndex = 9;
-            // 
-            // trackBar4
-            // 
-            this.trackBar4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar4.Location = new System.Drawing.Point(3, 73);
-            this.trackBar4.Maximum = 2000;
-            this.trackBar4.Minimum = -2000;
-            this.trackBar4.Name = "trackBar4";
-            this.trackBar4.Size = new System.Drawing.Size(157, 45);
-            this.trackBar4.TabIndex = 10;
-            // 
-            // trackBar5
-            // 
-            this.trackBar5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar5.Location = new System.Drawing.Point(3, 124);
-            this.trackBar5.Maximum = 2000;
-            this.trackBar5.Minimum = -2000;
-            this.trackBar5.Name = "trackBar5";
-            this.trackBar5.Size = new System.Drawing.Size(157, 45);
-            this.trackBar5.TabIndex = 11;
             // 
             // flowLayoutPanel2
             // 
@@ -686,7 +617,7 @@
             // 
             // splitContainer2.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer2.Panel2.Controls.Add(this.openGLControl);
             this.splitContainer2.Size = new System.Drawing.Size(966, 337);
             this.splitContainer2.SplitterDistance = 110;
             this.splitContainer2.TabIndex = 0;
@@ -702,73 +633,6 @@
             this.listBox1.Size = new System.Drawing.Size(110, 337);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 95.48694F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 4.513064F));
-            this.tableLayoutPanel1.Controls.Add(this.trackBar2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.openGLControl, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.trackBar1, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90.93567F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.064327F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(852, 337);
-            this.tableLayoutPanel1.TabIndex = 7;
-            // 
-            // trackBar2
-            // 
-            this.trackBar2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar2.Location = new System.Drawing.Point(816, 3);
-            this.trackBar2.Maximum = 1500;
-            this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar2.Size = new System.Drawing.Size(33, 300);
-            this.trackBar2.TabIndex = 3;
-            this.trackBar2.Value = 723;
-            // 
-            // openGLControl
-            // 
-            this.openGLControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.openGLControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.openGLControl.DrawFPS = false;
-            this.openGLControl.Location = new System.Drawing.Point(3, 3);
-            this.openGLControl.Name = "openGLControl";
-            this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
-            this.openGLControl.RenderContextType = SharpGL.RenderContextType.FBO;
-            this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
-            this.openGLControl.Size = new System.Drawing.Size(807, 300);
-            this.openGLControl.TabIndex = 6;
-            this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
-            this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(813, 306);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(39, 31);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "reset";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar1.Location = new System.Drawing.Point(3, 309);
-            this.trackBar1.Maximum = 1500;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(807, 25);
-            this.trackBar1.TabIndex = 2;
-            this.trackBar1.Value = 750;
             // 
             // splitContainer1
             // 
@@ -790,6 +654,34 @@
             this.splitContainer1.Size = new System.Drawing.Size(970, 541);
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 45);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(111, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Reset camera";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // openGLControl
+            // 
+            this.openGLControl.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.openGLControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.openGLControl.DrawFPS = false;
+            this.openGLControl.Location = new System.Drawing.Point(0, 0);
+            this.openGLControl.Name = "openGLControl";
+            this.openGLControl.OpenGLVersion = SharpGL.Version.OpenGLVersion.OpenGL2_1;
+            this.openGLControl.RenderContextType = SharpGL.RenderContextType.FBO;
+            this.openGLControl.RenderTrigger = SharpGL.RenderTrigger.TimerBased;
+            this.openGLControl.Size = new System.Drawing.Size(852, 337);
+            this.openGLControl.TabIndex = 6;
+            this.openGLControl.OpenGLInitialized += new System.EventHandler(this.openGLControl_OpenGLInitialized);
+            this.openGLControl.OpenGLDraw += new SharpGL.RenderEventHandler(this.openGLControl_OpenGLDraw);
+            this.openGLControl.MouseDown += new System.Windows.Forms.MouseEventHandler(this.openGLControl_MouseDown);
+            this.openGLControl.MouseMove += new System.Windows.Forms.MouseEventHandler(this.openGLControl_MouseMove);
+            this.openGLControl.MouseUp += new System.Windows.Forms.MouseEventHandler(this.openGLControl_MouseUp);
             // 
             // SharpGlForm
             // 
@@ -819,30 +711,20 @@
             this.splitContainer4.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
             this.splitContainer5.ResumeLayout(false);
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.flowLayoutPanel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
             this.flowLayoutPanel2.ResumeLayout(false);
             this.flowLayoutPanel2.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.openGLControl)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -890,21 +772,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.SplitContainer splitContainer5;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TrackBar trackBar3;
-        private System.Windows.Forms.TrackBar trackBar4;
-        private System.Windows.Forms.TrackBar trackBar5;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TrackBar trackBar2;
-        private SharpGL.OpenGLControl openGLControl;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStripMenuItem railEditorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualGeometryRipperexpertToolStripMenuItem;
@@ -913,6 +785,8 @@
         private System.Windows.Forms.ToolStripMenuItem wm2fieldtblToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lZSDecompressorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fSArchiveUnpackerToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
+        private SharpGL.OpenGLControl openGLControl;
     }
 }
 
