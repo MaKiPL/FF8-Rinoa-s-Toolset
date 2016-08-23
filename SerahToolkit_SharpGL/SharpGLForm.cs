@@ -768,6 +768,12 @@ namespace SerahToolkit_SharpGL
 
 
 
+        private void fSArchiveUnpackerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SerahToolkit_SharpGL.Text fs = new SerahToolkit_SharpGL.Text(1);
+            fs.ShowDialog();
+        }
+
         private void namedicbinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Text text = new SerahToolkit_SharpGL.Text(0);

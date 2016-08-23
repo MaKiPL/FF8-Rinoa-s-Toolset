@@ -34,6 +34,9 @@ namespace SerahToolkit_SharpGL
                     Namedic();
                     InitializeNamedicComponent();
                     break;
+                case 1:
+                    FS();
+                    break;
                 default:
                     Close();
                     break; //for compilers sake...
@@ -51,12 +54,37 @@ namespace SerahToolkit_SharpGL
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
         }
 
+        private void FS()
+        {
+            Text = "FS Archive";
+            //dataGridView1.Columns.Remove(dataGridView1.Columns[2]);
+            //dataGridView1.Columns.Remove(dataGridView1.Columns[1]);
+            dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Columns[1].HeaderText = "Size";
+            dataGridView1.Columns[2].HeaderText = "FileName";
+            dataGridView1.Columns.Add(new DataGridViewColumn());
+            dataGridView1.Columns[3].HeaderText = "LZSS?";
+        }
+
         private void InitializeNamedicComponent()
         {
             PictureBox pb = new PictureBox();
             pb.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
             flowLayoutPanel1.Controls.Add(pb);
             pb.Click += Pb_Click;
+        }
+
+        private void InitializeFSComponent()
+        {
+            PictureBox fs = new PictureBox();
+            fs.Image = SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
+            flowLayoutPanel1.Controls.Add(fs);
+            fs.Click += fs_Click;
+        }
+
+        private void fs_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException(); //<-- TODO
         }
 
         private void Pb_Click(object sender, EventArgs e)
