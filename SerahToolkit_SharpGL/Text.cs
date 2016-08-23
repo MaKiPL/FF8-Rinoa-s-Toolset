@@ -36,6 +36,7 @@ namespace SerahToolkit_SharpGL
                     break;
                 case 1:
                     FS();
+                    InitializeFSComponent();
                     break;
                 default:
                     Close();
@@ -59,11 +60,11 @@ namespace SerahToolkit_SharpGL
             Text = "FS Archive";
             //dataGridView1.Columns.Remove(dataGridView1.Columns[2]);
             //dataGridView1.Columns.Remove(dataGridView1.Columns[1]);
-            dataGridView1.Columns[0].HeaderText = "ID";
+            /*dataGridView1.Columns[0].HeaderText = "ID";
             dataGridView1.Columns[1].HeaderText = "Size";
             dataGridView1.Columns[2].HeaderText = "FileName";
             dataGridView1.Columns.Add(new DataGridViewColumn());
-            dataGridView1.Columns[3].HeaderText = "LZSS?";
+            dataGridView1.Columns[3].HeaderText = "LZSS?";*/
         }
 
         private void InitializeNamedicComponent()
