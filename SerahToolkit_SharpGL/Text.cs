@@ -58,19 +58,19 @@ namespace SerahToolkit_SharpGL
         private void FS()
         {
             Text = "FS Archive";
-            //dataGridView1.Columns.Remove(dataGridView1.Columns[2]);
-            //dataGridView1.Columns.Remove(dataGridView1.Columns[1]);
-            /*dataGridView1.Columns[0].HeaderText = "ID";
+            dataGridView1.Refresh(); //data grid view is sooooo broken...
+            dataGridView1.Columns[0].HeaderText = "ID";
             dataGridView1.Columns[1].HeaderText = "Size";
             dataGridView1.Columns[2].HeaderText = "FileName";
             dataGridView1.Columns.Add(new DataGridViewColumn());
-            dataGridView1.Columns[3].HeaderText = "LZSS?";*/
+            dataGridView1.Columns[3].HeaderText = "LZSS?";
         }
 
         private void InitializeNamedicComponent()
         {
             PictureBox pb = new PictureBox();
             pb.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
             flowLayoutPanel1.Controls.Add(pb);
             pb.Click += Pb_Click;
         }
@@ -79,6 +79,7 @@ namespace SerahToolkit_SharpGL
         {
             PictureBox fs = new PictureBox();
             fs.Image = SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
+            fs.SizeMode = PictureBoxSizeMode.StretchImage;
             flowLayoutPanel1.Controls.Add(fs);
             fs.Click += fs_Click;
         }
