@@ -10,20 +10,18 @@ namespace SerahToolkit_SharpGL.FF8_Core
         /// </summary>
         /// <param name="data">buffer</param>
         /// <param name="fileSize">Original filesize of compressed file</param>
-        /// <param name="Size">Filesize of final file</param>
+        /// <param name="size">Filesize of final file</param>
         /// <returns>Byte array</returns>
-        public static byte[] decompressAll(byte[] data, uint fileSize, int Size)
+        public static byte[] DecompressAll(byte[] data, uint fileSize, int size)
         {
-            byte[] result;
-            byte[] text_buf;
-            result = new byte[Size];
+            var result = new byte[size];
             int curResult = 0;
-            int curBuff = 4096 - 18, flagByte = 0, offset, length, e;
+            int curBuff = 4096 - 18, flagByte = 0;
             int fileData = 4,
             endFileData = (int)fileSize;
 
 
-            text_buf = new byte[4113];
+            var textBuf = new byte[4113];
 
             while (true)
             {
@@ -39,7 +37,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
                 if ((flagByte & 1) > 0)
                 {
-                    result[curResult] = text_buf[curBuff] = data[fileData++];
+                    result[curResult] = textBuf[curBuff] = data[fileData++];
                     curBuff = (curBuff + 1) & 4095;
                     ++curResult;
                 }
@@ -47,16 +45,17 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 {
                     if (fileData + 1 >= endFileData)
                         return result;
-                    offset = (byte)BitConverter.ToChar(data, fileData++);
+                    int offset = (byte)BitConverter.ToChar(data, fileData++);
                     if (fileData + 1 >= endFileData)
                         return result;
-                    length = (byte)BitConverter.ToChar(data, fileData++);
+                    int length = (byte)BitConverter.ToChar(data, fileData++);
                     offset |= (length & 0xF0) << 4;
                     length = (length & 0xF) + 2 + offset;
 
+                    int e;
                     for (e = offset; e <= length; e++)
                     {
-                        text_buf[curBuff] = result[curResult] = text_buf[e & 4095];
+                        textBuf[curBuff] = result[curResult] = textBuf[e & 4095];
                         curBuff = ((curBuff + 1) & 4095);
                         ++curResult;
 
