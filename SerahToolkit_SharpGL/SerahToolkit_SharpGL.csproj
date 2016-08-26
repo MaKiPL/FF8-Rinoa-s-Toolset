@@ -83,6 +83,12 @@
     <Compile Include="BS_Vertices.Designer.cs">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
     </Compile>
+    <Compile Include="FF8_Core\ArchiveWorker.cs" />
+    <Compile Include="FF8_Core\LZSS.cs" />
+    <Compile Include="FF8_Core\PlayMovie.cs" />
+    <Compile Include="FF8_Core\Singleton.cs" />
+    <Compile Include="FF8_Core\SmSoundPlay.cs" />
+    <Compile Include="FF8_Core\TIM.cs" />
     <Compile Include="FileScanner\FileScannerCore.cs" />
     <Compile Include="FileScanner\FileScannerHeaders.cs" />
     <Compile Include="GfEnviro.cs" />
