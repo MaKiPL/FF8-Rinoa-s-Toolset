@@ -326,14 +326,14 @@
             // namedicbinToolStripMenuItem
             // 
             this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
-            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.namedicbinToolStripMenuItem.Text = "namedic.bin";
             this.namedicbinToolStripMenuItem.Click += new System.EventHandler(this.namedicbinToolStripMenuItem_Click);
             // 
             // wm2fieldtblToolStripMenuItem
             // 
             this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
-            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl [TODO]";
             // 
             // sceneoutToolStripMenuItem
@@ -346,7 +346,7 @@
             this.fSArchiveUnpackerToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
-            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
+            this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.sceneoutToolStripMenuItem.Text = "Tools";
             // 
             // manualGeometryRipperexpertToolStripMenuItem
@@ -696,7 +696,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
             this.Text = "FF8 - Rinoa\'s Toolkit- by Marcin Gomulak aka MaKiPL                           Ver" +
-    "sion: 1.0.0.3                         Last update: 17.08.2016";
+    "sion: 1.0.0.3                         Last update: 27.08.2016";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

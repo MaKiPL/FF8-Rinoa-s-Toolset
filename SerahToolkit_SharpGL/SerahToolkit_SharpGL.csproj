@@ -40,6 +40,9 @@
   <PropertyGroup>
     <ApplicationIcon>rin_Vex_icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>SerahToolkit_SharpGL.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="SharpGL, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

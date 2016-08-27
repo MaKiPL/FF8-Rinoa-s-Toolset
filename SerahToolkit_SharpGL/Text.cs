@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL
@@ -22,13 +23,19 @@ namespace SerahToolkit_SharpGL
             {
                 if (mode == 0)
                     ofd.Filter = "namedic.bin|namedic.bin";
+                if (mode == 1)
+                    ofd.Filter = "FS Archive|*.FS";
                 if (ofd.ShowDialog() == DialogResult.OK)
                     _path = ofd.FileName;
-                else Close();
             }
             if (_path == null)
-                Close();
-                switch(mode)
+            {
+                //Close();
+                //this.Dispose();
+                //Hide();
+                return;
+            }
+            switch(mode)
             {
                 case 0:
                     Namedic();
@@ -71,6 +78,7 @@ namespace SerahToolkit_SharpGL
             PictureBox pb = new PictureBox();
             pb.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
             pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            pb.Size = new Size(32, 32);
             flowLayoutPanel1.Controls.Add(pb);
             pb.Click += Pb_Click;
         }
@@ -79,6 +87,7 @@ namespace SerahToolkit_SharpGL
         {
             PictureBox fs = new PictureBox();
             fs.Image = SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
+            fs.Size = new Size(32,32);
             fs.SizeMode = PictureBoxSizeMode.StretchImage;
             flowLayoutPanel1.Controls.Add(fs);
             fs.Click += fs_Click;
