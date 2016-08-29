@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using SerahToolkit_SharpGL.FF8_Core;
 
 namespace SerahToolkit_SharpGL
 {
@@ -71,6 +72,11 @@ namespace SerahToolkit_SharpGL
             dataGridView1.Columns[2].HeaderText = "FileName";
             dataGridView1.Columns.Add(new DataGridViewColumn());
             dataGridView1.Columns[3].HeaderText = "LZSS?";
+            FF8_Core.ArchiveWorker aWorker = new ArchiveWorker(_path);
+            ArchiveWorker.FI[] fi = aWorker.GetFI();
+            string[] file = aWorker.GetListOfFiles();
+            for (int i = 0; i >= aWorker.GetListOfFiles().Length; i++)
+                dataGridView1.Rows.Add(i, fi[i].LengthOfUnpackedFile, file[i], fi[i].LZSS >= 1 ? "YES" : "NO");
         }
 
         private void InitializeNamedicComponent()

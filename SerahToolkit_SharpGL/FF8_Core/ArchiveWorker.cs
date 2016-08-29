@@ -8,11 +8,25 @@ namespace SerahToolkit_SharpGL.FF8_Core
         static uint _unpackedFileSize;
         static uint _locationInFs;
         static bool _compressed;
+        private readonly string _path;
+        public static string[] FileList;
+
+        public ArchiveWorker(string path)
+        {
+            _path = path;
+            string root = Path.GetDirectoryName(_path);
+            string file = Path.GetFileNameWithoutExtension(_path);
+            if (!File.Exists($"{root}\\{file}.fi")) throw new Exception($"There is no {file}.fi file!\nExiting...");
+            if (!File.Exists($"{root}\\{file}.fl")) throw new Exception($"There is no {file}.fl file!\nExiting...");
+            FileList = ProduceFileLists();
+        }
 
         public static void OpenArchive()
         {
             throw new System.Exception("NOT IMPLEMENTED!");
         }
+
+        private string[] ProduceFileLists() => File.ReadAllLines($"{Path.GetDirectoryName(_path)}\\{Path.GetFileNameWithoutExtension(_path)}.fl");
 
         public static byte[] GetBinaryFile(string archiveName, string fileName)
         {
@@ -117,14 +131,29 @@ namespace SerahToolkit_SharpGL.FF8_Core
             return temp;
         }
 
-        private byte[] Decomp()
+        public string[] GetListOfFiles() => FileList;
+
+        public struct FI
         {
-            return null;
+            public uint LengthOfUnpackedFile;
+            public uint LocationInFS;
+            public uint LZSS;
         }
 
-        public static string[] GetListOfFiles()
+        public FI[] GetFI()
         {
-            return null;
+            FI[] FileIndex = new FI[FileList.Length];
+            /*byte[] buffer =
+                File.ReadAllBytes($"{Path.GetDirectoryName(_path)}\\{Path.GetFileNameWithoutExtension(_path)}.fl");*/
+            using (FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read))
+                using (BinaryReader br = new BinaryReader(fs))
+                    for (int i = 0; i >= FileIndex.Length; i++)
+                    {
+                        FileIndex[i].LengthOfUnpackedFile = br.ReadUInt32();
+                        FileIndex[i].LocationInFS = br.ReadUInt32();
+                        FileIndex[i].LZSS = br.ReadUInt32();
+                    }
+            return FileIndex;
         }
     }
 }
