@@ -143,11 +143,10 @@ namespace SerahToolkit_SharpGL.FF8_Core
         public FI[] GetFI()
         {
             FI[] FileIndex = new FI[FileList.Length];
-            /*byte[] buffer =
-                File.ReadAllBytes($"{Path.GetDirectoryName(_path)}\\{Path.GetFileNameWithoutExtension(_path)}.fl");*/
-            using (FileStream fs = new FileStream(_path, FileMode.Open, FileAccess.Read))
+            string flPath = $"{Path.GetDirectoryName(_path)}\\{Path.GetFileNameWithoutExtension(_path)}.fi";
+            using (FileStream fs = new FileStream(flPath, FileMode.Open, FileAccess.Read))
                 using (BinaryReader br = new BinaryReader(fs))
-                    for (int i = 0; i >= FileIndex.Length; i++)
+                    for (int i = 0; i <= FileIndex.Length-1; i++)
                     {
                         FileIndex[i].LengthOfUnpackedFile = br.ReadUInt32();
                         FileIndex[i].LocationInFS = br.ReadUInt32();

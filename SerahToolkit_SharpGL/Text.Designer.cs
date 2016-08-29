@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Offset = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Content = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -56,10 +56,18 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(398, 262);
+            this.splitContainer1.Size = new System.Drawing.Size(500, 262);
             this.splitContainer1.SplitterDistance = 32;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(500, 32);
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // dataGridView1
             // 
@@ -76,7 +84,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(398, 229);
+            this.dataGridView1.Size = new System.Drawing.Size(500, 229);
             this.dataGridView1.TabIndex = 0;
             // 
             // ID
@@ -105,19 +113,12 @@
             this.Content.Name = "Content";
             this.Content.Width = 69;
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(398, 32);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
             // Text
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(398, 262);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(500, 262);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Text";
             this.Text = "Text";

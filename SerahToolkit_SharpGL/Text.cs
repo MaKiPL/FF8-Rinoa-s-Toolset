@@ -68,14 +68,15 @@ namespace SerahToolkit_SharpGL
             Text = "FS Archive";
             dataGridView1.Refresh(); //data grid view is sooooo broken...
             dataGridView1.Columns[0].HeaderText = "ID";
+//            dataGridView1.Columns[0].CellTemplate = DataGridViewTextBoxCell;
             dataGridView1.Columns[1].HeaderText = "Size";
             dataGridView1.Columns[2].HeaderText = "FileName";
-            dataGridView1.Columns.Add(new DataGridViewColumn());
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
             dataGridView1.Columns[3].HeaderText = "LZSS?";
             FF8_Core.ArchiveWorker aWorker = new ArchiveWorker(_path);
             ArchiveWorker.FI[] fi = aWorker.GetFI();
             string[] file = aWorker.GetListOfFiles();
-            for (int i = 0; i >= aWorker.GetListOfFiles().Length; i++)
+            for (int i = 0; i <= aWorker.GetListOfFiles().Length-1; i++)
                 dataGridView1.Rows.Add(i, fi[i].LengthOfUnpackedFile, file[i], fi[i].LZSS >= 1 ? "YES" : "NO");
         }
 
