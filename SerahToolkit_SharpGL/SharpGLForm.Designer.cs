@@ -378,14 +378,14 @@
             this.lZSDecompressorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
             this.lZSDecompressorToolStripMenuItem.Name = "lZSDecompressorToolStripMenuItem";
             this.lZSDecompressorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.lZSDecompressorToolStripMenuItem.Text = "LZS decompressor [TODO]";
+            this.lZSDecompressorToolStripMenuItem.Text = "LZS decompressor";
             // 
             // fSArchiveUnpackerToolStripMenuItem
             // 
             this.fSArchiveUnpackerToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Book_icon;
             this.fSArchiveUnpackerToolStripMenuItem.Name = "fSArchiveUnpackerToolStripMenuItem";
             this.fSArchiveUnpackerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.fSArchiveUnpackerToolStripMenuItem.Text = "FS archive unpacker [TODO]";
+            this.fSArchiveUnpackerToolStripMenuItem.Text = "FS archive unpacker";
             this.fSArchiveUnpackerToolStripMenuItem.Click += new System.EventHandler(this.fSArchiveUnpackerToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem

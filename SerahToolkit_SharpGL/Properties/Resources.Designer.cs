@@ -241,6 +241,15 @@ namespace SerahToolkit_SharpGL.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        internal static string Text_InitializeFSComponent_Export {
+            get {
+                return ResourceManager.GetString("Text_InitializeFSComponent_Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap vw_beetle_icon {

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using SerahToolkit_SharpGL.FF8_Core;
+using SerahToolkit_SharpGL.Properties;
 
 namespace SerahToolkit_SharpGL
 {
@@ -10,6 +12,8 @@ namespace SerahToolkit_SharpGL
         private string _path;
         bool _bError = false;
         private byte mode;
+
+        private FF8_Core.ArchiveWorker aWorker;
 
         /// <summary>
         /// Mode: 
@@ -73,7 +77,7 @@ namespace SerahToolkit_SharpGL
             dataGridView1.Columns[2].HeaderText = "FileName";
             dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
             dataGridView1.Columns[3].HeaderText = "LZSS?";
-            FF8_Core.ArchiveWorker aWorker = new ArchiveWorker(_path);
+            aWorker = new ArchiveWorker(_path);
             ArchiveWorker.FI[] fi = aWorker.GetFI();
             string[] file = aWorker.GetListOfFiles();
             for (int i = 0; i <= aWorker.GetListOfFiles().Length-1; i++)
@@ -98,11 +102,29 @@ namespace SerahToolkit_SharpGL
             fs.SizeMode = PictureBoxSizeMode.StretchImage;
             flowLayoutPanel1.Controls.Add(fs);
             fs.Click += fs_Click;
+            fs.Text = Resources.Text_InitializeFSComponent_Export; //test
+            dataGridView1.ReadOnly = true;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.Refresh();
         }
 
         private void fs_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException(); //<-- TODO
+            DataGridViewSelectedRowCollection rowCollection = dataGridView1.SelectedRows;
+            if(rowCollection.Count == 1)
+                FS_SingleFile(rowCollection[0].Cells[3].Value);
+            if(rowCollection.Count > 1)
+                FS_MultiFiles(rowCollection);
+        }
+
+        private void FS_MultiFiles(object collections)
+        {
+            
+        }
+
+        private void FS_SingleFile(object file)
+        {
+            byte[] buffer = ArchiveWorker.GetBinaryFile(Path.GetFileNameWithoutExtension(aWorker._path), file.ToString());
         }
 
         private void Pb_Click(object sender, EventArgs e)

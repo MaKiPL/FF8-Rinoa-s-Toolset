@@ -8,14 +8,14 @@ namespace SerahToolkit_SharpGL.FF8_Core
         static uint _unpackedFileSize;
         static uint _locationInFs;
         static bool _compressed;
-        private readonly string _path;
+        public readonly string _path;
         public static string[] FileList;
 
         public ArchiveWorker(string path)
         {
             _path = path;
-            string root = Path.GetDirectoryName(_path);
-            string file = Path.GetFileNameWithoutExtension(_path);
+            string root = System.IO.Path.GetDirectoryName(_path);
+            string file = System.IO.Path.GetFileNameWithoutExtension(_path);
             if (!File.Exists($"{root}\\{file}.fi")) throw new Exception($"There is no {file}.fi file!\nExiting...");
             if (!File.Exists($"{root}\\{file}.fl")) throw new Exception($"There is no {file}.fl file!\nExiting...");
             FileList = ProduceFileLists();
@@ -26,7 +26,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
             throw new System.Exception("NOT IMPLEMENTED!");
         }
 
-        private string[] ProduceFileLists() => File.ReadAllLines($"{Path.GetDirectoryName(_path)}\\{Path.GetFileNameWithoutExtension(_path)}.fl");
+        private string[] ProduceFileLists() => File.ReadAllLines($"{System.IO.Path.GetDirectoryName(_path)}\\{System.IO.Path.GetFileNameWithoutExtension(_path)}.fl");
 
         public static byte[] GetBinaryFile(string archiveName, string fileName)
         {
@@ -143,7 +143,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
         public FI[] GetFI()
         {
             FI[] FileIndex = new FI[FileList.Length];
-            string flPath = $"{Path.GetDirectoryName(_path)}\\{Path.GetFileNameWithoutExtension(_path)}.fi";
+            string flPath = $"{System.IO.Path.GetDirectoryName(_path)}\\{System.IO.Path.GetFileNameWithoutExtension(_path)}.fi";
             using (FileStream fs = new FileStream(flPath, FileMode.Open, FileAccess.Read))
                 using (BinaryReader br = new BinaryReader(fs))
                     for (int i = 0; i <= FileIndex.Length-1; i++)
