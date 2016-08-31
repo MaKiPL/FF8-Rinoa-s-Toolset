@@ -774,6 +774,25 @@ namespace SerahToolkit_SharpGL
             fs.ShowDialog();
         }
 
+        private void lZSDecompressorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Text_LZSS textLzss = new Text_LZSS();
+            byte[] buffer = textLzss.TryDecompress();
+            if (buffer != null)
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.Filter = $"{textLzss.fileSave}.unlzs|{textLzss.fileSave}.unlzs";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllBytes(sfd.FileName, buffer);
+                        Console.WriteLine("aLZSS: Succesfully decompressed file!");
+                    }
+                }
+            }
+            else Console.WriteLine("aLZSS: This file is not LZSS compressed?");
+        }
+
         private void namedicbinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Text text = new SerahToolkit_SharpGL.Text(0);

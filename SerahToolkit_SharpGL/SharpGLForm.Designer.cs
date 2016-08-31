@@ -379,6 +379,7 @@
             this.lZSDecompressorToolStripMenuItem.Name = "lZSDecompressorToolStripMenuItem";
             this.lZSDecompressorToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.lZSDecompressorToolStripMenuItem.Text = "LZS decompressor";
+            this.lZSDecompressorToolStripMenuItem.Click += new System.EventHandler(this.lZSDecompressorToolStripMenuItem_Click);
             // 
             // fSArchiveUnpackerToolStripMenuItem
             // 

@@ -226,4 +226,22 @@ namespace SerahToolkit_SharpGL
             }
         }
     }
+
+    public class Text_LZSS
+    {
+        public string fileSave;
+
+        public /*bool*/ byte[] TryDecompress()
+        {
+            string s;
+            using (OpenFileDialog ofd = new OpenFileDialog())
+                if (ofd.ShowDialog() == DialogResult.OK)
+                    s = ofd.FileName;
+                else return null/*false*/;
+            fileSave = Path.GetFileName(s);
+            byte[] buffer = System.IO.File.ReadAllBytes(s);
+            //return LZSS.DecompressAll(buffer, (uint)buffer.Length).Length > 0 ? false:g
+            return LZSS.DecompressAll(buffer, (uint) buffer.Length);
+        }
+    }
 }
