@@ -65,7 +65,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
                         for (e = offset; e <= length; e++)
                         {
                             textBuf[curBuff] = result[curResult] = textBuf[e & 4095];
-                            curBuff = ((curBuff + 1) & 4095);
+                            curBuff = (curBuff + 1) & 4095;
                             ++curResult;
                         }
                     }
