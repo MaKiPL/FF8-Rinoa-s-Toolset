@@ -105,26 +105,60 @@ namespace SerahToolkit_SharpGL
             fs.Text = Resources.Text_InitializeFSComponent_Export; //test
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.MultiSelect = true;
             dataGridView1.Refresh();
         }
 
         private void fs_Click(object sender, EventArgs e)
         {
-            DataGridViewSelectedRowCollection rowCollection = dataGridView1.SelectedRows;
+            DataGridViewSelectedCellCollection rowCollection = dataGridView1.SelectedCells;
             if(rowCollection.Count == 1)
-                FS_SingleFile(rowCollection[0].Cells[3].Value);
+                FS_SingleFile(rowCollection[0].Value);
+                //FS_SingleFile(rowCollection[0].Cells[2].Value);
             if(rowCollection.Count > 1)
                 FS_MultiFiles(rowCollection);
         }
 
-        private void FS_MultiFiles(object collections)
+        private void FS_MultiFiles(DataGridViewSelectedCellCollection collections)
         {
-            
+            string dir;
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            {
+                fbd.Description = "Select folder where you want to extract selected files";
+                if (fbd.ShowDialog() == DialogResult.OK)
+                    dir = fbd.SelectedPath;
+                else return;
+            }
+            for (int i = 0; i != collections.Count; i++)
+                saveFSfile(dir,
+                    //collections[i].Cells[2].Value.ToString().Substring(16),
+                    collections[i].Value.ToString().Substring(16),
+                    ArchiveWorker.GetBinaryFile(
+                        $"{Path.GetDirectoryName(aWorker._path)}\\{Path.GetFileNameWithoutExtension(aWorker._path)}",
+                        collections[i].Value.ToString()));
+        }
+
+        private void saveFSfile(string path, string filename, byte[] buffer)
+        {
+            Console.WriteLine($"Exported file: {filename}");
+            System.IO.Directory.CreateDirectory($"{path}\\{Path.GetDirectoryName(filename)}");
+            File.WriteAllBytes($"{path}\\{filename}", buffer);
         }
 
         private void FS_SingleFile(object file)
         {
-            byte[] buffer = ArchiveWorker.GetBinaryFile(Path.GetFileNameWithoutExtension(aWorker._path), file.ToString());
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = $"{Path.GetFileName(file.ToString())}|{Path.GetFileName(file.ToString())}";
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    File.WriteAllBytes(sfd.FileName,
+                        ArchiveWorker.GetBinaryFile(
+                            $"{Path.GetDirectoryName(aWorker._path)}\\{Path.GetFileNameWithoutExtension(aWorker._path)}",
+                            file.ToString()));
+                    Console.WriteLine($"Saved file: {file.ToString().Substring(16)}");
+                }
+            }
         }
 
         private void Pb_Click(object sender, EventArgs e)

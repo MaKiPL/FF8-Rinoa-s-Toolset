@@ -30,7 +30,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
         public static byte[] GetBinaryFile(string archiveName, string fileName)
         {
-            string a = @"C:\ff8\data\eng\" + fileName;
+            string a = /*@"C:\ff8\data\eng\" + */ fileName;
 
             byte[] isComp = GetBin(archiveName, a);
             return _compressed ? LZSS.DecompressAll(isComp, (uint)isComp.Length, (int)_unpackedFileSize) : isComp;
