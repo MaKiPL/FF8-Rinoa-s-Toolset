@@ -326,15 +326,16 @@
             // namedicbinToolStripMenuItem
             // 
             this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
-            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.namedicbinToolStripMenuItem.Text = "namedic.bin";
             this.namedicbinToolStripMenuItem.Click += new System.EventHandler(this.namedicbinToolStripMenuItem_Click);
             // 
             // wm2fieldtblToolStripMenuItem
             // 
             this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
-            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl [TODO]";
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl";
+            this.wm2fieldtblToolStripMenuItem.Click += new System.EventHandler(this.wm2fieldtblToolStripMenuItem_Click);
             // 
             // sceneoutToolStripMenuItem
             // 

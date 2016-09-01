@@ -140,6 +140,7 @@
       <DependentUpon>Text.cs</DependentUpon>
     </Compile>
     <Compile Include="toSingleOBJ.cs" />
+    <Compile Include="wm2field.cs" />
     <Compile Include="wmset.cs" />
     <Compile Include="wmx.cs" />
     <EmbeddedResource Include="AboutBox1.resx">

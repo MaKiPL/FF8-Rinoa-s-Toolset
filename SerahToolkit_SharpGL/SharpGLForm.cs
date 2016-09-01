@@ -793,6 +793,12 @@ namespace SerahToolkit_SharpGL
             else Console.WriteLine("aLZSS: This file is not LZSS compressed?");
         }
 
+        private void wm2fieldtblToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SerahToolkit_SharpGL.Text text = new Text(2);
+            text.ShowDialog();
+        }
+
         private void namedicbinToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Text text = new SerahToolkit_SharpGL.Text(0);

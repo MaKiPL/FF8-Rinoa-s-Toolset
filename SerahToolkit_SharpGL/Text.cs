@@ -9,15 +9,17 @@ namespace SerahToolkit_SharpGL
 {
     public partial class Text : Form
     {
-        private string _path;
+        private readonly string _path;
         bool _bError = false;
-        private byte mode;
+        private readonly byte mode;
 
         private FF8_Core.ArchiveWorker aWorker;
 
         /// <summary>
         /// Mode: 
         /// 0= namedic
+        /// 1= FS
+        /// 2= wm2field
         /// </summary>
         /// <param name="mode"></param>
         public Text(byte mode)
@@ -30,6 +32,8 @@ namespace SerahToolkit_SharpGL
                     ofd.Filter = "namedic.bin|namedic.bin";
                 if (mode == 1)
                     ofd.Filter = "FS Archive|*.FS";
+                if (mode == 2)
+                    ofd.Filter = "wm2field.tbl|wm2field.tbl";
                 if (ofd.ShowDialog() == DialogResult.OK)
                     _path = ofd.FileName;
             }
@@ -50,11 +54,25 @@ namespace SerahToolkit_SharpGL
                     FS();
                     InitializeFSComponent();
                     break;
+                case 2:
+                    wm2field();
+                    Initializewm2fComponent();
+                    break;
                 default:
                     Close();
                     break; //for compilers sake...
             }
 
+        }
+
+        private void Initializewm2fComponent()
+        {
+           ;
+        }
+
+        private void wm2field()
+        {
+            
         }
 
         private void Namedic()
