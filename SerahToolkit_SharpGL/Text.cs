@@ -14,6 +14,7 @@ namespace SerahToolkit_SharpGL
         private readonly byte mode;
 
         private FF8_Core.ArchiveWorker aWorker;
+        private SerahToolkit_SharpGL.wm2field.wm2f[] wm2fCol;
 
         /// <summary>
         /// Mode: 
@@ -67,12 +68,33 @@ namespace SerahToolkit_SharpGL
 
         private void Initializewm2fComponent()
         {
-           ;
+           
         }
 
         private void wm2field()
         {
-            
+            Text = "WM2FIELD";
+            dataGridView1.Refresh();
+            dataGridView1.Columns[0].HeaderText = "Entry ID";
+            dataGridView1.Columns[1].HeaderText = "FieldX";
+            dataGridView1.Columns[2].HeaderText = "FieldY";
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[3].HeaderText = "FieldZ";
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[4].HeaderText = "FieldID";
+            dataGridView1.Columns.Add(new DataGridViewTextBoxColumn());
+            dataGridView1.Columns[5].HeaderText = "UnknownPointer";
+            dataGridView1.Columns[0].ReadOnly = true;
+            dataGridView1.Refresh();
+
+            wm2fCol = new wm2field.wm2f[SerahToolkit_SharpGL.wm2field.ENTRIES];
+            SerahToolkit_SharpGL.wm2field wm2 = new wm2field(_path);
+            for (int i = 0; i != 72; i++)
+            {
+                wm2fCol[i] = wm2.ReadEntry((uint) i);
+                dataGridView1.Rows.Add(i, wm2fCol[i].FieldX, wm2fCol[i].FieldY, wm2fCol[i].FieldZ, wm2fCol[i].FieldID,
+                    wm2fCol[i].UnknownPointer);
+            }
         }
 
         private void Namedic()
