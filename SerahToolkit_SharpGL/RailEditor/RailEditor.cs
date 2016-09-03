@@ -97,7 +97,7 @@ namespace SerahToolkit_SharpGL.RailEditor
         {
             if(MessageBox.Show("Are you sure?\nThe file would be overwritten!", "Caution!", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if(_animationFrames >= _trainStopOne || _animationFrames >= _trainStopTwo)
+                if(_animationFrames <= _trainStopOne || _animationFrames <= _trainStopTwo)
                 {
                     MessageBox.Show("Please correct the train stop indexes!\nIndex cannot be bigger than amount of frames!");
                     return;
