@@ -21,7 +21,6 @@ namespace SerahToolkit_SharpGL
             _offsets = new ushort[_count];
             for(int i = 0; i!=_count; i++)
                 _offsets[i] = BitConverter.ToUInt16(buffer, i * 2 + 2);
-            ctp = new RosettaStone.CharTableProvider();
             for(int i = 0; i!=_count; i++)
             {
                 string s = null;
@@ -32,7 +31,7 @@ namespace SerahToolkit_SharpGL
                     s += (char)buffer[index];
                     index++;
                 }
-                _text[i] = ctp.Decipher(s);
+                _text[i] = RosettaStone.FF8Text.BuildString(s);
             }
             return _text;
         }
@@ -44,16 +43,8 @@ namespace SerahToolkit_SharpGL
             for(int i = 0; i!=_count; i++)
                 Array.Copy(BitConverter.GetBytes(_offsets[i]), 0, buffer, 2+i*2, sizeof(ushort)); //offsets
             for (int i = 0; i != _count; i++)
-                Array.Copy(GetCiphered(i), 0, buffer, _offsets[i], _text[i].Length+1); //text
+                Array.Copy(RosettaStone.FF8Text.Cipher(_text[i]), 0, buffer, _offsets[i], _text[i].Length+1); //text
             return buffer;
-        }
-
-        private static byte[] GetCiphered(int index)
-        {
-            byte[] ciphered = new byte[_text[index].Length + 1];
-            byte[] buffer = ctp.Cipher(_text[index]);
-            Array.Copy(buffer, ciphered, buffer.Length);
-            return ciphered;
         }
     }
 

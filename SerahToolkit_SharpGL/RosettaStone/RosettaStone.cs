@@ -51,13 +51,8 @@ namespace SerahToolkit_SharpGL.RosettaStone
                 fs.Seek(_start, SeekOrigin.Begin);
                 fs.Read(_b, 0, (int)_end - (int)_start);
             }
-            CharTableProvider ct = new CharTableProvider();
-            string[] ret = ct.Decipher(_b);
-            foreach (string a in ret)
-            {
-                if (a != null)
-                    richTextBox1.AppendText(a);
-            }
+            string ret = FF8Text.BuildString(_b, 0, true);
+            richTextBox1.Text = ret;
         }
 
         private void button2_Click(object sender, EventArgs e)
