@@ -61,9 +61,8 @@ namespace SerahToolkit_SharpGL
         double _transY = 0.0f;
         double _transZ = 0.0f;
         double _w = 13.5f;
-        double _h = 0.0f;
         private static bool mouseLeftDown, mouseMiddleDown, mouseRightDown;
-        private static int downX, downY, downZ;
+        private static int downX, downY;
 
 
         #region OpenGL

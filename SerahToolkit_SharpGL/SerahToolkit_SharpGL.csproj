@@ -38,7 +38,8 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>rin_Vex_icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>SerahToolkit_SharpGL.Program</StartupObject>
@@ -193,10 +194,6 @@
     <None Include="Resources\tex.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Save-icon.png" />
-    <None Include="symbol-delete-icon.png" />
-    <None Include="math-add-icon.png" />
-    <None Include="math-minus-icon.png" />
     <None Include="Resources\railbg.png" />
     <None Include="Resources\railbg1.png" />
     <None Include="Resources\railbg3.png" />
@@ -214,6 +211,8 @@
     <None Include="Resources\office-building-icon.png" />
     <None Include="Resources\Monster-icon.png" />
     <None Include="Resources\Normal-Computer-icon.png" />
+    <None Include="Resources\math-add-icon.png" />
+    <None Include="Resources\math-minus-icon.png" />
     <Content Include="Resources\rin_Vex_icon.ico" />
     <None Include="Resources\SeeD_Personal_Carrier.jpg" />
     <None Include="Resources\Ultimecia_FFVIII_Art.jpg" />
@@ -221,7 +220,7 @@
     <None Include="Resources\Search-icon.png" />
     <None Include="Resources\Settings-icon.png" />
     <None Include="Resources\vw-beetle-icon.png" />
-    <Content Include="rin_Vex_icon.ico" />
+    <None Include="Resources\symbol-delete-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
