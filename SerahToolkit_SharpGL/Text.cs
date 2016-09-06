@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 using SerahToolkit_SharpGL.FF8_Core;
 using SerahToolkit_SharpGL.Properties;
@@ -68,7 +69,39 @@ namespace SerahToolkit_SharpGL
 
         private void Initializewm2fComponent()
         {
-           
+            PictureBox wm2b = new PictureBox();
+            wm2b.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
+            wm2b.SizeMode = PictureBoxSizeMode.StretchImage;
+            wm2b.Size = new Size(32, 32);
+            flowLayoutPanel1.Controls.Add(wm2b);
+            wm2b.Click += wm2b_Click;
+        }
+
+        private void wm2b_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog {Filter = "wm2field.tbl|wm2field.tbl"};
+            if(sfd.ShowDialog() != DialogResult.OK) return;
+
+            using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        short fX = short.Parse(Convert.ToString(row.Cells[1].Value));
+                        short fY = short.Parse(Convert.ToString(row.Cells[2].Value));
+                        ushort fZ = ushort.Parse(Convert.ToString(row.Cells[3].Value));
+                        ushort fID = ushort.Parse(Convert.ToString(row.Cells[4].Value));
+                        byte bUnk = byte.Parse(Convert.ToString(row.Cells[5].Value));
+
+                        bw.Write(fX); bw.Write(fY); bw.Write(fZ); bw.Write(fID);
+                        bw.Write(bUnk); bw.Write(bUnk); bw.Write(bUnk); bw.Write(bUnk);
+                        bw.Write(new byte[12]);
+                    }
+                }
+            }
+            sfd.Dispose();
+
         }
 
         private void wm2field()
@@ -95,6 +128,11 @@ namespace SerahToolkit_SharpGL
                 dataGridView1.Rows.Add(i, wm2fCol[i].FieldX, wm2fCol[i].FieldY, wm2fCol[i].FieldZ, wm2fCol[i].FieldID,
                     wm2fCol[i].UnknownPointer);
             }
+        }
+
+        private void WM2_Update(object sender, byte arg0)
+        {
+            Console.WriteLine(sender.ToString());
         }
 
         private void Namedic()

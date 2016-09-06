@@ -45,7 +45,7 @@ namespace SerahToolkit_SharpGL
 
             _wm2f.FieldID = BitConverter.ToUInt16(buffer, (int)localIndex+6);
             _wm2f.UnknownPointer = buffer[localIndex + 8];
-            byte[] unknown2 = new byte[15];
+            byte[] unknown2 = new byte[12];
             unknown2[0] = _wm2f.UnknownPointer;
             unknown2[1] = _wm2f.UnknownPointer;
             unknown2[2] = _wm2f.UnknownPointer;
