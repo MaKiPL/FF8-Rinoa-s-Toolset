@@ -86,6 +86,10 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.soundPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.moviePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tEXTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tIMTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -317,7 +321,9 @@
             // 
             this.otherFilesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.namedicbinToolStripMenuItem,
-            this.wm2fieldtblToolStripMenuItem});
+            this.wm2fieldtblToolStripMenuItem,
+            this.tEXTextureToolStripMenuItem,
+            this.tIMTextureToolStripMenuItem});
             this.otherFilesToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.otherFilesToolStripMenuItem.Name = "otherFilesToolStripMenuItem";
             this.otherFilesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
@@ -326,14 +332,14 @@
             // namedicbinToolStripMenuItem
             // 
             this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
-            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.namedicbinToolStripMenuItem.Text = "namedic.bin";
             this.namedicbinToolStripMenuItem.Click += new System.EventHandler(this.namedicbinToolStripMenuItem_Click);
             // 
             // wm2fieldtblToolStripMenuItem
             // 
             this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
-            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
             this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl";
             this.wm2fieldtblToolStripMenuItem.Click += new System.EventHandler(this.wm2fieldtblToolStripMenuItem_Click);
             // 
@@ -344,7 +350,9 @@
             this.rosettaStonetextDecypherToolStripMenuItem,
             this.fileScannerToolStripMenuItem,
             this.lZSDecompressorToolStripMenuItem,
-            this.fSArchiveUnpackerToolStripMenuItem});
+            this.fSArchiveUnpackerToolStripMenuItem,
+            this.soundPlayerToolStripMenuItem,
+            this.moviePlayerToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
             this.sceneoutToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
@@ -686,6 +694,30 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
+            // soundPlayerToolStripMenuItem
+            // 
+            this.soundPlayerToolStripMenuItem.Name = "soundPlayerToolStripMenuItem";
+            this.soundPlayerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.soundPlayerToolStripMenuItem.Text = "Sound player [TODO]";
+            // 
+            // moviePlayerToolStripMenuItem
+            // 
+            this.moviePlayerToolStripMenuItem.Name = "moviePlayerToolStripMenuItem";
+            this.moviePlayerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
+            this.moviePlayerToolStripMenuItem.Text = "Movie player [TODO]";
+            // 
+            // tEXTextureToolStripMenuItem
+            // 
+            this.tEXTextureToolStripMenuItem.Name = "tEXTextureToolStripMenuItem";
+            this.tEXTextureToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.tEXTextureToolStripMenuItem.Text = "TEX texture [TODO]";
+            // 
+            // tIMTextureToolStripMenuItem
+            // 
+            this.tIMTextureToolStripMenuItem.Name = "tIMTextureToolStripMenuItem";
+            this.tIMTextureToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.tIMTextureToolStripMenuItem.Text = "TIM texture [TODO]";
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -790,6 +822,10 @@
         private System.Windows.Forms.ToolStripMenuItem fSArchiveUnpackerToolStripMenuItem;
         private System.Windows.Forms.Button button1;
         private SharpGL.OpenGLControl openGLControl;
+        private System.Windows.Forms.ToolStripMenuItem tEXTextureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tIMTextureToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem soundPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem moviePlayerToolStripMenuItem;
     }
 }
 
