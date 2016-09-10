@@ -9,8 +9,6 @@ namespace SerahToolkit_SharpGL
         public static string[] _text;
         public static ushort[] _offsets;
 
-        private static RosettaStone.CharTableProvider ctp;
-
         public static string[] GetText(string path)
         {
             if (!System.IO.File.Exists(path))

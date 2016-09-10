@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using SerahToolkit_SharpGL.FF8_Core;
 using SharpGL;
 using SharpGL.SceneGraph;
 using SharpGL.SceneGraph.Primitives;
@@ -802,6 +803,19 @@ namespace SerahToolkit_SharpGL
         {
             Text text = new SerahToolkit_SharpGL.Text(0);
             text.ShowDialog();
+        }
+
+        private void moviePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string s = null;
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Movie pak file (.pak)|*.pak";
+                if (ofd.ShowDialog() == DialogResult.OK)
+                    s = ofd.FileName;
+            }
+            FF8_Core.PlayMovie mov = new PlayMovie(s);
+            mov.Read();
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

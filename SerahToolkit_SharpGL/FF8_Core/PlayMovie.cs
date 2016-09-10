@@ -1,47 +1,75 @@
-﻿using System.Text;
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL.FF8_Core
 {
     class PlayMovie
     {
-        //static Video MP4Video;
-        static float delay = 1.00f;
-        public static bool isplaying;
-        //static VideoPlayer VP;
-        //public static Texture2D Frame;
-
-        static public void Play_BINK(byte PAKfile, byte MovieID) //FF8 vanilla
+        struct FMVCLIP
         {
-            //BIK?
+            public struct LOWRES
+            {
+                uint uOffset;
+                uint uLength;
+            }
+            public struct HIGHRES
+            {
+                uint uOffset;
+                uint uLength;
+            }
+            public ushort nFrames;
+        };
+
+        private FMVCLIP[] clips;
+
+        private string path;
+        public PlayMovie(string path)
+        {
+            this.path = path;
+            clips = new FMVCLIP[256];
         }
 
-        /*static public void PlayMP4(byte MovieID)
+        public void Read()
         {
-            delay = 1.00f;
-            VP = new VideoPlayer();
-            MP4Video = Singleton.contentManager.Load<Video>(BuildPath(MovieID));
-            while (true)
+            if(path == null)
+                return;
+            FileStream fs = new FileStream(path, FileMode.Open,FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+
+            uint n = 0;
+            uint len = (uint)fs.Length;
+            int nClips = 0;
+            while (n < len)
             {
-                if (delay < 0.0f && !isplaying)
+                fs.Seek(n, SeekOrigin.Begin);
+                uint header = br.ReadUInt32() & 0xFFFFFF;
+                if (header != 0x503846)
                 {
-                    isplaying = true;
-                    VP.Play(MP4Video);
-                    break;
+                    Console.WriteLine("BAD FILE!");
+                    return;
+                }
+                fs.Seek(2, SeekOrigin.Current);
+                clips[nClips].nFrames = br.ReadUInt16();
+                n += 8;
+
+                fs.Seek(n, SeekOrigin.Current);
+                header = br.ReadUInt32() & 0xFFFFFF;
+                while (header != 0x4B4942)
+                {
+                    n += 0x2C;
+                    fs.Seek(0x2C - 4, SeekOrigin.Current);
+                    header = br.ReadUInt32() & 0xFFFFFF;
                 }
 
-                else
-                    delay -= 0.05f;
+                //TODO
             }
+            
 
-        }*/
-
-        /*static public Texture2D GetFrame()
-        {
-            if (VP.State != MediaState.Stopped)
-                return Frame = VP.GetTexture();
-            else
-                return null;
-        }*/
+            br.Dispose();
+            fs.Dispose();
+        }
 
         private static string BuildPath(byte MovieID)
         {
@@ -62,12 +90,5 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
             return sb.ToString();
         }
-
-        /*public static void DrawMovie(GameTime gametime)
-        {
-            Singleton.spriteBatch.Begin();
-            Singleton.spriteBatch.Draw(GetFrame(), new Rectangle(0, 0, Singleton.graphicsDevice.Viewport.Width, Singleton.graphicsDevice.Viewport.Height), Color.White);
-            Singleton.spriteBatch.End();
-        }*/
     }
 }
