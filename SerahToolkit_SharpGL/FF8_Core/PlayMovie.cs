@@ -9,18 +9,15 @@ namespace SerahToolkit_SharpGL.FF8_Core
     {
         struct FMVCLIP
         {
-            public struct LOWRES
-            {
-                uint uOffset;
-                uint uLength;
-            }
-            public struct HIGHRES
-            {
-                uint uOffset;
-                uint uLength;
-            }
-            public ushort nFrames;
+            public RES[] res;
+            public uint nFrames;
         };
+
+        struct RES
+        {
+            public uint uOffset;
+            public uint uLength;
+        }
 
         private FMVCLIP[] clips;
 
@@ -29,6 +26,8 @@ namespace SerahToolkit_SharpGL.FF8_Core
         {
             this.path = path;
             clips = new FMVCLIP[256];
+            for (int i = 0; i != 255; i++)
+                clips[i].res = new RES[2];
         }
 
         public void Read()
@@ -48,27 +47,43 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 if (header != 0x503846)
                 {
                     Console.WriteLine("BAD FILE!");
-                    return;
+                    break;
                 }
                 fs.Seek(2, SeekOrigin.Current);
                 clips[nClips].nFrames = br.ReadUInt16();
                 n += 8;
-
-                fs.Seek(n, SeekOrigin.Current);
+                fs.Seek(n+8, SeekOrigin.Begin);
+                fs.Seek(clips[nClips].nFrames*0x2C+(0x2C-8), SeekOrigin.Current);
                 header = br.ReadUInt32() & 0xFFFFFF;
-                while (header != 0x4B4942)
-                {
-                    n += 0x2C;
-                    fs.Seek(0x2C - 4, SeekOrigin.Current);
-                    header = br.ReadUInt32() & 0xFFFFFF;
-                }
+                if (header != 0x4B4942)
+                    break;
 
-                //TODO
+                clips[nClips].res[0].uOffset = (uint)fs.Position-4;
+                clips[nClips].res[0].uLength = br.ReadUInt32();
+                clips[nClips].nFrames = br.ReadUInt32();
+                clips[nClips].res[0].uLength += 8;
+                n = clips[nClips].res[0].uLength + clips[nClips].res[0].uOffset;
+
+                fs.Seek(n, SeekOrigin.Begin);
+                header = br.ReadUInt32() & 0xFFFFFF;
+                if(header != 0x4B4942)
+                    return;
+                clips[nClips].res[1].uOffset = clips[nClips].res[0].uOffset + clips[nClips].res[0].uLength;
+                clips[nClips].res[1].uLength = br.ReadUInt32();
+                clips[nClips].res[1].uLength += 8;
+                n += clips[nClips].res[1].uLength;
+                nClips++;
             }
-            
-
             br.Dispose();
             fs.Dispose();
+
+            for (n = 0; n < nClips; n++)
+            {
+                Console.WriteLine($"Clip {n+1}");
+                Console.WriteLine($"{clips[n].nFrames/900}:{(clips[n].nFrames/15)%60}");
+                Console.WriteLine(clips[n].res[0].uLength / 1048576.0 + "M");
+                Console.WriteLine($"{clips[n].res[1].uLength / 1048576.0}M");
+            }
         }
 
         private static string BuildPath(byte MovieID)
