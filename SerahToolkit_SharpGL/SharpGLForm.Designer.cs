@@ -57,6 +57,8 @@
             this.wm2fieldtblToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tEXTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tIMTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.normalTIMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.packedbinaryFileforceDrawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,8 +92,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.packedbinaryFileforceDrawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.normalTIMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -360,6 +360,18 @@
             this.tIMTextureToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.tIMTextureToolStripMenuItem.Text = "TIM texture";
             // 
+            // normalTIMToolStripMenuItem
+            // 
+            this.normalTIMToolStripMenuItem.Name = "normalTIMToolStripMenuItem";
+            this.normalTIMToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.normalTIMToolStripMenuItem.Text = "Normal TIM";
+            // 
+            // packedbinaryFileforceDrawToolStripMenuItem
+            // 
+            this.packedbinaryFileforceDrawToolStripMenuItem.Name = "packedbinaryFileforceDrawToolStripMenuItem";
+            this.packedbinaryFileforceDrawToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.packedbinaryFileforceDrawToolStripMenuItem.Text = "Packed/binary file (force draw)";
+            // 
             // sceneoutToolStripMenuItem
             // 
             this.sceneoutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -425,7 +437,7 @@
             // 
             this.moviePlayerToolStripMenuItem.Name = "moviePlayerToolStripMenuItem";
             this.moviePlayerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.moviePlayerToolStripMenuItem.Text = "Movie player";
+            this.moviePlayerToolStripMenuItem.Text = "Movie extractor (.PAK)";
             this.moviePlayerToolStripMenuItem.Click += new System.EventHandler(this.moviePlayerToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
@@ -723,18 +735,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(970, 541);
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
-            // 
-            // packedbinaryFileforceDrawToolStripMenuItem
-            // 
-            this.packedbinaryFileforceDrawToolStripMenuItem.Name = "packedbinaryFileforceDrawToolStripMenuItem";
-            this.packedbinaryFileforceDrawToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.packedbinaryFileforceDrawToolStripMenuItem.Text = "Packed/binary file (force draw)";
-            // 
-            // normalTIMToolStripMenuItem
-            // 
-            this.normalTIMToolStripMenuItem.Name = "normalTIMToolStripMenuItem";
-            this.normalTIMToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.normalTIMToolStripMenuItem.Text = "Normal TIM";
             // 
             // SharpGlForm
             // 

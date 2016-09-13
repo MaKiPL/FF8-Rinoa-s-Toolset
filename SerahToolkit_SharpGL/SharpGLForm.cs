@@ -815,7 +815,11 @@ namespace SerahToolkit_SharpGL
                     s = ofd.FileName;
             }
             FF8_Core.PlayMovie mov = new PlayMovie(s);
+            SerahToolkit_SharpGL.Text text = new Text(3);
             mov.Read();
+            text.TransferMP(mov);
+            text.PopulateMP(); //ehh
+            text.ShowDialog();
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

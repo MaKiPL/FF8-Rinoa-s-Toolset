@@ -7,22 +7,23 @@ namespace SerahToolkit_SharpGL.FF8_Core
 {
     class PlayMovie
     {
-        struct MovieClip
+        public struct MovieClip
         {
             public Resolutions[] Resolutions;
             public uint Frames;
         };
 
-        struct Resolutions
+        public struct Resolutions
         {
             public uint Offset;
             public uint Size;
         }
 
-        private MovieClip[] _mClips;
+        public MovieClip[] _mClips;
         public static bool bSuccess;
+        public int nClips;
 
-        private string path;
+        public string path;
         public PlayMovie(string path)
         {
             this.path = path;
@@ -40,7 +41,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
             uint n = 0;
             uint len = (uint)fs.Length;
-            int nClips = 0;
+            nClips = 0;
             while (n < len)
             {
                 fs.Seek(n, SeekOrigin.Begin);
@@ -75,14 +76,6 @@ namespace SerahToolkit_SharpGL.FF8_Core
             bSuccess = true;
             br.Dispose();
             fs.Dispose();
-
-            for (n = 0; n < nClips; n++)
-            {
-                Console.WriteLine($"Clip {n+1}");
-                Console.WriteLine($"{_mClips[n].Frames/900}:{(_mClips[n].Frames/15)%60}");
-                Console.WriteLine(_mClips[n].Resolutions[0].Size / 1048576.0 + "M");
-                Console.WriteLine($"{_mClips[n].Resolutions[1].Size / 1048576.0}M");
-            }
         }
 
         private static string BuildPath(byte MovieID)

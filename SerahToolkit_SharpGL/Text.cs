@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 using SerahToolkit_SharpGL.FF8_Core;
@@ -16,6 +17,7 @@ namespace SerahToolkit_SharpGL
 
         private FF8_Core.ArchiveWorker aWorker;
         private SerahToolkit_SharpGL.wm2field.wm2f[] wm2fCol;
+        private SerahToolkit_SharpGL.FF8_Core.PlayMovie mP;
 
         /// <summary>
         /// Mode: 
@@ -37,8 +39,9 @@ namespace SerahToolkit_SharpGL
                     ofd.Filter = "FS Archive|*.FS";
                 if (mode == 2)
                     ofd.Filter = "wm2field.tbl|wm2field.tbl";
-                if (ofd.ShowDialog() == DialogResult.OK && mode != 3)
-                    _path = ofd.FileName;
+                if(mode != 3)
+                    if (ofd.ShowDialog() == DialogResult.OK)
+                        _path = ofd.FileName;
             }
             if (_path == null && mode != 3)
             {
@@ -73,24 +76,58 @@ namespace SerahToolkit_SharpGL
 
         private void MoviePlayer()
         {
+            this.Text = "Movie extractor";
             PictureBox ExLow = new PictureBox();
             ExLow.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon;
             ExLow.SizeMode = PictureBoxSizeMode.StretchImage;
             ExLow.Size = new Size(32,32);
             ExLow.Text = "Extract high resolution";
             ExLow.Tag = "h";
-            flowLayoutPanel1.Controls.Add(ExLow);
             ExLow.Click += MP_Extract;
+            PictureBox ExHigh = new PictureBox();
+            ExHigh.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
+            ExHigh.SizeMode = PictureBoxSizeMode.StretchImage;
+            ExHigh.Size = new Size(16, 16);
+            ExHigh.Text = "Extract low resolution";
+            ExHigh.Tag = "l";
+            Label extL = new Label {Text = "Extract high res: "};
+            Label extH = new Label {Text = " Extract low res: "};
+            flowLayoutPanel1.Controls.Add(extL);
+            flowLayoutPanel1.Controls.Add(ExLow); //That's in fact LOW RES
+            flowLayoutPanel1.Controls.Add(extH);
+            flowLayoutPanel1.Controls.Add(ExHigh);  //That's in fact HIGH RES
+            ExHigh.Click += new EventHandler(MP_Extract); //Lambdas?
+            dataGridView1.ReadOnly = true;
+            dataGridView1.Columns[2].HeaderText = "Length";
+            dataGridView1.MultiSelect = false;
+            dataGridView1.AllowUserToAddRows = false;
+        }
+
+        public void PopulateMP()
+        {
+            for (int i = 0; i != mP.nClips; i++)
+                dataGridView1.Rows.Add(i+1, mP._mClips[i].Resolutions[0].Offset, $"{mP._mClips[i].Frames/900}:{(mP._mClips[i].Frames/15)%60}");
         }
 
         private void MP_Extract(object sender, EventArgs e)
         {
-            if ((sender as PictureBox).Tag == "h")
-            {
-                return;
-            }
-            return;
+            SaveFileDialog sfd = new SaveFileDialog {Filter = "Bink Movie (.bik)|*.bik"};
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            int clipid = dataGridView1.SelectedCells[0].RowIndex;
+            byte ResSwitch = 0;
+            ResSwitch = (sender as PictureBox).Tag as string == "h" ? (byte)0 : (byte)1;
+            byte[] buffer = new byte[mP._mClips[clipid].Resolutions[ResSwitch].Size];
+            using (FileStream fs = new FileStream(mP.path, FileMode.Open, FileAccess.Read))
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    fs.Seek(mP._mClips[clipid].Resolutions[ResSwitch].Offset, SeekOrigin.Begin);
+                    buffer = br.ReadBytes(buffer.Length);
+                }
+            File.WriteAllBytes(sfd.FileName, buffer);
+            sfd.Dispose();
         }
+
+        public void TransferMP(object sender) => mP = sender as PlayMovie; //Less accesible bla bla bla trick
 
         private void Initializewm2fComponent()
         {
