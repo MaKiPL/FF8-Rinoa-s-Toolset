@@ -7,27 +7,28 @@ namespace SerahToolkit_SharpGL.FF8_Core
 {
     class PlayMovie
     {
-        struct FMVCLIP
+        struct MovieClip
         {
-            public RES[] res;
-            public uint nFrames;
+            public Resolutions[] Resolutions;
+            public uint Frames;
         };
 
-        struct RES
+        struct Resolutions
         {
-            public uint uOffset;
-            public uint uLength;
+            public uint Offset;
+            public uint Size;
         }
 
-        private FMVCLIP[] clips;
+        private MovieClip[] _mClips;
+        public static bool bSuccess;
 
         private string path;
         public PlayMovie(string path)
         {
             this.path = path;
-            clips = new FMVCLIP[256];
+            _mClips = new MovieClip[256];
             for (int i = 0; i != 255; i++)
-                clips[i].res = new RES[2];
+                _mClips[i].Resolutions = new Resolutions[2];
         }
 
         public void Read()
@@ -45,44 +46,42 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 fs.Seek(n, SeekOrigin.Begin);
                 uint header = br.ReadUInt32() & 0xFFFFFF;
                 if (header != 0x503846)
-                {
-                    Console.WriteLine("BAD FILE!");
-                    break;
-                }
+                    return;
                 fs.Seek(2, SeekOrigin.Current);
-                clips[nClips].nFrames = br.ReadUInt16();
+                _mClips[nClips].Frames = br.ReadUInt16();
                 n += 8;
                 fs.Seek(n+8, SeekOrigin.Begin);
-                fs.Seek(clips[nClips].nFrames*0x2C+(0x2C-8), SeekOrigin.Current);
+                fs.Seek(_mClips[nClips].Frames*0x2C+(0x2C-8), SeekOrigin.Current);
                 header = br.ReadUInt32() & 0xFFFFFF;
                 if (header != 0x4B4942)
-                    break;
+                    return;
 
-                clips[nClips].res[0].uOffset = (uint)fs.Position-4;
-                clips[nClips].res[0].uLength = br.ReadUInt32();
-                clips[nClips].nFrames = br.ReadUInt32();
-                clips[nClips].res[0].uLength += 8;
-                n = clips[nClips].res[0].uLength + clips[nClips].res[0].uOffset;
+                _mClips[nClips].Resolutions[0].Offset = (uint)fs.Position-4;
+                _mClips[nClips].Resolutions[0].Size = br.ReadUInt32();
+                _mClips[nClips].Frames = br.ReadUInt32();
+                _mClips[nClips].Resolutions[0].Size += 8;
+                n = _mClips[nClips].Resolutions[0].Size + _mClips[nClips].Resolutions[0].Offset;
 
                 fs.Seek(n, SeekOrigin.Begin);
                 header = br.ReadUInt32() & 0xFFFFFF;
                 if(header != 0x4B4942)
                     return;
-                clips[nClips].res[1].uOffset = clips[nClips].res[0].uOffset + clips[nClips].res[0].uLength;
-                clips[nClips].res[1].uLength = br.ReadUInt32();
-                clips[nClips].res[1].uLength += 8;
-                n += clips[nClips].res[1].uLength;
+                _mClips[nClips].Resolutions[1].Offset = _mClips[nClips].Resolutions[0].Offset + _mClips[nClips].Resolutions[0].Size;
+                _mClips[nClips].Resolutions[1].Size = br.ReadUInt32();
+                _mClips[nClips].Resolutions[1].Size += 8;
+                n += _mClips[nClips].Resolutions[1].Size;
                 nClips++;
             }
+            bSuccess = true;
             br.Dispose();
             fs.Dispose();
 
             for (n = 0; n < nClips; n++)
             {
                 Console.WriteLine($"Clip {n+1}");
-                Console.WriteLine($"{clips[n].nFrames/900}:{(clips[n].nFrames/15)%60}");
-                Console.WriteLine(clips[n].res[0].uLength / 1048576.0 + "M");
-                Console.WriteLine($"{clips[n].res[1].uLength / 1048576.0}M");
+                Console.WriteLine($"{_mClips[n].Frames/900}:{(_mClips[n].Frames/15)%60}");
+                Console.WriteLine(_mClips[n].Resolutions[0].Size / 1048576.0 + "M");
+                Console.WriteLine($"{_mClips[n].Resolutions[1].Size / 1048576.0}M");
             }
         }
 

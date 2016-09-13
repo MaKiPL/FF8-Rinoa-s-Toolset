@@ -22,6 +22,7 @@ namespace SerahToolkit_SharpGL
         /// 0= namedic
         /// 1= FS
         /// 2= wm2field
+        /// 3= MovieExtractor
         /// </summary>
         /// <param name="mode"></param>
         public Text(byte mode)
@@ -36,10 +37,10 @@ namespace SerahToolkit_SharpGL
                     ofd.Filter = "FS Archive|*.FS";
                 if (mode == 2)
                     ofd.Filter = "wm2field.tbl|wm2field.tbl";
-                if (ofd.ShowDialog() == DialogResult.OK)
+                if (ofd.ShowDialog() == DialogResult.OK && mode != 3)
                     _path = ofd.FileName;
             }
-            if (_path == null)
+            if (_path == null && mode != 3)
             {
                 //Close();
                 //this.Dispose();
@@ -60,11 +61,35 @@ namespace SerahToolkit_SharpGL
                     wm2field();
                     Initializewm2fComponent();
                     break;
+                case 3:
+                    MoviePlayer();
+                    break;
                 default:
                     Close();
                     break; //for compilers sake...
             }
 
+        }
+
+        private void MoviePlayer()
+        {
+            PictureBox ExLow = new PictureBox();
+            ExLow.Image = SerahToolkit_SharpGL.Properties.Resources.Save_icon;
+            ExLow.SizeMode = PictureBoxSizeMode.StretchImage;
+            ExLow.Size = new Size(32,32);
+            ExLow.Text = "Extract high resolution";
+            ExLow.Tag = "h";
+            flowLayoutPanel1.Controls.Add(ExLow);
+            ExLow.Click += MP_Extract;
+        }
+
+        private void MP_Extract(object sender, EventArgs e)
+        {
+            if ((sender as PictureBox).Tag == "h")
+            {
+                return;
+            }
+            return;
         }
 
         private void Initializewm2fComponent()
