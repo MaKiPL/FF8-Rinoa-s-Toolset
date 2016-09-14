@@ -63,6 +63,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -72,6 +73,22 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Vlc.DotNet.Core, Version=2.1.126.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=x86">
+      <HintPath>..\packages\Vlc.DotNet.Core.2.1.126\lib\net40\x86\Vlc.DotNet.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Core.Interops, Version=2.1.126.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=x86">
+      <HintPath>..\packages\Vlc.DotNet.Core.Interops.2.1.126\lib\net40\x86\Vlc.DotNet.Core.Interops.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Forms, Version=2.1.126.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=x86">
+      <HintPath>..\packages\Vlc.DotNet.Forms.2.1.126\lib\net40\x86\Vlc.DotNet.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Vlc.DotNet.Wpf, Version=2.1.126.0, Culture=neutral, PublicKeyToken=84529da31f4eb963, processorArchitecture=x86">
+      <HintPath>..\packages\Vlc.DotNet.Wpf.2.1.126\lib\net40\x86\Vlc.DotNet.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBox1.cs">
@@ -93,6 +110,12 @@
     <Compile Include="FF8_Core\Singleton.cs" />
     <Compile Include="FF8_Core\SmSoundPlay.cs" />
     <Compile Include="FF8_Core\TIM.cs" />
+    <Compile Include="FF8_MP\MP_Mov.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FF8_MP\MP_Mov.Designer.cs">
+      <DependentUpon>MP_Mov.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileScanner\FileScannerCore.cs" />
     <Compile Include="FileScanner\FileScannerHeaders.cs" />
     <Compile Include="GfEnviro.cs" />
@@ -149,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FF8_MP\MP_Mov.resx">
+      <DependentUpon>MP_Mov.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManualGeometryRipper.resx">
       <DependentUpon>ManualGeometryRipper.cs</DependentUpon>
