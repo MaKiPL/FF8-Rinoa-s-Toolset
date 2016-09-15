@@ -822,11 +822,6 @@ namespace SerahToolkit_SharpGL
             text.ShowDialog();
         }
 
-        private void soundPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLeftDown = e.Button == MouseButtons.Left;

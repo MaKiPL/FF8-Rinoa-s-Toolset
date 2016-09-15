@@ -65,7 +65,6 @@
             this.fileScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lZSDecompressorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fSArchiveUnpackerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.soundPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moviePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -380,7 +379,6 @@
             this.fileScannerToolStripMenuItem,
             this.lZSDecompressorToolStripMenuItem,
             this.fSArchiveUnpackerToolStripMenuItem,
-            this.soundPlayerToolStripMenuItem,
             this.moviePlayerToolStripMenuItem});
             this.sceneoutToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.sceneoutToolStripMenuItem.Name = "sceneoutToolStripMenuItem";
@@ -426,13 +424,6 @@
             this.fSArchiveUnpackerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.fSArchiveUnpackerToolStripMenuItem.Text = "FS archive unpacker";
             this.fSArchiveUnpackerToolStripMenuItem.Click += new System.EventHandler(this.fSArchiveUnpackerToolStripMenuItem_Click);
-            // 
-            // soundPlayerToolStripMenuItem
-            // 
-            this.soundPlayerToolStripMenuItem.Name = "soundPlayerToolStripMenuItem";
-            this.soundPlayerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.soundPlayerToolStripMenuItem.Text = "Sound player";
-            this.soundPlayerToolStripMenuItem.Click += new System.EventHandler(this.soundPlayerToolStripMenuItem_Click);
             // 
             // moviePlayerToolStripMenuItem
             // 
@@ -844,7 +835,6 @@
         private SharpGL.OpenGLControl openGLControl;
         private System.Windows.Forms.ToolStripMenuItem tEXTextureToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tIMTextureToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem soundPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem moviePlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem normalTIMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem packedbinaryFileforceDrawToolStripMenuItem;
