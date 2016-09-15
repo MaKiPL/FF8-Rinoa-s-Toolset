@@ -5,39 +5,18 @@ namespace SerahToolkit_SharpGL.FF8_Core
 {
     public class SmSoundPlay
     {
-        /*static Song song;
-        static SoundEffect SE;
-        static SoundEffectInstance SEI;*/
+        /*
+         *  91.8% (.SGT) Microsoft DirectMusic Segments Type (45008/2/11)
+         *  8.1% (.) Generic RIFF container (4000/1)
+         */
 
-        public static void Play(sbyte Volume, UInt16 ID)
+        public static void Play()
         {
-            /*song = Singleton.contentManager.Load<Song>("Music/" + Singleton.Songs[ID]);
-            MediaPlayer.Volume = ((float)Volume / 127.0f);
-            DebugOutputter.Output("Playing Song:", ID + " Volume:", MediaPlayer.Volume);
-            MediaPlayer.Play(song);*/
-            return;
-        }
-
-        public static void SoundEffect(sbyte volume, UInt16 ID)
-        {
-            /*SE = Singleton.contentManager.Load<SoundEffect>(Sounds[ID]);
-            SEI = SE.CreateInstance();
-            SEI.Volume = volume / 127.0f;
-            DebugOutputter.Output("Playing:", ID + " Volume:", SEI.Volume * 127);
-            SEI.Play();*/
-            return;
+            ;
         }
 
         public static void Stop()
         {
-            //MediaPlayer.Stop();
-            return;
-        }
-
-        public static void StopSound()
-        {
-            //SEI.Stop();
-            return;
         }
     }
 }

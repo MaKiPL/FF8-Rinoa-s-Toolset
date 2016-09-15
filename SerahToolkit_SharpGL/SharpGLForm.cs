@@ -822,25 +822,28 @@ namespace SerahToolkit_SharpGL
             text.ShowDialog();
         }
 
+        private void soundPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
-            mouseLeftDown = (e.Button == MouseButtons.Left) ? true : false;
-            mouseMiddleDown = (e.Button == MouseButtons.Middle) ? true : false;
-            mouseRightDown = (e.Button == MouseButtons.Right) ? true : false;
+            mouseLeftDown = e.Button == MouseButtons.Left;
+            mouseMiddleDown = e.Button == MouseButtons.Middle;
+            mouseRightDown = e.Button == MouseButtons.Right;
 
 
-            if (mouseLeftDown || mouseMiddleDown || mouseRightDown)
-            {
-                downX = MousePosition.X;
-                downY = MousePosition.Y;
-            }
+            if (!mouseLeftDown && !mouseMiddleDown && !mouseRightDown) return;
+            downX = MousePosition.X;
+            downY = MousePosition.Y;
         }
 
         private void openGLControl_MouseUp(object sender, MouseEventArgs e)
         {
-            mouseLeftDown = (e.Button == MouseButtons.Left) ? false : true;
-            mouseMiddleDown = (e.Button == MouseButtons.Middle) ? false : true;
-            mouseRightDown = (e.Button == MouseButtons.Right) ? false : true;
+            mouseLeftDown = e.Button != MouseButtons.Left;
+            mouseMiddleDown = e.Button != MouseButtons.Middle;
+            mouseRightDown = e.Button != MouseButtons.Right;
         }
 
         private void openGLControl_MouseMove(object sender, MouseEventArgs e)

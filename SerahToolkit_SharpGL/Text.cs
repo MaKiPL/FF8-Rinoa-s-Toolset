@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.IO;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 using SerahToolkit_SharpGL.FF8_Core;
 using SerahToolkit_SharpGL.Properties;

@@ -431,10 +431,12 @@
             // 
             this.soundPlayerToolStripMenuItem.Name = "soundPlayerToolStripMenuItem";
             this.soundPlayerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
-            this.soundPlayerToolStripMenuItem.Text = "Sound player [TODO]";
+            this.soundPlayerToolStripMenuItem.Text = "Sound player";
+            this.soundPlayerToolStripMenuItem.Click += new System.EventHandler(this.soundPlayerToolStripMenuItem_Click);
             // 
             // moviePlayerToolStripMenuItem
             // 
+            this.moviePlayerToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.moviePlayerToolStripMenuItem.Name = "moviePlayerToolStripMenuItem";
             this.moviePlayerToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.moviePlayerToolStripMenuItem.Text = "Movie extractor (.PAK)";
