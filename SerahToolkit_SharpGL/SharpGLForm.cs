@@ -822,6 +822,15 @@ namespace SerahToolkit_SharpGL
             text.ShowDialog();
         }
 
+        private void normalTIMToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog {Filter= "Tim Texture (.TIM)|*.TIM"};
+            TIM tim;
+            if (ofd.ShowDialog() == DialogResult.OK)
+                tim = new TIM(ofd.FileName);
+            ofd.Dispose();
+        }
+
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLeftDown = e.Button == MouseButtons.Left;

@@ -364,6 +364,7 @@
             this.normalTIMToolStripMenuItem.Name = "normalTIMToolStripMenuItem";
             this.normalTIMToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.normalTIMToolStripMenuItem.Text = "Normal TIM";
+            this.normalTIMToolStripMenuItem.Click += new System.EventHandler(this.normalTIMToolStripMenuItem_Click);
             // 
             // packedbinaryFileforceDrawToolStripMenuItem
             // 
