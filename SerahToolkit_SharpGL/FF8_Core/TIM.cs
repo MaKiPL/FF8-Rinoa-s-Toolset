@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL.FF8_Core
 {
@@ -19,6 +22,8 @@ namespace SerahToolkit_SharpGL.FF8_Core
         private Texture texture;
         private Color[] colors;
         private sbyte bpp = -1;
+        private bool arg0 = false;
+        private string path;
 
         public struct Texture
         {
@@ -40,19 +45,24 @@ namespace SerahToolkit_SharpGL.FF8_Core
             public bool Alpha;
         }
 
-        public TIM(string path)
+        public TIM(string path, byte arg0 = 0)
         {
+            this.arg0 = arg0 != 0;
+            this.path = path;
             fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             br = new BinaryReader(fs);
             texture = new Texture();
             bpp = RecognizeBPP();
-            if (bpp == -1)
+            if (bpp == -1 && arg0==0)
             {
                 Console.WriteLine("TIM: This is not TIM texture!");
                 return;
             }
-            ReadParameters(bpp);
-            Bitmap bmp = DrawTexture();
+            if (arg0 == 0)
+            {
+                ReadParameters(bpp);
+                Bitmap bmp = DrawTexture();
+            }
             br.Dispose();
             fs.Dispose();
         }
@@ -63,7 +73,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
             {
                 if (bpp == 8)
                 {
-                    colors = new Color[texture.NumOfCluts];
+                    colors = new Color[texture.NumOfCluts * 256];
                     int col = 0;
                     for (int i = 0; i != texture.ClutData.Length; i+=2)
                     {
@@ -100,6 +110,53 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 }
             }
             return null;
+        }
+
+        public Bitmap DrawRaw()
+        {
+            if(!this.arg0)
+                throw new Exception("TIM: Tried to render RAW image with TIM loader.\nInitialize TIM without arg0");
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    if (fs.Length < 1024)
+                    {
+                        Console.WriteLine("TIM: Image is too small to render...");
+                        return new Bitmap(0,0,PixelFormat.Format24bppRgb);
+                    }
+                    int size = 16;
+                if (fs.Length >= Math.Pow(16, 2))
+                    size = 16;
+                if (fs.Length >= Math.Pow(32, 2))
+                    size = 32;
+                if (fs.Length >= Math.Pow(64, 2))
+                    size = 64;
+                if (fs.Length >= Math.Pow(128, 2))
+                    size = 128;
+                if (fs.Length >= Math.Pow(256, 2))
+                    size = 256;
+                if (fs.Length >= Math.Pow(512, 2))
+                    size = 512;
+                if (fs.Length >= Math.Pow(1024, 2))
+                    size = 1024;
+                if (fs.Length >= Math.Pow(2048, 2))
+                    size = 2048;
+                if (fs.Length >= Math.Pow(4096, 2))
+                    size = 4096;
+                Bitmap bmp = new Bitmap(size,size,PixelFormat.Format24bppRgb);
+                    BitmapData bmpData = bmp.LockBits(new Rectangle(0, 0, size, size), ImageLockMode.WriteOnly,
+                        PixelFormat.Format24bppRgb);
+                    IntPtr scan0 = bmpData.Scan0;
+                byte[] inBuffer = new byte[bmpData.Height * bmpData.Stride];
+                Marshal.Copy(scan0, inBuffer, 0, inBuffer.Length);
+                    for (int i = 0; fs.Position != fs.Length - 2; i++)
+                        inBuffer[i] = br.ReadByte();
+                    Marshal.Copy(inBuffer,0, scan0, inBuffer.Length);
+                bmp.UnlockBits(bmpData);
+                    return bmp;
+
+                }
+                return null;
         }
 
         private void ReadParameters(sbyte bpp)

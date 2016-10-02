@@ -831,6 +831,23 @@ namespace SerahToolkit_SharpGL
             ofd.Dispose();
         }
 
+        private void packedbinaryFileforceDrawToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog { Filter = "Tim Texture (.*)|*.*" };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            FileInfo fi = new FileInfo(ofd.FileName);
+            if (fi.Length >= Math.Pow(1024, 3)/4)
+            {
+                Console.WriteLine("File is too big!");
+                ofd.Dispose();
+                return;
+            }
+            TIM tim = new TIM(fi.FullName, 1);
+            Bitmap bmp = tim.DrawRaw();
+            pictureBox1.Image = bmp;
+            ofd.Dispose();
+        }
+
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLeftDown = e.Button == MouseButtons.Left;

@@ -371,6 +371,7 @@
             this.packedbinaryFileforceDrawToolStripMenuItem.Name = "packedbinaryFileforceDrawToolStripMenuItem";
             this.packedbinaryFileforceDrawToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.packedbinaryFileforceDrawToolStripMenuItem.Text = "Packed/binary file (force draw)";
+            this.packedbinaryFileforceDrawToolStripMenuItem.Click += new System.EventHandler(this.packedbinaryFileforceDrawToolStripMenuItem_Click);
             // 
             // sceneoutToolStripMenuItem
             // 
