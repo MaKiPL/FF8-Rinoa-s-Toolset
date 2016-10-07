@@ -227,7 +227,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
                     IntPtr scan0 = bmpData.Scan0;
                 byte[] inBuffer = new byte[bmpData.Height * bmpData.Stride];
                 Marshal.Copy(scan0, inBuffer, 0, inBuffer.Length);
-                    for (int i = 0; fs.Position != fs.Length - 2; i++)
+                    for (int i = 0; fs.Position != fs.Length - 2 && fs.Position < inBuffer.Length - 2; i++)
                         inBuffer[i] = br.ReadByte();
                     Marshal.Copy(inBuffer,0, scan0, inBuffer.Length);
                 bmp.UnlockBits(bmpData);
