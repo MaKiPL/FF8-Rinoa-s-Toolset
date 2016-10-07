@@ -24,6 +24,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
         private sbyte bpp = -1;
         private bool arg0 = false;
         private string path;
+        private Bitmap bmp;
 
         public struct Texture
         {
@@ -61,11 +62,13 @@ namespace SerahToolkit_SharpGL.FF8_Core
             if (arg0 == 0)
             {
                 ReadParameters(bpp);
-                Bitmap bmp = DrawTexture();
+                bmp = DrawTexture();
             }
             br.Dispose();
             fs.Dispose();
         }
+
+        public Bitmap GetBitmap => bmp;
 
         private Bitmap DrawTexture()
         {
@@ -106,7 +109,82 @@ namespace SerahToolkit_SharpGL.FF8_Core
                         colors[col].B = (byte)gg;
                         col++;
                     }
-                    //DrawTexture here
+                    Bitmap textureBitmap = new Bitmap(texture.Width, texture.Height, PixelFormat.Format24bppRgb);
+                    BitmapData bmpdata =
+                        textureBitmap.LockBits(new Rectangle(0, 0, textureBitmap.Width, textureBitmap.Height),
+                            ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+                    IntPtr scan0Text = bmpdata.Scan0;
+                    byte[] buffer = new byte[bmpdata.Stride * bmpdata.Height];
+                    Marshal.Copy(scan0Text, buffer, 0, buffer.Length);
+
+                    for (int i = 0; i < buffer.Length-3; i+=3)
+                    {
+                        byte colorbuffer = br.ReadByte();
+                        buffer[i] = colors[colorbuffer].R;
+                        buffer[i+1] = colors[colorbuffer].B;
+                        buffer[i+2] = colors[colorbuffer].G;
+                    }
+                    Marshal.Copy(buffer,0,scan0Text,buffer.Length);
+                    textureBitmap.UnlockBits(bmpdata);
+                    return textureBitmap;
+                }
+                if (bpp == 4)
+                {
+                    colors = new Color[texture.NumOfCluts * 16];
+                    int col = 0;
+                    for (int i = 0; i != texture.ClutData.Length; i += 2)
+                    {
+                        byte[] b = BitConverter.GetBytes(BitConverter.ToUInt16(texture.ClutData, i));
+                        BitArray ba = new BitArray(b);
+                        BitArray B = new BitArray(5);
+                        BitArray R = new BitArray(5);
+                        BitArray G = new BitArray(5);
+                        BitArray a = new BitArray(1);
+                        B[0] = ba[10]; B[1] = ba[11]; B[2] = ba[12]; B[3] = ba[13]; B[4] = ba[14]; //R
+                        R[0] = ba[0]; R[1] = ba[1]; R[2] = ba[2]; R[3] = ba[3]; R[4] = ba[4]; //G
+                        G[0] = ba[5]; G[1] = ba[6]; G[2] = ba[7]; G[3] = ba[8]; G[4] = ba[9]; //B
+                        a[0] = ba[15]; //Alpha if 0
+                        int[] b_ = new int[1]; B.CopyTo(b_, 0);
+                        int[] r_ = new int[1]; R.CopyTo(r_, 0);
+                        int[] g_ = new int[1]; G.CopyTo(g_, 0);
+                        int[] aa = new int[1]; a.CopyTo(aa, 0);
+                        int alpha = 255;
+                        double bb = Math.Round((double)((b_[0]) * (256 / 32)));
+                        double rr = Math.Round((double)((r_[0]) * 256 / 32));
+                        double gg = Math.Round((double)((g_[0]) * 256 / 32));
+                        if (bb > 255)
+                            bb--;
+                        if (rr > 255)
+                            rr--;
+                        if (gg > 255)
+                            gg--;
+                        colors[col].R = (byte)bb;
+                        colors[col].G = (byte)rr;
+                        colors[col].B = (byte)gg;
+                        col++;
+                    }
+                    Bitmap textureBitmap = new Bitmap(texture.Width, texture.Height, PixelFormat.Format24bppRgb);
+                    BitmapData bmpdata =
+                        textureBitmap.LockBits(new Rectangle(0, 0, textureBitmap.Width, textureBitmap.Height),
+                            ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+                    IntPtr scan0Text = bmpdata.Scan0;
+                    byte[] buffer = new byte[bmpdata.Stride * bmpdata.Height];
+                    Marshal.Copy(scan0Text, buffer, 0, buffer.Length);
+                    byte xor = 0;
+                    byte colorbuffer = 0;
+                    for (int i = 0; i < buffer.Length - 3; i += 3)
+                    {
+                        if (xor > 0)
+                            colorbuffer = br.ReadByte();
+                        else colorbuffer = (byte) (colorbuffer >> 4);
+                        buffer[i] = colors[colorbuffer].R;
+                        buffer[i+1] = colors[colorbuffer].B;
+                        buffer[i+2] = colors[colorbuffer].G;
+                        xor = (byte) ~xor;
+                    }
+                    Marshal.Copy(buffer, 0, scan0Text, buffer.Length);
+                    textureBitmap.UnlockBits(bmpdata);
+                    return textureBitmap;
                 }
             }
             return null;

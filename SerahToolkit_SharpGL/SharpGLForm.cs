@@ -827,7 +827,13 @@ namespace SerahToolkit_SharpGL
             OpenFileDialog ofd = new OpenFileDialog {Filter= "Tim Texture (.TIM)|*.TIM"};
             TIM tim;
             if (ofd.ShowDialog() == DialogResult.OK)
+            {
                 tim = new TIM(ofd.FileName);
+                Bitmap bmp = tim.GetBitmap;
+                if (bmp != null)
+                    pictureBox1.Image = bmp;
+                else Console.WriteLine("TIM: TIM normal class returned null bitmap??");
+            }
             ofd.Dispose();
         }
 
