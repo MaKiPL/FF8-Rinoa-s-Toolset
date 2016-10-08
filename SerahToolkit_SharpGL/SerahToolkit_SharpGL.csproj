@@ -92,6 +92,7 @@
     <Compile Include="FF8_Core\LZSS.cs" />
     <Compile Include="FF8_Core\PlayMovie.cs" />
     <Compile Include="FF8_Core\Singleton.cs" />
+    <Compile Include="FF8_Core\TEX.cs" />
     <Compile Include="FF8_Core\TIM.cs" />
     <Compile Include="FileScanner\FileScannerCore.cs" />
     <Compile Include="FileScanner\FileScannerHeaders.cs" />
