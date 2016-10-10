@@ -854,6 +854,15 @@ namespace SerahToolkit_SharpGL
             ofd.Dispose();
         }
 
+        private void tEXTextureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "TEX texture (.TEX)|*.TEX"};
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            FF8_Core.TEX tex = new TEX(ofd.FileName);
+            Bitmap bmp = tex.GetTexture();
+            pictureBox1.Image = bmp;
+        }
+
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLeftDown = e.Button == MouseButtons.Left;

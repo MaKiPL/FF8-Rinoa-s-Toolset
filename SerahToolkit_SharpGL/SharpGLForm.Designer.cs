@@ -333,22 +333,23 @@
             // namedicbinToolStripMenuItem
             // 
             this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
-            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.namedicbinToolStripMenuItem.Text = "namedic.bin";
             this.namedicbinToolStripMenuItem.Click += new System.EventHandler(this.namedicbinToolStripMenuItem_Click);
             // 
             // wm2fieldtblToolStripMenuItem
             // 
             this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
-            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl";
             this.wm2fieldtblToolStripMenuItem.Click += new System.EventHandler(this.wm2fieldtblToolStripMenuItem_Click);
             // 
             // tEXTextureToolStripMenuItem
             // 
             this.tEXTextureToolStripMenuItem.Name = "tEXTextureToolStripMenuItem";
-            this.tEXTextureToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.tEXTextureToolStripMenuItem.Text = "TEX texture [TODO]";
+            this.tEXTextureToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.tEXTextureToolStripMenuItem.Text = "TEX texture";
+            this.tEXTextureToolStripMenuItem.Click += new System.EventHandler(this.tEXTextureToolStripMenuItem_Click);
             // 
             // tIMTextureToolStripMenuItem
             // 
@@ -356,7 +357,7 @@
             this.normalTIMToolStripMenuItem,
             this.packedbinaryFileforceDrawToolStripMenuItem});
             this.tIMTextureToolStripMenuItem.Name = "tIMTextureToolStripMenuItem";
-            this.tIMTextureToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.tIMTextureToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.tIMTextureToolStripMenuItem.Text = "TIM texture";
             // 
             // normalTIMToolStripMenuItem
