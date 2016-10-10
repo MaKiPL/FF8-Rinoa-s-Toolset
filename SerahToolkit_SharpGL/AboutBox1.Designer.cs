@@ -99,7 +99,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(409, 17);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "1.0.0.0";
+            this.labelVersion.Text = "1.0.1.0";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright

@@ -138,7 +138,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
         public static class FieldHolder
         {
-            public static string[] MapList;
+            //public static string[] MapList;
             public static UInt16 FieldID = 65535;
         }
     }

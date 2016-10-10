@@ -11,8 +11,6 @@ namespace SerahToolkit_SharpGL.FF8_Core
 {
     class TIM
     {
-        public byte[] RawImage;
-
         private static byte[] _8BPP = { 0x10, 0x00, 0x00, 0x00, 0x09};
         private static byte[] _4BPP = { 0x10, 0x00, 0x00, 0x00, 0x08};
         private static byte[] _16BPP = { 0x10, 0x00, 0x00, 0x00, 0x02 };
@@ -44,7 +42,6 @@ namespace SerahToolkit_SharpGL.FF8_Core
             public byte R;
             public byte G;
             public byte B;
-            public bool Alpha;
         }
 
         public TIM(string path, byte arg0 = 0)
@@ -136,7 +133,6 @@ namespace SerahToolkit_SharpGL.FF8_Core
                         int[] r_ = new int[1]; R.CopyTo(r_, 0);
                         int[] g_ = new int[1]; G.CopyTo(g_, 0);
                         int[] aa = new int[1]; a.CopyTo(aa, 0);
-                        int alpha = 255;
                         double bb = Math.Round((double) ((b_[0]) * (256/32)));
                         double rr = Math.Round((double) ((r_[0]) * 256/32));
                         double gg = Math.Round((double) ((g_[0]) * 256/32));
@@ -190,7 +186,6 @@ namespace SerahToolkit_SharpGL.FF8_Core
                         int[] r_ = new int[1]; R.CopyTo(r_, 0);
                         int[] g_ = new int[1]; G.CopyTo(g_, 0);
                         int[] aa = new int[1]; a.CopyTo(aa, 0);
-                        int alpha = 255;
                         double bb = Math.Round((double)((b_[0]) * (256 / 32)));
                         double rr = Math.Round((double)((r_[0]) * 256 / 32));
                         double gg = Math.Round((double)((g_[0]) * 256 / 32));
@@ -276,7 +271,6 @@ namespace SerahToolkit_SharpGL.FF8_Core
                     return bmp;
 
                 }
-                return null;
         }
 
         private void ReadParameters(sbyte bpp)
