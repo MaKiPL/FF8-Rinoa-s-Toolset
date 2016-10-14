@@ -191,6 +191,7 @@ namespace SerahToolkit_SharpGL
             if (ofd.ShowDialog() != DialogResult.OK) return;
             _lastKnownPath = ofd.FileName;
             unpackToolStripMenuItem.Enabled = true;
+            repackToolStripMenuItem.Enabled = true;
             UpdateStatus(_lastKnownPath);
             _state = StateWmset;
             Wmset wmset = new Wmset(_lastKnownPath);
@@ -861,6 +862,14 @@ namespace SerahToolkit_SharpGL
             FF8_Core.TEX tex = new TEX(ofd.FileName);
             Bitmap bmp = tex.GetTexture();
             pictureBox1.Image = bmp;
+        }
+
+        private void worldMapRegionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 2|wm*.section2" };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            WM_Section2 wm2 = new WM_Section2(ofd.FileName);
+            //TODO
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

@@ -492,4 +492,13 @@ namespace SerahToolkit_SharpGL
 
         public Bitmap GetTexture() => _bmp;
     }
+
+    internal class WM_Section2
+    {
+        private string path;
+        public WM_Section2(string path)
+        {
+            this.path = path;
+        }
+    }
 }
