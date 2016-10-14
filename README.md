@@ -1,6 +1,6 @@
 Current code status: [![Build Status](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset.svg?branch=master)](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset)
 
-Current code version: 1.0.1
+Current code version: 1.0.1.0
 
 # FF8 Rinoa's Toolset
 FF8 All-in-one modding toolset is almost complete tool to rip and view various Final Fantasy VIII objects.
@@ -19,6 +19,9 @@ FF8 All-in-one modding toolset is almost complete tool to rip and view various F
 * LZSS decompressor
 * Archive extractor
 * Wm2field editor
+* Movie unpacker
+* TIM support
+* TEX support
 
 ### Battle Stage support features
 * View in real-time 3D any Battle Stage
