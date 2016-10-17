@@ -869,7 +869,18 @@ namespace SerahToolkit_SharpGL
             OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 2|wm*.section2" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
             WM_Section2 wm2 = new WM_Section2(ofd.FileName);
-            //TODO
+            Form wm2Editor = new Form();
+            wm2Editor.Size = new Size(625, 375);
+            wm2Editor.Text = "World Map regions editor";
+            SplitContainer wm2SplitContainer = new SplitContainer();
+            wm2SplitContainer.Dock = DockStyle.Fill;
+            wm2SplitContainer.Panel2.BackgroundImageLayout = ImageLayout.Stretch;
+            wm2SplitContainer.Panel2.BackgroundImage = Properties.Resources.map2;
+            wm2SplitContainer.SplitterDistance = 40;
+            wm2SplitContainer.IsSplitterFixed = true;
+            wm2Editor.Controls.Add(wm2SplitContainer);
+            
+            wm2Editor.Show();
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
