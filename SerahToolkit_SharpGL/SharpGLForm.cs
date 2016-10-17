@@ -879,7 +879,6 @@ namespace SerahToolkit_SharpGL
             wm2SplitContainer.SplitterDistance = 40;
             wm2SplitContainer.IsSplitterFixed = true;
             wm2Editor.Controls.Add(wm2SplitContainer);
-            
             wm2Editor.Show();
         }
 
