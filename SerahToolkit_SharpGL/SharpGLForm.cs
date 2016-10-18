@@ -869,15 +869,27 @@ namespace SerahToolkit_SharpGL
             OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 2|wm*.section2" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
             WM_Section2 wm2 = new WM_Section2(ofd.FileName);
-            Form wm2Editor = new Form();
-            wm2Editor.Size = new Size(625, 375);
-            wm2Editor.Text = "World Map regions editor";
+            Form wm2Editor = new Form
+            {
+                Size = new Size(625, 375),
+                Text = "World Map regions editor"
+            };
+            wm2Editor.Closing += (o, args) => wm2.EndJob();
             SplitContainer wm2SplitContainer = new SplitContainer();
             wm2SplitContainer.Dock = DockStyle.Fill;
-            wm2SplitContainer.Panel2.BackgroundImageLayout = ImageLayout.Stretch;
-            wm2SplitContainer.Panel2.BackgroundImage = Properties.Resources.map2;
             wm2SplitContainer.SplitterDistance = 40;
             wm2SplitContainer.IsSplitterFixed = true;
+            PictureBox pbBox = new PictureBox
+            {
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Image = Properties.Resources.map2,
+                Dock = DockStyle.Fill
+            };
+            wm2SplitContainer.Panel2.Controls.Add(pbBox);
+            wm2.ReceiveBitmap(new Bitmap(pbBox.Image));
+            for (int i = 0; i < 768; i++)
+                wm2.ColorizeBlock(i,wm2.ReadNextRegion());
+            pbBox.Image = wm2.GetColored;
             wm2Editor.Controls.Add(wm2SplitContainer);
             wm2Editor.Show();
         }
