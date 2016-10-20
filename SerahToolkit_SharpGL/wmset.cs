@@ -8,6 +8,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using AForge.Imaging.Filters;
 
 namespace SerahToolkit_SharpGL
 {
@@ -504,27 +505,6 @@ namespace SerahToolkit_SharpGL
         private BinaryReader br;
         private FileStream fs;
 
-        struct Regions
-        {
-            public static Tuple<byte, byte, byte, byte> _0 = new Tuple<byte, byte, byte, byte>(0, 50, 75, 0);
-            public static Tuple<byte, byte, byte, byte> _1 = new Tuple<byte, byte, byte, byte>(1, 00, 50, 0);
-            public static Tuple<byte, byte, byte, byte> _2 = new Tuple<byte, byte, byte, byte>(2, 00, 0, 50);
-            public static Tuple<byte, byte, byte, byte> _3 = new Tuple<byte, byte, byte, byte>(3, 50, 50, 0);
-            public static Tuple<byte, byte, byte, byte> _4 = new Tuple<byte, byte, byte, byte>(4, 50, 50, 50);
-            public static Tuple<byte, byte, byte, byte> _5 = new Tuple<byte, byte, byte, byte>(5, 100, 0, 0);
-            public static Tuple<byte, byte, byte, byte> _6 = new Tuple<byte, byte, byte, byte>(6, 0, 100, 0);
-            public static Tuple<byte, byte, byte, byte> _7 = new Tuple<byte, byte, byte, byte>(7, 0, 0, 100);
-            public static Tuple<byte, byte, byte, byte> _8 = new Tuple<byte, byte, byte, byte>(8, 0, 50, 50);
-            public static Tuple<byte, byte, byte, byte> _9 = new Tuple<byte, byte, byte, byte>(9, 50, 0, 50);
-            public static Tuple<byte, byte, byte, byte> _10 = new Tuple<byte, byte, byte, byte>(10, 100, 100, 0);
-            public static Tuple<byte, byte, byte, byte> _11 = new Tuple<byte, byte, byte, byte>(11, 100, 100, 100);
-            public static Tuple<byte, byte, byte, byte> _12 = new Tuple<byte, byte, byte, byte>(12, 0, 100, 100);
-            public static Tuple<byte, byte, byte, byte> _13 = new Tuple<byte, byte, byte, byte>(13, 10, 50, 0);
-            public static Tuple<byte, byte, byte, byte> _14 = new Tuple<byte, byte, byte, byte>(14, 50, 10, 0);
-            public static Tuple<byte, byte, byte, byte> _15 = new Tuple<byte, byte, byte, byte>(15, 0, 50, 25);
-            public static Tuple<byte, byte, byte, byte> _ff = new Tuple<byte, byte, byte, byte>(15, 0, 0, 0);
-        }
-
         public WM_Section2(string path)
         {
             this.path = path;
@@ -532,6 +512,7 @@ namespace SerahToolkit_SharpGL
             br = new BinaryReader(fs);
         }
 
+        private int[] regionHUE = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 0};
 
         public void EndJob()
         {
@@ -546,80 +527,17 @@ namespace SerahToolkit_SharpGL
         {
             if(Colored == null)
                 Colored = new Bitmap(originalMap);
-            Tuple<byte, byte, byte, byte> rem;
-            switch (regionID)
-            {
-                case 0:
-                    rem = Regions._0;
-                    break;
-                case 1:
-                    rem = Regions._1;
-                    break;
-                case 2:
-                    rem = Regions._2;
-                    break;
-                case 3:
-                    rem = Regions._3;
-                    break;
-                case 4:
-                    rem = Regions._4;
-                    break;
-                case 5:
-                    rem = Regions._5;
-                    break;
-                case 6:
-                    rem = Regions._6;
-                    break;
-                case 7:
-                    rem = Regions._7;
-                    break;
-                case 8:
-                    rem = Regions._8;
-                    break;
-                case 9:
-                    rem = Regions._9;
-                    break;
-                case 10:
-                    rem = Regions._10;
-                    break;
-                case 11:
-                    rem = Regions._11;
-                    break;
-                case 12:
-                    rem = Regions._12;
-                    break;
-                case 13:
-                    rem = Regions._13;
-                    break;
-                case 14:
-                    rem = Regions._14;
-                    break;
-                case 15:
-                    rem = Regions._15;
-                    break;
-                case 0xFF:
-                    rem = Regions._ff;
-                    break;
-                default:
-                    goto case 0;
-            }
+            
             int widthblock = blockID*32;
             int row = (int) Math.Round((double) (widthblock/1024), 1);
             int realwidth = row != 0 ? widthblock-1024*row : widthblock;
             Rectangle rect = new Rectangle(realwidth,row*32, 32,32);
-            BitmapData bmpdata = Colored.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-            IntPtr scan0 = bmpdata.Scan0;
-            byte[] buffer = new byte[bmpdata.Stride * bmpdata.Height];
-            Marshal.Copy(scan0, buffer, 0 , buffer.Length);
-
-            for (int i = 0; i < buffer.Length; i += 3)
-            {
-                buffer[i] += rem.Item2;
-                buffer[i+1] += rem.Item3;
-                buffer[i+2] += rem.Item4;
-            }
-            Marshal.Copy(buffer, 0, scan0, buffer.Length);
-            Colored.UnlockBits(bmpdata);
+            int huetransform;
+            if (regionID < regionHUE.Length)
+                huetransform = regionID == 0xFF ? regionHUE[regionHUE.Length - 1] : regionHUE[regionID];
+            else huetransform = 0;
+            HueModifier hue = new HueModifier(huetransform);
+            hue.ApplyInPlace(Colored, rect);
         }
     }
 }
