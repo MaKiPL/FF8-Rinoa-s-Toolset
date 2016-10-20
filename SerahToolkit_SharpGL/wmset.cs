@@ -534,8 +534,9 @@ namespace SerahToolkit_SharpGL
             Rectangle rect = new Rectangle(realwidth,row*32, 32,32);
             int huetransform;
             if (regionID < regionHUE.Length)
-                huetransform = regionID == 0xFF ? regionHUE[regionHUE.Length - 1] : regionHUE[regionID];
+                huetransform = regionID == 0xFF ? 0 : regionHUE[regionID];
             else huetransform = 0;
+            if (regionID == 255) return;
             HueModifier hue = new HueModifier(huetransform);
             hue.ApplyInPlace(Colored, rect);
         }
