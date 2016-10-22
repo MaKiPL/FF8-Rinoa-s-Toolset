@@ -890,7 +890,18 @@ namespace SerahToolkit_SharpGL
             for (int i = 0; i < 768; i++)
                 wm2.ColorizeBlock(i,wm2.ReadNextRegion());
             pbBox.Image = wm2.GetColored;
+            FlowLayoutPanel flow = new FlowLayoutPanel {Dock = DockStyle.Fill};
+            Label[] labels = new Label[768];
+            NumericUpDown[] numeric = new NumericUpDown[768];
+            for (int i = 0; i < 768; i++)
+            {
+                labels[i] = new Label {Text = $"{i}:\t"};
+                numeric[i] = new NumericUpDown {Minimum = 0, Maximum = 19, Value = 0, Size = new Size(50,10)};
+                flow.Controls.Add(labels[i]); flow.Controls.Add(numeric[i]);
+                flow.SetFlowBreak(numeric[i], true);
+            }
             wm2Editor.Controls.Add(wm2SplitContainer);
+            wm2SplitContainer.Panel1.Controls.Add(flow);
             wm2Editor.Show();
         }
 
