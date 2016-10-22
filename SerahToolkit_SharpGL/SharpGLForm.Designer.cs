@@ -45,6 +45,7 @@
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openUnpackedOffsetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapRegionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.worldMapEncountersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.section1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.unpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +93,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.worldMapEncountersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -262,6 +262,12 @@
             this.worldMapRegionsToolStripMenuItem.Text = "2: World map regions";
             this.worldMapRegionsToolStripMenuItem.Click += new System.EventHandler(this.worldMapRegionsToolStripMenuItem_Click);
             // 
+            // worldMapEncountersToolStripMenuItem
+            // 
+            this.worldMapEncountersToolStripMenuItem.Name = "worldMapEncountersToolStripMenuItem";
+            this.worldMapEncountersToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.worldMapEncountersToolStripMenuItem.Text = "4: World map encounters";
+            // 
             // section1ToolStripMenuItem
             // 
             this.section1ToolStripMenuItem.Name = "section1ToolStripMenuItem";
@@ -285,6 +291,7 @@
             this.repackToolStripMenuItem.Name = "repackToolStripMenuItem";
             this.repackToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.repackToolStripMenuItem.Text = "Repack and save";
+            this.repackToolStripMenuItem.Click += new System.EventHandler(this.repackToolStripMenuItem_Click);
             // 
             // railobjToolStripMenuItem
             // 
@@ -326,7 +333,7 @@
             // 
             this.environmentToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
             // 
@@ -743,12 +750,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(970, 541);
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
-            // 
-            // worldMapEncountersToolStripMenuItem
-            // 
-            this.worldMapEncountersToolStripMenuItem.Name = "worldMapEncountersToolStripMenuItem";
-            this.worldMapEncountersToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.worldMapEncountersToolStripMenuItem.Text = "4: World map encounters";
             // 
             // SharpGlForm
             // 

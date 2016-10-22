@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using SerahToolkit_SharpGL.FF8_Core;
 using SharpGL;
 using SharpGL.SceneGraph;
@@ -954,6 +955,100 @@ namespace SerahToolkit_SharpGL
             wm2.regions[wm2.selectedRegion] = (byte) (sender as NumericUpDown).Value;
             wm2.ResetBlockColor(wm2.selectedRegion);
             pbBox.Image = wm2.GetColored;
+        }
+
+        private void repackToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DirectoryInfo di = null;
+            if (_lastKnownPath.Contains("wmset") && !_lastKnownPath.Contains("wmset.obj"))
+                di =
+                    new DirectoryInfo(_lastKnownPath.Substring(0,
+                        _lastKnownPath.Length - Path.GetFileName(_lastKnownPath).Length));
+            else
+            {
+                MessageBox.Show(
+                    "You initiated WMSET repack! Please direct me to folder\nwhere you keep unpacked wmset section files");
+                FolderBrowserDialog fbd = new FolderBrowserDialog {Description = "WMSET unpacked folder"};
+                if (fbd.ShowDialog() != DialogResult.OK) return;
+                di = new DirectoryInfo(fbd.SelectedPath);
+            }
+            FileInfo[] fi = di.GetFiles("wmset*.section*");
+            /*bool us, it, fr, es, de;
+            foreach (FileInfo n in fi)
+            {
+                us = Path.GetFileName(n.FullName) == "wmsetus.Section1";
+                it = Path.GetFileName(n.FullName) == "wmsetit.Section1";
+                fr = Path.GetFileName(n.FullName) == "wmsetfr.Section1";
+                es = Path.GetFileName(n.FullName) == "wmsetes.Section1";
+                de = Path.GetFileName(n.FullName) == "wmsetde.Section1";
+            }*/
+            //Regex regex = new Regex("wmsetus.Section*");
+
+            //Just practicing LINQ
+            FileInfo[] us = fi.Where(a => a.FullName.Contains("wmsetus.Section")).ToArray();
+            FileInfo[] it = fi.Where(a => a.FullName.Contains("wmsetit.Section")).ToArray();
+            FileInfo[] fr = fi.Where(a => a.FullName.Contains("wmsetfr.Section")).ToArray();
+            FileInfo[] es = (from n in fi where n.FullName.Contains("wmsetes.Section") select n).ToArray(); //testing
+            FileInfo[] de = fi.Where(a => a.FullName.Contains("wmsetde.Section")).ToArray();
+            if (us.Length == 48)
+            {
+                Console.WriteLine("WMSET: Found all US sections. Building file");
+                CompileWMSETfile(us, "us");
+            }
+            else Console.WriteLine("WMSET: Not enough WMSETUS sections! Can't build file...");
+            if (it.Length == 48)
+            {
+                Console.WriteLine("WMSET: Found all IT sections. Building file");
+                CompileWMSETfile(it, "it");
+            }
+            else Console.WriteLine("WMSET: Not enough WMSETIT sections! Can't build file...");
+            if (fr.Length == 48)
+            {
+                Console.WriteLine("WMSET: Found all FR sections. Building file");
+                CompileWMSETfile(fr, "fr");
+            }
+            else Console.WriteLine("WMSET: Not enough WMSETFR sections! Can't build file...");
+            if (es.Length == 48)
+            {
+                Console.WriteLine("WMSET: Found all ES sections. Building file");
+                CompileWMSETfile(es, "es");
+            }
+            else Console.WriteLine("WMSET: Not enough WMSETES sections! Can't build file...");
+            if (de.Length == 48)
+            {
+                Console.WriteLine("WMSET: Found all DE sections. Building file");
+                CompileWMSETfile(de, "de");
+            }
+            else Console.WriteLine("WMSET: Not enough WMSETDE sections! Can't build file...");
+
+        }
+
+        private void CompileWMSETfile(FileInfo[] sections, string countyLiteral)
+        {
+            byte[] buffer = new byte [sections.Sum(fi => (int) fi.Length) + 49*4];
+            uint[] sizes = new uint[48];
+            for (int i = 1; i <= 48; i++)
+            {
+                int i1 = i;
+                FileInfo[] f =
+                    sections.Where(a => Path.GetFileName(a.FullName) == $"wmset{countyLiteral}.Section{i1}").ToArray();
+                sizes[i - 1] = (uint) f[0].Length;
+                uint globalLocation = 49*4;
+                for (int k = 0; k != i-1; k++)
+                    globalLocation += sizes[k];
+                byte[] temp = BitConverter.GetBytes(globalLocation);
+                Array.Copy(temp, 0, buffer,(i-1)*4, 4);
+                temp = File.ReadAllBytes(f[0].FullName);
+                Array.Copy(temp, 0, buffer, globalLocation, temp.Length);
+            }
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = $"wmset{countyLiteral}.obj|wmset{countyLiteral}.obj",
+                Title = $"Save compiled wmset{countyLiteral} file!"
+            };
+            if (sfd.ShowDialog() == DialogResult.OK) File.WriteAllBytes(sfd.FileName, buffer);
+            else return;
+            Console.WriteLine($"WMSET: Succesfully saved {sfd.FileName} file");
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
