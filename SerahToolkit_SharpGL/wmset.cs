@@ -4,7 +4,6 @@ using System.IO;
 using System.Drawing.Imaging;
 using System.Drawing;
 using System.Collections;
-using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -498,18 +497,23 @@ namespace SerahToolkit_SharpGL
 
     internal class WM_Section2
     {
+        [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
+        public static extern IntPtr memcpy(IntPtr dest, IntPtr src, UIntPtr count);
+
         private string path;
-        private const int RegionPixelSize = 32;
         private Bitmap originalMap;
         private Bitmap Colored;
         private BinaryReader br;
         private FileStream fs;
+        public byte[] regions;
+        public ushort selectedRegion = 0;
 
         public WM_Section2(string path)
         {
             this.path = path;
             fs = new FileStream(this.path, FileMode.Open, FileAccess.ReadWrite);
             br = new BinaryReader(fs);
+            regions = new byte[768];
         }
 
         private int[] regionHUE = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 0};
@@ -525,13 +529,11 @@ namespace SerahToolkit_SharpGL
 
         public void ColorizeBlock(int blockID, byte regionID)
         {
+            regions[blockID] = regionID;
             if(Colored == null)
                 Colored = new Bitmap(originalMap);
-            
-            int widthblock = blockID*32;
-            int row = (int) Math.Round((double) (widthblock/1024), 1);
-            int realwidth = row != 0 ? widthblock-1024*row : widthblock;
-            Rectangle rect = new Rectangle(realwidth,row*32, 32,32);
+
+            Rectangle rect = CalculateRectangle(blockID);
             int huetransform;
             if (regionID < regionHUE.Length)
                 huetransform = regionID == 0xFF ? 0 : regionHUE[regionID];
@@ -539,6 +541,28 @@ namespace SerahToolkit_SharpGL
             if (regionID == 255) return;
             HueModifier hue = new HueModifier(huetransform);
             hue.ApplyInPlace(Colored, rect);
+        }
+
+        private Rectangle CalculateRectangle(int blockID)
+        {
+            int widthblock = blockID * 32;
+            int row = (int)Math.Round((double)(widthblock / 1024), 1);
+            int realwidth = row != 0 ? widthblock - 1024 * row : widthblock;
+            return new Rectangle(realwidth, row * 32, 32, 32);
+        }
+
+        public unsafe void ResetBlockColor(int blockID)
+        {
+            BitmapData original = originalMap.LockBits(CalculateRectangle(blockID), ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+            BitmapData colored = Colored.LockBits(CalculateRectangle(blockID), ImageLockMode.ReadWrite,
+                PixelFormat.Format24bppRgb);
+            IntPtr originscan = original.Scan0;
+            IntPtr colorscan = colored.Scan0;
+            memcpy(colorscan,originscan,new UIntPtr((uint) (colored.Stride*colored.Height)));
+            Colored.UnlockBits(colored);
+            originalMap.UnlockBits(original);
+            ColorizeBlock(blockID,regions[selectedRegion]);
         }
     }
 }

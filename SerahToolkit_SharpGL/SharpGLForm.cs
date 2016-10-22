@@ -39,7 +39,12 @@ namespace SerahToolkit_SharpGL
         private Bitmap _bmp2;
         private int _state;
 
+        private static Label wm2SelectedChunk;
+        private static NumericUpDown wm2numeric;
+        private static PictureBox pbBox;
+
         private GfEnviro _gf;
+        private WM_Section2 wm2;
 
         private const int StateBattleStageUv = 0;
         private const int StateRailDraw = 1;
@@ -868,20 +873,23 @@ namespace SerahToolkit_SharpGL
         {
             OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 2|wm*.section2" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
-            WM_Section2 wm2 = new WM_Section2(ofd.FileName);
+            wm2 = new WM_Section2(ofd.FileName);
             Form wm2Editor = new Form
             {
-                Size = new Size(625, 375),
-                Text = "World Map regions editor"
-            };
+                Size = new Size(1250, 800),
+                Text = "World Map regions editor",
+                MaximizeBox = false,
+                MinimizeBox = false
+        };
             wm2Editor.Closing += (o, args) => wm2.EndJob();
             SplitContainer wm2SplitContainer = new SplitContainer();
             wm2SplitContainer.Dock = DockStyle.Fill;
-            wm2SplitContainer.SplitterDistance = 40;
+            wm2SplitContainer.SplitterDistance = 0;
             wm2SplitContainer.IsSplitterFixed = true;
-            PictureBox pbBox = new PictureBox
+            pbBox = new PictureBox
             {
-                SizeMode = PictureBoxSizeMode.StretchImage,
+                Size = new Size(800,768),
+                SizeMode = PictureBoxSizeMode.AutoSize,
                 Image = Properties.Resources.map2,
                 Dock = DockStyle.Fill
             };
@@ -890,19 +898,47 @@ namespace SerahToolkit_SharpGL
             for (int i = 0; i < 768; i++)
                 wm2.ColorizeBlock(i,wm2.ReadNextRegion());
             pbBox.Image = wm2.GetColored;
+            pbBox.MouseClick += (o, args) => WM2UpdateBlockID(o, args);
             FlowLayoutPanel flow = new FlowLayoutPanel {Dock = DockStyle.Fill};
-            Label[] labels = new Label[768];
-            NumericUpDown[] numeric = new NumericUpDown[768];
-            for (int i = 0; i < 768; i++)
-            {
-                labels[i] = new Label {Text = $"{i}:\t"};
-                numeric[i] = new NumericUpDown {Minimum = 0, Maximum = 19, Value = 0, Size = new Size(50,10)};
-                flow.Controls.Add(labels[i]); flow.Controls.Add(numeric[i]);
-                flow.SetFlowBreak(numeric[i], true);
-            }
+            wm2SelectedChunk = new Label {Text = $"Selected chunk: {wm2.selectedRegion}", AutoSize = true};
+            wm2numeric = new NumericUpDown {Minimum = 0, Maximum = 0xFF, Value = wm2.regions[wm2.selectedRegion]};
+            wm2numeric.ValueChanged += (o, args) => WM2UpdateRegion(o, args);
+            flow.Controls.Add(wm2SelectedChunk);
+            flow.Controls.Add(wm2numeric);
+            flow.SetFlowBreak(wm2SelectedChunk, true);
+            flow.SetFlowBreak(wm2numeric,true);
             wm2Editor.Controls.Add(wm2SplitContainer);
             wm2SplitContainer.Panel1.Controls.Add(flow);
+            wm2Editor.FormBorderStyle = FormBorderStyle.Fixed3D;
             wm2Editor.Show();
+        }
+
+        private void WM2UpdateBlockID(object sender, MouseEventArgs e)
+        {
+            double rowID = e.Y/32;
+            int addY = (int) (Math.Round(rowID, 0)*32);
+            double colX = e.X/32;
+            int addX = (int) Math.Round(colX, 0);
+            wm2.selectedRegion = (ushort) (addX + addY);
+            WM2UpdateGUI(wm2.selectedRegion, wm2.regions[wm2.selectedRegion]);
+        }
+
+        /*
+         *             int widthblock = blockID*32;
+            int row = (int) Math.Round((double) (widthblock/1024), 1);
+            int realwidth = row != 0 ? widthblock-1024*row : widthblock;*/
+
+        public static void WM2UpdateGUI(ushort chunkID, byte value)
+        {
+            wm2SelectedChunk.Text = $"Selected chunk: {chunkID}";
+            wm2numeric.Value = value;
+        }
+
+        private void WM2UpdateRegion(object sender, EventArgs e)
+        {
+            wm2.regions[wm2.selectedRegion] = (byte) (sender as NumericUpDown).Value;
+            wm2.ResetBlockColor(wm2.selectedRegion);
+            pbBox.Image = wm2.GetColored;
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
