@@ -45,6 +45,7 @@ namespace SerahToolkit_SharpGL
 
         private GfEnviro _gf;
         private WM_Section2 wm2;
+        private Form dynamicForm;
 
         private const int StateBattleStageUv = 0;
         private const int StateRailDraw = 1;
@@ -881,6 +882,7 @@ namespace SerahToolkit_SharpGL
                 MaximizeBox = false,
                 MinimizeBox = false
         };
+            dynamicForm = wm2Editor;
             wm2Editor.Closing += (o, args) => wm2.EndJob();
             SplitContainer wm2SplitContainer = new SplitContainer();
             wm2SplitContainer.Dock = DockStyle.Fill;
@@ -898,19 +900,32 @@ namespace SerahToolkit_SharpGL
             for (int i = 0; i < 768; i++)
                 wm2.ColorizeBlock(i,wm2.ReadNextRegion());
             pbBox.Image = wm2.GetColored;
-            pbBox.MouseClick += (o, args) => WM2UpdateBlockID(o, args);
+            pbBox.MouseClick += WM2UpdateBlockID;
             FlowLayoutPanel flow = new FlowLayoutPanel {Dock = DockStyle.Fill};
             wm2SelectedChunk = new Label {Text = $"Selected chunk: {wm2.selectedRegion}", AutoSize = true};
             wm2numeric = new NumericUpDown {Minimum = 0, Maximum = 0xFF, Value = wm2.regions[wm2.selectedRegion]};
-            wm2numeric.ValueChanged += (o, args) => WM2UpdateRegion(o, args);
+            wm2numeric.ValueChanged += WM2UpdateRegion;
             flow.Controls.Add(wm2SelectedChunk);
             flow.Controls.Add(wm2numeric);
             flow.SetFlowBreak(wm2SelectedChunk, true);
             flow.SetFlowBreak(wm2numeric,true);
             wm2Editor.Controls.Add(wm2SplitContainer);
             wm2SplitContainer.Panel1.Controls.Add(flow);
+            Button compileButton = new Button {Text= "Compile & save"};
+            compileButton.Click += CompileButton_Click;
+            flow.Controls.Add(compileButton);
             wm2Editor.FormBorderStyle = FormBorderStyle.Fixed3D;
             wm2Editor.Show();
+        }
+
+        private void CompileButton_Click(object sender, EventArgs e)
+        {
+            byte[] b = new byte[768+4];
+            Array.Copy(wm2.regions, b, 768);
+            dynamicForm.Close();
+            string s = wm2.path;
+            File.WriteAllBytes(s, b);
+            Console.WriteLine("WMSET2: Saved section 2. Remember to repack whole wmset file!");
         }
 
         private void WM2UpdateBlockID(object sender, MouseEventArgs e)

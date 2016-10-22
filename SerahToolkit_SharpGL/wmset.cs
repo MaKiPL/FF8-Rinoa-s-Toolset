@@ -500,7 +500,7 @@ namespace SerahToolkit_SharpGL
         [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern IntPtr memcpy(IntPtr dest, IntPtr src, UIntPtr count);
 
-        private string path;
+        public string path;
         private Bitmap originalMap;
         private Bitmap Colored;
         private BinaryReader br;
