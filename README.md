@@ -1,5 +1,3 @@
-Current code status: [![Build Status](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset.svg?branch=master)](https://travis-ci.org/MaKiPL/FF8-Rinoa-s-Toolset)
-
 Current code version: 1.0.1.0
 
 # FF8 Rinoa's Toolset
