@@ -267,6 +267,7 @@
             this.worldMapEncountersToolStripMenuItem.Name = "worldMapEncountersToolStripMenuItem";
             this.worldMapEncountersToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.worldMapEncountersToolStripMenuItem.Text = "4: World map encounters";
+            this.worldMapEncountersToolStripMenuItem.Click += new System.EventHandler(this.worldMapEncountersToolStripMenuItem_Click);
             // 
             // section1ToolStripMenuItem
             // 
@@ -307,7 +308,7 @@
             // 
             this.openToolStripMenuItem2.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(127, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -316,7 +317,7 @@
             this.railEditorToolStripMenuItem.Enabled = false;
             this.railEditorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
-            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.railEditorToolStripMenuItem.Text = "Rail editor";
             this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
             // 

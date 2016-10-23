@@ -565,4 +565,38 @@ namespace SerahToolkit_SharpGL
             ColorizeBlock(blockID,regions[selectedRegion]);
         }
     }
+
+    internal class WM_Section4
+    {
+        public const byte BYTESPERREGION = 48;
+        public const byte REGIONSCOUNT = 14;
+        public string path;
+        private FileStream fs;
+        private BinaryReader br;
+
+        private ushort[] encounters;
+
+        public WM_Section4(string path)
+        {
+            this.path = path;
+            fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
+            br = new BinaryReader(fs);
+            encounters = new ushort[BYTESPERREGION*REGIONSCOUNT];
+        }
+
+        public void EndJob()
+        {
+            br.Dispose();
+            fs.Dispose();
+        }
+
+        public void ProduceData()
+        {
+            for (int i = 0x0; i < encounters.Length; i++)
+                encounters[i] = br.ReadUInt16();
+            EndJob();
+        }
+
+        public ushort[] GetEncounters => encounters;
+    }
 }

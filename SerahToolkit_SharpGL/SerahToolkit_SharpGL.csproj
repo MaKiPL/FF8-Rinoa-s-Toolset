@@ -100,6 +100,12 @@
     <Compile Include="FF8_Core\TIM.cs" />
     <Compile Include="FileScanner\FileScannerCore.cs" />
     <Compile Include="FileScanner\FileScannerHeaders.cs" />
+    <Compile Include="Forms\wm4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\wm4.Designer.cs">
+      <DependentUpon>wm4.cs</DependentUpon>
+    </Compile>
     <Compile Include="GfEnviro.cs" />
     <Compile Include="ManualGeometryRipper.cs">
       <SubType>Form</SubType>
@@ -154,6 +160,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\wm4.resx">
+      <DependentUpon>wm4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ManualGeometryRipper.resx">
       <DependentUpon>ManualGeometryRipper.cs</DependentUpon>

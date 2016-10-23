@@ -8,6 +8,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using SerahToolkit_SharpGL.FF8_Core;
+using SerahToolkit_SharpGL.Forms;
 using SharpGL;
 using SharpGL.SceneGraph;
 using SharpGL.SceneGraph.Primitives;
@@ -46,6 +47,7 @@ namespace SerahToolkit_SharpGL
 
         private GfEnviro _gf;
         private WM_Section2 wm2;
+        private WM_Section4 wm4;
         private Form dynamicForm;
 
         private const int StateBattleStageUv = 0;
@@ -1049,6 +1051,17 @@ namespace SerahToolkit_SharpGL
             if (sfd.ShowDialog() == DialogResult.OK) File.WriteAllBytes(sfd.FileName, buffer);
             else return;
             Console.WriteLine($"WMSET: Succesfully saved {sfd.FileName} file");
+        }
+
+        private void worldMapEncountersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 4|wm*.section4" };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            wm4 = new WM_Section4(ofd.FileName);
+            Forms.wm4 wm4editor = new wm4(wm4);
+            wm4.ProduceData();
+            wm4editor.InitialUpdate(wm4.GetEncounters);
+            wm4editor.Show();
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
