@@ -46,6 +46,7 @@ namespace SerahToolkit_SharpGL
         private static PictureBox pbBox;
 
         private GfEnviro _gf;
+        private WM_Section1 wm1;
         private WM_Section2 wm2;
         private WM_Section4 wm4;
         private Form dynamicForm;
@@ -161,11 +162,17 @@ namespace SerahToolkit_SharpGL
 
         private void section1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog { Filter = "wmsetxx.obj/Sector16|wmset**.Section16" };
-            if (ofd.ShowDialog() != DialogResult.OK) return;
+            string test = Path.GetFileNameWithoutExtension(_lastKnownPath);
+            if (test.Substring(0, 5) != "wmset")
+            {
+                Console.WriteLine("WMSET: Please open your lingual wmset file again");
+                return;
+            }
+            string lingual = Wmset.ReturnLingual(_lastKnownPath);
+            string dir = Path.GetDirectoryName(_lastKnownPath);
+            string path = $"{dir}\\wmset{lingual}.Section16";
             _state = StateWmsetModel;
-            Wmset wmset = new Wmset(ofd.FileName);
-            _lastKnownPath = ofd.FileName;
+            Wmset wmset = new Wmset(path);
             UpdateStatus(_lastKnownPath);
             listBox1.Items.Clear();
             foreach (int i in wmset.ProduceOffset_sec16())
@@ -198,18 +205,24 @@ namespace SerahToolkit_SharpGL
         {
             OpenFileDialog ofd = new OpenFileDialog { Filter = "wmsetxx.obj|wmset*.obj" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
+            if (Path.GetFileNameWithoutExtension(ofd.FileName) == "wmset")
+            {
+                Console.WriteLine("WMSET: Please use your language version of wmset instead of selected file!");
+                return;
+            }
             _lastKnownPath = ofd.FileName;
-            unpackToolStripMenuItem.Enabled = true;
             repackToolStripMenuItem.Enabled = true;
+            openUnpackedOffsetToolStripMenuItem.Enabled = true;
             UpdateStatus(_lastKnownPath);
             _state = StateWmset;
             Wmset wmset = new Wmset(_lastKnownPath);
             listBox1.Items.Clear();
             listBox1.Items.AddRange(wmset._Debug_GetSections().Item1.ToArray());
             Render3D();
+            wmsetunpack();
         }
 
-        private void unpackToolStripMenuItem_Click(object sender, EventArgs e)
+        private void wmsetunpack()
         {
             Wmset wmset = new Wmset(_lastKnownPath);
             var offsetList = wmset._Debug_GetSections().Item2.ToArray();
@@ -749,7 +762,7 @@ namespace SerahToolkit_SharpGL
 
         private void WMSETmod_listbox()
         {
-            Wmset wmset = new Wmset(_lastKnownPath);
+            Wmset wmset = new Wmset(_lastKnownPath.Substring(0,_lastKnownPath.Length-3) + "Section16");
             int selectedModel = Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]);
             wmset.Sector16(selectedModel, listBox1.SelectedIndex);
             Bitmap bmp = wmset.GetTexture();
@@ -873,11 +886,20 @@ namespace SerahToolkit_SharpGL
             pictureBox1.Image = bmp;
         }
 
+
+
         private void worldMapRegionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 2|wm*.section2" };
-            if (ofd.ShowDialog() != DialogResult.OK) return;
-            wm2 = new WM_Section2(ofd.FileName);
+            string test = Path.GetFileNameWithoutExtension(_lastKnownPath);
+            if (test.Substring(0, 5) != "wmset")
+            {
+                Console.WriteLine("WMSET: Please open your lingual wmset file again");
+                return;
+            }
+            string lingual = Wmset.ReturnLingual(_lastKnownPath);
+            string dir = Path.GetDirectoryName(_lastKnownPath);
+            string path = $"{dir}\\wmset{lingual}.Section2";
+            wm2 = new WM_Section2(path);
             Form wm2Editor = new Form
             {
                 Size = new Size(1250, 800),
@@ -1055,10 +1077,19 @@ namespace SerahToolkit_SharpGL
 
         private void worldMapEncountersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog { Filter = "WMset section 4|wm*.section4" };
-            if (ofd.ShowDialog() != DialogResult.OK) return;
-            wm4 = new WM_Section4(ofd.FileName);
-            Forms.wm4 wm4editor = new wm4(wm4);
+            string test = Path.GetFileNameWithoutExtension(_lastKnownPath);
+            if (test.Substring(0, 5) != "wmset")
+            {
+                Console.WriteLine("WMSET: Please open your lingual wmset file again");
+                return;
+            }
+            string lingual = Wmset.ReturnLingual(_lastKnownPath);
+            string dir = Path.GetDirectoryName(_lastKnownPath);
+            string path = $"{dir}\\wmset{lingual}.Section4";
+            string sec1 = $"{dir}\\wmset{lingual}.Section1";
+            wm4 = new WM_Section4(path);
+            wm1 = new WM_Section1(sec1);
+            Forms.wm4 wm4editor = new wm4(wm4,wm1);
             wm4.ProduceData();
             wm4editor.InitialUpdate(wm4.GetEncounters);
             wm4editor.Show();

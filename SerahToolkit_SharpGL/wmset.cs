@@ -48,9 +48,13 @@ namespace SerahToolkit_SharpGL
         private float _uu4;
         private float _vv4;
 
-        private List<byte> _u; 
-        
+        private List<byte> _u;
 
+        public static string ReturnLingual(string path)
+        {
+            string s = Path.GetFileNameWithoutExtension(path);
+            return s.Substring(5, 2);
+        }
         public Wmset(string path)
         {
             _path = path;
@@ -576,119 +580,6 @@ namespace SerahToolkit_SharpGL
 
         private ushort[] encounters;
 
-        public static Dictionary<byte, string> groundTypes = new Dictionary<byte, string>
-        {
-            {0, "UNKNOWN 0"},
-            {1, "UNKNOWN 1" },
-            {2, "UNKNOWN 2" },
-            {3, "UNKNOWN 3" },
-            {4, "UNKNOWN 4" },
-            {5, "UNKNOWN 5" },
-            {6, "UNKNOWN 6" },
-            {7, "UNKNOWN 7" },
-            {8, "UNKNOWN 8" },
-            {9, "UNKNOWN 9" },
-            {10, "UNKNOWN 10"},
-            {11, "UNKNOWN 11" },
-            {12, "UNKNOWN 12" },
-            {14, "UNKNOWN 14" },
-            {15, "UNKNOWN 15" },
-            {16, "UNKNOWN 16" },
-            {17, "UNKNOWN 17" },
-            {18, "UNKNOWN 18" },
-            {23, "UNKNOWN 23" },
-            {24, "UNKNOWN 24" },
-            {25, "UNKNOWN 25" },
-            {27, "UNKNOWN 27" },
-            {28, "UNKNOWN 28" }
-        };
-
-        public static Dictionary<int, string> esiDividors = new Dictionary<int, string>
-        {
-            {0, "0"},
-            {1, "0"},
-            {2, "0"},
-            {3, "0"},
-            {4, "0"},
-            {5, "0"},
-            {6, "2 & 19"},
-            {7, "2"},
-            {8, "2"},
-            {9, "2 & 19"},
-            {10, "2 & 19"},
-            {11, "2 & 19"},
-            {12, "2 & 19"},
-            {13, "2"},
-            {14, "2"},
-            {15, "1"},
-            {16, "1"},
-            {17, "1"},
-            {18, "1"},
-            {19, "1"},
-            {20, "1"},
-            {21, "1"},
-            {22, "3"},
-            {23, "3/19"},
-            {24, "3"},
-            {25, "3"},
-            {26, "3"},
-            {27, "3"},
-            {28, "4"},
-            {29, "4"},
-            {30, "4"},
-            {31, "4"},
-            {32, "4/19"},
-            {33, "4"},
-            {34, "4"},
-            {35, "4/19"},
-            {36, "4 / 19"},
-            {38, "6"},
-            {39, "6"},
-            {40, "6"},
-            {41, "6"},
-            {42, "6"},
-            {43, "6"},
-            {44, "9"},
-            {45, "9"},
-            {46, "9"},
-            {47, "9"},
-            {48, "8"},
-            {49, "8"},
-            {50, "8"},
-            {51, "8"},
-            {52, "8 & 11"},
-            {53, "8 & 11"},
-            {54, "8"},
-            {56, "8"},
-            {57, "7"},
-            {58, "7"},
-            {59, "7"},
-            {60, "7"},
-            {61, "11"},
-            {62, "11/18"},
-            {63, "11"},
-            {64, "11"},
-            {65, "11/18"},
-            {66, "13"},
-            {67, "12"},
-            {68, "12"},
-            {69, "12"},
-            {70, "12"},
-            {71, "12"},
-            {72, "15"},
-            {73, "15"},
-            {74, "15"},
-            {75, "17"},
-            {76, "17"},
-            {77, "18"},
-            {78, "14"},
-            {79, "14"},
-            {80, "10"},
-            {81, "10"},
-            {82, "10"},
-            {83, "10"}
-        };
-
         public WM_Section4(string path)
         {
             this.path = path;
@@ -711,5 +602,43 @@ namespace SerahToolkit_SharpGL
         }
 
         public ushort[] GetEncounters => encounters;
+    }
+
+    internal class WM_Section1
+    {
+        private string path;
+        public ENTRY[] entries;
+
+        public struct ENTRY
+        {
+            public byte regionID;
+            public byte GroundID;
+            public byte ESI;
+            byte padding;
+        }
+
+        public WM_Section1(string path)
+        {
+            this.path = path;
+        }
+
+        public void ReadData()
+        {
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+
+            uint size = br.ReadUInt32();
+            uint count = (size - 4)/4;
+            entries = new ENTRY[count];
+            for (int i = 0; i < count; i++)
+            {
+                entries[i].regionID = br.ReadByte();
+                entries[i].GroundID = br.ReadByte();
+                entries[i].ESI = br.ReadByte();
+                br.ReadByte(); //null
+            }
+            br.Dispose();
+            fs.Dispose();
+        }
     }
 }

@@ -47,7 +47,6 @@
             this.worldMapRegionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapEncountersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.section1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.unpackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.railobjToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -229,7 +228,6 @@
             this.worldMapObjectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem1,
             this.openUnpackedOffsetToolStripMenuItem,
-            this.unpackToolStripMenuItem,
             this.repackToolStripMenuItem});
             this.worldMapObjectToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("worldMapObjectToolStripMenuItem.Image")));
             this.worldMapObjectToolStripMenuItem.Name = "worldMapObjectToolStripMenuItem";
@@ -240,8 +238,8 @@
             // 
             this.openToolStripMenuItem1.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(161, 22);
-            this.openToolStripMenuItem1.Text = "Open";
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
+            this.openToolStripMenuItem1.Text = "Open and unpack";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
             // 
             // openUnpackedOffsetToolStripMenuItem
@@ -250,10 +248,11 @@
             this.worldMapRegionsToolStripMenuItem,
             this.worldMapEncountersToolStripMenuItem,
             this.section1ToolStripMenuItem});
+            this.openUnpackedOffsetToolStripMenuItem.Enabled = false;
             this.openUnpackedOffsetToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openUnpackedOffsetToolStripMenuItem.Name = "openUnpackedOffsetToolStripMenuItem";
-            this.openUnpackedOffsetToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.openUnpackedOffsetToolStripMenuItem.Text = "Open unpacked";
+            this.openUnpackedOffsetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.openUnpackedOffsetToolStripMenuItem.Text = "Open sections";
             // 
             // worldMapRegionsToolStripMenuItem
             // 
@@ -276,21 +275,12 @@
             this.section1ToolStripMenuItem.Text = "16: Models";
             this.section1ToolStripMenuItem.Click += new System.EventHandler(this.section1ToolStripMenuItem_Click);
             // 
-            // unpackToolStripMenuItem
-            // 
-            this.unpackToolStripMenuItem.Enabled = false;
-            this.unpackToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
-            this.unpackToolStripMenuItem.Name = "unpackToolStripMenuItem";
-            this.unpackToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.unpackToolStripMenuItem.Text = "Unpack";
-            this.unpackToolStripMenuItem.Click += new System.EventHandler(this.unpackToolStripMenuItem_Click);
-            // 
             // repackToolStripMenuItem
             // 
             this.repackToolStripMenuItem.Enabled = false;
             this.repackToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.repackToolStripMenuItem.Name = "repackToolStripMenuItem";
-            this.repackToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.repackToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.repackToolStripMenuItem.Text = "Repack and save";
             this.repackToolStripMenuItem.Click += new System.EventHandler(this.repackToolStripMenuItem_Click);
             // 
@@ -825,7 +815,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripMenuItem sceneoutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem unpackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openUnpackedOffsetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem section1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gFToolStripMenuItem;
