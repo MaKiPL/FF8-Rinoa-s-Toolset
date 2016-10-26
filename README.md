@@ -1,4 +1,4 @@
-Current code version: 1.0.1.0
+Download: https://github.com/MaKiPL/FF8-Rinoa-s-Toolset/releases
 
 # FF8 Rinoa's Toolset
 FF8 All-in-one modding toolset is almost complete tool to rip and view various Final Fantasy VIII objects.
