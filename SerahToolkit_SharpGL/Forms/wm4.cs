@@ -20,6 +20,7 @@ namespace SerahToolkit_SharpGL.Forms
             dataGridView1.AllowUserToDeleteRows = false;
             DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn {HeaderText = "ID", ReadOnly = true, AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells};
             DataGridViewTextBoxColumn regionColumn = new DataGridViewTextBoxColumn { HeaderText = "Region", ReadOnly = true, AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells };
+            DataGridViewTextBoxColumn groundColumn = new DataGridViewTextBoxColumn { HeaderText = "Ground type", ReadOnly = true, AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells };
             DataGridViewTextBoxColumn encColumn = new DataGridViewTextBoxColumn { HeaderText = "Encounter", ReadOnly = false, AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells };
             dataGridView1.Columns.Add(idColumn);
             dataGridView1.Columns.Add(regionColumn);
@@ -32,7 +33,15 @@ namespace SerahToolkit_SharpGL.Forms
 
         private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e) => wm4s.GetEncounters[e.RowIndex] = ushort.Parse(dataGridView1.Rows[e.RowIndex].Cells[2].Value as string);
 
-        private int returnRegion(int i) => (int) Math.Round((decimal) (i/48), 0);
+        private string returnRegion(int i) => WM_Section4.esiDividors[i/8];
+
+        private string returnGroundType(int i)
+        {
+            int esicat = i/8;
+            return WM_Section4.groundTypes[(byte)esicat];
+        }
+
+        //private int returnRegion(int i) => (int) Math.Round((decimal) (i/48), 0); <--deprecated
 
         private void compileSaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
