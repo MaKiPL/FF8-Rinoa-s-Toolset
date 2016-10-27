@@ -754,7 +754,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
             this.Text = "FF8 - Rinoa\'s Toolkit- by Marcin Gomulak aka MaKiPL                           Ver" +
-    "sion: 1.0.1.0                         Last update: 10.10.2016";
+    "sion: 1.1.3 HOTFIX                         Last update: 26.10.2016";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

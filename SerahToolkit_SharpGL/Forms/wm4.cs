@@ -101,7 +101,7 @@ namespace SerahToolkit_SharpGL.Forms
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
         }
 
-        private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e) => wm4s.GetEncounters[e.RowIndex] = ushort.Parse(dataGridView1.Rows[e.RowIndex].Cells[2].Value as string);
+        private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e) => wm4s.GetEncounters[e.RowIndex] = ushort.Parse(dataGridView1.Rows[e.RowIndex].Cells[3].Value as string);
 
         private string returnRegion(int[] i) => $"{entries[i[0]].regionID} and {entries[i[1]].regionID}";
         
@@ -110,8 +110,12 @@ namespace SerahToolkit_SharpGL.Forms
         {
             switch (i)
             {
+                case 4:
+                    return "(4) BALAMB FOREST";
+                case 6:
+                    return "(6) PLAINS";
                 case 10:
-                    return "Beach";
+                    return "(10) BEACH";
                 default:
                     return i.ToString();
             }
