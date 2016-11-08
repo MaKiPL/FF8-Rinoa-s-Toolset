@@ -10,6 +10,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
     class mch
     {
         private string path;
+        public string objpath;
         private FileStream fs;
         private BinaryReader br;
 
@@ -30,6 +31,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
         private const uint isTriangle = 0x07060125;
         private const uint isQuad = 0x0907012d;
+
 
         public mch(string path)
         {
@@ -107,9 +109,8 @@ namespace SerahToolkit_SharpGL.FF8_Core
             wavefront.Add("g quads");
             wavefront.AddRange(quadss);
             string[] obj = wavefront.ToArray();
-            SaveFileDialog sfd = new SaveFileDialog {Filter = "*.obj|*.obj"};
-            if (sfd.ShowDialog() != DialogResult.OK) return;
-            File.WriteAllLines(sfd.FileName, obj);
+            string constructPath = objpath =$"{Path.GetDirectoryName(path)}\\{Path.GetFileNameWithoutExtension(path)}.obj";
+            File.WriteAllLines(constructPath, obj);
         }
 
         private void ReadFaces()
@@ -148,10 +149,10 @@ namespace SerahToolkit_SharpGL.FF8_Core
             fs.Seek(vertsoffset+modeloffset, SeekOrigin.Begin);
             for (int i = 0; i < vertices.Length; i++)
             {
-                vertices[i].X = br.ReadInt16()/500.0f;
-                vertices[i].Z = br.ReadInt16()/500.0f;
-                vertices[i].Y = br.ReadInt16()/500.0f;
-                vertices[i].W = br.ReadInt16()/500.0f;
+                vertices[i].X = br.ReadInt16()/200.0f;
+                vertices[i].Z = br.ReadInt16()/200.0f;
+                vertices[i].Y = br.ReadInt16()/200.0f;
+                vertices[i].W = br.ReadInt16();
             }
         }
     }

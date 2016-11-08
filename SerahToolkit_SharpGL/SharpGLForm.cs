@@ -58,8 +58,11 @@ namespace SerahToolkit_SharpGL
         private const int StateGFenviro = 4;
         private const int StateWmx = 5;
         private const int StateTexture = 6; //unused
+        private const int StateSingleModel = 7;
         public static string GFEnviro;
         private string _wmxPath;
+
+        private string singlemodelpath;
 
 
         OpenGL _gl;
@@ -478,6 +481,20 @@ namespace SerahToolkit_SharpGL
                 }
             }
 
+            if (_state == StateSingleModel)
+            {
+                _gl.ClearColor(0, 0, 0, 0);
+                Scene scene = SerializationEngine.Instance.LoadScene(singlemodelpath);
+                if (scene != null)
+                {
+                    foreach (Polygon polygon in scene.SceneContainer.Traverse<Polygon>())
+                    {
+                        polygon.IsEnabled = true;
+                        _polygons.Add(polygon);
+                    }
+                }
+            }
+
             if (_state != StateWmsetModel) return;
             {
                 string pathOfDe = Path.GetDirectoryName(_lastKnownPath) + @"\" + Path.GetFileNameWithoutExtension(_lastKnownPath) + "_" + Convert.ToInt32(listBox1.Items[listBox1.SelectedIndex]) + "_q.obj";
@@ -618,9 +635,17 @@ namespace SerahToolkit_SharpGL
                 case StateTexture:
                     TextureLogic();
                     break;
+                case StateSingleModel:
+                    SingleModelLogic();
+                    break;
                 default:
                     return;
             }
+        }
+
+        private void SingleModelLogic()
+        {
+            ;
         }
 
         private void WMX_list()
@@ -1108,6 +1133,10 @@ namespace SerahToolkit_SharpGL
             OpenFileDialog ofd = new OpenFileDialog {Filter = "*.mch|*.mch"};
             if(ofd.ShowDialog() != DialogResult.OK) return;
             FF8_Core.mch mch = new mch(ofd.FileName);
+            if ((singlemodelpath = mch.objpath) == null) return;
+            _state = StateSingleModel;
+            Render3D();
+
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
