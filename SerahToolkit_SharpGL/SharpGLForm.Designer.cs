@@ -92,6 +92,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.mCHCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -219,7 +220,7 @@
             // 
             this.openToolStripMenuItem3.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem3.Name = "openToolStripMenuItem3";
-            this.openToolStripMenuItem3.Size = new System.Drawing.Size(166, 22);
+            this.openToolStripMenuItem3.Size = new System.Drawing.Size(163, 22);
             this.openToolStripMenuItem3.Text = "Open (WMX.obj)";
             this.openToolStripMenuItem3.Click += new System.EventHandler(this.openToolStripMenuItem3_Click);
             // 
@@ -334,7 +335,8 @@
             this.namedicbinToolStripMenuItem,
             this.wm2fieldtblToolStripMenuItem,
             this.tEXTextureToolStripMenuItem,
-            this.tIMTextureToolStripMenuItem});
+            this.tIMTextureToolStripMenuItem,
+            this.mCHCharacterToolStripMenuItem});
             this.otherFilesToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.otherFilesToolStripMenuItem.Name = "otherFilesToolStripMenuItem";
             this.otherFilesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
@@ -343,21 +345,21 @@
             // namedicbinToolStripMenuItem
             // 
             this.namedicbinToolStripMenuItem.Name = "namedicbinToolStripMenuItem";
-            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.namedicbinToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.namedicbinToolStripMenuItem.Text = "namedic.bin";
             this.namedicbinToolStripMenuItem.Click += new System.EventHandler(this.namedicbinToolStripMenuItem_Click);
             // 
             // wm2fieldtblToolStripMenuItem
             // 
             this.wm2fieldtblToolStripMenuItem.Name = "wm2fieldtblToolStripMenuItem";
-            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.wm2fieldtblToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.wm2fieldtblToolStripMenuItem.Text = "wm2field.tbl";
             this.wm2fieldtblToolStripMenuItem.Click += new System.EventHandler(this.wm2fieldtblToolStripMenuItem_Click);
             // 
             // tEXTextureToolStripMenuItem
             // 
             this.tEXTextureToolStripMenuItem.Name = "tEXTextureToolStripMenuItem";
-            this.tEXTextureToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.tEXTextureToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.tEXTextureToolStripMenuItem.Text = "TEX texture";
             this.tEXTextureToolStripMenuItem.Click += new System.EventHandler(this.tEXTextureToolStripMenuItem_Click);
             // 
@@ -367,7 +369,7 @@
             this.normalTIMToolStripMenuItem,
             this.packedbinaryFileforceDrawToolStripMenuItem});
             this.tIMTextureToolStripMenuItem.Name = "tIMTextureToolStripMenuItem";
-            this.tIMTextureToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.tIMTextureToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.tIMTextureToolStripMenuItem.Text = "TIM texture";
             // 
             // normalTIMToolStripMenuItem
@@ -742,6 +744,13 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
+            // mCHCharacterToolStripMenuItem
+            // 
+            this.mCHCharacterToolStripMenuItem.Name = "mCHCharacterToolStripMenuItem";
+            this.mCHCharacterToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.mCHCharacterToolStripMenuItem.Text = "MCH character";
+            this.mCHCharacterToolStripMenuItem.Click += new System.EventHandler(this.mCHCharacterToolStripMenuItem_Click);
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -852,6 +861,7 @@
         private System.Windows.Forms.ToolStripMenuItem worldMapRegionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem repackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem worldMapEncountersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mCHCharacterToolStripMenuItem;
     }
 }
 

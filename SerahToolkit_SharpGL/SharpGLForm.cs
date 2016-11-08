@@ -1103,6 +1103,13 @@ namespace SerahToolkit_SharpGL
             charaone.worldMode charaone = new charaone.worldMode(ofd.FileName);
         }
 
+        private void mCHCharacterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "*.mch|*.mch"};
+            if(ofd.ShowDialog() != DialogResult.OK) return;
+            FF8_Core.mch mch = new mch(ofd.FileName);
+        }
+
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLeftDown = e.Button == MouseButtons.Left;
