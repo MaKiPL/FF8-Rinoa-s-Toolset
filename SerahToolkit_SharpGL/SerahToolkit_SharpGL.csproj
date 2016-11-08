@@ -92,8 +92,10 @@
     <Compile Include="BS_Vertices.Designer.cs">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
     </Compile>
+    <Compile Include="charaone.cs" />
     <Compile Include="FF8_Core\ArchiveWorker.cs" />
     <Compile Include="FF8_Core\LZSS.cs" />
+    <Compile Include="FF8_Core\mch.cs" />
     <Compile Include="FF8_Core\PlayMovie.cs" />
     <Compile Include="FF8_Core\Singleton.cs" />
     <Compile Include="FF8_Core\TEX.cs" />

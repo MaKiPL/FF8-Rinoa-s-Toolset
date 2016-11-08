@@ -219,7 +219,7 @@
             // 
             this.openToolStripMenuItem3.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem3.Name = "openToolStripMenuItem3";
-            this.openToolStripMenuItem3.Size = new System.Drawing.Size(163, 22);
+            this.openToolStripMenuItem3.Size = new System.Drawing.Size(166, 22);
             this.openToolStripMenuItem3.Text = "Open (WMX.obj)";
             this.openToolStripMenuItem3.Click += new System.EventHandler(this.openToolStripMenuItem3_Click);
             // 

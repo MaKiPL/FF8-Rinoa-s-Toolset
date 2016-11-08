@@ -1095,6 +1095,14 @@ namespace SerahToolkit_SharpGL
             wm4editor.Show();
         }
 
+        private void opencharaoneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "chara.one|chara.one"};
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            _lastKnownPath = ofd.FileName;
+            charaone.worldMode charaone = new charaone.worldMode(ofd.FileName);
+        }
+
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
         {
             mouseLeftDown = e.Button == MouseButtons.Left;
