@@ -1135,6 +1135,7 @@ namespace SerahToolkit_SharpGL
             FF8_Core.mch mch = new mch(ofd.FileName);
             if ((singlemodelpath = mch.objpath) == null) return;
             _state = StateSingleModel;
+            texturedWLightToolStripMenuItem_Click(sender, e);
             Render3D();
 
         }

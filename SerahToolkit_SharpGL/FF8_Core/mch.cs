@@ -126,6 +126,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
         private void ConstructOBJ()
         {
             List<string> wavefront = new List<string>();
+            wavefront.Add($"mtllib {Path.GetFileNameWithoutExtension(path)}.mtl");
             for (int i = 0; i < vertices.Length; i++)
                 wavefront.Add(
                     $"v {vertices[i].X.ToString().Replace(',', '.')} {vertices[i].Z.ToString().Replace(',', '.')} {vertices[i].Y.ToString().Replace(',', '.')}");
@@ -137,6 +138,19 @@ namespace SerahToolkit_SharpGL.FF8_Core
             string[] obj = wavefront.ToArray();
             string constructPath = objpath =$"{Path.GetDirectoryName(path)}\\{Path.GetFileNameWithoutExtension(path)}.obj";
             File.WriteAllLines(constructPath, obj);
+            ConstructMTL();
+        }
+
+        private void ConstructMTL()
+        {
+            string[] mtlLib = new string[textureoffsets.Length*2];
+            for (int i = 0; i < textureoffsets.Length; i++)
+            {
+                char a = (char) 0x41;
+                mtlLib[i*2] = $"newmtl mat{Convert.ToChar(a+ i)}";
+                mtlLib[i*2+1] = $"map_Kd {Path.GetFileNameWithoutExtension(path)}_{i}.tim.png";
+            }
+            File.WriteAllLines($"{ Path.GetDirectoryName(path)}\\{ Path.GetFileNameWithoutExtension(path)}.mtl", mtlLib);
         }
 
         private void ReadFaces()
@@ -167,10 +181,17 @@ namespace SerahToolkit_SharpGL.FF8_Core
                     vtIndex += 4;
                 }
                 ReadUVs(uvList, bisTriangle);
-                fs.Seek(12, SeekOrigin.Current);
-                if(bisTriangle)
+                fs.Seek(2, SeekOrigin.Current);
+                if (bisTriangle)
+                {
+                    triangles.Add(CreateMatTag());
                     triangles.Add(s);
-                else quads.Add(s);
+                }
+                else
+                {
+                    quads.Add(CreateMatTag());
+                    quads.Add(s);
+                }
             }
             this.triangless = triangles.ToArray();
             this.quadss = quads.ToArray();
@@ -189,6 +210,14 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 br.ReadByte();
             }
             uvs = uvList.ToArray();
+        }
+
+        private string CreateMatTag()
+        {
+            char A = (char) 0x41;
+            A += (char)(br.ReadUInt16() & 0x0F);
+            fs.Seek(8, SeekOrigin.Current);            
+            return $"usemtl mat{A}";
         }
 
         private void ReadVertices()
