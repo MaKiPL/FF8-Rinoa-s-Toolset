@@ -173,7 +173,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 if (bisTriangle)
                 {
                     br.ReadUInt16();
-                    vtIndex += 4;
+                    vtIndex += 3;
                 }
                 else
                 {
@@ -205,17 +205,19 @@ namespace SerahToolkit_SharpGL.FF8_Core
             fs.Seek(24, SeekOrigin.Current);
             TIM parametersOnly = new TIM($"{Path.GetDirectoryName(path)}\\{Path.GetFileNameWithoutExtension(path)}_{whichTextureID}.tim",0,true);
             TIM.Texture paramTex = parametersOnly.GetParameters;
-            int terminator = 4;//bTriangle ? 3 : 4;
-            Console.WriteLine($"MCHdebug_:{br.ReadByte()}/{br.ReadByte()} {br.ReadByte()}/{br.ReadByte()} {br.ReadByte()}/{br.ReadByte()} {br.ReadByte()}/{br.ReadByte()}\n");
-            fs.Seek(-8, SeekOrigin.Current);
+            int terminator = bTriangle ? 3 : 4;
             for (int i = 0; i < terminator; i++)
+            {
+                double u = br.ReadByte() / (float)paramTex.Width;
+                double v = br.ReadByte() / (float)paramTex.Height;
                 uvList.Add(
-                    $"vt {((double) (br.ReadByte()/(float)paramTex.Width)).ToString().Replace(',', '.')} {((double) (br.ReadByte()/(float)paramTex.Height)).ToString().Replace(',', '.')}");
-            /*if (bTriangle)
+                    $"vt {u.ToString().Replace(',', '.')} {v.ToString().Replace(',', '.')}");
+            }
+            if (bTriangle)
             {
                 br.ReadByte();
                 br.ReadByte();
-            }*/
+            }
             uvs = uvList.ToArray();
         }
 
