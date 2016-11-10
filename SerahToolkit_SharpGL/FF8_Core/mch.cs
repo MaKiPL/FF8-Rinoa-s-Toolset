@@ -209,7 +209,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
             for (int i = 0; i < terminator; i++)
             {
                 double u = br.ReadByte() / (float)paramTex.Width;
-                double v = br.ReadByte() / (float)paramTex.Height;
+                double v = 1.0f - br.ReadByte() / (float)paramTex.Height;
                 uvList.Add(
                     $"vt {u.ToString().Replace(',', '.')} {v.ToString().Replace(',', '.')}");
             }
