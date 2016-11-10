@@ -37,6 +37,8 @@ namespace SerahToolkit_SharpGL.FF8_Core
             public ushort Height;
         }
 
+        public Texture GetParameters => texture;
+
         public struct Color
         {
             public byte R;
@@ -44,7 +46,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
             public byte B;
         }
 
-        public TIM(string path, byte arg0 = 0)
+        public TIM(string path, byte arg0 = 0, bool paramsOnly = false)
         {
             this.arg0 = arg0 != 0;
             this.path = path;
@@ -57,10 +59,14 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 Console.WriteLine("TIM: This is not TIM texture!");
                 return;
             }
-            if (arg0 == 0)
+            if (arg0 == 0 && !paramsOnly)
             {
                 ReadParameters(bpp);
                 bmp = DrawTexture();
+            }
+            if (arg0 == 0 && paramsOnly)
+            {
+                ReadParameters(bpp);
             }
             br.Dispose();
             fs.Dispose();
@@ -289,6 +295,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 fs.Seek(4, SeekOrigin.Current);
                 texture.ImageOrgX = br.ReadUInt16();
                 texture.ImageOrgY = br.ReadUInt16();
+                //Console.WriteLine($"TIM: OrigX: {texture.ImageOrgX}\tOrigY:{texture.ImageOrgY}");
                 texture.Width = (ushort) (br.ReadUInt16()*4);
                 texture.Height = br.ReadUInt16();
                 return;
