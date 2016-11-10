@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using SerahToolkit_SharpGL.FF8_Core;
@@ -22,6 +23,8 @@ namespace SerahToolkit_SharpGL
         public SharpGlForm()
         {
             InitializeComponent();
+            this.Text =
+                $"Final Fantasy VIII - Rinoas Toolset {Assembly.GetExecutingAssembly().GetName().Version}\t By MaKiPL (Maki)";
             OpenGL gl = openGLControl.OpenGL;
             gl.Enable(OpenGL.GL_TEXTURE_2D);
             
@@ -1138,6 +1141,16 @@ namespace SerahToolkit_SharpGL
             texturedWLightToolStripMenuItem_Click(sender, e);
             Render3D();
 
+        }
+
+        private void specialTextureFormatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException(); //TODO
+        }
+
+        private void drawPointsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException(); //TODO
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

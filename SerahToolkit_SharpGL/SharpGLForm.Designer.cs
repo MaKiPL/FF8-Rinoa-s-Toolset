@@ -53,6 +53,7 @@
             this.railEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.specialTextureFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.namedicbinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wm2fieldtblToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +61,7 @@
             this.tIMTextureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.normalTIMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packedbinaryFileforceDrawToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mCHCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sceneoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualGeometryRipperexpertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rosettaStonetextDecypherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,7 +94,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.mCHCharacterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.drawPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -153,7 +155,7 @@
             // 
             this.openToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -165,7 +167,7 @@
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -190,7 +192,7 @@
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Pencil_icon;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -248,7 +250,8 @@
             this.openUnpackedOffsetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.worldMapRegionsToolStripMenuItem,
             this.worldMapEncountersToolStripMenuItem,
-            this.section1ToolStripMenuItem});
+            this.section1ToolStripMenuItem,
+            this.drawPointsToolStripMenuItem});
             this.openUnpackedOffsetToolStripMenuItem.Enabled = false;
             this.openUnpackedOffsetToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openUnpackedOffsetToolStripMenuItem.Name = "openUnpackedOffsetToolStripMenuItem";
@@ -315,7 +318,8 @@
             // gFToolStripMenuItem
             // 
             this.gFToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.environmentToolStripMenuItem});
+            this.environmentToolStripMenuItem,
+            this.specialTextureFormatToolStripMenuItem});
             this.gFToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Monster_icon;
             this.gFToolStripMenuItem.Name = "gFToolStripMenuItem";
             this.gFToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
@@ -325,9 +329,17 @@
             // 
             this.environmentToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.environmentToolStripMenuItem.Name = "environmentToolStripMenuItem";
-            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
+            this.environmentToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.environmentToolStripMenuItem.Text = "Environment";
             this.environmentToolStripMenuItem.Click += new System.EventHandler(this.environmentToolStripMenuItem_Click);
+            // 
+            // specialTextureFormatToolStripMenuItem
+            // 
+            this.specialTextureFormatToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
+            this.specialTextureFormatToolStripMenuItem.Name = "specialTextureFormatToolStripMenuItem";
+            this.specialTextureFormatToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.specialTextureFormatToolStripMenuItem.Text = "Special Texture Format";
+            this.specialTextureFormatToolStripMenuItem.Click += new System.EventHandler(this.specialTextureFormatToolStripMenuItem_Click);
             // 
             // otherFilesToolStripMenuItem
             // 
@@ -385,6 +397,13 @@
             this.packedbinaryFileforceDrawToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.packedbinaryFileforceDrawToolStripMenuItem.Text = "Packed/binary file (force draw)";
             this.packedbinaryFileforceDrawToolStripMenuItem.Click += new System.EventHandler(this.packedbinaryFileforceDrawToolStripMenuItem_Click);
+            // 
+            // mCHCharacterToolStripMenuItem
+            // 
+            this.mCHCharacterToolStripMenuItem.Name = "mCHCharacterToolStripMenuItem";
+            this.mCHCharacterToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
+            this.mCHCharacterToolStripMenuItem.Text = "MCH character";
+            this.mCHCharacterToolStripMenuItem.Click += new System.EventHandler(this.mCHCharacterToolStripMenuItem_Click);
             // 
             // sceneoutToolStripMenuItem
             // 
@@ -744,12 +763,12 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
-            // mCHCharacterToolStripMenuItem
+            // drawPointsToolStripMenuItem
             // 
-            this.mCHCharacterToolStripMenuItem.Name = "mCHCharacterToolStripMenuItem";
-            this.mCHCharacterToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
-            this.mCHCharacterToolStripMenuItem.Text = "MCH character";
-            this.mCHCharacterToolStripMenuItem.Click += new System.EventHandler(this.mCHCharacterToolStripMenuItem_Click);
+            this.drawPointsToolStripMenuItem.Name = "drawPointsToolStripMenuItem";
+            this.drawPointsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.drawPointsToolStripMenuItem.Text = "35: Draw Points";
+            this.drawPointsToolStripMenuItem.Click += new System.EventHandler(this.drawPointsToolStripMenuItem_Click);
             // 
             // SharpGlForm
             // 
@@ -762,8 +781,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "SharpGlForm";
-            this.Text = "FF8 - Rinoa\'s Toolkit- by Marcin Gomulak aka MaKiPL                           Ver" +
-    "sion: 1.1.3 HOTFIX                         Last update: 26.10.2016";
+            this.Text = "FF8 - Rinoa\'s Toolkit-  SOMETHING WENT WRONG SOMETHING WENT WRONG SOMETHING WENT " +
+    "WRONG SOMETHING WENT WRONG SOMETHING WENT WRONG ";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -862,6 +881,8 @@
         private System.Windows.Forms.ToolStripMenuItem repackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem worldMapEncountersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mCHCharacterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem specialTextureFormatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem drawPointsToolStripMenuItem;
     }
 }
 
