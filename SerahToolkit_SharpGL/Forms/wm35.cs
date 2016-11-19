@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,6 +17,8 @@ namespace SerahToolkit_SharpGL.Forms
     {
         [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern IntPtr memcpy(IntPtr dest, IntPtr src, UIntPtr count);
+
+        public bool ForceClose = false;
 
         private Timer timer;
 
@@ -41,6 +44,13 @@ namespace SerahToolkit_SharpGL.Forms
         private void UpdateWM()
         {
             dpe = wm.GetEntries();
+            if (dpe.Length == 0)
+            {
+                Console.WriteLine("WMSET35: Something went wrong. The program read zero entries.\nProbably there's null draw point entry at the beginning of the file\nYou may want to rescue your backup or manually change byte at 0x2C other than 0");
+                ForceClose = true;
+                Close();
+                return;
+            }
             for (int i = 0; i < dpe.Length; i++)
                 dataGridView1.Rows.Add(i + 0x80,dpe[i].X, dpe[i].Y, dpe[i].UNK);
             ColorizeBlock(CalculateRectangle(dpe[0].X, dpe[0].Y));
@@ -161,6 +171,28 @@ namespace SerahToolkit_SharpGL.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
+            uint BlockSize = (uint) (dataGridView1.Rows.Count*4 + 4);
+            byte[] buffer = new byte[BlockSize];
+            int innerIndex = 0;
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                buffer[innerIndex] = byte.Parse(dataGridView1.Rows[i].Cells[1].Value.ToString());
+                buffer[innerIndex+1] = byte.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString());
+                ushort[] unk = new ushort[1];
+                unk[0] = ushort.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                Buffer.BlockCopy(unk, 0, buffer, innerIndex+2, 2);
+                innerIndex += 4;
+            }
+            byte[] b = new byte[4];
+            Array.Copy(b,0,buffer,innerIndex,4); //padding
+            using (FileStream fs = new FileStream(wm.path, FileMode.Open, FileAccess.ReadWrite))
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    fs.Seek(0x2C, SeekOrigin.Begin);
+                    bw.Write(buffer);
+                }
+            Console.WriteLine("File compiled and save! Don't forget to compile whole wmset file!");
+            Close();
         }
     }
 }

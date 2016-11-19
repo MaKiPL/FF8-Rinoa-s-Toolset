@@ -1160,7 +1160,8 @@ namespace SerahToolkit_SharpGL
             string dir = Path.GetDirectoryName(_lastKnownPath);
             string path = $"{dir}\\wmset{lingual}.Section35";
             Forms.wm35 wm35 = new wm35(new WM_Section35(path));
-            wm35.Show();
+            if(!wm35.ForceClose)
+                wm35.Show();
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

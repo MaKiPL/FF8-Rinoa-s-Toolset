@@ -647,7 +647,7 @@ namespace SerahToolkit_SharpGL
         [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern IntPtr memcpy(IntPtr dest, IntPtr src, UIntPtr count);
 
-        private string path;
+        public string path;
         private const int Unusedskip = 0x2C;
         private byte[] X;
         private byte[] Y;
