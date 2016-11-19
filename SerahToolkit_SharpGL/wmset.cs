@@ -641,4 +641,53 @@ namespace SerahToolkit_SharpGL
             fs.Dispose();
         }
     }
+
+    public class WM_Section35
+    {
+        [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
+        public static extern IntPtr memcpy(IntPtr dest, IntPtr src, UIntPtr count);
+
+        private string path;
+        private const int Unusedskip = 0x2C;
+        private byte[] X;
+        private byte[] Y;
+
+        public struct DrawPointEntry
+        {
+            public byte X;
+            public byte Y;
+            public ushort UNK;
+        };
+
+        public WM_Section35(string path)
+        {
+            this.path = path;
+
+        }
+
+        public DrawPointEntry[] GetEntries()
+        {
+            List<DrawPointEntry> ListDPE = new List<DrawPointEntry>();
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (BinaryReader br = new BinaryReader(fs))
+                {
+                    fs.Seek(Unusedskip, SeekOrigin.Begin);
+                    while (true)
+                    {
+                        DrawPointEntry DPE = new DrawPointEntry
+                        {
+                            X = br.ReadByte(),
+                            Y = br.ReadByte(),
+                            UNK = br.ReadUInt16()
+                        };
+                        if (DPE.X == 0 && DPE.Y == 0 && DPE.UNK == 0)
+                            break;
+                    ListDPE.Add(DPE);
+                    }
+                }
+
+                return ListDPE.ToArray();
+        }
+
+    }
 }

@@ -1150,7 +1150,17 @@ namespace SerahToolkit_SharpGL
 
         private void drawPointsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException(); //TODO
+            string test = Path.GetFileNameWithoutExtension(_lastKnownPath);
+            if (test.Substring(0, 5) != "wmset")
+            {
+                Console.WriteLine("WMSET: Please open your lingual wmset file again");
+                return;
+            }
+            string lingual = Wmset.ReturnLingual(_lastKnownPath);
+            string dir = Path.GetDirectoryName(_lastKnownPath);
+            string path = $"{dir}\\wmset{lingual}.Section35";
+            Forms.wm35 wm35 = new wm35(new WM_Section35(path));
+            wm35.Show();
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

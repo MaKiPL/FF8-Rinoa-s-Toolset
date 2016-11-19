@@ -102,6 +102,12 @@
     <Compile Include="FF8_Core\TIM.cs" />
     <Compile Include="FileScanner\FileScannerCore.cs" />
     <Compile Include="FileScanner\FileScannerHeaders.cs" />
+    <Compile Include="Forms\wm35.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\wm35.Designer.cs">
+      <DependentUpon>wm35.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\wm4.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BS_Vertices.resx">
       <DependentUpon>BS_Vertices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\wm35.resx">
+      <DependentUpon>wm35.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\wm4.resx">
       <DependentUpon>wm4.cs</DependentUpon>
@@ -230,6 +239,8 @@
     <None Include="Resources\math-add-icon.png" />
     <None Include="Resources\math-minus-icon.png" />
     <None Include="Resources\map2.png" />
+    <None Include="Maki_strzalawdol.png" />
+    <None Include="Maki_strzalawgore.png" />
     <Content Include="Resources\rin_Vex_icon.ico" />
     <None Include="Resources\SeeD_Personal_Carrier.jpg" />
     <None Include="Resources\Ultimecia_FFVIII_Art.jpg" />
