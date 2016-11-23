@@ -35,11 +35,11 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.magID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.loc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Lovc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -153,31 +153,6 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
-            // magID
-            // 
-            this.magID.HeaderText = "MagicID";
-            this.magID.Name = "magID";
-            this.magID.ReadOnly = true;
-            this.magID.Width = 72;
-            // 
-            // loc
-            // 
-            this.loc.HeaderText = "X";
-            this.loc.Name = "loc";
-            this.loc.Width = 39;
-            // 
-            // Lovc
-            // 
-            this.Lovc.HeaderText = "Y";
-            this.Lovc.Name = "Lovc";
-            this.Lovc.Width = 39;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "UNK";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 55;
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -188,6 +163,34 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox3.TabIndex = 0;
             this.pictureBox3.TabStop = false;
+            // 
+            // magID
+            // 
+            this.magID.HeaderText = "MagicID";
+            this.magID.Name = "magID";
+            this.magID.ReadOnly = true;
+            this.magID.Width = 72;
+            // 
+            // loc
+            // 
+            this.loc.HeaderText = "X";
+            this.loc.MaxInputLength = 3;
+            this.loc.Name = "loc";
+            this.loc.Width = 39;
+            // 
+            // Lovc
+            // 
+            this.Lovc.HeaderText = "Y";
+            this.Lovc.MaxInputLength = 3;
+            this.Lovc.Name = "Lovc";
+            this.Lovc.Width = 39;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "UNK";
+            this.Column1.MaxInputLength = 3;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 55;
             // 
             // wm35
             // 

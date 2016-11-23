@@ -1047,31 +1047,31 @@ namespace SerahToolkit_SharpGL
                 Console.WriteLine("WMSET: Found all US sections. Building file");
                 CompileWMSETfile(us, "us");
             }
-            else Console.WriteLine("WMSET: Not enough WMSETUS sections! Can't build file...");
+            else ;
             if (it.Length == 48)
             {
                 Console.WriteLine("WMSET: Found all IT sections. Building file");
                 CompileWMSETfile(it, "it");
             }
-            else Console.WriteLine("WMSET: Not enough WMSETIT sections! Can't build file...");
+            else /*Console.WriteLine("WMSET: Not enough WMSETIT sections! Can't build file...")*/;
             if (fr.Length == 48)
             {
                 Console.WriteLine("WMSET: Found all FR sections. Building file");
                 CompileWMSETfile(fr, "fr");
             }
-            else Console.WriteLine("WMSET: Not enough WMSETFR sections! Can't build file...");
+            else /*Console.WriteLine("WMSET: Not enough WMSETFR sections! Can't build file...")*/;
             if (es.Length == 48)
             {
                 Console.WriteLine("WMSET: Found all ES sections. Building file");
                 CompileWMSETfile(es, "es");
             }
-            else Console.WriteLine("WMSET: Not enough WMSETES sections! Can't build file...");
+            else /*Console.WriteLine("WMSET: Not enough WMSETES sections! Can't build file...")*/;
             if (de.Length == 48)
             {
                 Console.WriteLine("WMSET: Found all DE sections. Building file");
                 CompileWMSETfile(de, "de");
             }
-            else Console.WriteLine("WMSET: Not enough WMSETDE sections! Can't build file...");
+            else /*Console.WriteLine("WMSET: Not enough WMSETDE sections! Can't build file...")*/;
 
         }
 

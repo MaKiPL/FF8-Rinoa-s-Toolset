@@ -676,7 +676,7 @@ namespace SerahToolkit_SharpGL
                     {
                         DrawPointEntry DPE = new DrawPointEntry
                         {
-                            X = br.ReadByte(),
+                            X = (byte) (br.ReadByte() & 0x7F),
                             Y = br.ReadByte(),
                             UNK = br.ReadUInt16()
                         };

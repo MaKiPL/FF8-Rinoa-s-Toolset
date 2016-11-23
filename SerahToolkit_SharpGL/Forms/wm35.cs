@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using AForge.Imaging.Filters;
+using SerahToolkit_SharpGL.FF8_Core;
 
 namespace SerahToolkit_SharpGL.Forms
 {
@@ -17,6 +18,8 @@ namespace SerahToolkit_SharpGL.Forms
     {
         [DllImport("msvcrt.dll", EntryPoint = "memcpy", CallingConvention = CallingConvention.Cdecl, SetLastError = false)]
         public static extern IntPtr memcpy(IntPtr dest, IntPtr src, UIntPtr count);
+
+        
 
         public bool ForceClose = false;
 
@@ -52,7 +55,7 @@ namespace SerahToolkit_SharpGL.Forms
                 return;
             }
             for (int i = 0; i < dpe.Length; i++)
-                dataGridView1.Rows.Add(i + 0x80,dpe[i].X, dpe[i].Y, dpe[i].UNK);
+                dataGridView1.Rows.Add(Singleton.DrawPointMagic[(byte) (i + 0x80)],dpe[i].X, dpe[i].Y, dpe[i].UNK);
             ColorizeBlock(CalculateRectangle(dpe[0].X, dpe[0].Y));
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -94,7 +97,7 @@ namespace SerahToolkit_SharpGL.Forms
         private void UpdateMagicIDs()
         {
             for (int i = 0; i < dataGridView1.RowCount; i++)
-                dataGridView1.Rows[i].Cells[0].Value = i + 0x80;
+                dataGridView1.Rows[i].Cells[0].Value = Singleton.DrawPointMagic[(byte) (i + 0x80)];
             dataGridView1.Refresh();
         }
 
@@ -137,7 +140,7 @@ namespace SerahToolkit_SharpGL.Forms
 
         private Rectangle CalculateRectangle(int x, int y)
         {
-            int realX = x*4;
+            int realX = x*8;
             int realY = y*16;
             return lastRect = new Rectangle(realX,realY, 16,16);
         }
@@ -180,6 +183,12 @@ namespace SerahToolkit_SharpGL.Forms
                 buffer[innerIndex+1] = byte.Parse(dataGridView1.Rows[i].Cells[2].Value.ToString());
                 ushort[] unk = new ushort[1];
                 unk[0] = ushort.Parse(dataGridView1.Rows[i].Cells[3].Value.ToString());
+                if (buffer[innerIndex] == 0 && buffer[innerIndex + 1] == 0 && buffer[innerIndex + 2] == 0 &&
+                    buffer[innerIndex + 3] == 0)
+                {
+                    Console.WriteLine("WMSET35: Did you just tried to compile file with null entry?\nThat won't work, edit it.");
+                    return;
+                }
                 Buffer.BlockCopy(unk, 0, buffer, innerIndex+2, 2);
                 innerIndex += 4;
             }
