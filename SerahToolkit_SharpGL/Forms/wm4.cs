@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace SerahToolkit_SharpGL.Forms
@@ -9,6 +11,8 @@ namespace SerahToolkit_SharpGL.Forms
         private WM_Section1 wm1s;
         private WM_Section4 wm4s;
         private WM_Section1.ENTRY[] entries;
+
+        public static int ____a; //delegated lambda onClose dynamic form variable (lol)
 
         public wm4(object obj, object obj2)
         {
@@ -101,7 +105,7 @@ namespace SerahToolkit_SharpGL.Forms
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
         }
 
-        private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e) => wm4s.GetEncounters[e.RowIndex] = ushort.Parse(dataGridView1.Rows[e.RowIndex].Cells[3].Value as string);
+        private void DataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e) => wm4s.GetEncounters[e.RowIndex] = ushort.Parse(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString()); 
 
         private string returnRegion(int[] i) => $"{entries[i[0]].regionID} and {entries[i[1]].regionID}";
         
@@ -130,6 +134,66 @@ namespace SerahToolkit_SharpGL.Forms
             Buffer.BlockCopy(collection,0,buffer,0,buffer.Length-4);
             System.IO.File.WriteAllBytes(wm4s.path, buffer);
             this.Close();
+        }
+
+        private void editGroundIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int entryID = WhichEntry(this.dataGridView1);
+            Form dialoger = new Form
+            {
+                Text = "Ground ID Editor",
+                MinimizeBox = false,
+                MaximizeBox = false,
+                Size = new Size(200, 200)
+            };
+            Label lbltext = new Label {Text = "Please input ground ID:"};
+            TextBox tbtBox = new TextBox {Text="0"};
+            FlowLayoutPanel flp = new FlowLayoutPanel();
+            flp.Controls.Add(lbltext);
+            flp.SetFlowBreak(lbltext, true);
+            flp.Controls.Add(tbtBox);
+            //dialoger.Controls.Add(new FlowLayoutPanel());
+            dialoger.Controls.Add(flp);
+            dialoger.Closing += (o, args) => dialogerDelegateClose(o);
+            dialoger.ShowDialog();
+            dialoger.Dispose();
+
+            entries[entryID].GroundID = (byte) ____a;
+
+            int getRealOffset = entryID>0 ? entryID-(entryID%8) : 0;
+            //int moduloFromEight = entryID%8;
+            for (int i = getRealOffset; i < getRealOffset+8; i++)
+                dataGridView1.Rows[i].Cells[2].Value = returnGroundType(entries[entryID].GroundID);
+
+            dataGridView1.Rows[entryID].Cells[2].Value = returnGroundType(entries[entryID].GroundID);
+
+            int realWMSET1index = (int)____a/8; //redundant int cast on purpouse
+            realWMSET1index *= 4;
+
+            using (FileStream fs = new FileStream(WM_Section1.ppath, FileMode.Open, FileAccess.ReadWrite))
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                {
+                    fs.Seek(realWMSET1index, SeekOrigin.Begin);
+                    fs.Seek(2, SeekOrigin.Current); //jump to ground id
+                    bw.Write(entries[entryID].GroundID);
+                }
+        }
+
+        private void dialogerDelegateClose(object sender)
+        {
+            //getControl
+            FlowLayoutPanel flp = (sender as Form).Controls[0] as FlowLayoutPanel;
+            ____a = int.Parse(flp.Controls[1].Text);
+        }
+
+        private int WhichEntry(DataGridView a)
+        {
+            int loc = -1;
+            if (a.SelectedRows.Count > 0)
+                loc = a.SelectedRows[0].Index;
+            if (a.SelectedCells.Count > 0)
+                loc = a.SelectedCells[0].RowIndex;
+            return loc;
         }
     }
 }

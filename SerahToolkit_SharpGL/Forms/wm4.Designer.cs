@@ -31,6 +31,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.compileSaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.editGroundIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -38,7 +39,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.compileSaveToolStripMenuItem});
+            this.compileSaveToolStripMenuItem,
+            this.editGroundIDToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(469, 24);
@@ -60,6 +62,13 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(469, 305);
             this.dataGridView1.TabIndex = 1;
+            // 
+            // editGroundIDToolStripMenuItem
+            // 
+            this.editGroundIDToolStripMenuItem.Name = "editGroundIDToolStripMenuItem";
+            this.editGroundIDToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.editGroundIDToolStripMenuItem.Text = "Edit ground ID";
+            this.editGroundIDToolStripMenuItem.Click += new System.EventHandler(this.editGroundIDToolStripMenuItem_Click);
             // 
             // wm4
             // 
@@ -84,5 +93,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem compileSaveToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripMenuItem editGroundIDToolStripMenuItem;
     }
 }

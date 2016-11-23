@@ -575,6 +575,7 @@ namespace SerahToolkit_SharpGL
         public const byte BYTESPERREGION = 48;
         public const byte REGIONSCOUNT = 14;
         public string path;
+        public static string rrpath;
         private FileStream fs;
         private BinaryReader br;
 
@@ -583,6 +584,7 @@ namespace SerahToolkit_SharpGL
         public WM_Section4(string path)
         {
             this.path = path;
+            rrpath = this.path;
             fs = new FileStream(path, FileMode.Open, FileAccess.ReadWrite);
             br = new BinaryReader(fs);
             encounters = new ushort[BYTESPERREGION*REGIONSCOUNT];
@@ -607,6 +609,7 @@ namespace SerahToolkit_SharpGL
     internal class WM_Section1
     {
         private string path;
+        public static string ppath;
         public ENTRY[] entries;
 
         public struct ENTRY
@@ -620,6 +623,7 @@ namespace SerahToolkit_SharpGL
         public WM_Section1(string path)
         {
             this.path = path;
+            ppath = this.path;
         }
 
         public void ReadData()
