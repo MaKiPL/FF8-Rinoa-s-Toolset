@@ -1148,9 +1148,10 @@ namespace SerahToolkit_SharpGL
             OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
             GF_AlternativeTexture gfAlt = new GF_AlternativeTexture(ofd.FileName);
-            if (!gfAlt.Valid())
-            { Console.WriteLine("GFAlt: I can't handle this file! Probably bad file or another alternative texture... :/\n");return;}
+            if (!gfAlt.Valid()) { Console.WriteLine("GFAlt: I can't handle this file! Probably bad file or another alternative texture... :/\n");gfAlt.CloseAll();return;}
+            Console.WriteLine("GFAlt: File valid! Trying to draw texture");
             Bitmap bmp = gfAlt.DrawTexture();
+            gfAlt.CloseAll();
             _state = StateTexture;
         }
 
