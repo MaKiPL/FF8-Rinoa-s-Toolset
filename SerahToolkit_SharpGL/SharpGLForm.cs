@@ -1145,7 +1145,13 @@ namespace SerahToolkit_SharpGL
 
         private void specialTextureFormatToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException(); //TODO
+            OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            GF_AlternativeTexture gfAlt = new GF_AlternativeTexture(ofd.FileName);
+            if (!gfAlt.Valid())
+            { Console.WriteLine("GFAlt: I can't handle this file! Probably bad file or another alternative texture... :/\n");return;}
+            Bitmap bmp = gfAlt.DrawTexture();
+            _state = StateTexture;
         }
 
         private void drawPointsToolStripMenuItem_Click(object sender, EventArgs e)

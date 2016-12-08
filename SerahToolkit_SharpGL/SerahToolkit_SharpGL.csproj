@@ -115,6 +115,7 @@
       <DependentUpon>wm4.cs</DependentUpon>
     </Compile>
     <Compile Include="GfEnviro.cs" />
+    <Compile Include="GF_AlternativeTexture.cs" />
     <Compile Include="ManualGeometryRipper.cs">
       <SubType>Form</SubType>
     </Compile>
