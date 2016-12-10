@@ -150,16 +150,16 @@ RealTexture = offset + pointerToTextureREAL
 
             fs.Seek(i, SeekOrigin.Begin); //beginning of image
             //sizeToFetch -= 512;
-            int width = 0;
-            int height = 0;
+            int width = 32;
+            int height = 32;
             if (sizeToFetch >= 0x2000)
-                width = 32;
-            if (sizeToFetch >= 0x4000)
                 width = 64;
-            if (sizeToFetch >= 0x8000)
+            if (sizeToFetch >= 0x4000)
                 width = 128;
-            if (sizeToFetch >= 0x10000)
+            if (sizeToFetch >= 0x8000)
                 width = 256;
+            if (sizeToFetch >= 0x10000)
+                width = 512;
             height = width;
 
 
@@ -220,7 +220,8 @@ RealTexture = offset + pointerToTextureREAL
             uint m = 0;
             for (int n = 0; n < width*height - 1; n++)
             {
-
+                if (fs.Position == fs.Length - 1)
+                    break;
                 byte color = br.ReadByte();
                 buffer[m] = color;
                 buffer[m + 1] = color;
@@ -259,29 +260,20 @@ RealTexture = offset + pointerToTextureREAL
         public Bitmap DrawMODE1Texture()
         {
             OpenFile();
-            int resolution;
+            int resolution = 128;
             if (fs.Length < 0x1000)
             {
                 Console.WriteLine("GfAlt: WriteSingleTex - error, file smaller than 0x1000. Abnormal size!");
                 return null;
             }
-            switch (fs.Length)
-            {
-                case 0x4000:
-                    resolution = 64;
-                    break;
-                case 0x8000:
-                    resolution = 128;
-                    break;
-                case 0x10000:
-                    resolution = 256;
-                    break;
-                case 0x2000:
-                    resolution = 32;
-                    break;
-                default:
-                    goto case 0x4000;
-            }
+            if (fs.Length >= 0x1000)
+                resolution = 64;
+            if (fs.Length >= 0x3000)
+                resolution = 128;
+            if (fs.Length >= 0x7000)
+                resolution = 256;
+            if (fs.Length >= 0xF000)
+                resolution = 512;
             Bitmap bmp = new Bitmap(resolution,resolution,PixelFormat.Format24bppRgb);
             BitmapData bmpdata = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly,
                 PixelFormat.Format24bppRgb);
@@ -289,6 +281,8 @@ RealTexture = offset + pointerToTextureREAL
             Marshal.Copy(bmpdata.Scan0, buffer, 0, buffer.Length);            
             for (int i = 0; i < buffer.Length; i += 3)
             {
+                if (fs.Position == fs.Length - 1)
+                    break;
                 byte color = br.ReadByte();
                 buffer[i] = color;
                 buffer[1 + i] = color;
