@@ -53,7 +53,9 @@ namespace SerahToolkit_SharpGL
         private WM_Section2 wm2;
         private WM_Section4 wm4;
         private Form dynamicForm;
+        private GF_AlternativeTexture GfAlt;
 
+        //Why didn't I do this as enum? :O
         private const int StateBattleStageUv = 0;
         private const int StateRailDraw = 1;
         private const int StateWmset = 2;
@@ -62,6 +64,7 @@ namespace SerahToolkit_SharpGL
         private const int StateWmx = 5;
         private const int StateTexture = 6; //unused
         private const int StateSingleModel = 7;
+        private const int StateTextureGFSpecial = 8;
         public static string GFEnviro;
         private string _wmxPath;
 
@@ -638,12 +641,24 @@ namespace SerahToolkit_SharpGL
                 case StateTexture:
                     TextureLogic();
                     break;
+                case StateTextureGFSpecial:
+                    TextureLogicGF(sender);
+                    break;
                 case StateSingleModel:
                     SingleModelLogic();
                     break;
                 default:
                     return;
             }
+        }
+
+        private void TextureLogicGF(object selectedValue)
+        {
+            uint offset = uint.Parse((selectedValue as ListBox).SelectedItem.ToString());
+            ListBox lb = selectedValue as ListBox;
+            GfAlt.OpenFile();
+            pictureBox1.Image = GfAlt.DrawTexture(offset, lb.SelectedIndex == lb.Items.Count);
+            GfAlt.CloseAll();
         }
 
         private void SingleModelLogic()
@@ -1145,14 +1160,18 @@ namespace SerahToolkit_SharpGL
 
         private void specialTextureFormatToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            listBox1.Items.Clear();
             OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
-            GF_AlternativeTexture gfAlt = new GF_AlternativeTexture(ofd.FileName);
-            if (!gfAlt.Valid()) { Console.WriteLine("GFAlt: I can't handle this file! Probably bad file or another alternative texture... :/\n");gfAlt.CloseAll();return;}
+            GfAlt = new GF_AlternativeTexture(ofd.FileName);
+            if (!GfAlt.Valid()) { Console.WriteLine("GFAlt: I can't handle this file! Probably bad file or another alternative texture... :/\n");GfAlt.CloseAll();return;}
             Console.WriteLine("GFAlt: File valid! Trying to draw texture");
-            Bitmap bmp = gfAlt.DrawTexture();
-            gfAlt.CloseAll();
-            _state = StateTexture;
+            foreach (uint i in GfAlt.tex.TexturePointers)
+                listBox1.Items.Add(i);
+            Bitmap bmp = GfAlt.DrawTexture(GfAlt.tex.TexturePointers[0], GfAlt.tex.TexturePointers.Length == 1 ? true : false);
+            pictureBox1.Image = bmp;
+            GfAlt.CloseAll();
+            _state = StateTextureGFSpecial;
         }
 
         private void drawPointsToolStripMenuItem_Click(object sender, EventArgs e)

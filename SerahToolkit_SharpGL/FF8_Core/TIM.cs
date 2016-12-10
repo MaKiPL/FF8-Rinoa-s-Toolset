@@ -99,7 +99,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
                     textureBitmap.UnlockBits(bmpdata);
                     return textureBitmap;
                 }
-                if (bpp == 16)
+                if (bpp == 24)
                 {
                     Bitmap textureBitmap = new Bitmap(texture.Width, texture.Height, PixelFormat.Format24bppRgb);
                     BitmapData bmpdata =
