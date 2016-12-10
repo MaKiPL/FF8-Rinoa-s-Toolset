@@ -23,7 +23,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
         private bool arg0 = false;
         private string path;
         private Bitmap bmp;
-        private int _5bitColor = 255/31;
+        public static int _5bitColor = 255/31;
 
         public struct Texture
         {

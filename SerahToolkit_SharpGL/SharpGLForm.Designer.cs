@@ -47,6 +47,7 @@
             this.worldMapRegionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.worldMapEncountersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.section1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.drawPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.railobjToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,6 +55,8 @@
             this.gFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.environmentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.specialTextureFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mODE1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mODE2PackedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.namedicbinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wm2fieldtblToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,6 +89,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -94,7 +98,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.drawPointsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -155,7 +158,7 @@
             // 
             this.openToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -167,7 +170,7 @@
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -192,7 +195,7 @@
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Pencil_icon;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -279,6 +282,13 @@
             this.section1ToolStripMenuItem.Text = "16: Models";
             this.section1ToolStripMenuItem.Click += new System.EventHandler(this.section1ToolStripMenuItem_Click);
             // 
+            // drawPointsToolStripMenuItem
+            // 
+            this.drawPointsToolStripMenuItem.Name = "drawPointsToolStripMenuItem";
+            this.drawPointsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.drawPointsToolStripMenuItem.Text = "35: Draw Points";
+            this.drawPointsToolStripMenuItem.Click += new System.EventHandler(this.drawPointsToolStripMenuItem_Click);
+            // 
             // repackToolStripMenuItem
             // 
             this.repackToolStripMenuItem.Enabled = false;
@@ -302,7 +312,7 @@
             // 
             this.openToolStripMenuItem2.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(127, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -311,7 +321,7 @@
             this.railEditorToolStripMenuItem.Enabled = false;
             this.railEditorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
-            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.railEditorToolStripMenuItem.Text = "Rail editor";
             this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
             // 
@@ -335,11 +345,30 @@
             // 
             // specialTextureFormatToolStripMenuItem
             // 
+            this.specialTextureFormatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mODE1ToolStripMenuItem,
+            this.mODE2PackedToolStripMenuItem});
             this.specialTextureFormatToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.specialTextureFormatToolStripMenuItem.Name = "specialTextureFormatToolStripMenuItem";
             this.specialTextureFormatToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.specialTextureFormatToolStripMenuItem.Tag = "cheeseburger";
             this.specialTextureFormatToolStripMenuItem.Text = "Special Texture Format";
             this.specialTextureFormatToolStripMenuItem.Click += new System.EventHandler(this.specialTextureFormatToolStripMenuItem_Click);
+            // 
+            // mODE1ToolStripMenuItem
+            // 
+            this.mODE1ToolStripMenuItem.Name = "mODE1ToolStripMenuItem";
+            this.mODE1ToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.mODE1ToolStripMenuItem.Text = "MODE 1 (Single)";
+            this.mODE1ToolStripMenuItem.Click += new System.EventHandler(this.mODE1ToolStripMenuItem_Click);
+            // 
+            // mODE2PackedToolStripMenuItem
+            // 
+            this.mODE2PackedToolStripMenuItem.Name = "mODE2PackedToolStripMenuItem";
+            this.mODE2PackedToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.mODE2PackedToolStripMenuItem.Tag = "NotCheeseburger";
+            this.mODE2PackedToolStripMenuItem.Text = "MODE 2 (Packed)";
+            this.mODE2PackedToolStripMenuItem.Click += new System.EventHandler(this.specialTextureFormatToolStripMenuItem_Click);
             // 
             // otherFilesToolStripMenuItem
             // 
@@ -603,6 +632,7 @@
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -639,6 +669,17 @@
             this.button1.Text = "Reset camera";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(0, 71);
+            this.label2.Margin = new System.Windows.Forms.Padding(0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(112, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "   ==Special options==";
             // 
             // splitContainer5
             // 
@@ -763,13 +804,6 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
-            // drawPointsToolStripMenuItem
-            // 
-            this.drawPointsToolStripMenuItem.Name = "drawPointsToolStripMenuItem";
-            this.drawPointsToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.drawPointsToolStripMenuItem.Text = "35: Draw Points";
-            this.drawPointsToolStripMenuItem.Click += new System.EventHandler(this.drawPointsToolStripMenuItem_Click);
-            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -883,6 +917,9 @@
         private System.Windows.Forms.ToolStripMenuItem mCHCharacterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem specialTextureFormatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem drawPointsToolStripMenuItem;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem mODE1ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mODE2PackedToolStripMenuItem;
     }
 }
 

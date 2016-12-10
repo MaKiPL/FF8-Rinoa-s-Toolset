@@ -657,7 +657,8 @@ namespace SerahToolkit_SharpGL
             uint offset = uint.Parse((selectedValue as ListBox).SelectedItem.ToString());
             ListBox lb = selectedValue as ListBox;
             GfAlt.OpenFile();
-            pictureBox1.Image = GfAlt.DrawTexture(offset, lb.SelectedIndex == lb.Items.Count);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
+            pictureBox1.Image = GfAlt.DrawTexture(offset, lb.SelectedIndex == lb.Items.Count-1, (int) 0);
             GfAlt.CloseAll();
         }
 
@@ -1160,7 +1161,10 @@ namespace SerahToolkit_SharpGL
 
         private void specialTextureFormatToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if ((sender as ToolStripMenuItem).Tag.ToString() == "cheeseburger") return;
             listBox1.Items.Clear();
+            //numericUpDown1.Enabled = true;
+            //numericUpDown1.Value = 0;
             OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
             GfAlt = new GF_AlternativeTexture(ofd.FileName);
@@ -1169,6 +1173,7 @@ namespace SerahToolkit_SharpGL
             foreach (uint i in GfAlt.tex.TexturePointers)
                 listBox1.Items.Add(i);
             Bitmap bmp = GfAlt.DrawTexture(GfAlt.tex.TexturePointers[0], GfAlt.tex.TexturePointers.Length == 1 ? true : false);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
             pictureBox1.Image = bmp;
             GfAlt.CloseAll();
             _state = StateTextureGFSpecial;
@@ -1188,6 +1193,28 @@ namespace SerahToolkit_SharpGL
             Forms.wm35 wm35 = new wm35(new WM_Section35(path));
             if(!wm35.ForceClose)
                 wm35.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            GF_AlternativeTexture.bDebug = true;
+            //GfAlt.Debug_DumpPalette();
+        }
+
+        private void mODE1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            //numericUpDown1.Enabled = true;
+            //numericUpDown1.Value = 0;
+            OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
+            if (ofd.ShowDialog() != DialogResult.OK) return;
+            GfAlt = new GF_AlternativeTexture(ofd.FileName);
+            Console.WriteLine("GFAlt: Trying to render single file texture!");
+            Bitmap bmp = GfAlt.DrawMODE1Texture();
+            pictureBox1.SizeMode = PictureBoxSizeMode.Normal;
+            pictureBox1.Image = bmp;
+            GfAlt.CloseAll();
+            _state = StateTexture;
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)
