@@ -1167,6 +1167,8 @@ namespace SerahToolkit_SharpGL
             //numericUpDown1.Value = 0;
             OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
+            _lastKnownPath = ofd.FileName;
+            UpdateStatus(_lastKnownPath);
             GfAlt = new GF_AlternativeTexture(ofd.FileName);
             if (!GfAlt.Valid()) { Console.WriteLine("GFAlt: I can't handle this file! Probably bad file or another alternative texture... :/\n");GfAlt.CloseAll();return;}
             Console.WriteLine("GFAlt: File valid! Trying to draw texture");
@@ -1208,6 +1210,8 @@ namespace SerahToolkit_SharpGL
             //numericUpDown1.Value = 0;
             OpenFileDialog ofd = new OpenFileDialog { Filter = "*.*|*.*" };
             if (ofd.ShowDialog() != DialogResult.OK) return;
+            _lastKnownPath = ofd.FileName;
+            UpdateStatus(_lastKnownPath);
             GfAlt = new GF_AlternativeTexture(ofd.FileName);
             Console.WriteLine("GFAlt: Trying to render single file texture!");
             Bitmap bmp = GfAlt.DrawMODE1Texture();
@@ -1215,6 +1219,32 @@ namespace SerahToolkit_SharpGL
             pictureBox1.Image = bmp;
             GfAlt.CloseAll();
             _state = StateTexture;
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            if (GfAlt == null)
+            {
+                Console.WriteLine("This is usable only with Magic/GF files!");
+                return;
+            }
+            if (pictureBox1.Image.Width <= 64)
+                return;
+            Bitmap bmp = new Bitmap(pictureBox1.Image.Width/2, pictureBox1.Image.Height/2, PixelFormat.Format24bppRgb);
+            Rectangle rect = new Rectangle(0,0,bmp.Width, bmp.Height);
+            Bitmap toSmaller = new Bitmap(pictureBox1.Image);
+            BitmapData tosmallerbp = toSmaller.LockBits(rect, ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            BitmapData newImage = bmp.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format24bppRgb);
+            byte[] b = new byte[tosmallerbp.Stride*tosmallerbp.Height];
+            byte[] buffer = new byte[newImage.Stride*newImage.Height];
+            Marshal.Copy(tosmallerbp.Scan0, b, 0, b.Length);
+            for (int i = 0; i < b.Length; i++) //shouldn't I do this via unsafe?
+                buffer[i] = b[i];
+            Marshal.Copy(buffer, 0, newImage.Scan0, buffer.Length);
+            toSmaller.UnlockBits(tosmallerbp);
+            bmp.UnlockBits(newImage);
+            pictureBox1.Image = bmp;
+
         }
 
         private void openGLControl_MouseDown(object sender, MouseEventArgs e)

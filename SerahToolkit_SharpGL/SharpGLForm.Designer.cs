@@ -98,6 +98,7 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -312,7 +313,7 @@
             // 
             this.openToolStripMenuItem2.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem2.Name = "openToolStripMenuItem2";
-            this.openToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem2.Size = new System.Drawing.Size(127, 22);
             this.openToolStripMenuItem2.Text = "Open";
             this.openToolStripMenuItem2.Click += new System.EventHandler(this.openToolStripMenuItem2_Click);
             // 
@@ -321,7 +322,7 @@
             this.railEditorToolStripMenuItem.Enabled = false;
             this.railEditorToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Settings_icon;
             this.railEditorToolStripMenuItem.Name = "railEditorToolStripMenuItem";
-            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.railEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.railEditorToolStripMenuItem.Text = "Rail editor";
             this.railEditorToolStripMenuItem.Click += new System.EventHandler(this.railEditorToolStripMenuItem_Click);
             // 
@@ -633,6 +634,7 @@
             this.flowLayoutPanel1.Controls.Add(this.button2);
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Controls.Add(this.label2);
+            this.flowLayoutPanel1.Controls.Add(this.button3);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -677,9 +679,9 @@
             this.label2.Location = new System.Drawing.Point(0, 71);
             this.label2.Margin = new System.Windows.Forms.Padding(0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(112, 13);
+            this.label2.Size = new System.Drawing.Size(110, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "   ==Special options==";
+            this.label2.Text = "   ==Special tex opt==";
             // 
             // splitContainer5
             // 
@@ -804,6 +806,16 @@
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 87);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(111, 23);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Fix magic texture";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
             // SharpGlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -920,6 +932,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem mODE1ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mODE2PackedToolStripMenuItem;
+        private System.Windows.Forms.Button button3;
     }
 }
 
