@@ -197,7 +197,7 @@ namespace SerahToolkit_SharpGL
                 //Buffer.BlockCopy(ARRAY[here], 0, triangle, 14, 1); //TPAGE !!!!
                 //PASS bHide = 0, and triangle[15] is NULL (00);
                 triangle[16] = 0x80; triangle[17] = 0x80; triangle[18] = 0x80; // R G B
-                triangle[19] = 0x2c; //PSOne GPU
+                triangle[19] = 0x24; //PSOne GPU  0x2C and/or 0x24
                 _polygon.Add(triangle);
             }
             richTextBox1.AppendText(Environment.NewLine + "Triangle data forged succesfully");
@@ -205,14 +205,16 @@ namespace SerahToolkit_SharpGL
             SaveFileDialog sfd = new SaveFileDialog {Filter = "Segment file used to replace *.xBIN|*.xBIN"};
             if (sfd.ShowDialog() == DialogResult.OK)
             {
+                if(File.Exists(sfd.FileName))
+                    File.Delete(sfd.FileName);
                 FileStream fs = new FileStream(sfd.FileName, FileMode.Append);
                 fs.Write(_start, 0, _start.Length);
                 fs.Write(_verticesCount, 0, _verticesCount.Length);
                 foreach (byte[] b in _vertices)
                     fs.Write(b, 0, b.Length);
-                fs.Write(CalculatePadding(4), 0, CalculatePadding(4).Length);
+                fs.Write(new byte[6],0,6 );
                 fs.Write(_trianglesCount, 0, 2);
-                fs.Write(new byte[6], 0, 2);
+                fs.Write(new byte[6], 0, 6);
                 foreach (var variable in _polygon)
                     fs.Write(variable, 0, 20);
                 richTextBox1.AppendText("Succesfully saved " + fs.Length + " bytes.");
@@ -243,6 +245,16 @@ namespace SerahToolkit_SharpGL
                 default:
                     return new byte[2];
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

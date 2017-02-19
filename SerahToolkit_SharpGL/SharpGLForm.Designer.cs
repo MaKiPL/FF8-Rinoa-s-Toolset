@@ -90,6 +90,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.label4 = new System.Windows.Forms.Label();
@@ -98,7 +99,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.openGLControl = new SharpGL.OpenGLControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
@@ -159,7 +159,7 @@
             // 
             this.openToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Folder_Open_icon;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -171,7 +171,7 @@
             this.exportToolStripMenuItem.Enabled = false;
             this.exportToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Save_icon1;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // dumpRAWDataToolStripMenuItem
@@ -196,7 +196,7 @@
             this.importToolStripMenuItem.Enabled = false;
             this.importToolStripMenuItem.Image = global::SerahToolkit_SharpGL.Properties.Resources.Pencil_icon;
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.importToolStripMenuItem.Text = "Modify...";
             // 
             // verticesToolStripMenuItem
@@ -683,6 +683,16 @@
             this.label2.TabIndex = 8;
             this.label2.Text = "   ==Special tex opt==";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(3, 87);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(111, 23);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Fix magic texture";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
             // splitContainer5
             // 
             this.splitContainer5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -805,16 +815,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(970, 541);
             this.splitContainer1.SplitterDistance = 341;
             this.splitContainer1.TabIndex = 22;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(3, 87);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(111, 23);
-            this.button3.TabIndex = 9;
-            this.button3.Text = "Fix magic texture";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // SharpGlForm
             // 
