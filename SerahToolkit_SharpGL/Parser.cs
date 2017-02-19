@@ -79,29 +79,41 @@ namespace SerahToolkit_SharpGL
             _uPixel = new List<double>(); _vPixel = new List<double>();
             _a = new List<ushort>(); _b = new List<ushort>(); _c = new List<ushort>();
             _at = new List<int>(); _bt = new List<int>(); _ct = new List<int>();
-            foreach (var s in _file)
+            foreach (string s in _file)
             {
                 if (s.StartsWith("v "))
                 {
-                    string[] temp = s.Replace(".", ",").Split(' ');
-                    _x.Add(float.Parse(temp[1])); _y.Add(float.Parse(temp[2]));
-                    _z.Add(float.Parse(temp[3]));
+                    string[] temp = s.Replace(".", ",").Trim().Split(' ');
+                    int passSpace = 0;
+                    for(int i = temp.Length-1;i>0;i--)
+                        if (temp[i] == "")
+                            passSpace++;
+                    _x.Add(float.Parse(temp[1+passSpace])); _y.Add(float.Parse(temp[2+passSpace]));
+                    _z.Add(float.Parse(temp[3+passSpace]));
                 }
                 else if (s.StartsWith("vt "))
                 {
-                    string[] temp = s.Replace(".", ",").Split(' ');
-                    _u.Add(double.Parse(temp[1])); _v.Add(double.Parse(temp[2]));
+                    string[] temp = s.Replace(".", ",").Trim().Split(' ');
+                    int passSpace = 0;
+                    for (int i = temp.Length - 1; i > 0; i--)
+                        if (temp[i] == "")
+                            passSpace++;
+                    _u.Add(double.Parse(temp[1+passSpace])); _v.Add(double.Parse(temp[2+passSpace]));
                 }
                 else if (s.StartsWith("f "))
                 {
-                    string[] temp = s.Split(' '); // F[0] 1/1[1] 2/2[2] 3/3[3] 4/4[UNUSED]
-                    string[] aa = temp[1].Split('/'); // A/T
+                    string[] temp = s.Trim().Split(' '); // F[0] 1/1[1] 2/2[2] 3/3[3] 4/4[UNUSED]
+                    int passSpace = 0;
+                    for (int i = temp.Length - 1; i > 0; i--)
+                        if (temp[i] == "")
+                            passSpace++;
+                    string[] aa = temp[1+passSpace].Split('/'); // A/T
                     _a.Add(ushort.Parse(aa[0]));
                     _at.Add(int.Parse(aa[1]));
-                    string[] bb = temp[2].Split('/'); // B/T
+                    string[] bb = temp[2+passSpace].Split('/'); // B/T
                     _b.Add(ushort.Parse(bb[0]));
                     _bt.Add(int.Parse(bb[1]));
-                    string[] cc = temp[3].Split('/'); // C/T
+                    string[] cc = temp[3+passSpace].Split('/'); // C/T
                     _c.Add(ushort.Parse(cc[0]));
                     _ct.Add(int.Parse(cc[1]));
                 }
@@ -118,9 +130,24 @@ namespace SerahToolkit_SharpGL
             {
                 _x[i] = _x[i] * 2000.0f; _y[i] = _y[i] * 2000.0f;
                 _z[i] = _z[i] * 2000.0f;
-                double d = Math.Round(_x[i]); short xs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
-                d = Math.Round(_y[i]); short ys = short.Parse(d.ToString(CultureInfo.InvariantCulture));
-                d = Math.Round(_z[i]); short zs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                short xs = 0;
+                short ys = 0;
+                short zs = 0;
+                try
+                {
+                    double d = Math.Round(_x[i]);
+                    xs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                    d = Math.Round(_y[i]);
+                    ys = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                    d = Math.Round(_z[i]);
+                    zs = short.Parse(d.ToString(CultureInfo.InvariantCulture));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(
+                        "Converting float to short variables failed!\nProbably your model is too big!\nThe meshes are shrinked 2000x times after exporting and then rescaled 2000x up again\nTry to import original exported mesh and test the scales!\nThe biggest X Y or Z coordinate multiplied by 2000 shouldn't be bigger than 65535!");
+                    return;
+                }
                 byte[] vertex = new byte[6];
                 Buffer.BlockCopy(BitConverter.GetBytes(xs), 0, vertex, 0, 2);
                 Buffer.BlockCopy(BitConverter.GetBytes(ys), 0, vertex, 2, 2);
