@@ -128,8 +128,8 @@ namespace SerahToolkit_SharpGL
 
             for (int i = 0; i != _x.Count; i++)
             {
-                _x[i] = _x[i] * 2000.0f; _y[i] = _y[i] * 2000.0f;
-                _z[i] = _z[i] * 2000.0f;
+                _x[i] = _x[i] * 1500.0f; _y[i] = _y[i] * 1500.0f;
+                _z[i] = _z[i] * 1500.0f;
                 short xs = 0;
                 short ys = 0;
                 short zs = 0;
@@ -196,7 +196,7 @@ namespace SerahToolkit_SharpGL
                 triangle[14] = Convert.ToByte(a & 0xFF); // TPage Bitwised with 0xB0 (UNKNOWN)
                 //Buffer.BlockCopy(ARRAY[here], 0, triangle, 14, 1); //TPAGE !!!!
                 //PASS bHide = 0, and triangle[15] is NULL (00);
-                triangle[16] = 0x80; triangle[17] = 0x80; triangle[18] = 0x80; // R G B
+                triangle[16] = 0xD0; triangle[17] = 0xD0; triangle[18] = 0xD0; // R G B
                 triangle[19] = 0x24; //PSOne GPU  0x2C and/or 0x24
                 _polygon.Add(triangle);
             }
