@@ -384,6 +384,7 @@ namespace SerahToolkit_SharpGL
                             {
                                 Console.WriteLine($"BS: Found working geometry at: {_passOk}");
                                 _itemOffsets.Add(_passOk);
+                                _index += _verts*6 + _triangles*20 + _quads*24;
                             }
                         }
                     }
