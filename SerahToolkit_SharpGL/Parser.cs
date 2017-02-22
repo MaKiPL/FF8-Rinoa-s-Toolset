@@ -32,7 +32,15 @@ namespace SerahToolkit_SharpGL
         private byte[] _trianglesCount;
         private List<byte[]> _vertices;
         private List<byte[]> _polygon;
-        private int[] _page; 
+        private int[] _page;
+
+        private byte R;
+        private byte G;
+        private byte B;
+        private byte NormalMode;
+        private const byte Inverted = 0x2C;
+        private const byte Non_Inverted = 0x24;
+        
 
         private readonly Dictionary<decimal, byte[]> _clut = new Dictionary<decimal, byte[]>
         {
@@ -60,6 +68,7 @@ namespace SerahToolkit_SharpGL
             Text = segment.ToString();
             _height = height;
             _width = width;
+            listBox1.SelectedIndex = 0;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,6 +83,11 @@ namespace SerahToolkit_SharpGL
 
         private void Process()
         {
+            R = (byte)numericUpDown2.Value;
+            G = (byte)numericUpDown2.Value;
+            B = (byte)numericUpDown2.Value;
+            NormalMode = listBox1.SelectedIndex == 0 ? Non_Inverted : Inverted;
+
             _x = new List<float>(); _y = new List<float>(); _z = new List<float>();
             _u = new List<double>(); _v = new List<double>();
             _uPixel = new List<double>(); _vPixel = new List<double>();
@@ -196,8 +210,8 @@ namespace SerahToolkit_SharpGL
                 triangle[14] = Convert.ToByte(a & 0xFF); // TPage Bitwised with 0xB0 (UNKNOWN)
                 //Buffer.BlockCopy(ARRAY[here], 0, triangle, 14, 1); //TPAGE !!!!
                 //PASS bHide = 0, and triangle[15] is NULL (00);
-                triangle[16] = 0xD0; triangle[17] = 0xD0; triangle[18] = 0xD0; // R G B
-                triangle[19] = 0x24; //PSOne GPU  0x2C and/or 0x24
+                triangle[16] = R; triangle[17] = G; triangle[18] = B;
+                triangle[19] = NormalMode; //PSOne GPU  0x2C and/or 0x24
                 _polygon.Add(triangle);
             }
             richTextBox1.AppendText(Environment.NewLine + "Triangle data forged succesfully");
@@ -212,7 +226,9 @@ namespace SerahToolkit_SharpGL
                 fs.Write(_verticesCount, 0, _verticesCount.Length);
                 foreach (byte[] b in _vertices)
                     fs.Write(b, 0, b.Length);
-                fs.Write(new byte[6],0,6 );
+                fs.Write(new byte[2], 0, 2);
+                byte[] padding = CalculatePadding((int)fs.Length);
+                fs.Write(padding, 0, padding.Length);
                 fs.Write(_trianglesCount, 0, 2);
                 fs.Write(new byte[6], 0, 6);
                 foreach (var variable in _polygon)
@@ -224,37 +240,28 @@ namespace SerahToolkit_SharpGL
                 richTextBox1.AppendText("Save segment failed");
         }
 
+        //obsolete?
         private static byte[] CalculatePadding(int globalOffset)
         {
             switch (globalOffset%4)
             {
                 case 0:
-                    return new byte[2];
+                    return new byte[0];
                 case 1:
-                    return new byte[3];
+                    return new byte[1];
                     
                 case 2:
-                    return new byte[4];
+                    return new byte[2];
                     
                 case 3:
-                    return new byte[5];
+                    return new byte[3];
                     
                 case 4:
-                    return new byte[6];
+                    return new byte[4];
                     
                 default:
                     return new byte[2];
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

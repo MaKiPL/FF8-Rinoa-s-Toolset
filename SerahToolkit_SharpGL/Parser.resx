@@ -117,26 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label4.Text" xml:space="preserve">
-    <value>This parser is in extreme beta!
-
-TRIANGULATE all meshes before export!
-
-This doesn't work with quads!
-
-It does read all texture coordinates properly
-
-Maximum vertices count is 65535, same for 
-triangles
-
-It does calculate TPage
-
-Change used CLUT id above if you need,
-otherwise all be written with 0
-You can check CLUT ids via TIMviewer or
-exported with my software in your work
-directory. Texture without id is clut 0.
-Example: a0stg160.png is clut 0, and
-a0stg160_1.png is clut 1</value>
-  </data>
 </root>
