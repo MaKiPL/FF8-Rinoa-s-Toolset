@@ -28,4 +28,4 @@ FF8 All-in-one modding toolset is almost complete tool to rip and view various F
 * Directly modify vertices with real-time preview
 * Convert segments to single OBJ file!
 * Get final rendered texture as in game [mixing textures with original algorithm]
-* Convert OBJ model to FFVIII ! ***[Alpha]***
+* Convert OBJ model to FFVIII ! ***[Beta]***
