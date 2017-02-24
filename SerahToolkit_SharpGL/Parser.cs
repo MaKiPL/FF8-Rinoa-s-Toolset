@@ -208,13 +208,13 @@ namespace SerahToolkit_SharpGL
                 Buffer.BlockCopy(BitConverter.GetBytes(_a[i]-1),0,triangle,0,2); //A
                 Buffer.BlockCopy(BitConverter.GetBytes(_b[i]-1), 0, triangle, 2, 2); //B
                 Buffer.BlockCopy(BitConverter.GetBytes(_c[i]-1), 0, triangle, 4, 2); //C
-                Buffer.BlockCopy(BitConverter.GetBytes(u[_bt[i]-1]),0,triangle,6,1); //U1
-                Buffer.BlockCopy(BitConverter.GetBytes(v[_bt[i] - 1]), 0, triangle, 7, 1); //V1
-                Buffer.BlockCopy(BitConverter.GetBytes(u[_ct[i] - 1]), 0, triangle, 8, 1); //U2
-                Buffer.BlockCopy(BitConverter.GetBytes(v[_ct[i] - 1]), 0, triangle, 9, 1); //V2
+                Buffer.BlockCopy(BitConverter.GetBytes(u[_at[i]-1]),0,triangle,6,1); //U1
+                Buffer.BlockCopy(BitConverter.GetBytes(v[_at[i] - 1]), 0, triangle, 7, 1); //V1
+                Buffer.BlockCopy(BitConverter.GetBytes(u[_bt[i] - 1]), 0, triangle, 8, 1); //U2
+                Buffer.BlockCopy(BitConverter.GetBytes(v[_bt[i] - 1]), 0, triangle, 9, 1); //V2
                 Buffer.BlockCopy(_clut[numericUpDown1.Value],0,triangle,10,2); //CLUTid
-                Buffer.BlockCopy(BitConverter.GetBytes(u[_at[i] - 1]), 0, triangle, 12, 1); //U3
-                Buffer.BlockCopy(BitConverter.GetBytes(v[_at[i] - 1]), 0, triangle, 13, 1); //V3
+                Buffer.BlockCopy(BitConverter.GetBytes(u[_ct[i] - 1]), 0, triangle, 12, 1); //U3
+                Buffer.BlockCopy(BitConverter.GetBytes(v[_ct[i] - 1]), 0, triangle, 13, 1); //V3
                 byte[] tempTp = BitConverter.GetBytes(_page[_at[i] - 1]);
                 var a = tempTp[0] | pagePreOperand; //BITwise 0xB0 OR 0x0? = 0xB?
                 triangle[14] = Convert.ToByte(a & 0xFF); // TPage Bitwised with 0xB0 (UNKNOWN)
