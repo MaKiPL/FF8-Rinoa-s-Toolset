@@ -205,9 +205,9 @@ namespace SerahToolkit_SharpGL
             for (int i = 0; i != tempTrianglesCount; i++)
             {
                 byte[] triangle = new byte[20];
-                Buffer.BlockCopy(BitConverter.GetBytes(_a[i]-1),0,triangle,0,2); //A
-                Buffer.BlockCopy(BitConverter.GetBytes(_b[i]-1), 0, triangle, 2, 2); //B
-                Buffer.BlockCopy(BitConverter.GetBytes(_c[i]-1), 0, triangle, 4, 2); //C
+                Buffer.BlockCopy(BitConverter.GetBytes(_b[i]-1),0,triangle,0,2); //A
+                Buffer.BlockCopy(BitConverter.GetBytes(_c[i]-1), 0, triangle, 2, 2); //B
+                Buffer.BlockCopy(BitConverter.GetBytes(_a[i]-1), 0, triangle, 4, 2); //C
                 Buffer.BlockCopy(BitConverter.GetBytes(u[_at[i]-1]),0,triangle,6,1); //U1
                 Buffer.BlockCopy(BitConverter.GetBytes(v[_at[i] - 1]), 0, triangle, 7, 1); //V1
                 Buffer.BlockCopy(BitConverter.GetBytes(u[_bt[i] - 1]), 0, triangle, 8, 1); //U2
