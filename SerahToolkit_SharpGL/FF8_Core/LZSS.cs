@@ -28,7 +28,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
                 var result = new byte[size];
 
                 int curResult = 0;
-                int curBuff = 4096 - 18, flagByte = 0;
+                int curBuff = 4078, flagByte = 0;
                 int fileData = 4,
                     endFileData = (int) fileSize;
 
@@ -37,6 +37,7 @@ namespace SerahToolkit_SharpGL.FF8_Core
 
                 while (true)
                 {
+                    if(fileData +1 >= endFileData) return !bDynamic ? result : ReturnDynamic(result, curResult);
                     if (((flagByte >>= 1) & 256) == 0)
                         flagByte = data[fileData++] | 0xff00;
 
